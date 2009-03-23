@@ -13,6 +13,9 @@ void pongApp::setup()
   ofSetFullscreen(false);
   ofSetFrameRate(60);
   ofBackground(0, 0, 0);
+  ofSetCircleResolution(80);
+  ofNoFill();
+  ofEnableSmoothing();
 }
 
 void pongApp::update()
@@ -21,6 +24,8 @@ void pongApp::update()
 
 void pongApp::draw()
 {
+  ofSetLineWidth(2);
+  ofCircle(400, 200, 25);
 }
 
 void pongApp::keyPressed(int key)
