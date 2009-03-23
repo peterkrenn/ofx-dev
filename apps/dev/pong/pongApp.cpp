@@ -32,13 +32,15 @@ void pongApp::setup()
 
   ballRadius = 5;
   ball = ofPoint(400, 200);
-  ballVelocity = ofPoint(1, 1);
+  ballVelocity = ofPoint(1, 0);
 }
 
 void pongApp::update()
 {
   collidePaddlesWithBoundaries();
   collideBallWithBoundaries();
+  collideBallWithPaddle(leftPaddle);
+  collideBallWithPaddle(rightPaddle);
   moveBall();
 }
 
@@ -129,6 +131,22 @@ void pongApp::collideBallWithBoundaries()
   {
     ballVelocity.y *= -1;
   }
+}
+
+void pongApp::collideBallWithPaddle(ofPoint &paddle)
+{
+  // None of the built in vector functions seem to work
+  if (pow(ballRadius + paddleRadius, 2) <
+    ((paddle.x - ball.x) * (paddle.x - ball.x) + (paddle.y - ball.y) * (paddle.y - ball.y)))
+  {
+    return;
+  }
+
+  double length = sqrt((paddle.x - ball.x) * (paddle.x - ball.x) + (paddle.y - ball.y) * (paddle.y - ball.y));
+  ofPoint normal = ofPoint(-1 * (paddle.y - ball.y) / length, (paddle.x - ball.x) / length);
+  double ballVelocityNormal = ballVelocity.x * normal.x + ballVelocity.y * normal.y;
+  ballVelocity.x = normal.x * ballVelocityNormal * 2 - ballVelocity.x;
+  ballVelocity.y = normal.y * ballVelocityNormal * 2 - ballVelocity.y;
 }
 
 void pongApp::mouseMoved(int x, int y)

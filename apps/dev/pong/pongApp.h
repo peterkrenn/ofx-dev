@@ -49,6 +49,7 @@ public:
   void moveBall();
   void drawBall();
   void collideBallWithBoundaries();
+  void collideBallWithPaddle(ofPoint &paddle);
 };
 
 #endif
