@@ -22,6 +22,8 @@ public:
   float paddleRadius;
   ofPoint leftPaddle;
   ofPoint rightPaddle;
+
+  float ballRadius;
   ofPoint ball;
   ofPoint ballVelocity;
 
@@ -41,8 +43,12 @@ public:
   void mousePressed(int x, int y, int button);
   void mouseReleased();
 
-  void collidePaddlesWithBounding();
+  void collidePaddlesWithBoundaries();
   void drawPaddle(ofPoint &paddle);
+
+  void moveBall();
+  void drawBall();
+  void collideBallWithBoundaries();
 };
 
 #endif

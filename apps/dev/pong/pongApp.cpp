@@ -29,17 +29,24 @@ void pongApp::setup()
   rightPaddleSpeed = 2;
   moveLeftPaddle = 0;
   moveRightPaddle = 0;
+
+  ballRadius = 5;
+  ball = ofPoint(400, 200);
+  ballVelocity = ofPoint(1, 1);
 }
 
 void pongApp::update()
 {
-  collidePaddlesWithBounding();
+  collidePaddlesWithBoundaries();
+  collideBallWithBoundaries();
+  moveBall();
 }
 
 void pongApp::draw()
 {
   drawPaddle(leftPaddle);
   drawPaddle(rightPaddle);
+  drawBall();
 }
 
 void pongApp::keyPressed(int key)
@@ -92,12 +99,36 @@ void pongApp::drawPaddle(ofPoint &paddle)
   ofCircle(paddle.x, paddle.y, paddleRadius);
 }
 
-void pongApp::collidePaddlesWithBounding()
+void pongApp::collidePaddlesWithBoundaries()
 {
   leftPaddle.y += moveLeftPaddle * leftPaddleSpeed;
   leftPaddle.y = ofClamp(leftPaddle.y, paddleRadius, screenHeight - paddleRadius);
   rightPaddle.y += moveRightPaddle * rightPaddleSpeed;
   rightPaddle.y = ofClamp(rightPaddle.y, paddleRadius, screenHeight - paddleRadius);
+}
+
+void pongApp::moveBall()
+{
+  ball += ballVelocity;
+}
+
+void pongApp::drawBall()
+{
+  ofSetLineWidth(1);
+  ofCircle(ball.x, ball.y, ballRadius);
+}
+
+void pongApp::collideBallWithBoundaries()
+{
+  if (ball.x <= ballRadius || ball.x >= screenWidth - ballRadius)
+  {
+    ballVelocity.x *= -1;
+  }
+
+  if (ball.y <= ballRadius || ball.y >= screenHeight - ballRadius)
+  {
+    ballVelocity.y *= -1;
+  }
 }
 
 void pongApp::mouseMoved(int x, int y)
