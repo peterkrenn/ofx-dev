@@ -31,6 +31,15 @@ public:
   float rightPaddleSpeed;
   int moveLeftPaddle;
   int moveRightPaddle;
+
+  ofVideoGrabber videoGrabber;
+  ofxCvColorImage colorImage;
+  ofxCvGrayscaleImage grayscaleImage;
+  ofxCvGrayscaleImage backgroundImage;
+  bool grabBackground;
+  int threshold;
+
+  ofxFiducialTracker tracker;
   
   void setup();
   void update();

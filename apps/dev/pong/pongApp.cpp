@@ -33,10 +33,51 @@ void pongApp::setup()
   ballRadius = 5;
   ball = ofPoint(400, 200);
   ballVelocity = ofPoint(1, 0);
+
+  videoGrabber.initGrabber(320, 240);
+  threshold = 80;
+  grabBackground = true;
+
+  colorImage.allocate(320, 240);
+  grayscaleImage.allocate(320, 240);
+  backgroundImage.allocate(320, 240);
 }
 
 void pongApp::update()
 {
+  videoGrabber.grabFrame();
+
+  if (videoGrabber.isFrameNew())
+  {
+    colorImage.setFromPixels(videoGrabber.getPixels(), 320, 240);
+    grayscaleImage = colorImage;
+
+    if (grabBackground)
+    {
+      backgroundImage = grayscaleImage;
+      grabBackground = false;
+    }
+
+    grayscaleImage.absDiff(backgroundImage, grayscaleImage);
+    grayscaleImage.threshold(threshold);
+
+    tracker.findFiducials(grayscaleImage);
+
+	  for (list<ofxFiducial>::iterator fiducial = tracker.fiducialsList.begin(); fiducial != tracker.fiducialsList.end(); fiducial++)
+    {
+      if (fiducial->getX() < 160)
+      {
+        rightPaddle.y = fiducial->getAngleDeg() / 360 * 400;
+      }
+      else
+      {
+        leftPaddle.y = fiducial->getAngleDeg() / 360 * 400;
+      }
+
+      printf("Fiducial %d: Rotation %.2f, X-Position %.2f\n", fiducial->getId(), fiducial->getAngleDeg(), fiducial->getX());
+    }
+  }
+
   collidePaddlesWithBoundaries();
   collideBallWithBoundaries();
   collideBallWithPaddle(leftPaddle);
@@ -49,6 +90,7 @@ void pongApp::draw()
   drawPaddle(leftPaddle);
   drawPaddle(rightPaddle);
   drawBall();
+  // grayscaleImage.draw(0, 0);
 }
 
 void pongApp::keyPressed(int key)
