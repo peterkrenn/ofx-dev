@@ -17,7 +17,18 @@
 class pongApp : public ofBaseApp
 {
 public:
-  ofVideoGrabber vidGrabber;
+  int screenWidth, screenHeight;
+
+  float paddleRadius;
+  ofPoint leftPaddle;
+  ofPoint rightPaddle;
+  ofPoint ball;
+  ofPoint ballVelocity;
+
+  float leftPaddleSpeed;
+  float rightPaddleSpeed;
+  int moveLeftPaddle;
+  int moveRightPaddle;
   
   void setup();
   void update();
@@ -29,6 +40,9 @@ public:
   void mouseDragged(int x, int y, int button);
   void mousePressed(int x, int y, int button);
   void mouseReleased();
+
+  void collidePaddlesWithBounding();
+  void drawPaddle(ofPoint &paddle);
 };
 
 #endif
