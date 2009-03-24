@@ -1,0 +1,5 @@
+h2. Pong clone
+
+A basic pong clone done with openframeworks. Keyboard input (A, Z, ', /) and fiducial tracking via ofxFiducialFinder is supported. Rotate your fiducial on left/right side of the camera to control the left/right paddle.
+
+rp5-prototype.rb contains a ruby processing prototype.
