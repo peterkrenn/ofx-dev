@@ -98,19 +98,23 @@ void pongApp::keyPressed(int key)
   switch (key)
   {
     case 97:
-        moveLeftPaddle = -1;
+      moveLeftPaddle = -1;
       break;
 
     case 122:
-        moveLeftPaddle = 1;
+      moveLeftPaddle = 1;
       break;
 
     case 39:
-        moveRightPaddle = -1;
+      moveRightPaddle = -1;
       break;
 
     case 47:
-        moveRightPaddle = 1;
+      moveRightPaddle = 1;
+      break;
+
+    case ' ':
+      grabBackground = true;
       break;
   }
 }
