@@ -47,18 +47,20 @@ public:
 
   void keyPressed(int key);
   void keyReleased(int key);
-  void mouseMoved(int x, int y);
-  void mouseDragged(int x, int y, int button);
-  void mousePressed(int x, int y, int button);
-  void mouseReleased();
 
   void collidePaddlesWithBoundaries();
   void drawPaddle(ofPoint &paddle);
 
+  void resetBall();
   void moveBall();
   void drawBall();
   void collideBallWithBoundaries();
   void collideBallWithPaddle(ofPoint &paddle);
+
+  void mouseMoved(int x, int y);
+  void mouseDragged(int x, int y, int button);
+  void mousePressed(int x, int y, int button);
+  void mouseReleased();
 };
 
 #endif

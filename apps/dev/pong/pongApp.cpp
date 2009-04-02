@@ -33,8 +33,7 @@ void pongApp::setup()
   moveRightPaddle = 0;
 
   ballRadius = 5;
-  ball = ofPoint(400, 200);
-  ballVelocity = ofPoint(1, 0);
+  resetBall();
 
   videoGrabber.initGrabber(320, 240);
   threshold = 80;
@@ -118,6 +117,10 @@ void pongApp::keyPressed(int key)
     case ' ':
       grabBackground = true;
       break;
+
+    case 13:
+      resetBall();
+      break;
   }
 }
 
@@ -155,6 +158,12 @@ void pongApp::collidePaddlesWithBoundaries()
   leftPaddle.y = ofClamp(leftPaddle.y, paddleRadius, screenHeight - paddleRadius);
   rightPaddle.y += moveRightPaddle * rightPaddleSpeed;
   rightPaddle.y = ofClamp(rightPaddle.y, paddleRadius, screenHeight - paddleRadius);
+}
+
+void pongApp::resetBall()
+{
+  ball = ofPoint(400, 200);
+  ballVelocity = ofPoint(1, 0);
 }
 
 void pongApp::moveBall()
