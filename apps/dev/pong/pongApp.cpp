@@ -75,7 +75,7 @@ void pongApp::update()
         leftPaddle.y = fiducial->getAngleDeg() / 360 * 400;
       }
 
-      ofLog(OF_LOG_NOTICE, "Fiducial %d: Rotation %.2f, X-Position %.2f\n", fiducial->getId(), fiducial->getAngleDeg(), fiducial->getX());
+      ofLog(OF_LOG_NOTICE, "Fiducial %d: Rotation %.2f, X-Position %.2f", fiducial->getId(), fiducial->getAngleDeg(), fiducial->getX());
     }
   }
 
@@ -193,17 +193,26 @@ void pongApp::collideBallWithBoundaries()
 void pongApp::collideBallWithPaddle(ofPoint &paddle)
 {
   // None of the built in vector functions seem to work
-  if (pow(ballRadius + paddleRadius, 2) <
-    ((paddle.x - ball.x) * (paddle.x - ball.x) + (paddle.y - ball.y) * (paddle.y - ball.y)))
+  // Check for collision
+  ofPoint distance = ofPoint(ball.x - paddle.x, ball.y - paddle.y);
+  double squaredLength = distance.x * distance.x + distance.y * distance.y;
+  if (squaredLength > pow(ballRadius + paddleRadius, 2))
   {
     return;
   }
 
-  double length = sqrt((paddle.x - ball.x) * (paddle.x - ball.x) + (paddle.y - ball.y) * (paddle.y - ball.y));
-  ofPoint normal = ofPoint(-1 * (paddle.y - ball.y) / length, (paddle.x - ball.x) / length);
+  // Calculate new velocity
+  double length = sqrt(squaredLength);
+  ofPoint normal = ofPoint(-1 * distance.y / length, distance.x / length);
   double ballVelocityNormal = ballVelocity.x * normal.x + ballVelocity.y * normal.y;
   ballVelocity.x = normal.x * ballVelocityNormal * 2 - ballVelocity.x;
   ballVelocity.y = normal.y * ballVelocityNormal * 2 - ballVelocity.y;
+
+  // Move ball to collision point
+  double distanceLength = sqrt(distance.x * distance.x + distance.y * distance.y);
+  ofPoint normalizedDistance = ofPoint(distance.x / distanceLength, distance.y / distanceLength);
+  ball = ofPoint(paddle.x + normalizedDistance.x * (ballRadius + paddleRadius),
+    paddle.y + normalizedDistance.y * (ballRadius + paddleRadius));
 }
 
 void pongApp::mouseMoved(int x, int y)
