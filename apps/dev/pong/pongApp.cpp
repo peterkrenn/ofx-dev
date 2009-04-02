@@ -9,6 +9,8 @@
 
 void pongApp::setup()
 {
+  ofSetLogLevel(OF_LOG_NOTICE);
+
   screenWidth = 800;
   screenHeight = 400;
 
@@ -63,7 +65,7 @@ void pongApp::update()
 
     tracker.findFiducials(grayscaleImage);
 
-	  for (list<ofxFiducial>::iterator fiducial = tracker.fiducialsList.begin(); fiducial != tracker.fiducialsList.end(); fiducial++)
+    for (list<ofxFiducial>::iterator fiducial = tracker.fiducialsList.begin(); fiducial != tracker.fiducialsList.end(); fiducial++)
     {
       if (fiducial->getX() < 160)
       {
@@ -74,7 +76,7 @@ void pongApp::update()
         leftPaddle.y = fiducial->getAngleDeg() / 360 * 400;
       }
 
-      printf("Fiducial %d: Rotation %.2f, X-Position %.2f\n", fiducial->getId(), fiducial->getAngleDeg(), fiducial->getX());
+      ofLog(OF_LOG_NOTICE, "Fiducial %d: Rotation %.2f, X-Position %.2f\n", fiducial->getId(), fiducial->getAngleDeg(), fiducial->getX());
     }
   }
 
