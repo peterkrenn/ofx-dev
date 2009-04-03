@@ -8,4 +8,6 @@ The used openframeworks version can be found here:
 http://github.com/peterkrenn/ofx-dev/tree/master
 
 The source for the project can be found here:
-http://github.com/peterkrenn/ofx-dev/tree/781d68a1848755587aea27b9591643b5330f13b7/apps/dev/pong
+http://github.com/peterkrenn/ofx-dev/tree/7994d4e0eadfd9a9ccde7845d428706353e153be/apps/dev/pong
+
+The pontiometer uses pin 0 on the Arduino board
