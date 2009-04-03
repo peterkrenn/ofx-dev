@@ -40,6 +40,10 @@ public:
   int threshold;
 
   ofxFiducialTracker tracker;
+
+  ofSerial serial;
+  unsigned char serialMessage[6];
+  float serialHistory[10];
   
   void setup();
   void update();
@@ -56,6 +60,8 @@ public:
   void drawBall();
   void collideBallWithBoundaries();
   void collideBallWithPaddle(ofPoint &paddle);
+
+  int filterSerial(int value);
 
   void mouseMoved(int x, int y);
   void mouseDragged(int x, int y, int button);

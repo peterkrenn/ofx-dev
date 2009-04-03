@@ -42,6 +42,13 @@ void pongApp::setup()
   colorImage.allocate(320, 240);
   grayscaleImage.allocate(320, 240);
   backgroundImage.allocate(320, 240);
+
+  serial.enumerateDevices();
+  serial.setup(2, 9600);
+  for (int i = 0; i < sizeof(serialHistory); i++)
+  {
+    serialHistory[i] = 0;
+  }
 }
 
 void pongApp::update()
@@ -76,6 +83,33 @@ void pongApp::update()
       }
 
       ofLog(OF_LOG_NOTICE, "Fiducial %d: Rotation %.2f, X-Position %.2f", fiducial->getId(), fiducial->getAngleDeg(), fiducial->getX());
+    }
+  }
+
+  // Poll serial
+  serial.writeByte('a');
+
+  // Check for message from serial
+  if (serial.available())
+  {
+    memset(serialMessage, 0, sizeof(serialMessage));
+    serial.readBytes(serialMessage, sizeof(serialMessage));
+    serial.flush();
+
+    // Check for start/end tokens and double messages
+    int start = strchr((const char*)serialMessage, '^') - (const char *)serialMessage + 1;
+    int dbl = strchr((const char*)serialMessage + 1, '^') - (const char *)serialMessage + 1;
+    int end = strchr((const char*)serialMessage, '$') - (const char *)serialMessage + 1;
+    if (start == 1 && end > 2 && dbl < 0)
+    {
+      // Cut start/end tokens off
+      char *message = (char *)malloc((end - start) * sizeof(char));
+      strncpy(message, (const char *)serialMessage + 1, end - start - 1);
+      message[end - 2] = '\0';
+
+      rightPaddle.y = filterSerial(atol((const char*)message)) / 1024.0 * 400;
+
+      free(message);
     }
   }
 
@@ -213,6 +247,24 @@ void pongApp::collideBallWithPaddle(ofPoint &paddle)
   ofPoint normalizedDistance = ofPoint(distance.x / distanceLength, distance.y / distanceLength);
   ball = ofPoint(paddle.x + normalizedDistance.x * (ballRadius + paddleRadius),
     paddle.y + normalizedDistance.y * (ballRadius + paddleRadius));
+}
+
+int pongApp::filterSerial(int value)
+{
+  // Weighted mean of the last 10 values
+  float weight = 1.0;
+  float sum = value * weight;
+  float weightSum = weight;
+  for (int i = 0; i < sizeof(serialHistory) - 1; i++)
+  {
+    weight /= 2;
+    sum += serialHistory[i] * weight;
+    weightSum += weight;
+    serialHistory[i + 1] = serialHistory[i];
+  }
+  serialHistory[0] = value;
+
+  return sum / weightSum;
 }
 
 void pongApp::mouseMoved(int x, int y)
