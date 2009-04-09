@@ -1,11 +1,13 @@
-# http://wiki.github.com/jashkenas/ruby-processing
+# Simple pong clone to demonstrate keyboard input and basic collision detection
+# Left paddle is controlled with 'a' and 'z', right with ''' and '/'
 
-class Pong < Processing::App
+class Sketch < Processing::App
   def setup
     smooth
-    ellipse_mode CENTER
+    ellipse_mode(CENTER)
     no_fill
-    stroke 255
+    stroke(255)
+    frame_rate(60)
 
     @left_paddle = Paddle.new(200, 200)
     @right_paddle = Paddle.new(600, 200)
@@ -13,67 +15,66 @@ class Pong < Processing::App
   end
 
   def draw
-    background 0
+    background(0)
 
-    collide_with_boundaries
-    collide_with_paddles
+    [@left_paddle, @right_paddle].each { |paddle| paddle.update }
+
+    @ball.collide_with_boundaries
+    [@left_paddle, @right_paddle].each { |paddle| @ball.collide_with_paddle(paddle) }
     @ball.move
 
-    @left_paddle.draw
-    @right_paddle.draw
+    [@left_paddle, @right_paddle].each { |paddle| paddle.draw }
     @ball.draw
   end
 
   def key_pressed
     case key
       when 'a':
-        @left_paddle.move_up
+        @left_paddle.direction = -1
       when 'z':
-        @left_paddle.move_down
+        @left_paddle.direction = 1
       when '\'':
-        @right_paddle.move_up
+        @right_paddle.direction = -1
       when '/':
-        @right_paddle.move_down
+        @right_paddle.direction = 1
     end
   end
 
-  def collide_with_boundaries
-    if @ball.position.x <= @ball.radius || @ball.position.x >= width - @ball.radius
-      @ball.velocity.x *= -1
-    elsif @ball.position.y <= @ball.radius || @ball.position.y >= height - @ball.radius
-      @ball.velocity.y *= -1
-    end
-  end
-
-  def collide_with_paddles
-    [@left_paddle, @right_paddle].each do |paddle|
-      distance_vector = @ball.position - paddle.position
-      next unless (@ball.radius + paddle.radius) ** 2 > distance_vector.squared_magnitude
-
-      normal = distance_vector.normal.normalized
-      @ball.velocity = normal * (@ball.velocity * normal) * 2 - @ball.velocity
+  def key_released
+    case key
+      when 'a', 'z':
+        @left_paddle.direction = 0
+      when '\'', '/':
+        @right_paddle.direction = 0
     end
   end
 
   class Paddle
-    attr_accessor :position, :radius
+    attr_accessor :position, :radius, :direction
 
     def initialize(x, y)
       @position = Vector.new(x, y)
       @radius = 20
+      @direction = 0
+      @speed = 2
     end
 
     def draw
-      $app.stroke_weight 2
-      $app.ellipse @position.x, @position.y, @radius * 2, @radius * 2
+      stroke_weight(2)
+      ellipse(@position.x, @position.y, @radius * 2, @radius * 2)
     end
 
-    def move_up
-      @position.y -= 10 unless @position.y <= @radius
+    def update
+      move
+      collide_with_boundaries
     end
 
-    def move_down
-      @position.y += 10 unless @position.y >= $app.height - @radius
+    def move
+      @position.y += @direction * @speed
+    end
+
+    def collide_with_boundaries
+      @position.y = @position.y < @radius ? @radius : @position.y > 400 - @radius ? 400 - @radius : @position.y
     end
   end
 
@@ -82,18 +83,38 @@ class Pong < Processing::App
 
     def initialize(x, y)
       @position = Vector.new(x, y)
-      # @velocity = Vector.new(rand * 2 - 2, rand * 2 - 2)
-      @velocity = Vector.new(1, 0)
+      @velocity = Vector.new(2, 0)
       @radius = 5
     end
 
     def draw
-      $app.stroke_weight 1
-      $app.ellipse @position.x, @position.y, @radius * 2, @radius * 2
+      stroke_weight(1)
+      ellipse(@position.x, @position.y, @radius * 2, @radius * 2)
     end
 
     def move
       @position += @velocity
+    end
+
+    def collide_with_boundaries
+      if position.x <= radius || position.x >= 800 - radius
+        velocity.x *= -1
+      elsif position.y <= radius || position.y >= 400 - radius
+        velocity.y *= -1
+      end
+    end
+
+    def collide_with_paddle(paddle)
+      # Check for collision
+      distance_vector = position - paddle.position
+      return unless distance_vector.squared_length <= (radius + paddle.radius) ** 2
+
+      # Calculate new velocity
+      normal = distance_vector.normal.normalized
+      @velocity = normal * (velocity * normal) * 2 - velocity
+
+      # Move ball to correct position
+      @position = paddle.position + distance_vector.normalized * (2 * (radius + paddle.radius) - distance_vector.length)
     end
   end
 
@@ -134,11 +155,11 @@ class Pong < Processing::App
       end
     end
 
-    def magnitude
+    def length
       Math::sqrt(@x * @x + @y * @y)
     end
-      
-    def squared_magnitude
+
+    def squared_length
       @x * @x + @y * @y
     end
 
@@ -147,10 +168,10 @@ class Pong < Processing::App
     end
 
     def normalized
-      magnitude = self.magnitude
-      Vector.new(@x / magnitude, @y / magnitude)
+      length = self.length
+      Vector.new(@x / length, @y / length)
     end
   end
 end
 
-$app = Pong.new :width => 800, :height => 400, :title => 'Pong'
+Sketch.new :width => 800, :height => 400
