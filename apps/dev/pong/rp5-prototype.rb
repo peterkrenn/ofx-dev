@@ -9,43 +9,41 @@ class Sketch < Processing::App
     stroke(255)
     frame_rate(60)
 
-    @left_paddle = Paddle.new(200, 200)
-    @right_paddle = Paddle.new(600, 200)
-    @ball = Ball.new(400, 200)
+    @left_paddle = Paddle.new(width / 4, height / 2)
+    @right_paddle = Paddle.new(width / 4 * 3, height / 2)
+    @ball = Ball.new(width / 2, height / 2)
   end
 
   def draw
     background(0)
 
-    [@left_paddle, @right_paddle].each { |paddle| paddle.update }
+    paddles.each { |paddle| paddle.update }
 
     @ball.collide_with_boundaries
-    [@left_paddle, @right_paddle].each { |paddle| @ball.collide_with_paddle(paddle) }
+    paddles.each { |paddle| @ball.collide_with_paddle(paddle) }
     @ball.move
 
-    [@left_paddle, @right_paddle].each { |paddle| paddle.draw }
+    paddles.each { |paddle| paddle.draw }
     @ball.draw
+  end
+  
+  def paddles
+    return @left_paddle, @right_paddle
   end
 
   def key_pressed
     case key
-      when 'a':
-        @left_paddle.direction = -1
-      when 'z':
-        @left_paddle.direction = 1
-      when '\'':
-        @right_paddle.direction = -1
-      when '/':
-        @right_paddle.direction = 1
+      when 'a'  then  @left_paddle.direction = -1
+      when 'z'  then  @left_paddle.direction = 1
+      when '\'' then  @right_paddle.direction = -1
+      when '/'  then  @right_paddle.direction = 1
     end
   end
 
   def key_released
     case key
-      when 'a', 'z':
-        @left_paddle.direction = 0
-      when '\'', '/':
-        @right_paddle.direction = 0
+      when 'a',  'z' then @left_paddle.direction = 0
+      when '\'', '/' then @right_paddle.direction = 0
     end
   end
 
@@ -74,7 +72,7 @@ class Sketch < Processing::App
     end
 
     def collide_with_boundaries
-      @position.y = @position.y < @radius ? @radius : @position.y > 400 - @radius ? 400 - @radius : @position.y
+      @position.y = @position.y < @radius ? @radius : @position.y > height - @radius ? height - @radius : @position.y
     end
   end
 
@@ -97,9 +95,9 @@ class Sketch < Processing::App
     end
 
     def collide_with_boundaries
-      if position.x <= radius || position.x >= 800 - radius
+      if position.x <= radius || position.x >= width - radius
         velocity.x *= -1
-      elsif position.y <= radius || position.y >= 400 - radius
+      elsif position.y <= radius || position.y >= height - radius
         velocity.y *= -1
       end
     end
