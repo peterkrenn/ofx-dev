@@ -23,18 +23,18 @@ ofxGuiColor::ofxGuiColor()
 void ofxGuiColor::init(int id, string name, int x, int y, int width, int height, ofRGBA value, int mode)
 {
 	int	textHeight	= (name == "") ? 0 : mGlobals->mParamFontHeight;
-	
+
 	mParamId		= id;
 	mParamName		= name;
-	
-	mObjX			= x; 
+
+	mObjX			= x;
 	mObjY			= y;
-	
+
 	mObjWidth		= width;
 	mObjHeight		= textHeight + height;
-	
+
 	mMode			= mode;
-	
+
 	mSize			= (mode == kofxGui_Color_RGB ? 3 : 4);
 
 	setValue(value);
@@ -53,13 +53,13 @@ void ofxGuiColor::setValue(ofRGBA value)
 bool ofxGuiColor::update(int id, int task, void* data, int length)
 {
 	bool handled = false;
-	
+
 	if(id == mParamId && length == sizeof(ofRGBA))
 	{
 		setValue(*(ofRGBA*)data);
 		handled = true;
 	}
-	
+
 	return handled;
 }
 
@@ -68,14 +68,14 @@ bool ofxGuiColor::update(int id, int task, void* data, int length)
 void ofxGuiColor::draw()
 {
 	glPushMatrix();
-	
+
 	glTranslatef(mObjX, mObjY, 0.0f);
-	
+
 	if(mParamName != "")
 		drawParamString(0.0, 0.0, mParamName + ": " + rgbaToString(mValue, mMode), false);
-	
+
 	ofFill();
-	
+
 	//	background
 	glColor4f(mGlobals->mCoverColor.r, mGlobals->mCoverColor.g, mGlobals->mCoverColor.b, mGlobals->mCoverColor.a);
 	ofRect(mCtrX, mCtrY, mCtrWidth, mCtrHeight);
@@ -83,16 +83,16 @@ void ofxGuiColor::draw()
 	float	height	= (mCtrHeight - 2.0 - mSize) / (float)mSize;
 	float	posY	= mCtrY + 2.0;
 	float	posX	= mCtrWidth * mValue.r;
-	
+
 	//	r
 	glColor4f(1.0, 0.0, 0.0, 0.8);
 	ofRect(mCtrX, posY, posX, height);
 	glColor4f(mGlobals->mHandleColor.r, mGlobals->mHandleColor.g, mGlobals->mHandleColor.b, mGlobals->mHandleColor.a);
 	ofRect(posX, posY, 1.0, height);
-	
+
 	posY	+= 1.0 + height;
 	posX	 = mCtrWidth * mValue.g;
-	
+
 	//	g
 	glColor4f(0.0, 1.0, 0.0, 0.8);
 	ofRect(mCtrX, posY, posX, height);
@@ -107,7 +107,7 @@ void ofxGuiColor::draw()
 	ofRect(mCtrX, posY, posX, height);
 	glColor4f(mGlobals->mHandleColor.r, mGlobals->mHandleColor.g, mGlobals->mHandleColor.b, mGlobals->mHandleColor.a);
 	ofRect(posX, posY, 1.0, height);
-	
+
 	if(mMode == kofxGui_Color_RGBA)
 	{
 		posY	+= 1.0 + height;
@@ -119,13 +119,13 @@ void ofxGuiColor::draw()
 		glColor4f(mGlobals->mHandleColor.r, mGlobals->mHandleColor.g, mGlobals->mHandleColor.b, mGlobals->mHandleColor.a);
 		ofRect(posX, posY, 1.0, height);
 	}
-	
+
 	ofNoFill();
-	
+
 	//	frame
 	glColor4f(mGlobals->mFrameColor.r, mGlobals->mFrameColor.g, mGlobals->mFrameColor.b, mGlobals->mFrameColor.a);
 	ofRect(mCtrX, mCtrY, mCtrWidth, mCtrHeight);
-	
+
 	glPopMatrix();
 }
 
@@ -137,11 +137,11 @@ bool ofxGuiColor::mouseDragged(int x, int y, int button)
 	{
 		//	int value = mValue.toInt(mDisplay);
 		mValue.setChanel(mSlider, mouseToFraction(mouseToLocal(x, y)).x);
-		
+
 		//	if(mValue.toInt(mDisplay) != value)
 			mGlobals->mListener->handleGui(mParamId, kofxGui_Set_Color, &mValue, sizeof(ofRGBA));
 	}
-	
+
 	return mMouseIsDown;
 }
 
@@ -151,13 +151,13 @@ bool ofxGuiColor::mousePressed(int x, int y, int button)
 {
 	ofxPoint2f inside = mouseToLocal(x, y);
 	mMouseIsDown = isPointInsideMe(inside);
-	
+
 	if(mMouseIsDown)
 	{
 		mSlider = mouseToSlider(mouseToFraction(inside).y);
 		mouseDragged(x, y, button);
 	}
-	
+
 	return mMouseIsDown;
 }
 
@@ -166,10 +166,10 @@ bool ofxGuiColor::mousePressed(int x, int y, int button)
 bool ofxGuiColor::mouseReleased(int x, int y, int button)
 {
 	bool handled = mMouseIsDown;
-	
+
 	if(mMouseIsDown)
 		mMouseIsDown = false;
-	
+
 	return handled;
 }
 
@@ -185,7 +185,7 @@ void ofxGuiColor::buildFromXml()
 void ofxGuiColor::saveToXml()
 {
 	int id = saveObjectData();
-	
+
 	mGlobals->mXml.setValue("OBJECT:VALUE", rgbaToString(mValue, kofxGui_Color_RGBA), id);
 }
 
@@ -194,7 +194,7 @@ void ofxGuiColor::saveToXml()
 int ofxGuiColor::mouseToSlider(float y)
 {
 	float position = (int)(y * mSize);
-	
+
 	return CLAMP(position, 0, mSize);
 }
 

@@ -36,36 +36,36 @@ GNU General Public License for more details.
 //This Is The Good One
 
 class ofxFiducialTracker {
-	
+
 	public:
-	
+
 		//constructor & destructor
 		ofxFiducialTracker();
 		~ofxFiducialTracker();
-		
+
 		bool 	detectFinger;
    		float 	fingerSensitivity;
    		float 	minFingerSize;
    		float 	maxFingerSize;
-	
+
 		//list to store fiducials
 		std::list <ofxFiducial> fiducialsList;
-		
+
 		//list to store fingers
 		std::list <ofxFinger> fingersList;
-	
+
 		//find fiducials in gray image
 		void findFiducials( ofxCvGrayscaleImage& input );
-	
+
 		//initialize the tree where the fiducial data is from file
 		void initTree( const char *file_name );
-	
+
 		//initialize the default tree where the fiducial data is
 		void initDefaultTree();
 
-	
+
 	private:
-	
+
 		//width and height of gray image
 		int m_width, m_height;
 		//is the segmenter initialized
@@ -76,7 +76,7 @@ class ofxFiducialTracker {
 		Segmenter segmenter;
 		//tree ID map
 		TreeIdMap treeidmap;
-	
+
 		//fiducial tracker
 		FidtrackerX fidtrackerx;
 		//FiducialX array to pass to the fidtracker to find fiducials
@@ -85,14 +85,14 @@ class ofxFiducialTracker {
 		RegionX regions[ MAX_FIDUCIAL_COUNT*2 ];
 		//to keep track of fiducials
 		int fidCount;
-		
+
 		//check if finger is valid
 		int check_finger(RegionX *finger, const unsigned char* img);
 		//find fingers
 		void findFingers( const unsigned char* pixels );
 		//figer ids
 		int finger_id;
-   
+
 		//deinitialize segmenter
 		void deinitSegmenter();
 };

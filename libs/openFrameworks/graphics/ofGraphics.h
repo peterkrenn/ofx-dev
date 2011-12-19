@@ -23,7 +23,7 @@ void ofDisableArbTex();
 bool 	ofbClearBg();
 int 	ofGetRectMode();				// default is OF_RECTMODE_CORNER
 
-// geometry 
+// geometry
 void ofTriangle(float x1,float y1,float x2,float y2,float x3, float y3);
 void ofCircle(float x,float y, float radius);
 void ofEllipse(float x, float y, float width, float height);
@@ -50,7 +50,7 @@ void ofSetColor(int hexColor); // hex, like web 0xFF0033;
 void ofEnableAlphaBlending();  // this just turns on and off opengl blending, the common mode
 void ofDisableAlphaBlending();
 
-// smooth 
+// smooth
 void ofEnableSmoothing();
 void ofDisableSmoothing();
 
@@ -83,7 +83,7 @@ void ofCurveVertex(float x, float y);
 void ofBezierVertex(float x1, float y1, float x2, float y2, float x3, float y3);
 
 // for polygons
-void ofSetPolyMode(int mode);	
+void ofSetPolyMode(int mode);
 void ofBeginShape();
 void ofVertex(float x, float y);
 void ofEndShape(bool bClose = false);

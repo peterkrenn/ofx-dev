@@ -1,6 +1,6 @@
 /*
-Copyright 2005, 2006 Computer Vision Lab, 
-Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland. 
+Copyright 2005, 2006 Computer Vision Lab,
+Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland.
 All rights reserved.
 
 This file is part of BazAR.
@@ -16,7 +16,7 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 BazAR; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301, USA 
+Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 #ifndef IMAGE_CLASSIFIER_H
 #define IMAGE_CLASSIFIER_H
@@ -31,7 +31,7 @@ using namespace std;
 //!\ingroup viewsets
 //@{
 
-enum{ 
+enum{
 	DETECT_MODEL_POINTS=0,
 	BUILDING_TREE=1,
 	FOREST_REFINEMENT=2,
@@ -40,9 +40,9 @@ enum{
 
 typedef void (*LEARNPROGRESSION)(int,int,int);
 
-/*! 
+/*!
   \ingroup viewsets
-  \brief Image classifier 
+  \brief Image classifier
 */
 class image_classifier
 {
@@ -60,7 +60,7 @@ public:
   virtual float * posterior_probabilities(image_class_example * pv, int dummy = 0) = 0;
 
   LEARNPROGRESSION LearnProgression;
-  
+
   int image_width, image_height;
   int class_number;
 

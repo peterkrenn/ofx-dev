@@ -7,9 +7,9 @@
 #include "ofxObjLoader.h"
 
 class testApp : public ofBaseApp {
-	
+
 	public:
-  
+
 		void setup();
 		void update();
 		void draw();
@@ -18,10 +18,10 @@ class testApp : public ofBaseApp {
 		void mouseDragged(int x, int y, int button);
 		void mousePressed(int x, int y, int button);
 		void mouseReleased(int x, int y, int button);
-		
+
 		//my 3d model
 		ofxObjLoader crane;
         bool bMousePressed;
 };
 
-#endif	
+#endif

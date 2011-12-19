@@ -31,7 +31,7 @@ To:
 Step 4) To run the demo app make sure in ofConstants.h you have 
 
 using namespace std;
-#include <string>   
+#include <string>
 #include <sstream>  //for ostringsream
 #include <iomanip>  //for setprecision
 

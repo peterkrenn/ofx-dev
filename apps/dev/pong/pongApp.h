@@ -44,7 +44,7 @@ public:
   ofSerial serial;
   unsigned char serialMessage[6];
   float serialHistory[10];
-  
+
   void setup();
   void update();
   void draw();

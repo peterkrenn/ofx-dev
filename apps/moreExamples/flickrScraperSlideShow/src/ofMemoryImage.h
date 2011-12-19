@@ -11,15 +11,15 @@
 
 #include "ofImage.h"
 
-class   ofMemoryImage : public ofImage { 
-	
+class   ofMemoryImage : public ofImage {
+
 	public:
-		
-		void loadFromData(const unsigned char * datasource, int len); 
-	
+
+		void loadFromData(const unsigned char * datasource, int len);
+
 	private :
-	
-		bool loadFromDataIntoPixels(const unsigned char * datasource, int len, ofPixels &pix); 
+
+		bool loadFromDataIntoPixels(const unsigned char * datasource, int len, ofPixels &pix);
 
 };
 

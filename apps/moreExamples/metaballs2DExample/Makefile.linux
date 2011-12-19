@@ -3,7 +3,7 @@
 
 CC = gcc
 PROJECT_DIR = ./
-CFLAGS += -Wall -fexceptions 
+CFLAGS += -Wall -fexceptions
 #= CFLAGS += -I../../../addons/ -I../../../libs/openFrameworks/ -I../../../libs/openFrameworks/events -I../../../libs/openFrameworks/app -I../../../libs/openFrameworks/communication -I../../../libs/openFrameworks/graphics -I../../../libs/openFrameworks/video -I../../../libs/openFrameworks/utils -I../../../libs/openFrameworks/sound -I../../../libs/rtAudio -I../../../libs/fmodex/inc -I../../../libs/glee/include -I../../../libs/glee/ -I../../../libs/freeimage/Source -I../../../libs/FreeImage -I../../../libs/alsa/include -I../../../libs/alsa/include/alsa -I../../../libs/freetype/include -I../../../libs/freetype/include/freetype2 -I../../../libs/unicap/include -I../../../libs/gstappsink/include -I../../../addons -I../../../libs/poco/include
 CFLAGS += -I../../../addons/ -I../../../libs/openFrameworks/ -I../../../libs/openFrameworks/events -I../../../libs/openFrameworks/app -I../../../libs/openFrameworks/communication -I../../../libs/openFrameworks/graphics -I../../../libs/openFrameworks/video -I../../../libs/openFrameworks/utils -I../../../libs/openFrameworks/sound -I../../../libs/rtAudio/include -I../../../libs/fmodex/inc -I../../../libs/GLee/include -I../../../libs/GLee/ -I../../../libs/freeimage/include -I../../../libs/freeimage -I../../../libs/alsa/include -I../../../libs/alsa/include/alsa -I../../../libs/freetype/include/linux -I../../../libs/freetype/include/linux/freetype2 -I../../../libs/unicap/include -I../../../libs/gstappsink/include -I../../../addons -I../../../libs/poco/include
 CFLAGS +=`pkg-config  gstreamer-0.10 gstreamer-video-0.10 gstreamer-base-0.10 libavcodec libavformat libavutil libswscale --cflags`
@@ -54,14 +54,14 @@ after:
 	#
 	#cp -r ../../../export/libs $(PROJECT_DIR)bin/
 	#cp ../../../export/clickToLaunchApp.sh $(PROJECT_DIR)bin/clickToLaunchApp_$(TARGET_NAME).sh
-	
+
 	mkdir -p $(PROJECT_DIR)bin/
 	mkdir -p $(PROJECT_DIR)bin/libs/
 	cp -p ../../../libs/fmodex/lib/linux/libfmodex.so $(PROJECT_DIR)bin/libs/
 	cp -p ../../../libs/fmodex/lib/linux/libfmodexp.so $(PROJECT_DIR)bin/libs/
-	cp ../../../other/codeblocks/linux_clickToLaunchApp.sh $(PROJECT_DIR)bin/$(TARGET_OUTPUT_BASENAME).sh	
+	cp ../../../other/codeblocks/linux_clickToLaunchApp.sh $(PROJECT_DIR)bin/$(TARGET_OUTPUT_BASENAME).sh
 	sed -i s/applicationName/$(TARGET_OUTPUT_BASENAME)/g  $(PROJECT_DIR)bin/$(TARGET_OUTPUT_BASENAME).sh
-	
+
 	#
 	#    this is a shell script that can either (a) run the app or (b) launch nautilus to a good directory for you to run the app
 	#

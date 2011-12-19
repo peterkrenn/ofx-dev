@@ -37,23 +37,23 @@ public:
 	bool		mouseDragged(int x, int y, int button);
 	bool		mousePressed(int x, int y, int button);
 	bool		mouseReleased(int x, int y, int button);
-	
+
 	void		buildFromXml();
 	void		saveToXml();
 
 	ofxPoint2f	valueToFraction(ofxPoint2f value);
 	ofxPoint2f	fractionToValue(ofxPoint2f fraction);
-	
+
 	bool		isPointWithinDistance(ofxPoint2f position);
-	
+
 	float		mDistance;
-	
+
 	ofxPoint2f	mValue, mOutVal;
-	
+
 	ofxPoint2f	mMinVal;
 	ofxPoint2f	mMaxVal;
 	ofxPoint2f	mValDlt;
-	
+
 	ofPointList	mList;
 };
 

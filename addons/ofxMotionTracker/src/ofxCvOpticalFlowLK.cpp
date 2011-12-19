@@ -1,11 +1,11 @@
 //
 // ofxCvOpticalFlowLK.h - a OpenCV cvOpticalFlowLK warpper for openFrameworks
 //
-// Copyright (C) 2008 Takashi Maekawa <takachin@generative.info> 
+// Copyright (C) 2008 Takashi Maekawa <takachin@generative.info>
 //     All rights reserved.
 //     This is free software with ABSOLUTELY NO WARRANTY.
 //
-// You can redistribute it and/or modify it under the terms of 
+// You can redistribute it and/or modify it under the terms of
 // the GNU Lesser General Public License.
 //
 
@@ -17,7 +17,7 @@ ofxCvOpticalFlowLK::ofxCvOpticalFlowLK(void){
 
 	captureColsStep = DEFAULT_CAPTURE_COLS_STEP;
 	captureRowsStep = DEFAULT_CAPTURE_ROWS_STEP;
-	
+
 	vel_x = vel_y = NULL;
 }
 
@@ -27,11 +27,11 @@ ofxCvOpticalFlowLK::~ofxCvOpticalFlowLK(void){
 	if(vel_y != NULL)
 		cvReleaseImage(&vel_y);
 }
-	
+
 void ofxCvOpticalFlowLK::allocate(int _w, int _h){
 	captureWidth = _w;
 	captureHeight = _h;
-	
+
 	if(vel_x != NULL)
 		cvReleaseImage(&vel_x);
 	if(vel_y != NULL)
@@ -39,7 +39,7 @@ void ofxCvOpticalFlowLK::allocate(int _w, int _h){
 
 	vel_x = cvCreateImage( cvSize( captureWidth ,captureHeight ), IPL_DEPTH_32F, 1  );
 	vel_y = cvCreateImage( cvSize( captureWidth ,captureHeight ), IPL_DEPTH_32F, 1  );
-	
+
     cvSetZero(vel_x);
     cvSetZero(vel_y);
 }

@@ -12,9 +12,9 @@ NOTE: Windows users will need to add ws2_32.lib to your project. This is part of
 Copy ofTCPServer.h and .cpp and ofTCPClient.h and .cpp to libs/ofAddons/communication/
 
 +++++ Step 1 ++++++
-Duplicate a project twice and rename one tcpServerExample and tcpClientExample replace testApp.h testApp.cpp and main.cpp with the replacement for each example. 
+Duplicate a project twice and rename one tcpServerExample and tcpClientExample replace testApp.h testApp.cpp and main.cpp with the replacement for each example.
 
-+++++ Step 2 ++++++ 
++++++ Step 2 ++++++
 
 Drag the ofTCPServer and ofTCPClient files from libs/ofAddons/communication/
 into your project. As well as ofAddons.h from libs/ofAddons/
@@ -52,12 +52,12 @@ in ofAddons.h you should have:
 
 
 +++++ Step 3 ++++++
-Add the folder tcpUdpManager to your main libs folder. 
+Add the folder tcpUdpManager to your main libs folder.
 Then drag folder into both projects.
 
 
 +++++ Step 4 ++++++
-in of Constants.h change the line 
+in of Constants.h change the line
 
 // then the the platform specific includes:
 #ifdef TARGET_WIN32
@@ -75,10 +75,10 @@ To:
 
 
 +++++ Step 5 ++++++
-To run the demo app make sure in ofConstants.h you have 
+To run the demo app make sure in ofConstants.h you have
 
 using namespace std;
-#include <string>   
+#include <string>
 #include <sstream>  //for ostringsream
 #include <iomanip>  //for setprecision
 
@@ -120,7 +120,7 @@ void ofSleepMillis(int millis){
 		Sleep(millis);			//windows sleep in milliseconds
 	#else
 		usleep(millis * 1000);	//mac sleep in microseconds - cooler :)
-	#endif 
+	#endif
 }
 
 +++++ Step 8 ++++++

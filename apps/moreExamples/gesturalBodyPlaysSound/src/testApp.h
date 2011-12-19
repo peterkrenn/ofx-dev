@@ -8,19 +8,19 @@
 #include "NSvidbutton.h"
 
 class testApp : public ofBaseApp {
-	
+
 	public:
-		
+
 		void setup();
 		void update();
 		void draw();
-		
+
 		void keyPressed  (int key);
 		void mouseMoved(int x, int y );
 		void mouseDragged(int x, int y, int button);
 		void mousePressed(int x, int y, int button);
 		void mouseReleased();
-		
+
 		ofVideoGrabber 		vidGrabber;
 		ofxCvGrayscaleImage 	grayImage;
 		ofxCvGrayscaleImage 	grayBg;
@@ -31,19 +31,19 @@ class testApp : public ofBaseApp {
 
 		int 				threshold;
 		bool				bLearnBakground;
-		
+
 		float 	counter;
 		bool 	bSmooth;
-		
+
 		float maxX, maxY;
 
 		int nPixelsWhite;
 		int xPos, yPos, width, height;
-		
+
 	//	vector<NSvidbutton> buttons[]; // C++ dynamic Array of type NSvidbutton with maximum size = 5
 		NSvidbutton buttons[5]; // C++ dynamic Array of type NSvidbutton with maximum size = 5
 		int NButtons;
-		
+
 };
 
 #endif

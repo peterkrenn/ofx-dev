@@ -1,6 +1,6 @@
 /*
-Copyright 2005, 2006 Computer Vision Lab, 
-Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland. 
+Copyright 2005, 2006 Computer Vision Lab,
+Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland.
 All rights reserved.
 
 This file is part of BazAR.
@@ -16,7 +16,7 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 BazAR; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301, USA 
+Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 #ifndef PYRIMAGE_H
 #define PYRIMAGE_H
@@ -84,8 +84,8 @@ public:
   IplImage *operator[](unsigned i) {return images[i];}
 
   //! apply a gaussian blur on level 0.
-  void smoothLevel0(int kernelSize=3) 
-  { 
+  void smoothLevel0(int kernelSize=3)
+  {
     cvSmooth(images[0], images[0], CV_GAUSSIAN, kernelSize, kernelSize);
   }
 

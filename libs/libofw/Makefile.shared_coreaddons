@@ -4,7 +4,7 @@ OF_ADDONS_PATH = ../../addons
 
 CC = gcc
 PROJECT_DIR = ./
-CFLAGS += -Wall -fexceptions 
+CFLAGS += -Wall -fexceptions
 #= CFLAGS += -I$(OF_LIBS_PATH)/libofw/include # ..
 
 #= libofw cflags
@@ -18,7 +18,7 @@ LDFLAGS += -L$(OF_LIBS_PATH)/libofw/lib -L$(OF_ADDONS_PATH)/ofxOpenCv/libs/openc
 LIBS += -lofw -lfmodex -lraw1394 -lglut -lGL -lGLU -lXxf86vm -lasound -lPocoFoundation -lunicap -lcv -lcxcore -loscpack
 CFLAGS += -DLINUX
 
-OBJS = addons/ofxOsc/srcofxOscMessage.o addons/ofxVectorMath/src/ofxMatrix3x3.o addons/ofNetwork/srcofxTCPClient.o addons/ofxVectorGraphics/libsCreEPS.o addons/ofx3DModelLoader/src/ofx3dModelLoader.o addons/ofNetwork/srcofxTCPServer.o addons/ofxOpenCv/srcofxCvContourFinder.o addons/ofxOsc/srcofxOscReceiver.o addons/ofXmlSettings/libstinyxmlparser.o addons/ofxVectorMath/src/ofxVec2f.o addons/ofxOsc/srcofxOscSender.o addons/ofxOpenCv/srcofxCvImage.o addons/ofx3DModelLoader/libs/texture3DS.o addons/ofx3DModelLoader/libs/model3DS.o addons/ofxOpenCv/srcofxCvGrayscaleImage.o addons/ofXmlSettings/srcofxXmlSettings.o addons/ofxOpenCv/srcofxCvFloatImage.o addons/ofxVectorMath/src/ofxPoint2f.o addons/ofXmlSettings/libstinyxml.o addons/ofxDirList/srcofxDirList.o addons/ofxVectorMath/src/ofxVec4f.o addons/ofxVectorMath/src/ofxPoint3f.o addons/ofXmlSettings/libstinyxmlerror.o addons/ofxOpenCv/srcofxCvColorImage.o addons/ofNetwork/srcofxTCPManager.o addons/ofxThread/srcofxThread.o addons/ofxVectorMath/src/ofxVec3f.o addons/ofxVectorGraphics/srcofxVectorGraphics.o addons/ofNetwork/srcofxUDPManager.o addons/ofxVectorMath/src/ofxPoint4f.o 
+OBJS = addons/ofxOsc/srcofxOscMessage.o addons/ofxVectorMath/src/ofxMatrix3x3.o addons/ofNetwork/srcofxTCPClient.o addons/ofxVectorGraphics/libsCreEPS.o addons/ofx3DModelLoader/src/ofx3dModelLoader.o addons/ofNetwork/srcofxTCPServer.o addons/ofxOpenCv/srcofxCvContourFinder.o addons/ofxOsc/srcofxOscReceiver.o addons/ofXmlSettings/libstinyxmlparser.o addons/ofxVectorMath/src/ofxVec2f.o addons/ofxOsc/srcofxOscSender.o addons/ofxOpenCv/srcofxCvImage.o addons/ofx3DModelLoader/libs/texture3DS.o addons/ofx3DModelLoader/libs/model3DS.o addons/ofxOpenCv/srcofxCvGrayscaleImage.o addons/ofXmlSettings/srcofxXmlSettings.o addons/ofxOpenCv/srcofxCvFloatImage.o addons/ofxVectorMath/src/ofxPoint2f.o addons/ofXmlSettings/libstinyxml.o addons/ofxDirList/srcofxDirList.o addons/ofxVectorMath/src/ofxVec4f.o addons/ofxVectorMath/src/ofxPoint3f.o addons/ofXmlSettings/libstinyxmlerror.o addons/ofxOpenCv/srcofxCvColorImage.o addons/ofNetwork/srcofxTCPManager.o addons/ofxThread/srcofxThread.o addons/ofxVectorMath/src/ofxVec3f.o addons/ofxVectorGraphics/srcofxVectorGraphics.o addons/ofNetwork/srcofxUDPManager.o addons/ofxVectorMath/src/ofxPoint4f.o
 
 Debug: TARGET_NAME = Debug
 Debug: LIB_NAME = libofw_coreaddons.so

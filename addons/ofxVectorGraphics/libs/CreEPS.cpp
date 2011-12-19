@@ -1,10 +1,10 @@
 /*******************************************************************************
- 
+
 CreEPS = Creating EPS  Version 1.32
- 
+
 Uwe Fabricius : http://uwefabricius.de/
 Thomas Pohl   : http://thomas-pohl.info/
- 
+
 Copyright (C) 2002, 2003, 2004  Uwe Fabricius & Thomas Pohl
 
 This program is free software; you can redistribute it and/or
@@ -70,7 +70,7 @@ CAt::CAt()
 	m_FontString[0] = '-';
 	m_FontString[1] = '1';
 	m_FontString[2] =   0;
-	
+
 	m_LineDashString[0] = 0;
 }
 
@@ -94,7 +94,7 @@ CAt::CAt( const CAt& A )
 {
 	for( int i = 0; i < CREEPS_MAX_FONT_STRING_LENGTH; i++ )
 		m_FontString[i] = A.getFontString()[i];
-	
+
 	for( int j = 0; j < CREEPS_MAX_DASH_STRING_LENGTH; j++ )
 		m_LineDashString[j] = A.getLineDashString()[j];
 }
@@ -106,25 +106,25 @@ bool CAt::inheritAttributes( const CAt& A,
                              bool gsave_written )
 {
     bool changed = gsave_written;
-    		
+
     changed |= inheritLineThickness( A, file, changed );
     changed |= inheritLineJoin( A, file, changed );
     changed |= inheritLineCap( A, file, changed );
 	changed |= inheritLineDash( A, file, changed );
-	
+
 	// do not use the return value of inheritBackgroundColor,
 	// because there no "gsave" is written
 	inheritBackgroundColor( A, file );
 	changed |= inheritColor( A, file, changed );
 	changed |= inheritFont( A, file, changed );
-	
+
 	// do not use the return value of inheritTextAlignment,
 	// because even if the alignment has been changed, no
 	// "gsave" has been written, because the alignment is
 	// not set by a PostScript command
 	inheritTextAlignment( A, file );
 	changed |= inheritFillingPattern( A, file, changed );
-    
+
     return changed;
 }
 
@@ -166,7 +166,7 @@ void CAt::startFillingBox( FILE* file,
 	               "/PaintProc { begin x ",
 	         width, height,
 	         width, height  );
-	
+
 	if( m_BgRed >= 0 && m_BgGreen >= 0 && m_BgBlue >= 0 )
 		fprintf( file, "%g %g %g sc 0 0 %g %g rf ",
 		         m_BgRed, m_BgGreen, m_BgBlue, width, height );
@@ -256,7 +256,7 @@ bool CAt::inheritLineDash( const CAt& A,
 {
 	bool changed = false;
 	CAt tempA( A );
-	
+
 	// line dashes set with the enum-constant
 	if(      tempA.getLineDashType()   != LD_KEEP
 	    && ( tempA.getLineDashType()   != m_LineDashType   ||
@@ -269,7 +269,7 @@ bool CAt::inheritLineDash( const CAt& A,
 			m_LineDashFactor = tempA.getLineDashFactor();
 		}
 		m_LineDashOffset = 0;
-		
+
 		float solid_dot     = 0,
 		      zero_dist     = 0,
 		      linethickness = tempA.getLineThickness(),
@@ -277,7 +277,7 @@ bool CAt::inheritLineDash( const CAt& A,
 		int   linecap       = tempA.getLineCap() >= 0 ? tempA.getLineCap() : m_LineCap;
 		if( linethickness < 0 )  linethickness = m_LineThickness;
 		if( linecap       < 0 )  linecap       = (LINECAP)BUTT;
-		
+
 		switch( linecap ) {
 			case BUTT :
 				solid_dot = linethickness;
@@ -291,27 +291,27 @@ bool CAt::inheritLineDash( const CAt& A,
 				break;
 			default : break;
 		}
-		
+
 		switch( m_LineDashType )
 		{
 			case SOLID :
 				sprintf( tempA.m_LineDashString, " " );
 				break;
-				
+
 			case DOT :
 				sprintf( tempA.m_LineDashString,
 				         "%g %g",
 				         solid_dot,
 				         factor * linethickness + zero_dist );
 				break;
-				
+
 			case DASH :
 				sprintf( tempA.m_LineDashString,
 				         "%g %g",
 				         factor * linethickness + solid_dot - linethickness,
 				         factor * linethickness + zero_dist );
 				break;
-				
+
 			case DOTDASH :
 				sprintf( tempA.m_LineDashString,
 				         "%g %g %g %g",
@@ -320,11 +320,11 @@ bool CAt::inheritLineDash( const CAt& A,
 				               factor * linethickness + solid_dot - linethickness ,
 				         0.5 * factor * linethickness + zero_dist );
 				break;
-				
+
 			default : break;
 		}
 	}
-	
+
 	// inheriting the string
 	if( ( tempA.getLineDashString()[0] != 0 ||
 	      tempA.getLineDashOffset()    >= 0    )
@@ -410,7 +410,7 @@ bool CAt::inheritFont( const CAt& A,
                        bool gsave_written )
 {
 	bool changed = false;
-	
+
 	// check, if the font strings are different
 	if( A.getFontString()[0] != '-' ) {
 		for( int i = 0; i < CREEPS_MAX_FONT_STRING_LENGTH; i++ ) {
@@ -420,14 +420,14 @@ bool CAt::inheritFont( const CAt& A,
 			}
 		}
 	}
-	
+
 	// if the font strings are different copy the string
 	if( changed ) {
 		for( int j = 0; j < CREEPS_MAX_FONT_STRING_LENGTH; j++ ) {
 			m_FontString[j] = A.getFontString()[j];
 		}
 	}
-	
+
 	// set font scale
 	if( A.getFontScale() >= 1           &&
 	    A.getFontScale() != m_FontScale    )
@@ -435,13 +435,13 @@ bool CAt::inheritFont( const CAt& A,
 		m_FontScale = A.getFontScale();
 		changed = true;
 	}
-	
+
 	if( changed == true && file != NULL ) {
 		if( gsave_written == false )  fprintf( file, "x\n" );
 		fprintf( file, "%g /%s fss\n",
 		        m_FontScale < 0 ? 0.35277778 : m_FontScale*0.35277778, m_FontString );
 	}
-	
+
 	return changed;
 }
 
@@ -451,7 +451,7 @@ bool CAt::inheritTextAlignment( const CAt& A,
                                 FILE* file )
 {
 	bool changed = false;
-	
+
 	if( A.getTextAlignment() != -1              &&
 		A.getTextAlignment() != m_TextAlignment    )
 	{
@@ -489,9 +489,9 @@ bool CAt::inheritFillingPattern( const CAt& A,
 		if( file != NULL )
 		{
 			if( gsave_written == false )  fprintf( file, "x\n" );
-			
+
 			switch( m_FillingPattern ) {
-				
+
 				case HEXDOT :
 					// m_ff1 == distance between the balls
 					// m_ff2 == radius of the balls
@@ -583,10 +583,10 @@ bool CAt::inheritFillingPattern( const CAt& A,
 			}
 			fprintf( file, ">>\nmatrix makepattern\n/Pattern setcolorspace setcolor\n" );
 		}
-		
+
 		changed = true;
 	}
-	
+
 	return changed;
 }
 
@@ -661,11 +661,11 @@ CAtColor::CAtColor( const float red,
 	if     ( red < 0 )  m_Red   = 0;
 	else if( red > 1 )  m_Red   = 1;
 	else                m_Red   = red;
-	
+
 	if     ( green < 0 )  m_Green = 0;
 	else if( green > 1 )  m_Green = 1;
 	else                  m_Green = green;
-	
+
 	if     ( blue < 0 )  m_Blue  = 0;
 	else if( blue > 1 )  m_Blue  = 1;
 	else                 m_Blue  = blue;
@@ -692,11 +692,11 @@ CAtBackgroundColor::CAtBackgroundColor( const float red,
 	if     ( red < 0 )  m_BgRed   = 0;
 	else if( red > 1 )  m_BgRed   = 1;
 	else                m_BgRed   = red;
-	
+
 	if     ( green < 0 )  m_BgGreen = 0;
 	else if( green > 1 )  m_BgGreen = 1;
 	else                  m_BgGreen = green;
-	
+
 	if     ( blue < 0 )  m_BgBlue  = 0;
 	else if( blue > 1 )  m_BgBlue  = 1;
 	else                 m_BgBlue  = blue;
@@ -718,7 +718,7 @@ CAtFont::CAtFont( const char *fontstring,
                   const CAt& A )
 {
 	inheritAttributes( A );
-	
+
 	if( NULL != fontstring ) {
 		for( int i = 0; i < CREEPS_MAX_FONT_STRING_LENGTH; i++ ) {
 			if( !(m_FontString[i] = fontstring[i]) )  break;
@@ -755,12 +755,12 @@ CAtGrayScale::CAtGrayScale( const float grayscale,
                             const CAt& A )
 {
 	inheritAttributes( A );
-	
+
 	if( grayscale < 0 || 1 < grayscale ) {
 		::printf( "CreEPS: grayscale value %.2f is out of range "
 		          "and will be truncated\n", grayscale );
 	}
-	
+
 	if     ( grayscale < 0 )  m_Red = m_Green = m_Blue = 0;
 	else if( grayscale > 1 )  m_Red = m_Green = m_Blue = 1;
 	else                      m_Red = m_Green = m_Blue = grayscale;
@@ -867,7 +867,7 @@ void CreEPS::initialize( const char* filename,
 		latexFilename[length  ] = '_';
 		latexFilename[length+1] = 't';
 		latexFilename[length+2] = 0;
-		
+
 		m_LatexFileHandle = fopen( latexFilename, "w" );
 		if( ! m_LatexFileHandle ) {
 			::printf( "Could not open latex file!\n" );
@@ -1054,7 +1054,7 @@ bool CreEPS::embedEPS( const char* const filename ) {
 		          "mode is forbidden!\n" );
 		return false;
 	}
-	
+
 	// open external EPS file
 	FILE* file = fopen( filename, "r" );
 	if( file == NULL ) {
@@ -1092,7 +1092,7 @@ bool CreEPS::embedEPS( const char* const filename ) {
 	fprintf( m_FileHandle,
 	           "epse\n%%%%EndDocument\n%% CreEPS ends embedding %s\n",
 	           filename );
-	
+
 	fclose( file );
 	return true;
 }
@@ -1104,7 +1104,7 @@ const char* CreEPS::restoreAttributes( const bool changed,
 	static const char* DORESTORE        = "y\n";
 	static const char* DORESTORENEWPATH = "y n\n";
 	static const char* NORESTORE        = "";
-	
+
 	return (changed) ? ((newpath) ? DORESTORENEWPATH : DORESTORE) : NORESTORE;
 }
 
@@ -1563,7 +1563,7 @@ void CreEPS::print( const float x, const float y, const float alpha,
 
 	int o = 0, n = 0;
 	int bufferLength = 0;
-	
+
 	while( text[o] != 0 ) {
 		switch( text[o++] ) {
 			case '(': case ')': case '\\':
@@ -1584,7 +1584,7 @@ void CreEPS::print( const float x, const float y, const float alpha,
 		}
 	}
 	buffer[n] = 0;
-	
+
 	CAt tmp( m_Attr );
 	bool changed = tmp.inheritAttributes( attr, m_FileHandle );
 	if (alpha > -0.01 && alpha < 0.01)
@@ -1664,7 +1664,7 @@ void CreEPS::printf( const float x, const float y, const float alpha,
 /******************************************************************************/
 
 void CreEPS::applyRotation( const float alpha ) {
-	fprintf( m_FileHandle, "%g r\n", alpha );	
+	fprintf( m_FileHandle, "%g r\n", alpha );
 }
 
 /******************************************************************************/
@@ -1676,13 +1676,13 @@ void CreEPS::applyTranslation( const float dx, const float dy ) {
 /******************************************************************************/
 
 void CreEPS::applyScaling( const float s ) {
-	applyScaling( s, s );	
+	applyScaling( s, s );
 }
 
 /******************************************************************************/
 
 void CreEPS::applyScaling( const float sx, const float sy ) {
-	fprintf( m_FileHandle, "%g %g sl\n", sx, sy );	
+	fprintf( m_FileHandle, "%g %g sl\n", sx, sy );
 }
 
 /******************************************************************************/
@@ -1691,19 +1691,19 @@ void CreEPS::applyTransformation( const float m[3][2] ) {
 	fprintf( m_FileHandle, "[ %g %g %g %g %g %g ] cc\n",
 	         m[0][0], m[0][1],
 	         m[1][0], m[1][1],
-	         m[2][0], m[2][1] ); 
+	         m[2][0], m[2][1] );
 }
 
 /******************************************************************************/
 
 void CreEPS::resetTransformations() {
-	fprintf( m_FileHandle, "im\n" );	
+	fprintf( m_FileHandle, "im\n" );
 }
 
 /******************************************************************************/
 
 void CreEPS::resetClipping() {
-	fprintf( m_FileHandle, "ic\n" );	
+	fprintf( m_FileHandle, "ic\n" );
 }
 
 /******************************************************************************/

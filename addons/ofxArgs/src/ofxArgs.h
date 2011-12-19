@@ -19,25 +19,25 @@ private:
 	int argc;
 	vector<string> args;
 	map<string,string> opts;
-	
+
 	int strToInt(string value);
 	float strToFloat(string value);
-	
+
 public:
 	ofxArgs(int argc, char* argv[]);
-	
+
 	int getCount();
-	
+
 	bool contains(string key);
 
 	float getFloat(string key);
 	int getInt(string key);
 	string getString(string key);
-	
+
 	float getFloat(int index);
 	int getInt(int index);
 	string getString(int index);
-	
+
 	void printArgs();
 	void printOpts();
 };

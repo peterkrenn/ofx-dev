@@ -9,9 +9,9 @@
 * Author:        $Author: pm $
 * Copyright:     Modifications (c) 2000 Imagineer Software Limited
 *
-* Notes:         
-* Private func:  
-* History:       Modified from original CLAPACK source code 
+* Notes:
+* Private func:
+* History:       Modified from original CLAPACK source code
 *
 **************************************************************************/
 
@@ -29,7 +29,7 @@ extern "C" {
 #if !defined(HAVE_LAPACK) || defined(FORCE_LOCAL_LAPACK)
 
 Gan_Bool gan_dsteqr(Gan_LapackEvecType compz, long n, double *d,
-                    double *e, double *z, long ldz, double *work, 
+                    double *e, double *z, long ldz, double *work,
                     long *info);
 
 #endif /* #if !defined(HAVE_LAPACK) || defined(FORCE_LOCAL_LAPACK) */

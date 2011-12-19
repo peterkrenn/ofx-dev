@@ -2,17 +2,17 @@
 
 
 //--------------------------------------------------------------
-void testApp::setup(){	 
+void testApp::setup(){
 	ofSetFrameRate(32);
-	
+
 	orgImg.loadImage("1.jpg");
 	colorImg.allocate( orgImg.getWidth(), orgImg.getHeight() );
 	colorImg.setFromPixels( orgImg.getPixels(), orgImg.getWidth(), orgImg.getHeight() );
-	
+
 	QrDecoderHandle decoder=qr_decoder_open();
 	short stat=qr_decoder_decode_image(decoder, colorImg.getCvImage() );
     // printf("STATUS=%04x\n",stat);
-	
+
 	QrCodeHeader header;
     if(qr_decoder_get_header(decoder,&header)){
         char *buf=new char[header.byte_size+1];
@@ -31,17 +31,17 @@ void testApp::update(){
 void testApp::draw(){
 	ofSetColor(255, 255, 255);
 	colorImg.draw(0,0);
-	
+
 	ofSetColor(245, 0, 0);
     ofDrawBitmapString( debug_string, 10, colorImg.height+15 );
 }
 
 //--------------------------------------------------------------
-void testApp::keyPressed(int key){ 
+void testApp::keyPressed(int key){
 }
 
 //--------------------------------------------------------------
-void testApp::keyReleased(int key){ 
+void testApp::keyReleased(int key){
 }
 
 //--------------------------------------------------------------

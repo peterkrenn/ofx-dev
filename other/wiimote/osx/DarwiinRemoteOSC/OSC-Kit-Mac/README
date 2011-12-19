@@ -30,7 +30,7 @@ something else.
 
 You need to implement the procedures in this file.  Currently it's just
 different ways to print errors and warnings to the user.  The default
-implementation prints these messages on stderr.  
+implementation prints these messages on stderr.
 
 
 * OSC-priority-queue.c

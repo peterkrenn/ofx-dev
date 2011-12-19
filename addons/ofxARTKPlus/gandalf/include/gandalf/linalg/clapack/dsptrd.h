@@ -9,9 +9,9 @@
 * Author:        $Author: pm $
 * Copyright:     Modifications (c) 2000 Imagineer Software Limited
 *
-* Notes:         
-* Private func:  
-* History:       Modified from original CLAPACK source code 
+* Notes:
+* Private func:
+* History:       Modified from original CLAPACK source code
 *
 **************************************************************************/
 
@@ -27,7 +27,7 @@ extern "C" {
 
 /* only declare this function locally if there is no LAPACK installed */
 #if !defined(HAVE_LAPACK) || defined(FORCE_LOCAL_LAPACK)
-Gan_Bool gan_dsptrd(Gan_LapackUpLoFlag upper, long n, double *ap, 
+Gan_Bool gan_dsptrd(Gan_LapackUpLoFlag upper, long n, double *ap,
                     double *d, double *e, double *tau, long *info);
 #endif
 

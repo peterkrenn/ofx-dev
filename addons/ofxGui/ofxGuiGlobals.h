@@ -20,32 +20,32 @@
 
 class ofxGuiGlobals
 {
-		
+
 public:
-	
+
 	static			ofxGuiGlobals* Instance();
-	
+
 	void			buildFromXml();
 	void			saveToXml();
 
 	void			loadFonts();
-	
+
 	ofxGuiListener*	mListener;
 
 	ofTrueTypeFont	mHeadFont;
 	ofTrueTypeFont	mParamFont;
-	
+
 	ofxXmlSettings	mXml;
 	ofxDirList		mDir;
 
 	string			mXmlfile;
-	
+
 	string			mHeadFontName;
 	int				mHeadFontSize;
 	int				mHeadFontXOffset;
 	int				mHeadFontYOffset;
 	int				mHeadFontHeight;
-	
+
 	string			mParamFontName;
 	int				mParamFontSize;
 	int				mParamFontXOffset;
@@ -54,19 +54,19 @@ public:
 
 	int				mButtonXText;
 	int				mButtonYText;
-	
+
 	int				mFilesXText;
 	int				mFilesYText;
-	
+
 	int				mPointSize;
-	
+
 	int				mKnobSize;
-	
+
 	ofRGBA			mCoverColor, mTextColor, mBorderColor, mFrameColor, mSliderColor, mAxisColor, mHandleColor, mButtonColor, mCurveColor, mScopeColor, mMatrixColor;
 
 private:
-	
-	ofxGuiGlobals();	
+
+	ofxGuiGlobals();
 };
 
 //	----------------------------------------------------------------------------------------------------

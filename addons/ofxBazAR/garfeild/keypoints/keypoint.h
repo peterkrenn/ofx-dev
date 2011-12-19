@@ -1,6 +1,6 @@
 /*
-Copyright 2005, 2006 Computer Vision Lab, 
-Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland. 
+Copyright 2005, 2006 Computer Vision Lab,
+Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland.
 All rights reserved.
 
 This file is part of BazAR.
@@ -16,7 +16,7 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 BazAR; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301, USA 
+Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 #ifndef KEYPOINT_H
 #define KEYPOINT_H
@@ -26,10 +26,10 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA
 /*! \defgroup keypoints Feature points detection
  * \ingroup garfeild
  */
-//! \ingroup keypoints 
+//! \ingroup keypoints
 //@{
 
-/*! 
+/*!
   \brief A 2D feature point as detected by a point detector (\ref yape for example).
 */
 class keypoint
@@ -40,8 +40,8 @@ public:
 
   //@{
   float u, v;  //!< 2D coordinates of the point
-  
-  float scale; //!< point scale 
+
+  float scale; //!< point scale
   float score; //!< higher is the score, stronger is the point
   //@}
 
@@ -61,8 +61,8 @@ public:
 
 /*! \file */
 
-/*! 
-  \fn CvPoint mcvPoint(keypoint & p) 
+/*!
+  \fn CvPoint mcvPoint(keypoint & p)
   \brief Convert a keypoint into a cvPoint from OpenCV
   \param p the point
 */

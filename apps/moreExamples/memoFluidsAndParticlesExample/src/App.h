@@ -62,7 +62,7 @@
 #define		GLITTER_NOISE_SIZE			400			// how much the noisemap is scaled down (the bigger the number, the more wiggly)
 
 
- 	
+
 #include "ofMain.h"
 
 #include "ofxOpenCv.h"
@@ -76,8 +76,8 @@
 #include "Balls.h"
 #include "Glitter.h"
 
-	
-	
+
+
 
 class App : public ofSimpleApp {
 		float mouseX, mouseY, mouseOldX, mouseOldY, mouseVelX, mouseVelY;
@@ -93,16 +93,16 @@ class App : public ofSimpleApp {
 		bool showGlitter;
 		bool showBalls;
 		bool doOpticalFlow;
-		
+
 	public:
-	
+
 		static float camThreshold;
 		static float camSilAlpha;
 		static bool mirrorVideo;
-		
+
 		float performanceDuration;		// duration of peformance, 5, 10, 15 minutes
 		float lastInitTime;
-	
+
 		MotionTracker	motionTracker[NUM_CAMERAS];
 		FluidTexture		fluid;
 		BallManager		balls;

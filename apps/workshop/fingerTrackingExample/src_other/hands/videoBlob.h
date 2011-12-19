@@ -6,10 +6,10 @@
 //#include "videoTexture.h"
 #define MAX_CONTOUR_LENGTH		100
 class videoBlob {
-	
+
 	public:
-	
-	
+
+
 		void set(ofxCvBlob myBlob, ofxCvColorImage myImage, ofxCvGrayscaleImage myMask);
 		void draw();
 		void drawDiagnostically();
@@ -17,25 +17,25 @@ class videoBlob {
 		// these are both helpful for interaction:
 		void draw(ofxCvGrayscaleImage &mom, int color);
 		bool pointInsideMe(float x, float y);
-		
-		
+
+
 		void update();
-		
-		
-		
-		
+
+
+
+
 		ofxCvBlob 			blob;
-//		videoTexture 		myTexture;	
-		
+//		videoTexture 		myTexture;
+
 		//----------------------------------------- translating points
 		ofPoint				pos;
 		float 				angle;
 		float 				scale;
-		int					nPts;						
+		int					nPts;
 		ofPoint				pts[MAX_CONTOUR_LENGTH];
 		ofPoint 			texPts[4];
 		//-----------------------------------------
-		
+
 };
 
-#endif	
+#endif

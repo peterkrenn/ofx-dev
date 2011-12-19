@@ -1,6 +1,6 @@
 /*
-Copyright 2005, 2006 Computer Vision Lab, 
-Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland. 
+Copyright 2005, 2006 Computer Vision Lab,
+Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland.
 All rights reserved.
 
 This file is part of BazAR.
@@ -16,7 +16,7 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 BazAR; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301, USA 
+Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 #include <sys/stat.h> // for mkdir()
 #include <fstream>
@@ -71,20 +71,20 @@ void planar_object_recognizer::default_settings(void)
   keypoint_distance_threshold = 1.5;
 }
 
-void planar_object_recognizer::set_max_detected_pts(int max) 
+void planar_object_recognizer::set_max_detected_pts(int max)
 {
   if (max > 0 && max < hard_max_detected_pts)
     max_detected_pts = max;
 }
 
-void planar_object_recognizer::use_orientation_correction(void) 
+void planar_object_recognizer::use_orientation_correction(void)
 {
-  new_images_generator.set_use_orientation_correction(true); 
+  new_images_generator.set_use_orientation_correction(true);
 }
 
-void planar_object_recognizer::dont_use_orientation_correction(void) 
+void planar_object_recognizer::dont_use_orientation_correction(void)
 {
-  new_images_generator.set_use_orientation_correction(false); 
+  new_images_generator.set_use_orientation_correction(false);
 }
 
 void planar_object_recognizer::set_range_variation_for_theta(float min_theta, float max_theta)
@@ -97,18 +97,18 @@ void planar_object_recognizer::set_range_variation_for_phi(float min_phi, float 
   new_images_generator.set_range_variation_for_phi(min_phi, max_phi);
 }
 
-void planar_object_recognizer::independent_scaling(float min_lambda1, float max_lambda1, 
+void planar_object_recognizer::independent_scaling(float min_lambda1, float max_lambda1,
                                                    float min_lambda2, float max_lambda2)
 {
   new_images_generator.independent_scaling(min_lambda1, max_lambda1, min_lambda2, max_lambda2);
 }
 
-void planar_object_recognizer::constrained_scaling(float min_lambda1, float max_lambda1, 
-                                                   float min_lambda2, float max_lambda2, 
+void planar_object_recognizer::constrained_scaling(float min_lambda1, float max_lambda1,
+                                                   float min_lambda2, float max_lambda2,
                                                    float min_l1_l2,  float max_l1_l2)
 {
-  new_images_generator.constrained_scaling(min_lambda1, max_lambda1, 
-                                           min_lambda2, max_lambda2, 
+  new_images_generator.constrained_scaling(min_lambda1, max_lambda1,
+                                           min_lambda2, max_lambda2,
                                            min_l1_l2, max_l1_l2);
 }
 
@@ -117,9 +117,9 @@ void planar_object_recognizer::set_use_random_background(bool use_random_backgro
   new_images_generator.set_use_random_background(use_random_background);
 }
 
-void planar_object_recognizer::set_noise_level(int noise_level) 
+void planar_object_recognizer::set_noise_level(int noise_level)
 {
-  new_images_generator.set_noise_level(noise_level); 
+  new_images_generator.set_noise_level(noise_level);
 }
 
 /*! Build a classifier from the given model image. The result is not saved.
@@ -127,7 +127,7 @@ void planar_object_recognizer::set_noise_level(int noise_level)
   */
 bool planar_object_recognizer::build(IplImage *model_image,
                                                 int max_point_number_on_model, int patch_size,
-                                                int yape_radius, int tree_number, int nbLev, 
+                                                int yape_radius, int tree_number, int nbLev,
                                                 LEARNPROGRESSION LearnProgress, int *roi)
 {
   new_images_generator.set_patch_size(patch_size);
@@ -141,7 +141,7 @@ bool planar_object_recognizer::build(IplImage *model_image,
   }
 
   if (roi)
-	  new_images_generator.set_original_image(model, 
+	  new_images_generator.set_original_image(model,
 			  roi[0], roi[1],
 			  roi[2], roi[3],
 			  roi[4], roi[5],
@@ -162,19 +162,19 @@ bool planar_object_recognizer::build(IplImage *model_image,
 }
 
 
-bool planar_object_recognizer::build_with_cache(string filename, 
+bool planar_object_recognizer::build_with_cache(string filename,
                                                 int max_point_number_on_model, int patch_size,
-                                                int yape_radius, int tree_number, int nbLev, 
+                                                int yape_radius, int tree_number, int nbLev,
                                                 LEARNPROGRESSION LearnProgress)
 {
   new_images_generator.set_patch_size(patch_size);
-  
+
   filename = ofToDataPath( filename );
 
   string dirname(filename + ".classifier");
   if (load(dirname)) return true;
 
-  IplImage * model = mcvLoadImage(filename.data(), 0); 
+  IplImage * model = mcvLoadImage(filename.data(), 0);
   if (model == 0 ) return false;
 
   string roifn(filename + ".roi");
@@ -248,12 +248,12 @@ bool planar_object_recognizer::load(string directory_name)
   ofImage _img = ofImage();
   _img.loadImage(image_name);
   _img.setImageType(OF_IMAGE_GRAYSCALE);
-  
+
   ofxCvGrayscaleImage _im; _im.allocate(320,240); _im = _img.getPixels();
   IplImage * original_image = cvCloneImage( _im.getCvImage() );
-  
-  
-  new_images_generator.set_original_image( original_image , 
+
+
+  new_images_generator.set_original_image( original_image ,
     u_corner1, v_corner1, u_corner2, v_corner2, u_corner3, v_corner3, u_corner4, v_corner4);
   cvReleaseImage(&original_image);
 
@@ -281,11 +281,11 @@ bool planar_object_recognizer::load(string directory_name)
 
   // Read image classification forest for this object:
   forest = new image_classification_forest();
-  
-  if ( !forest->load(directory_name) ) 
-  { 
-    delete forest; 
-    return false; 
+
+  if ( !forest->load(directory_name) )
+  {
+    delete forest;
+    return false;
   }
 
   // Match probabilities:
@@ -306,7 +306,7 @@ bool planar_object_recognizer::load(string directory_name)
 void planar_object_recognizer::initialize(void)
 {
   object_input_view = new object_view(new_images_generator.original_image->width,
-                                      new_images_generator.original_image->height, 
+                                      new_images_generator.original_image->height,
                                       new_images_generator.level_number);
 
   // For motion_estimation:
@@ -335,7 +335,7 @@ planar_object_recognizer::~planar_object_recognizer(void)
       delete [] match_probabilities[i];
   }
 
-  if (detected_points) delete[] detected_points; 
+  if (detected_points) delete[] detected_points;
   if (detected_point_views) delete[] detected_point_views;
   if (affine_motion) delete affine_motion;
   if (H) delete H;
@@ -343,7 +343,7 @@ planar_object_recognizer::~planar_object_recognizer(void)
 }
 
 void planar_object_recognizer::learn(int max_point_number_on_model, int patch_size,
-                                     int yape_radius, int tree_number, int nbLev, 
+                                     int yape_radius, int tree_number, int nbLev,
                                      LEARNPROGRESSION LearnProgress)
 {
   if (point_detector) delete point_detector;
@@ -374,7 +374,7 @@ void planar_object_recognizer::learn(int max_point_number_on_model, int patch_si
 void planar_object_recognizer::save(string directory_name)
 {
 directory_name = ofToDataPath( directory_name );
-	
+
 #ifndef WIN32
   mkdir(directory_name.data(), S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IWOTH);
 #else
@@ -404,9 +404,9 @@ directory_name = ofToDataPath( directory_name );
   char point_filename[1000];
   sprintf(point_filename, "%s/keypoints.txt", directory_name.data());
   ofstream pf(point_filename);
-  pf << model_point_number << endl; 
+  pf << model_point_number << endl;
   for(int i = 0; i < model_point_number; i++)
-    pf << model_points[i].M[0] << " " << model_points[i].M[1] 
+    pf << model_points[i].M[0] << " " << model_points[i].M[1]
     << " " << model_points[i].M[2]
     << " " << model_points[i].scale << endl;
   pf.close();
@@ -420,8 +420,8 @@ void planar_object_recognizer::detect_points(IplImage * input_image)
   point_detector->set_use_bins(use_bins_for_input_image);
   point_detector->set_tau(10);
 
-  detected_point_number = point_detector->pyramidBlurDetect(input_image, 
-                                                            detected_points, max_detected_pts, 
+  detected_point_number = point_detector->pyramidBlurDetect(input_image,
+                                                            detected_points, max_detected_pts,
                                                             &object_input_view->image);
 }
 
@@ -438,7 +438,7 @@ void planar_object_recognizer::preprocess_points(void)
     float u = pv->point2d->u, v = pv->point2d->v;
     int s = int(pv->point2d->scale);
 
-    if (u > (patch_size/2) && u < object_input_view->image[s]->width - (patch_size/2) && 
+    if (u > (patch_size/2) && u < object_input_view->image[s]->width - (patch_size/2) &&
         v > (patch_size/2) && v < object_input_view->image[s]->height - (patch_size/2))
     {
       new_images_generator.preprocess_point_view(pv, object_input_view);
@@ -460,7 +460,7 @@ void planar_object_recognizer::match_points(bool fill_match_struct)
     float u = pv->point2d->u, v = pv->point2d->v;
     int s = int(pv->point2d->scale);
 
-    if (u > (patch_size/2) && u < object_input_view->image[s]->width - (patch_size/2) && 
+    if (u > (patch_size/2) && u < object_input_view->image[s]->width - (patch_size/2) &&
         v > (patch_size/2) && v < object_input_view->image[s]->height - (patch_size/2))
     {
       forest->posterior_probabilities(pv, match_probabilities[i]);
@@ -497,14 +497,14 @@ bool planar_object_recognizer::detect(IplImage * input_image)
   object_is_detected = false;
 
   object_is_detected = estimate_affine_transformation(); // Estimation of "affine_motion" using Ransac.
-  
-  affine_motion->transform_point(float(new_images_generator.u_corner1), 
+
+  affine_motion->transform_point(float(new_images_generator.u_corner1),
                                  float(new_images_generator.v_corner1), &detected_u_corner1, &detected_v_corner1);
-  affine_motion->transform_point(float(new_images_generator.u_corner2), 
+  affine_motion->transform_point(float(new_images_generator.u_corner2),
                                  float(new_images_generator.v_corner2), &detected_u_corner2, &detected_v_corner2);
-  affine_motion->transform_point(float(new_images_generator.u_corner3), 
+  affine_motion->transform_point(float(new_images_generator.u_corner3),
                                  float(new_images_generator.v_corner3), &detected_u_corner3, &detected_v_corner3);
-  affine_motion->transform_point(float(new_images_generator.u_corner4), 
+  affine_motion->transform_point(float(new_images_generator.u_corner4),
                                  float(new_images_generator.v_corner4), &detected_u_corner4, &detected_v_corner4);
 
   if (object_is_detected)
@@ -513,13 +513,13 @@ bool planar_object_recognizer::detect(IplImage * input_image)
 
     if (object_is_detected)
     {
-      H->transform_point(float(new_images_generator.u_corner1), 
+      H->transform_point(float(new_images_generator.u_corner1),
                          float(new_images_generator.v_corner1), &detected_u_corner1, &detected_v_corner1);
-      H->transform_point(float(new_images_generator.u_corner2), 
+      H->transform_point(float(new_images_generator.u_corner2),
                          float(new_images_generator.v_corner2), &detected_u_corner2, &detected_v_corner2);
       H->transform_point(float(new_images_generator.u_corner3),
                          float(new_images_generator.v_corner3), &detected_u_corner3, &detected_v_corner3);
-      H->transform_point(float(new_images_generator.u_corner4), 
+      H->transform_point(float(new_images_generator.u_corner4),
                          float(new_images_generator.v_corner4), &detected_u_corner4, &detected_v_corner4);
 
       //cout << "-------------------------" << endl;
@@ -545,7 +545,7 @@ bool planar_object_recognizer::detect(IplImage * input_image)
 
 bool planar_object_recognizer::three_random_correspondences(int * n1, int * n2, int * n3)
 {
-  if (match_number == 0) 
+  if (match_number == 0)
     return false;
 
   int shot = 0;
@@ -716,13 +716,13 @@ bool planar_object_recognizer::estimate_homographic_transformation_linear_method
   H->estimate();
 
   return true;
-} 
+}
 
 static void homography_error(
-                             const ls_minimizer2::flt_t * state, 
+                             const ls_minimizer2::flt_t * state,
                              const ls_minimizer2::flt_t *d, int dsize,
                              ls_minimizer2::flt_t *b,
-                             ls_minimizer2::flt_t *J, 
+                             ls_minimizer2::flt_t *J,
                              void ** /*user_data*/)
 {
   double den = 1. / (state[6] * d[0] + state[7] * d[1] + 1.);
@@ -787,9 +787,9 @@ bool planar_object_recognizer::estimate_homographic_transformation_nonlinear_met
 
 	double * state = homography_estimator->state;
 
-	H->cvmSet(0, 0, state[0]); H->cvmSet(0, 1, state[1]); H->cvmSet(0, 2, state[2]); 
-	H->cvmSet(1, 0, state[3]); H->cvmSet(1, 1, state[4]); H->cvmSet(1, 2, state[5]); 
-	H->cvmSet(2, 0, state[6]); H->cvmSet(2, 1, state[7]); H->cvmSet(2, 2, 1.); 
+	H->cvmSet(0, 0, state[0]); H->cvmSet(0, 1, state[1]); H->cvmSet(0, 2, state[2]);
+	H->cvmSet(1, 0, state[3]); H->cvmSet(1, 1, state[4]); H->cvmSet(1, 2, state[5]);
+	H->cvmSet(2, 0, state[6]); H->cvmSet(2, 1, state[7]); H->cvmSet(2, 2, 1.);
 
 	homography_estimator->reset_observations();
 	for (int iter=0; iter<2; iter++) {
@@ -804,7 +804,7 @@ bool planar_object_recognizer::estimate_homographic_transformation_nonlinear_met
 			double du = hmu-tu;
 			double dv = hmv-tv;
 
-			if (sqrt(du*du+dv*dv)< non_linear_refine_threshold) { 
+			if (sqrt(du*du+dv*dv)< non_linear_refine_threshold) {
 				matches[i].inlier=true;
 				inlier_number++;
 				if (iter==0) {
@@ -820,9 +820,9 @@ bool planar_object_recognizer::estimate_homographic_transformation_nonlinear_met
 			homography_estimator->minimize_using_levenberg_marquardt_from(state);
 			state = homography_estimator->state;
 
-			H->cvmSet(0, 0, state[0]); H->cvmSet(0, 1, state[1]); H->cvmSet(0, 2, state[2]); 
-			H->cvmSet(1, 0, state[3]); H->cvmSet(1, 1, state[4]); H->cvmSet(1, 2, state[5]); 
-			H->cvmSet(2, 0, state[6]); H->cvmSet(2, 1, state[7]); H->cvmSet(2, 2, 1.); 
+			H->cvmSet(0, 0, state[0]); H->cvmSet(0, 1, state[1]); H->cvmSet(0, 2, state[2]);
+			H->cvmSet(1, 0, state[3]); H->cvmSet(1, 1, state[4]); H->cvmSet(1, 2, state[5]);
+			H->cvmSet(2, 0, state[6]); H->cvmSet(2, 1, state[7]); H->cvmSet(2, 2, 1.);
 		}
 	}
 	if (inlier_number	< 10){
@@ -833,12 +833,12 @@ bool planar_object_recognizer::estimate_homographic_transformation_nonlinear_met
 	homography_estimator->reset_observations();
 
 	return true;
-} 
+}
 
 void planar_object_recognizer::save_patch_before_and_after_correction(IplImage * image_before_smoothing,
                                                                       int u, int v, int patch_size,
                                                                       image_class_example * pv,
-                                                                      int point_index, 
+                                                                      int point_index,
                                                                       int call_number)
 {
   char name[1000];
@@ -862,9 +862,9 @@ pair<object_keypoint, int> * planar_object_recognizer::search_for_existing_model
     it < tmp_model_points->end();
     it++)
     if (int(it->first.scale) == scale)
-    { 
-      float dist2 = 
-        (float(it->first.M[0]) - cu) * (float(it->first.M[0]) - cu) + 
+    {
+      float dist2 =
+        (float(it->first.M[0]) - cu) * (float(it->first.M[0]) - cu) +
         (float(it->first.M[1]) - cv) * (float(it->first.M[1]) - cv);
 
       if (dist2 < keypoint_distance_threshold * keypoint_distance_threshold)
@@ -880,7 +880,7 @@ bool cmp_tmp_model_points(pair<object_keypoint, int> p1, pair<object_keypoint, i
 }
 
 // Selection of the interest points from the image model
-void planar_object_recognizer::detect_most_stable_model_points(int max_point_number_on_model, 
+void planar_object_recognizer::detect_most_stable_model_points(int max_point_number_on_model,
                                                                int patch_size,
                                                                int view_nb, double min_view_rate,
                                                                LEARNPROGRESSION LearnProgress)
@@ -893,7 +893,7 @@ void planar_object_recognizer::detect_most_stable_model_points(int max_point_num
   keypoint * model_points_2d = new keypoint[K * max_point_number_on_model];
 
   // First detection of interest points in the image model (frontal view):
-  int model_point2d_number = point_detector->pyramidBlurDetect(new_images_generator.original_image, model_points_2d, 
+  int model_point2d_number = point_detector->pyramidBlurDetect(new_images_generator.original_image, model_points_2d,
                                                                K * max_point_number_on_model);
 
   // Save an image of the interest points detected in the frontal view
@@ -908,7 +908,7 @@ void planar_object_recognizer::detect_most_stable_model_points(int max_point_num
     {
       model_points[model_point_number].M[0]  = k->u;
       model_points[model_point_number].M[1]  = k->v;
-      model_points[model_point_number].M[2]  = 0; 
+      model_points[model_point_number].M[2]  = 0;
       model_points[model_point_number].scale = k->scale;
 
       model_point_number++;
@@ -924,7 +924,7 @@ void planar_object_recognizer::detect_most_stable_model_points(int max_point_num
   // Create tmp_model_points (vector) from model_points_2d (array of keypoints)
   // tmp_model_points will be used afterward
   for(int i = 0; i < model_point2d_number; i++)
-  { 
+  {
     keypoint * k = model_points_2d + i;
 
     if (new_images_generator.inside_roi( // Keep point only if it is on the target roi
@@ -955,10 +955,10 @@ void planar_object_recognizer::detect_most_stable_model_points(int max_point_num
   // Generate random views and run detection on each view to determine the most frequent interest points
   bool use_random_background = new_images_generator.use_random_background;
   new_images_generator.set_use_random_background(false);
-  
-  for(int j = 0; j < view_nb; j++) 
+
+  for(int j = 0; j < view_nb; j++)
   {
-    if (LearnProgress!=0) 
+    if (LearnProgress!=0)
       LearnProgress(DETECT_MODEL_POINTS, j, view_nb);
     else
       cout << "Generating views: " << view_nb - j << "         \r" << flush;
@@ -966,14 +966,14 @@ void planar_object_recognizer::detect_most_stable_model_points(int max_point_num
     new_images_generator.generate_random_affine_transformation();
     new_images_generator.generate_object_view();
 
-    int current_detected_point_number = point_detector->detect(&(new_images_generator.smoothed_generated_object_view->image), 
+    int current_detected_point_number = point_detector->detect(&(new_images_generator.smoothed_generated_object_view->image),
                                                                  model_points_2d, K * max_point_number_on_model);
 
     for(int i = 0; i < current_detected_point_number; i++)
     {
       keypoint * k = model_points_2d + i;
       float nu, nv;
-      new_images_generator.inverse_affine_transformation(PyrImage::convCoordf(k->u, int(k->scale), 0), 
+      new_images_generator.inverse_affine_transformation(PyrImage::convCoordf(k->u, int(k->scale), 0),
                                                          PyrImage::convCoordf(k->v, int(k->scale), 0),
                                                          nu, nv);
 
@@ -1010,7 +1010,7 @@ void planar_object_recognizer::detect_most_stable_model_points(int max_point_num
       }
     }
   }
-  
+
   new_images_generator.set_use_random_background(use_random_background);
 
   sort(tmp_model_points.begin(), tmp_model_points.end(), cmp_tmp_model_points);
@@ -1019,7 +1019,7 @@ void planar_object_recognizer::detect_most_stable_model_points(int max_point_num
   int i;
   model_points = new object_keypoint[max_point_number_on_model];
   vector< pair<object_keypoint, int> >::iterator it;
-  
+
   for( it = tmp_model_points.begin(), i = 0;
       (it < tmp_model_points.end()) && (i < max_point_number_on_model) && (it->second >= min_views);
        it++, i++)
@@ -1033,7 +1033,7 @@ void planar_object_recognizer::detect_most_stable_model_points(int max_point_num
     if (i == 0)
       cout << "Point " << i << " detected " << it->second << " times." << endl;
   }
-  cout << "... Point " << i << " detected " << it->second << " times (" 
+  cout << "... Point " << i << " detected " << it->second << " times ("
        << view_nb << " generated views, "
        << min_view_rate*100 << "% minimum rate)." << endl;
 
@@ -1053,10 +1053,10 @@ void planar_object_recognizer::save_image_of_model_points(int patch_size, char *
   IplImage* model_image = mcvGrayToColor(new_images_generator.original_image);
 
   for(int i = 0; i < model_point_number; i++)
-    cvCircle(model_image, 
-             cvPoint((int)PyrImage::convCoordf(float(model_points[i].M[0]), int(model_points[i].scale), 0), 
+    cvCircle(model_image,
+             cvPoint((int)PyrImage::convCoordf(float(model_points[i].M[0]), int(model_points[i].scale), 0),
                                                (int)PyrImage::convCoordf(float(model_points[i].M[1]), int(model_points[i].scale), 0)),
-                                               (int)PyrImage::convCoordf(patch_size/2.f, int(model_points[i].scale), 0), 
+                                               (int)PyrImage::convCoordf(patch_size/2.f, int(model_points[i].scale), 0),
              mcvRainbowColor(int(model_points[i].scale)), 1);
 
   if (filename == 0)
@@ -1067,13 +1067,13 @@ void planar_object_recognizer::save_image_of_model_points(int patch_size, char *
   cvReleaseImage(&model_image);
 }
 
-IplImage * planar_object_recognizer::create_result_image(IplImage * input_image, 
+IplImage * planar_object_recognizer::create_result_image(IplImage * input_image,
                                                          bool p_draw_points,
                                                          bool p_draw_matches,
                                                          bool p_draw_object,
                                                          bool p_draw_model_image,
                                                          int line_width)
-{  
+{
   concat_model_and_input_images(input_image, p_draw_model_image);
 
   if (p_draw_points) draw_points(line_width);
@@ -1092,10 +1092,10 @@ IplImage * planar_object_recognizer::create_result_image(IplImage * input_image,
 
 void planar_object_recognizer::draw_model(void)
 {
-  CvPoint C1 = cvPoint(int(u_input_image + detected_u_corner1), int(v_input_image + detected_v_corner1)); 
-  CvPoint C2 = cvPoint(int(u_input_image + detected_u_corner2), int(v_input_image + detected_v_corner2)); 
-  CvPoint C3 = cvPoint(int(u_input_image + detected_u_corner3), int(v_input_image + detected_v_corner3)); 
-  CvPoint C4 = cvPoint(int(u_input_image + detected_u_corner4), int(v_input_image + detected_v_corner4)); 
+  CvPoint C1 = cvPoint(int(u_input_image + detected_u_corner1), int(v_input_image + detected_v_corner1));
+  CvPoint C2 = cvPoint(int(u_input_image + detected_u_corner2), int(v_input_image + detected_v_corner2));
+  CvPoint C3 = cvPoint(int(u_input_image + detected_u_corner3), int(v_input_image + detected_v_corner3));
+  CvPoint C4 = cvPoint(int(u_input_image + detected_u_corner4), int(v_input_image + detected_v_corner4));
   CvScalar col;
 
   col = cvScalar(0, 0, 0);
@@ -1124,13 +1124,13 @@ void planar_object_recognizer::save_one_image_per_match_input_to_model(IplImage 
     float u = pv->point2d->u, v = pv->point2d->v;
     int s = int(pv->point2d->scale);
 
-    if (u > (patch_size/2) && u < object_input_view->image[s]->width - (patch_size/2) && 
+    if (u > (patch_size/2) && u < object_input_view->image[s]->width - (patch_size/2) &&
         v > (patch_size/2) && v < object_input_view->image[s]->height - (patch_size/2))
     {
-      CvPoint ip = cvPoint(u_input_image + int(PyrImage::convCoordf(pv->point2d->u, int(pv->point2d->scale),0)), 
+      CvPoint ip = cvPoint(u_input_image + int(PyrImage::convCoordf(pv->point2d->u, int(pv->point2d->scale),0)),
                            v_input_image + int(PyrImage::convCoordf(pv->point2d->v, int(pv->point2d->scale),0)));
 
-      cvCircle(model_and_input_images, ip,     
+      cvCircle(model_and_input_images, ip,
                int(PyrImage::convCoordf(patch_size/2.f, int(pv->point2d->scale),0)), cvScalar(255, 255, 255), 1);
 
       float best_P = match_probabilities[i][0];
@@ -1142,7 +1142,7 @@ void planar_object_recognizer::save_one_image_per_match_input_to_model(IplImage 
           object_keypoint * M = &(model_points[j]);
           int level = MIN(255, int(match_probabilities[i][j] / 0.2 * 255));
           CvScalar col = cvScalar(level, level, level);
-          CvPoint mp = cvPoint(int(PyrImage::convCoordf(float(M->M[0]), int(M->scale), 0)), 
+          CvPoint mp = cvPoint(int(PyrImage::convCoordf(float(M->M[0]), int(M->scale), 0)),
                                int(PyrImage::convCoordf(float(M->M[1]), int(M->scale), 0)));
 
           cvCircle(model_and_input_images, mp, (int)PyrImage::convCoordf(patch_size/2.f, int(M->scale), 0), col, 1);
@@ -1161,7 +1161,7 @@ void planar_object_recognizer::save_one_image_per_match_input_to_model(IplImage 
         object_keypoint * M = &(model_points[index_best_P]);
         int level = MIN(255, int(match_probabilities[i][index_best_P] / 0.2 * 255));
         CvScalar col = cvScalar(level, level, level);
-        CvPoint mp = cvPoint(int(PyrImage::convCoordf(float(M->M[0]), int(M->scale), 0)), 
+        CvPoint mp = cvPoint(int(PyrImage::convCoordf(float(M->M[0]), int(M->scale), 0)),
                              int(PyrImage::convCoordf(float(M->M[1]), int(M->scale), 0)));
 
         cvCircle(model_and_input_images, mp, int(PyrImage::convCoordf(patch_size/2.f, int(M->scale),0)),col,1);
@@ -1187,11 +1187,11 @@ void planar_object_recognizer::save_one_image_per_match_model_to_input(IplImage 
     //  draw_input_image_points();
 
     object_keypoint * M = &(model_points[j]);
-    CvPoint mp = cvPoint(int(PyrImage::convCoordf(float(M->M[0]), int(M->scale), 0)), 
+    CvPoint mp = cvPoint(int(PyrImage::convCoordf(float(M->M[0]), int(M->scale), 0)),
                          int(PyrImage::convCoordf(float(M->M[1]), int(M->scale), 0)));
-    cvCircle(model_and_input_images, mp, 
+    cvCircle(model_and_input_images, mp,
              int(PyrImage::convCoordf(patch_size/2.f, int(M->scale),0)), cvScalar(0, 0, 0), 3);
-    cvCircle(model_and_input_images, mp, 
+    cvCircle(model_and_input_images, mp,
              int(PyrImage::convCoordf(patch_size/2.f, int(M->scale),0)), cvScalar(255, 255, 255), 1);
 
     float best_P = match_probabilities[0][j];
@@ -1202,7 +1202,7 @@ void planar_object_recognizer::save_one_image_per_match_model_to_input(IplImage 
       float u = pv->point2d->u, v = pv->point2d->v;
       int s = int(pv->point2d->scale);
 
-      if (u > (patch_size / 2) && u < object_input_view->image[s]->width - (patch_size / 2) && 
+      if (u > (patch_size / 2) && u < object_input_view->image[s]->width - (patch_size / 2) &&
           v > (patch_size / 2) && v < object_input_view->image[s]->height - (patch_size / 2))
       {
         if (best_P < match_probabilities[i][j])
@@ -1218,16 +1218,16 @@ void planar_object_recognizer::save_one_image_per_match_model_to_input(IplImage 
       float u = pv->point2d->u, v = pv->point2d->v;
       int s = int(pv->point2d->scale);
 
-      CvPoint ip = cvPoint(u_input_image + int(PyrImage::convCoordf(u,s,0)), 
+      CvPoint ip = cvPoint(u_input_image + int(PyrImage::convCoordf(u,s,0)),
                            v_input_image + int(PyrImage::convCoordf(v,s,0)));
 
-      cvCircle(model_and_input_images, ip,     
-        int(PyrImage::convCoordf(patch_size/2.f,int(pv->point2d->scale),0)), 
+      cvCircle(model_and_input_images, ip,
+        int(PyrImage::convCoordf(patch_size/2.f,int(pv->point2d->scale),0)),
         cvScalar(0, 0, 0), 3);
       cvLine(model_and_input_images, ip, mp, cvScalar(0, 0, 0), 3);
 
-      cvCircle(model_and_input_images, ip,     
-              int(PyrImage::convCoordf(patch_size/2.f,int(pv->point2d->scale),0)), 
+      cvCircle(model_and_input_images, ip,
+              int(PyrImage::convCoordf(patch_size/2.f,int(pv->point2d->scale),0)),
               cvScalar(255, 255, 255), 2);
       cvLine(model_and_input_images, ip, mp, cvScalar(255, 255, 255), 2);
     }
@@ -1247,25 +1247,25 @@ void planar_object_recognizer::save_one_image_per_match(IplImage * input_image, 
   {
     image_object_point_match * match = &(matches[i]);
 
-    if (!match->inlier) 
+    if (!match->inlier)
       continue;
 
     concat_model_and_input_images(input_image);
 
-    CvPoint M = cvPoint(int(PyrImage::convCoordf(float(match->object_point->M[0]), int(match->object_point->scale), 0)), 
+    CvPoint M = cvPoint(int(PyrImage::convCoordf(float(match->object_point->M[0]), int(match->object_point->scale), 0)),
                         int(PyrImage::convCoordf(float(match->object_point->M[1]), int(match->object_point->scale), 0)));
 
-    cvCircle(model_and_input_images, 
+    cvCircle(model_and_input_images,
              M, int(PyrImage::convCoordf(patch_size/2.f, int(match->object_point->scale), 0)), cvScalar(0, 0, 0), 3);
-    cvCircle(model_and_input_images, 
+    cvCircle(model_and_input_images,
              M, int(PyrImage::convCoordf(patch_size/2.f, int(match->object_point->scale), 0)), cvScalar(255, 255, 255), 1);
 
-    CvPoint m = cvPoint(u_input_image + (int)PyrImage::convCoordf(match->image_point->u, int(match->object_point->scale), 0), 
+    CvPoint m = cvPoint(u_input_image + (int)PyrImage::convCoordf(match->image_point->u, int(match->object_point->scale), 0),
                         v_input_image + (int)PyrImage::convCoordf(match->image_point->v, int(match->object_point->scale), 0));
 
-    cvCircle(model_and_input_images, 
+    cvCircle(model_and_input_images,
              m, int(PyrImage::convCoordf(patch_size/2.f, int(match->object_point->scale), 0)), cvScalar(0, 0, 0), 3);
-    cvCircle(model_and_input_images, 
+    cvCircle(model_and_input_images,
              m, int(PyrImage::convCoordf(patch_size/2.f, int(match->object_point->scale), 0)), cvScalar(255, 255, 255), 1);
 
     char image_name[1000];
@@ -1282,8 +1282,8 @@ void planar_object_recognizer::concat_model_and_input_images(IplImage * input_im
 
   if (draw_model_image)
   {
-    model_and_input_images = 
-      cvCreateImage(cvSize(max(new_images_generator.original_image->width, input_image->width), 
+    model_and_input_images =
+      cvCreateImage(cvSize(max(new_images_generator.original_image->width, input_image->width),
       new_images_generator.original_image->height + input_image->height + 10), IPL_DEPTH_8U, 3);
 
     cvSet(model_and_input_images, cvScalar(128, 128, 128));
@@ -1319,8 +1319,8 @@ void planar_object_recognizer::draw_model_points(int line_width)
   int patch_size = forest->image_width;
 
   for(int i = 0; i < model_point_number; i++)
-    cvCircle(model_and_input_images, 
-    cvPoint(x0 + (int)PyrImage::convCoordf(float(model_points[i].M[0]), int(model_points[i].scale), 0), 
+    cvCircle(model_and_input_images,
+    cvPoint(x0 + (int)PyrImage::convCoordf(float(model_points[i].M[0]), int(model_points[i].scale), 0),
             y0 + (int)PyrImage::convCoordf(float(model_points[i].M[1]), int(model_points[i].scale), 0)),
            (int)PyrImage::convCoordf(patch_size/2.f, int(model_points[i].scale), 0), CV_RGB(0, 0, 255), line_width);
 }
@@ -1330,10 +1330,10 @@ void planar_object_recognizer::draw_input_image_points(int line_width)
   int patch_size = forest->image_width;
 
   for(int i = 0; i < detected_point_number; i++)
-    cvCircle(model_and_input_images, 
-             cvPoint(u_input_image + (int)PyrImage::convCoordf(detected_points[i].u, int(detected_points[i].scale), 0), 
+    cvCircle(model_and_input_images,
+             cvPoint(u_input_image + (int)PyrImage::convCoordf(detected_points[i].u, int(detected_points[i].scale), 0),
                      v_input_image + (int)PyrImage::convCoordf(detected_points[i].v, int(detected_points[i].scale), 0)),
-             (int)PyrImage::convCoordf(patch_size/2.f, int(detected_points[i].scale), 0), 
+             (int)PyrImage::convCoordf(patch_size/2.f, int(detected_points[i].scale), 0),
              mcvRainbowColor(int(detected_points[i].scale)), line_width);
 }
 
@@ -1347,10 +1347,10 @@ void planar_object_recognizer::draw_matches(int line_width)
     {
       CvScalar col = cvScalar(255, 255, 255);
 
-      cvLine(model_and_input_images, 
-        cvPoint(int(PyrImage::convCoordf(float(match->object_point->M[0]), int(match->object_point->scale), 0)), 
+      cvLine(model_and_input_images,
+        cvPoint(int(PyrImage::convCoordf(float(match->object_point->M[0]), int(match->object_point->scale), 0)),
                 int(PyrImage::convCoordf(float(match->object_point->M[1]), int(match->object_point->scale), 0))),
-                 cvPoint(u_input_image + int(PyrImage::convCoordf(match->image_point->u, int(match->image_point->scale), 0)), 
+                 cvPoint(u_input_image + int(PyrImage::convCoordf(match->image_point->u, int(match->image_point->scale), 0)),
                          v_input_image + int(PyrImage::convCoordf(match->image_point->v, int(match->image_point->scale), 0))),
         col, line_width);
     }
@@ -1365,9 +1365,9 @@ void planar_object_recognizer::draw_inlier_matches(int line_width)
 
     if (match->inlier)
     {
-      cvLine(model_and_input_images, 
+      cvLine(model_and_input_images,
              cvPoint( u_input_image+int(match->image_point->u), v_input_image+int(match->image_point->v) ),
-             cvPoint((int)match->object_point->M[0], (int)match->object_point->M[1]), 
+             cvPoint((int)match->object_point->M[0], (int)match->object_point->M[1]),
              CV_RGB(255,0,0), line_width);
     }
   }
@@ -1385,8 +1385,8 @@ void planar_object_recognizer::check_target_size(IplImage *image)
 	if (object_input_view->image[0]->width == w &&
 			object_input_view->image[0]->height ==h)
 		// Nothing to do: allocated resources have the right size
-		return; 
-	
+		return;
+
 	//int u[4] = {-1, -1, -1, -1};
 	//int v[4] = {-1, -1, -1, -1};
 

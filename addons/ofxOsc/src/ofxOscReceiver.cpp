@@ -30,7 +30,7 @@
 ofxOscReceiver::ofxOscReceiver()
 {
 	listen_socket = NULL;
-	
+
 #ifdef TARGET_WIN32
 	mutex = CreateMutexA( NULL, FALSE, NULL );
 #else

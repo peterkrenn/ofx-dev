@@ -29,20 +29,20 @@ class testApp : public ofBaseApp {
 		#else
 		  ofVideoPlayer 		vidPlayer;
 		#endif
-        
+
         ofxCvColorImage			colorImg;
-        
+
         ofxCvGrayscaleImage 	grayImage;
 		ofxCvGrayscaleImage 	grayBg;
 		ofxCvGrayscaleImage 	grayDiff;
-		
+
         ofxCvContourFinder		contourFinder;
 		ofxCvHaarFinder			haarFinder;
 
 		int						threshold;
 		bool					bLearnBakground;
-		
-		
+
+
 };
 
 #endif

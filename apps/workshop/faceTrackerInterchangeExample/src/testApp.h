@@ -17,7 +17,7 @@ class testApp : public ofSimpleApp{
 		void setup();
 		void update();
 		void draw();
-        
+
 		void keyPressed  (int key);
 		void mouseMoved(int x, int y );
 		void mouseDragged(int x, int y, int button);
@@ -29,19 +29,19 @@ class testApp : public ofSimpleApp{
 	#else
 		ofVideoPlayer 		vidPlayer;
 	#endif
-        
+
         ofxCvGrayscaleImage 	grayImage;
 	ofxCvGrayscaleImage 	grayBg;
 	ofxCvGrayscaleImage 	grayDiff;
 	ofxCvColorImage		colorImg;
-        
+
         ofxCvContourFinder 	contourFinder;
         ofxCvHaarFinder      	haarfinder;
         ofImage             	jesus;
-        
+
 	int 			threshold;
 	bool			bLearnBakground;
-        
+
         // audio
 	float * left;
 	float * right;

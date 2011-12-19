@@ -41,7 +41,7 @@ typedef unsigned char xmlChar;
 XMLPUBFUN xmlChar * XMLCALL
                 xmlStrdup                (const xmlChar *cur);
 XMLPUBFUN xmlChar * XMLCALL
-                xmlStrndup               (const xmlChar *cur, 
+                xmlStrndup               (const xmlChar *cur,
 					 intptr_t len);
 XMLPUBFUN xmlChar * XMLCALL
                 xmlCharStrndup           (const char *cur,
@@ -114,16 +114,16 @@ XMLPUBFUN intptr_t XMLCALL
 XMLPUBFUN intptr_t XMLCALL
         xmlUTF8Strsize                   (const xmlChar *utf,
                                          intptr_t len);
-XMLPUBFUN xmlChar * XMLCALL 
+XMLPUBFUN xmlChar * XMLCALL
         xmlUTF8Strndup                   (const xmlChar *utf,
                                          intptr_t len);
-XMLPUBFUN const xmlChar * XMLCALL 
+XMLPUBFUN const xmlChar * XMLCALL
         xmlUTF8Strpos                    (const xmlChar *utf,
                                          intptr_t pos);
 XMLPUBFUN intptr_t XMLCALL
         xmlUTF8Strloc                    (const xmlChar *utf,
                                          const xmlChar *utfchar);
-XMLPUBFUN xmlChar * XMLCALL 
+XMLPUBFUN xmlChar * XMLCALL
         xmlUTF8Strsub                    (const xmlChar *utf,
                                          intptr_t start,
                                          intptr_t len);

@@ -1,7 +1,7 @@
 #include <iostream>
 #include "ipltexture.h"
 
-IplTexture::~IplTexture() 
+IplTexture::~IplTexture()
 {
 	if (downsampled) cvReleaseImage(&downsampled);
 }
@@ -122,7 +122,7 @@ void IplTexture::setImage(IplImage *image)
 
 void IplTexture::regen()
 {
-       	update(); 
-	textureGenerated = false; 
+       	update();
+	textureGenerated = false;
 }
 

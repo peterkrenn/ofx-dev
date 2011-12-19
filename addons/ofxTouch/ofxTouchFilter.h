@@ -6,12 +6,12 @@
 
 class ofxTouchFilter {
   public:
-        
-    virtual void allocate( int w, int h ) = 0;    
+
+    virtual void allocate( int w, int h ) = 0;
     virtual void process( ofxCvGrayscaleImage& img ) = 0;
     virtual void draw() = 0;
     virtual void keyPressed( int key ) = 0;
-    
+
 };
 
 

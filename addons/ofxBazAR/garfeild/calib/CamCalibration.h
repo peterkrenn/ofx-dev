@@ -177,7 +177,7 @@ public:
   flag and set the corresponding parameters. The directories have to exist before, for image
   creation, too.
   */
-  void PrintOptimizedResultsToFile2(  char* file_descriptor, bool create_png = false, char* sequence_descriptor = "", 
+  void PrintOptimizedResultsToFile2(  char* file_descriptor, bool create_png = false, char* sequence_descriptor = "",
     char* png_descriptor = "", int c_start = 0, int h_start = 0 );
 
   /////////////////////////////////////////////////////////////////////////////////////
@@ -259,9 +259,9 @@ private:
   \brief Structure specifying one homography of a single camera.
 
   This structure describes exactly one homography. On the one side it contains "raw data" like
-  \b s_plane_object or \b m_homography. On the other side estimation matrices like 
+  \b s_plane_object or \b m_homography. On the other side estimation matrices like
   \b m_estim_r_t_matrix and \b m_jacobian_matrix are saved in this structure. \b b_discard
-  is a parameter used by the pre-filtering function: This method sets this parameter to 
+  is a parameter used by the pre-filtering function: This method sets this parameter to
   false if it wants to keep a homography and afterwards removes all homographies with the
   \b b_discard flag still enabled. Therefore this flag is initialized with true (one could
   translate this with "discard candidate", it's like in real life, we are all "discard candidates"
@@ -319,7 +319,7 @@ private:
     CvMat*        m_calibration_matrix;
     CvMat*        m_rot_trans_matrix;
     CvMat*        m_estim_calib_matrix;
-    CvMat*        m_estinvcalib_matrix;  
+    CvMat*        m_estinvcalib_matrix;
 
     s_struct_camera( int width, int height ){
       w = width;
@@ -509,7 +509,7 @@ private:
   /**
   \brief Creates an estimated inverse calibration matrix from estimated intrinsic parameters.
 
-  Takes the estimated intrinsic parameters out of s_struct_intrinsic \b s_estim_int of camera \b c 
+  Takes the estimated intrinsic parameters out of s_struct_intrinsic \b s_estim_int of camera \b c
   and calculates directly \b m_estinvcalib_matrix.
   */
   void CreateEstimatedInverseCalibrationMatrixFromEstimatedIntrinsicParameters( int c );
@@ -748,7 +748,7 @@ private:
   \brief Creates the whole new camera structure stored in \b s_optimal.
 
   Creates the camera structure with the reference system. Therefore
-  uses the subroutines CreateEstimatedOptimalHomographyMatrixRT, 
+  uses the subroutines CreateEstimatedOptimalHomographyMatrixRT,
   CreateEstimatedOptimalCameraMatrixRT and CreateEstimatedOptimalCameraMatrixC.
   Returns false if connection matrix construction failed, else true.
   */

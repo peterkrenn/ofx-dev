@@ -397,7 +397,7 @@ GANDALF_API Gan_Matrix23_f *gan_mat23f_from_matf_q ( const Gan_Matrix_f *A, Gan_
  (GAN_TEST_OP3(p,q,A,Gan_Vector2_f,Gan_Vector3_f,Gan_Matrix23_f),\
   GAN_REP3_ABC((A)->,=(p)->,*(q)->,xx,xy,xz,x,x,x,x,y,z),\
   GAN_REP3_ABC((A)->,=(p)->,*(q)->,yx,yy,yz,y,y,y,x,y,z),A)
- 
+
 /* matrix/vector multiply */
 #define gan_mat23f_multv3_q(A,p,q)\
  (GAN_TEST_OP3(A,p,q,Gan_Matrix23_f,Gan_Vector3_f,Gan_Vector2_f),\

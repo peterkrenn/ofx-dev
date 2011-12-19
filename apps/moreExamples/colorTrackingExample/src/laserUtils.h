@@ -4,7 +4,7 @@
 
 	static void hsbToRgb(GLfloat *hsb, GLfloat *rgb) {
 
-		if ( hsb[1] == 0.0 )                       
+		if ( hsb[1] == 0.0 )
 		{
 		   rgb[0] = hsb[2];
 		   rgb[1] = hsb[2];
@@ -26,7 +26,7 @@
 		   else if ( var_i == 4 ) { rgb[0] = var_3      ; rgb[1] = var_1      ; rgb[2] = hsb[2];  }
 		   else                   { rgb[0] = hsb[2]     ; rgb[1] = var_1      ; rgb[2] = var_2;   }
 
-		   rgb[0];                  
+		   rgb[0];
 		   rgb[1];
 		   rgb[2];
 		}

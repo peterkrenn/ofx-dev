@@ -9,13 +9,13 @@ void testApp::setup(){
 	physics->checkBounds(false);
 	physics->enableCollisions(true);
 	physics->setNumIterations(5);
-	
+
 	bCreateParticles = false;
 	mouseParticle = new ofxParticle();
 	mouseParticle->setActive(false);
 	mouseSpring = NULL;
 	newParticle = NULL;
-		
+
 	newParticleIncrement = 0;
 	bCreateParticleString = false;
 	beginParticleString = NULL;
@@ -62,8 +62,8 @@ void testApp::draw(){
 	ofSetColor(100, 100, 100);
 	physics->renderConstraints();
 	ofSetColor(255,255,255);
-	string info = "num particles: " + ofToString(physics->getNumParticles()) + "\n" + 
-				  "num constraints: " + ofToString(physics->getNumConstraints()) + "\n" + 
+	string info = "num particles: " + ofToString(physics->getNumParticles()) + "\n" +
+				  "num constraints: " + ofToString(physics->getNumConstraints()) + "\n" +
 				  "fps: " + ofToString(ofGetFrameRate());
 	ofDrawBitmapString(info, 20,20);
 }
@@ -108,18 +108,18 @@ void testApp::keyReleased(int key){
 	if(key == ' '){
 		bCreateParticleString = false;
 	}
-	
+
 	if(key == 'b' or key == 'B'){
 		physics->checkBounds(!physics->boundsCheck());
 	}
-	
+
 	if(key == ' '){
 		if(beginParticleString){
 			physics->deleteParticle(beginParticleString);
 			beginParticleString = NULL;
 		}
 	}
-	
+
 	if(key == 'r' or key == 'R'){
 		for(int i=0; i<particles.size(); i++){
 			if(ofRandomuf() < 0.2f){
@@ -165,9 +165,9 @@ void testApp::mousePressed(int x, int y, int button){
 					newParticle->setActive(false);
 					physics->add(newParticle);
 					particles.push_back(newParticle);
-				} 
+				}
 			}
-			
+
 		}
 	}
 	if(button == 2){
@@ -187,8 +187,8 @@ void testApp::mouseReleased(int x, int y, int button){
 			endParticleString = NULL;
 		}
 		bCreateParticleString = false;
-	} 
-	
+	}
+
 	if(mouseSpring){
 		physics->deleteConstraint(mouseSpring);
 		mouseSpring = NULL;

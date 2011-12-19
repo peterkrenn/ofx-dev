@@ -88,10 +88,10 @@ int FFGLShader::Compile(const char *vtxProgram, const char *fragProgram)
 {
   if (m_extensions==NULL)
     return 0;
-  
+
   if (m_glProgram==0)
     CreateGLResources();
-  
+
   int doLink = 0;
 
   //if we can compile a fragment shader, do it.
@@ -110,9 +110,9 @@ int FFGLShader::Compile(const char *vtxProgram, const char *fragProgram)
 
     // Compile The Shaders
     m_extensions->glCompileShaderARB(m_glFragmentShader);
-    
+
     GLint compileSuccess;
-    
+
     m_extensions->glGetObjectParameterivARB(
       m_glFragmentShader,
       GL_OBJECT_COMPILE_STATUS_ARB,
@@ -129,7 +129,7 @@ int FFGLShader::Compile(const char *vtxProgram, const char *fragProgram)
       //get the log so we can peek at the error string
       char log[1024];
       GLsizei returnedLength;
-      
+
       m_extensions->glGetInfoLogARB(
         m_glFragmentShader,
         sizeof(log)-1,
@@ -160,7 +160,7 @@ int FFGLShader::Compile(const char *vtxProgram, const char *fragProgram)
     m_extensions->glCompileShaderARB(m_glVertexShader);
 
     GLint compileSuccess;
-      
+
     m_extensions->glGetObjectParameterivARB(
       m_glVertexShader,
       GL_OBJECT_COMPILE_STATUS_ARB,
@@ -171,13 +171,13 @@ int FFGLShader::Compile(const char *vtxProgram, const char *fragProgram)
       //attach it to the program
       m_extensions->glAttachObjectARB(m_glProgram, m_glVertexShader);
       doLink = 1;
-    } 
+    }
     else
     {
       //get the log so we can peek at the error string
       char log[1024];
       GLsizei returnedLength;
-      
+
       m_extensions->glGetInfoLogARB(
         m_glVertexShader,
         sizeof(log)-1,
@@ -187,9 +187,9 @@ int FFGLShader::Compile(const char *vtxProgram, const char *fragProgram)
       log[returnedLength] = 0;
       int a;
       a=0;
-    }     
+    }
   }
-  
+
   //check if linking worked
   GLint linkSuccess = 0;
 
@@ -197,15 +197,15 @@ int FFGLShader::Compile(const char *vtxProgram, const char *fragProgram)
   {
     // Link The Program Object
     m_extensions->glLinkProgramARB(m_glProgram);
-      
+
 	  m_extensions->glGetObjectParameterivARB(
 	    m_glProgram,
 	    GL_OBJECT_LINK_STATUS_ARB,
-	    &linkSuccess);  
+	    &linkSuccess);
   }
-  
+
   m_linkStatus = linkSuccess;
-  
+
   return linkSuccess;
 }
 

@@ -1,6 +1,6 @@
 /*
-Copyright 2005, 2006 Computer Vision Lab, 
-Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland. 
+Copyright 2005, 2006 Computer Vision Lab,
+Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland.
 All rights reserved.
 
 This file is part of BazAR.
@@ -16,7 +16,7 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 BazAR; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301, USA 
+Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 #ifndef LS_MINIMIZER_H
 #define LS_MINIMIZER_H
@@ -124,7 +124,7 @@ public:
   void lm_set_max_iterations(int it);
   //! if f iterations do not decrease the function, stop.
   void lm_set_max_failures_in_a_row(int f);
-  //! stop condition. Very restrictive: 0.999  less restrictive: 0.9 
+  //! stop condition. Very restrictive: 0.999  less restrictive: 0.9
   void lm_set_tol_cos(double t);
 
   // Gauss-Newton:

@@ -11,14 +11,14 @@
 
 
 class Particle {
-public:	
+public:
 
     float x, y;
     float vx, vy;
     float radius;
     float alpha;
     float mass;
-	
+
     void init(float x, float y);
     void update();
 	void updateVertexArrays(int i, float* posBuffer, float* colBuffer);

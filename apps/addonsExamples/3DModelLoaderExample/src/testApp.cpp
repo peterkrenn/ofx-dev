@@ -7,9 +7,9 @@ GLfloat lightTwoPosition[] = {-40.0, 40, 100.0, 0.0};
 GLfloat lightTwoColor[] = {0.99, 0.99, 0.99, 1.0};
 
 //--------------------------------------------------------------
-void testApp::setup(){	
+void testApp::setup(){
 	ofBackground(255,255,255);
-		
+
 	ofSetVerticalSync(true);
 
     //some model / light stuff
@@ -48,7 +48,7 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	
+
 	 //fake back wall
     ofSetColor(20, 20, 20);
     glBegin(GL_QUADS);
@@ -88,12 +88,12 @@ void testApp::draw(){
 }
 
 //--------------------------------------------------------------
-void testApp::keyPressed  (int key){ 
+void testApp::keyPressed  (int key){
 
 }
 
 //--------------------------------------------------------------
-void testApp::keyReleased  (int key){ 
+void testApp::keyReleased  (int key){
 }
 
 //--------------------------------------------------------------

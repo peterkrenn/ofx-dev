@@ -1,5 +1,5 @@
 /*
-Copyright © 1998. The Regents of the University of California (Regents). 
+Copyright © 1998. The Regents of the University of California (Regents).
 All Rights Reserved.
 
 Written by Matt Wright, The Center for New Music and Audio Technologies,
@@ -22,7 +22,7 @@ PURPOSE. THE SOFTWARE AND ACCOMPANYING DOCUMENTATION, IF ANY, PROVIDED
 HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION TO PROVIDE
 MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-The OpenSound Control WWW page is 
+The OpenSound Control WWW page is
     http://www.cnmat.berkeley.edu/OpenSoundControl
 */
 
@@ -71,11 +71,11 @@ The OpenSound Control WWW page is
   The remaining fields say how much memory to allocate at initialization time:
 
 - receiveBufferSize is the maximum packet size that can be received.  Is the
-  maximum UDP packet size 4096?  OSC clients can send a query to this system 
+  maximum UDP packet size 4096?  OSC clients can send a query to this system
   asking for this maximum packet size.
 
 - numReceiveBuffers determines how many packets at a time can be sitting
-  on the scheduler with messages waiting to take effect.  If all the 
+  on the scheduler with messages waiting to take effect.  If all the
   receive buffers are tied up like this, you won't be able to receive
   new packets.
 
@@ -145,7 +145,7 @@ char *OSCPacketBufferGetBuffer(OSCPacketBuffer p);
 int *OSCPacketBufferGetSize(OSCPacketBuffer);
 
 /* Selector to get the client's network address from a packet.  This buffer's
-   size will be equal to the clientAddrSize you passed to OSCInitReceive(). 
+   size will be equal to the clientAddrSize you passed to OSCInitReceive().
    Note that the NetworkReturnAddressPtr type is full of "const"s, so your
    code that fills in the return address will probably have to cast the return
    value of this procedure to some non-const type to be able to write into it. */
@@ -164,7 +164,7 @@ int OSCGetReceiveBufferSize(void);
 /* Call this as soon as a packet comes in from the network.
    It will take care of anything that has to happen immediately,
    but put off as much as possible of the work of parsing the
-   packet.  (This tries to be as fast as possible in case a 
+   packet.  (This tries to be as fast as possible in case a
    lot of packets come in.) */
 void OSCAcceptPacket(OSCPacketBuffer packet);
 

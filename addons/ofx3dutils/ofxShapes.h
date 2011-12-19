@@ -1,6 +1,6 @@
 //#include <vector>
 
-//std::vector<ofxVec3f> vertex; 
+//std::vector<ofxVec3f> vertex;
 //
 //void ofxBeginShape3d();
 //void ofxEndShape3d();

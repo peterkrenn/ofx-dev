@@ -17,20 +17,20 @@ Camera::Camera(){
 	w = glutGet(GLUT_WINDOW_WIDTH);
 	h = glutGet(GLUT_WINDOW_HEIGHT);
 	aspectRatio = (float)w/(float)h;
-	
+
 	k = 0.3;
 	damp = 0.3;
-	
+
 	vel = 0;
-	
+
 	up.x = 0;
 	up.y = 1;
 	up.z = 0;
-		
+
 	eye.x = ofGetWidth()/2;
 	eye.y = ofGetHeight()/2;
 	eye.z = 0;
-	
+
 	radius = 1000;
 }
 
@@ -41,7 +41,7 @@ void Camera::goTo(ofxVec3f target){
 	vel += acel;
 	vel *= damp;
 	pos += vel;
-		
+
 	eye.x = center->x;
 	eye.y = center->y;
 	eye.z = center->z;
@@ -54,10 +54,10 @@ void Camera::move(){
 	rot.rotate(0, rotY, 0);
 	ofxVec3f pos = (*center) + rot;
 	goTo(pos);
-	
 
-	
-	
+
+
+
 }
 
 void Camera::place(){

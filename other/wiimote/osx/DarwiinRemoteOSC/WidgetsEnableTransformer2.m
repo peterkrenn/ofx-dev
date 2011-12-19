@@ -20,18 +20,18 @@
 
 
 - (id)transformedValue:(id)beforeObject{
-	
-	
+
+
 	if (beforeObject == nil) return nil;
-	
-	
+
+
 	switch([beforeObject intValue]){
-		
+
 		case 1:
 			return [[NSNumber alloc] initWithBool:YES];
 		default:
 			return [[NSNumber alloc] initWithBool:NO];
-			
+
 	}
 }
 @end

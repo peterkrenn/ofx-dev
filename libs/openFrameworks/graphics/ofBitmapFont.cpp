@@ -30,7 +30,7 @@
  *
  * Copyright (c) 1999-2000 by Pawel W. Olszta
  * Written by Pawel W. Olszta, <olszta@sourceforge.net>
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
  * to deal in the Software without restriction, including without limitation
@@ -331,7 +331,7 @@ void  ofDrawBitmapCharacter(int character ){
 			 ( float )( face[ 0 ] ), 0.0,  /* The raster advance -- inc. x,y */
 			 ( face + 1 )                  /* The packed bitmap data...      */
 			 );
-    
+
 }
 //---------------------------------------------------------------------
 

@@ -15,32 +15,32 @@
 
 class NSvidbutton {
 //	private:
-	
-	public:	
-	
+
+	public:
+
 		// vars
 		int x, y, w, h;
 		int theNum;
 		int nPixelsWhite;
 		bool toggle;
 		ofImage myimage;
-		
+
 		bool bShowImage;
 		// methods
 		void update();
-		
+
 		void setPosition(int _theNum, int _x, int _y, int _width, int _height);
 		void loadSound(string str);
-		
+
 		void loadImage(string str);
-		
+
 		void countPixelsInImage(ofxCvGrayscaleImage & temp);  // ofCv.. = data type, & = reference for pass by refence, temp =temporary variable name
-		
+
 		void draw();
-		
+
 		ofSoundPlayer mySound;
 		int nFramesWhite;
-		int count; 		  
+		int count;
 	// constructor
 	NSvidbutton();
 };

@@ -1,5 +1,5 @@
 ################################################################################
-# Use this makefile to rebuild oFappsink in case of problems with diferent 
+# Use this makefile to rebuild oFappsink in case of problems with diferent
 # gstreamer versions
 ################################################################################
 
@@ -10,14 +10,14 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 #------------------------------------------------------------ sources.mk
 
-O_SRCS := 
-C_SRCS := 
-S_SRCS := 
-OBJ_SRCS := 
-ASM_SRCS := 
-OBJS := 
-C_DEPS := 
-ARCHIVES := 
+O_SRCS :=
+C_SRCS :=
+S_SRCS :=
+OBJ_SRCS :=
+ASM_SRCS :=
+OBJS :=
+C_DEPS :=
+ARCHIVES :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
@@ -28,15 +28,15 @@ SUBDIRS := \
 
 #------------------------------------------------------------ subdir.mk
 
-# Add inputs and outputs from these tool invocations to the build variables 
+# Add inputs and outputs from these tool invocations to the build variables
 C_SRCS += \
-./gstappsink.c 
+./gstappsink.c
 
 OBJS += \
-./gstappsink.o 
+./gstappsink.o
 
 C_DEPS += \
-./gstappsink.d 
+./gstappsink.d
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -66,7 +66,7 @@ endif
 
 -include ./makefile.defs
 
-# Add inputs and outputs from these tool invocations to the build variables 
+# Add inputs and outputs from these tool invocations to the build variables
 
 # All Target
 all: liboFappsink.a

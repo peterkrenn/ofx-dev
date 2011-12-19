@@ -1,18 +1,18 @@
-/* 
+/*
  * Copyright (c) 2009, Rui Madeira
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * http://creativecommons.org/licenses/LGPL/2.1/
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -61,7 +61,7 @@ void ofxParticle::render(){
 }
 
 void ofxParticle::applyForce(ofxVec2f _force){
-	accel += _force;	
+	accel += _force;
 }
 
 void ofxParticle::applyImpulse(ofxVec2f _impulse){
@@ -72,32 +72,32 @@ void ofxParticle::applyImpulse(ofxVec2f _impulse){
 }
 
 void ofxParticle::setDrag(float _drag){
-	drag = _drag;	
+	drag = _drag;
 }
 
 float ofxParticle::getDrag(){
-	return drag;	
+	return drag;
 }
 
 void ofxParticle::setMass(float _mass){
-	mass = _mass;	
+	mass = _mass;
 	invMass = 1.0f / mass;
 }
 
 float ofxParticle::getMass(){
-	return mass;	
+	return mass;
 }
 
 float ofxParticle::getInvMass(){
-	return invMass;	
+	return invMass;
 }
 
 void ofxParticle::setRadius(float _radius){
-	radius = _radius;	
+	radius = _radius;
 }
 
 float ofxParticle::getRadius(){
-	return radius;	
+	return radius;
 }
 
 void ofxParticle::setActive(bool _bActive){
@@ -105,7 +105,7 @@ void ofxParticle::setActive(bool _bActive){
 }
 
 bool ofxParticle::isActive(){
-	return bActive;	
+	return bActive;
 }
 
 float ofxParticle::distanceTo(ofxParticle*p){

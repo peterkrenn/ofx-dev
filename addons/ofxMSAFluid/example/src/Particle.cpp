@@ -32,21 +32,21 @@ void Particle::init(float x, float y) {
 void Particle::update() {
 	// only update if particle is visible
 	if(alpha == 0) return;
-	
+
 	// read fluid info and add to velocity
 	int fluidIndex = myApp->fluidSolver.getIndexForNormalizedPosition(x * myApp->window.invWidth, y * myApp->window.invHeight);
 	vx = myApp->fluidSolver.u[fluidIndex] * myApp->window.width * mass * FLUID_FORCE + vx * MOMENTUM;
 	vy = myApp->fluidSolver.v[fluidIndex] * myApp->window.height * mass * FLUID_FORCE + vy * MOMENTUM;
-	
+
 //	color.r = myApp->fluidSolver.r[fluidIndex] + 0.5;
 //	color.g = myApp->fluidSolver.g[fluidIndex] + 0.5;
 //	color.b = myApp->fluidSolver.b[fluidIndex] + 0.5;
-	
-	
+
+
 	// update position
 	x += vx;
 	y += vy;
-	
+
 	// bounce of edges
 	if(x<0) {
 		x = 0;
@@ -56,7 +56,7 @@ void Particle::update() {
 		x = myApp->window.width;
 		vx *= -1;
 	}
-	
+
 	if(y<0) {
 		y = 0;
 		vy *= -1;
@@ -65,13 +65,13 @@ void Particle::update() {
 		y = myApp->window.height;
 		vy *= -1;
 	}
-	
+
 	// hackish way to make particles glitter when the slow down a lot
 	if(vx * vx + vy * vy < 1) {
 		vx = ofRandom(-0.5, 0.5);
 		vy = ofRandom(-0.5, 0.5);
 	}
-	
+
 	// fade out a bit (and kill if alpha == 0);
 	alpha *= 0.999;
 	if(alpha < 0.01) alpha = 0;
@@ -84,7 +84,7 @@ void Particle::updateVertexArrays(int i, float* posBuffer, float* colBuffer) {
 	posBuffer[vi++] = y - vy;
 	posBuffer[vi++] = x;
 	posBuffer[vi++] = y;
-	
+
 	int ci = i * 6;
 	if(myApp->drawFluid) {
 		// if drawing fluid, draw lines as black & white

@@ -5,14 +5,14 @@ ofxFFGLHost::ofxFFGLHost() {
     inputPixels = NULL;
 	outputPixels = NULL;
 	outputPixelsPow2 = NULL;
-    
+
     // init gl extensions
     glExtensions.Initialize();
     if (glExtensions.EXT_framebuffer_object == 0) {
         printf("ERROR: FBO support not detected, cannot continue!\n");
         return;
     }
-    
+
     // this seems necessary to render FF plugins...
     textureTarget = GL_TEXTURE_2D;
 }
@@ -26,7 +26,7 @@ ofxFFGLHost::~ofxFFGLHost() {
         //plugins.erase(curr);
     }
     //plugins.clear();*/
-    
+
     delete [] inputPixels;
     delete [] outputPixels;
     delete [] outputPixelsPow2;
@@ -35,13 +35,13 @@ ofxFFGLHost::~ofxFFGLHost() {
 //----------------------------------------------------------
 void ofxFFGLHost::allocate(int w, int h, int internalGlDataType){
     // allocate the GPU texture
-    
+
     //---------------------------------------------------------------------------------------------
     // begin ofTexture::allocate(...)
-    
+
 	// 	can pass in anything (320x240) (10x5)
 	// 	here we make it power of 2 for opengl (512x256), (16x8)
-    
+
 	//if (GLEE_ARB_texture_rectangle){
 	//	tex_w = w;
 	//	tex_h = h;
@@ -49,7 +49,7 @@ void ofxFFGLHost::allocate(int w, int h, int internalGlDataType){
     tex_w = ofNextPow2(w);
     tex_h = ofNextPow2(h);
 	//}
-    
+
 	//if (GLEE_ARB_texture_rectangle){
 	//	tex_t = w;
 	//	tex_u = h;
@@ -57,14 +57,14 @@ void ofxFFGLHost::allocate(int w, int h, int internalGlDataType){
     tex_t = 1.0f;
     tex_u = 1.0f;
 	//}
-    
+
     // attempt to free the previous bound texture, if we can:
 	clear();
-    
+
     glGenTextures(1, (GLuint *)textureName);   // could be more then one, but for now, just one
-    
+
 	glEnable(textureTarget);
-    
+
     glBindTexture(textureTarget, (GLuint)textureName[0]);
     glTexImage2D(textureTarget, 0, internalGlDataType, tex_w, tex_h, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, 0);  // init to black...
     glTexParameterf(textureTarget, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -72,16 +72,16 @@ void ofxFFGLHost::allocate(int w, int h, int internalGlDataType){
     glTexParameterf(textureTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameterf(textureTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-    
+
 	glDisable(textureTarget);
-    
+
 	width = w;
 	height = h;
 	bFlipTexture = false;
-    
+
     // end ofTexture::allocate(...)
     //---------------------------------------------------------------------------------------------
-    
+
     // allocate CPU memory
     if (internalGlDataType == GL_LUMINANCE) {
         // 8-bit A
@@ -102,23 +102,23 @@ void ofxFFGLHost::allocate(int w, int h, int internalGlDataType){
         printf("ERROR: GL data type not recognized.\n");
         return;
     }
-    
+
     totalPixels = tex_w*tex_h*3;
 	crapPixels = (tex_w-width)*3;
-    
+
     // init the inputTexture struct
     FFGLTextureStruct &t = inputTexture;
     t.Handle = (GLuint)textureName[0];
     t.Width = w;
-    t.Height = h;  
+    t.Height = h;
     t.HardwareWidth = tex_w;
     t.HardwareHeight = tex_h;
-    
+
     if (inputTexture.Handle == 0 || inputPixels == NULL) {
         printf("ERROR allocating texture.\n");
         return;
     }
-    
+
     // init the fboViewport struct
     fboViewport.x = 0;
     fboViewport.y = 0;
@@ -129,10 +129,10 @@ void ofxFFGLHost::allocate(int w, int h, int internalGlDataType){
 //----------------------------------------------------------
 void ofxFFGLHost::loadData(unsigned char* data, int w, int h, int glDataType) {
     inputPixels = data;
-    
+
     //---------------------------------------------------------------------------------------------
     // begin ofTexture::loadData(...)
-    
+
     //	can we allow for uploads bigger then texture and
     //	just take as much as the texture can?
     //
@@ -141,15 +141,15 @@ void ofxFFGLHost::loadData(unsigned char* data, int w, int h, int glDataType) {
     //	int uploadH = MIN(h, tex_h);
     //  but with a "step" size of w?
     // 	check "glTexSubImage2D"
-    
+
     if ( w > tex_w || h > tex_h) {
         printf("image data too big for allocated texture. not uploading... \n");
         return;
     }
-    
+
     width 	= w;
     height 	= h;
-    
+
     //compute new tex co-ords based on the ratio of data's w, h to texture w,h;
     //if (GLEE_ARB_texture_rectangle){
     //    tex_t = w;
@@ -158,7 +158,7 @@ void ofxFFGLHost::loadData(unsigned char* data, int w, int h, int glDataType) {
     tex_t = (float)(w) / (float)tex_w;
     tex_u = (float)(h) / (float)tex_h;
     //}
-    
+
     // 	ok this is an ultra annoying bug :
     // 	opengl texels and linear filtering -
     // 	when we have a sub-image, and we scale it
@@ -179,23 +179,23 @@ void ofxFFGLHost::loadData(unsigned char* data, int w, int h, int glDataType) {
     //
     //  http://www.opengl.org/discussion_boards/ubb/ultimatebb.php?ubb=get_topic;f=3;t=014770#000001
     //  http://www.opengl.org/discussion_boards/ubb/ultimatebb.php?ubb=get_topic;f=3;t=014770#000001
-    
+
     //------------------------ likely, we are uploading continuous data
     GLint prevAlignment;
     glGetIntegerv(GL_UNPACK_ALIGNMENT, &prevAlignment);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    
+
     // update the texture image:
     glEnable(textureTarget);
     glBindTexture(textureTarget, inputTexture.Handle);
     glTexSubImage2D(textureTarget,0,0,0,w,h,glDataType,GL_UNSIGNED_BYTE,data);
     glDisable(textureTarget);
-    
+
     //------------------------ back to normal.
-    glPixelStorei(GL_UNPACK_ALIGNMENT, prevAlignment);    
-    
+    glPixelStorei(GL_UNPACK_ALIGNMENT, prevAlignment);
+
     bFlipTexture = false;
-    
+
     // end ofTexture::loadData(...)
     //---------------------------------------------------------------------------------------------
 }
@@ -203,7 +203,7 @@ void ofxFFGLHost::loadData(unsigned char* data, int w, int h, int glDataType) {
 //----------------------------------------------------------
 void ofxFFGLHost::process() {
     float elapsedTime = ofGetElapsedTimef();
-    
+
     // go through all the plugins
     nextTexture = inputTexture;
 	for (int i=0; i < plugins.size(); i++) {
@@ -227,14 +227,14 @@ unsigned char* ofxFFGLHost::getPixels() {
     glBindTexture(GL_TEXTURE_2D, nextTexture.Handle);
 	glGetTexImage(GL_TEXTURE_2D, 0, GL_RGB, GL_UNSIGNED_BYTE, outputPixelsPow2);
 	glBindTexture(GL_TEXTURE_2D, 0);
-	
+
 	// only grab the relevant pixels
 	int currY = 0;
 	int i=0; int j=0;
 	while (j < totalPixels) {
 		outputPixels[i] = outputPixelsPow2[j];
 		i++; j++;
-		
+
 		currY++;
 		if (currY >= width*3) {
 			// the rest of the line is crap, skip it
@@ -242,7 +242,7 @@ unsigned char* ofxFFGLHost::getPixels() {
 			j += crapPixels;
 		}
 	}
-	
+
 	return outputPixels;
 }
 
@@ -250,12 +250,12 @@ unsigned char* ofxFFGLHost::getPixels() {
 ofxFFGLPlugin ofxFFGLHost::loadPlugin(const char* filename) {
     // create new instance
     ofxFFGLPlugin p;
-    
+
     p.load(filename, &fboViewport, &glExtensions);
-    
+
     // add the plugin to the list
 	plugins.push_back(p);
-    
+
     return p;
 }
 

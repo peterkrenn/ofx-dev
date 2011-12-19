@@ -2,39 +2,39 @@
 
 
 char *textFileRead(char *fn);		// some memory allocation happens here
-									// be careful...  please don't call load shader 
+									// be careful...  please don't call load shader
 									// repeatedly !!!!! (you have been warned)
 
 
 
 //---------------------------------------------------------------
 void ofShader::loadShader(char * fragmentName, char * vertexName){
-	
-	
-	bLoaded = false;	
-	
+
+
+	bLoaded = false;
+
 	if (GLEE_ARB_shader_objects){
-		
+
 		// ---------------------------------- (a) load in the shaders
 		char *vs = NULL,*fs = NULL;
 		vs = textFileRead(vertexName);
 		fs = textFileRead(fragmentName);
-		
+
 		vertexShader = (GLhandleARB)glCreateShader(GL_VERTEX_SHADER);
 		fragmentShader = (GLhandleARB)glCreateShader(GL_FRAGMENT_SHADER);
-		
+
 		GLint length = strlen(vs);
 		glShaderSourceARB(vertexShader, 1, (const char**)&vs, &length);
 		length = strlen(fs);
 		glShaderSourceARB(fragmentShader, 1, (const char**)&fs, &length);
-		
+
 		char infobuffer[1000];
 		GLsizei infobufferlen = 0;
-		
+
 		// ----------------------------------- (b) compile the shaders
 		// try to compile "vertex shader"
 		glCompileShaderARB(vertexShader);
-		
+
 		//please add compile status check in:
 		GLint compileStatus = 0;
 		glGetObjectParameterivARB( vertexShader, GL_COMPILE_STATUS, &compileStatus );
@@ -43,63 +43,63 @@ void ofShader::loadShader(char * fragmentName, char * vertexName){
 		} else if (compileStatus == 1) {
 			printf("!! vertexShader compilation issues, status : %i !!\n", compileStatus );
 		}
-		
-		
+
+
 		glGetInfoLogARB(vertexShader, 999, &infobufferlen, infobuffer);
 		if (infobufferlen != 0){
 			infobuffer[infobufferlen] = 0;
 			printf("vertexShader reports: %s \n", infobuffer);
 			return;
 		}
-		
+
 		// ------------------------------------
 		// try to compile "fragment shader"
 		glCompileShaderARB(fragmentShader);
-		
-		
+
+
 
 		glGetObjectParameterivARB( fragmentShader, GL_COMPILE_STATUS, &compileStatus );
 		if(compileStatus > 0) {
 			printf("fragmentShader compiled \n");
 		} else if (compileStatus == 1) {
 			printf("!! fragmentShader compilation issues, status : %i !!\n", compileStatus );
-		}		
-		
+		}
+
 		glGetInfoLogARB(fragmentShader, 999, &infobufferlen, infobuffer);
 		if (infobufferlen != 0){
 			infobuffer[infobufferlen] = 0;
 			printf("fragmentShader reports: %s \n", infobuffer);
 			return;
 		}
-		
+
 		// ----------------------------------- (c) link the shaders
 		shader = glCreateProgramObjectARB();
 		glAttachObjectARB(shader,vertexShader);
 		glAttachObjectARB(shader,fragmentShader);
 		glLinkProgramARB(shader);
-		
-		
+
+
 		bLoaded = true;
-			
+
 	} else {
-	
+
 		printf("sorry, it looks like you can't run 'ARB_shader_objects' \n please check the capabilites of your graphics card (http://www.ozone3d.net/gpu_caps_viewer/) \n");
-	
+
 	}
 
 
 }
-		
+
 //---------------------------------------------------------------
 void ofShader::loadShader(char * shaderName){
 	bLoaded = false;
 	char fragmentName[1024];
 	char vertexName[1024];
-	
+
 	char path[255];
-	strcpy(path, ofToDataPath(shaderName).c_str()); //this adds the right path to the data folder no matter what OS 
+	strcpy(path, ofToDataPath(shaderName).c_str()); //this adds the right path to the data folder no matter what OS
 													//you might be using.
-	
+
 	sprintf(fragmentName,"%s.frag", path);
 	sprintf(vertexName, "%s.vert", path);
 	loadShader(fragmentName, vertexName);
@@ -109,24 +109,24 @@ void ofShader::loadShader(char * shaderName){
 
 //---------------------------------------------------------------
 void ofShader::unload(){
-	
+
 	if (vertexShader){
 		glDetachObjectARB(shader,vertexShader);
 		glDeleteObjectARB(vertexShader);
 		vertexShader = NULL;
 	}
-	
+
 	if (fragmentShader){
 		glDetachObjectARB(shader,fragmentShader);
 		glDeleteObjectARB(fragmentShader);
 		fragmentShader = NULL;
 	}
-	
+
 	if (shader){
 		glDeleteObjectARB(shader);
 		shader = NULL;
 	}
-	
+
 }
 
 //---------------------------------------------------------------
@@ -315,20 +315,20 @@ void ofShader::getActiveVertexAttribute(const char * name, GLfloat * returnValue
 	//GLint numAttributes = 0;
 	//glGetProgramiv( (GLuint)shader, GL_ACTIVE_ATTRIBUTES, &numAttributes );
 	//printf("numAttributes: %i\n", numAttributes);
-	
+
 	//GLint attributeMaxLength = 0;
 	//glGetProgramiv( (GLuint)shader, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &attributeMaxLength );
 	//printf("attributeMaxLength: %i\n", attributeMaxLength);
-	
+
 	//GLint count = -1;
 	//GLenum type = 0;
 	//GLchar* attributeName = new GLchar[attributeMaxLength];
 	//for ( GLint i = 0; i < numAttributes; ++i )
 	//{
 		//GLsizei length;
-		//glGetActiveAttrib( (GLuint)shader, loc-1, attributeMaxLength, &length, &count, &type, returnValue); 
+		//glGetActiveAttrib( (GLuint)shader, loc-1, attributeMaxLength, &length, &count, &type, returnValue);
 		//glGetVertexAttribfv(loc, GL_CURRENT_VERTEX_ATTRIB, returnValue);
-		
+
 		/*for(int j = 0; j < length; j++) {
 			printf("%c", attributeName[j]);
 		}
@@ -337,7 +337,7 @@ void ofShader::getActiveVertexAttribute(const char * name, GLfloat * returnValue
 	printf("----------------------\n");
 	//delete [] attributeName;
 }
-	
+
 
 
 /*//----------------------------------------------------------------------------------------------------------
@@ -348,19 +348,19 @@ void ofShader::printActiveUniforms() {
 	GLint numUniforms = 0;
 	glGetProgramiv( (GLuint)shader, GL_ACTIVE_UNIFORMS, &numUniforms );
 	printf("numUniforms: %i\n", numUniforms);
-	
+
 	GLint uniformMaxLength = 0;
 	glGetProgramiv( (GLuint)shader, GL_ACTIVE_UNIFORM_MAX_LENGTH, &uniformMaxLength );
 	printf("uniformMaxLength: %i\n", uniformMaxLength);
-	
+
 	GLint count = -1;
 	GLenum type = 0;
 	GLchar* uniformName = new GLchar[uniformMaxLength];
 	for ( GLint i = 0; i < numUniforms; ++i )
 	{
 		GLsizei length;
-		glGetActiveUniform( (GLuint)shader, i, uniformMaxLength, &length, &count, &type, uniformName); 
-	
+		glGetActiveUniform( (GLuint)shader, i, uniformMaxLength, &length, &count, &type, uniformName);
+
 		for(int j = 0; j < length; j++) {
 			printf("%c", uniformName[j]);
 		}
@@ -376,19 +376,19 @@ void ofShader::printActiveAttributes() {
 	GLint numAttributes = 0;
 	glGetProgramiv( (GLuint)shader, GL_ACTIVE_ATTRIBUTES, &numAttributes );
 	printf("numAttributes: %i\n", numAttributes);
-	
+
 	GLint attributeMaxLength = 0;
 	glGetProgramiv( (GLuint)shader, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &attributeMaxLength );
 	printf("attributeMaxLength: %i\n", attributeMaxLength);
-	
+
 	GLint count = -1;
 	GLenum type = 0;
 	GLchar* attributeName = new GLchar[attributeMaxLength];
 	for ( GLint i = 0; i < numAttributes; ++i )
 	{
 		GLsizei length;
-		glGetActiveAttrib( (GLuint)shader, i, attributeMaxLength, &length, &count, &type, attributeName); 
-		
+		glGetActiveAttrib( (GLuint)shader, i, attributeMaxLength, &length, &count, &type, attributeName);
+
 		for(int j = 0; j < length; j++) {
 			printf("%c", attributeName[j]);
 		}
@@ -413,7 +413,7 @@ char *textFileRead(char *fn) {
 	if (fn != NULL) {
 		fp = fopen(fn,"rt");
 		if (fp != NULL) {
-		
+
 			fseek(fp, 0, SEEK_END);
 			count = ftell(fp);
 			rewind(fp);
@@ -426,6 +426,6 @@ char *textFileRead(char *fn) {
 			fclose(fp);
 		}
 	}
-	
+
 	return content;
 }

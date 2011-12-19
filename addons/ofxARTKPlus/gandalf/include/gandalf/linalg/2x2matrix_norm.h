@@ -8,9 +8,9 @@
  * Author:        $Author: pm $
  * Copyright:     (c) 2000 Imagineer Software Limited
  *
- * Notes:        
- * Private func:        
- * History:        
+ * Notes:
+ * Private func:
+ * History:
  */
 
 /* This library is free software; you can redistribute it and/or

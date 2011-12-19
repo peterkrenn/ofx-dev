@@ -22,10 +22,10 @@
  * along with this framework; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * For further information please contact 
+ * For further information please contact
  *   Dieter Schmalstieg
  *   <schmalstieg@icg.tu-graz.ac.at>
- *   Graz University of Technology, 
+ *   Graz University of Technology,
  *   Institut for Computer Graphics and Vision,
  *   Inffeldgasse 16a, 8010 Graz, Austria.
  * ========================================================================
@@ -65,7 +65,7 @@ double CBRT(double);
  *     dd(0:4)     (i)  vector containing the polynomial coefficients
  *     sol(1:4)    (o)  results, real part
  *     soli(1:4)   (o)  results, imaginary part
- *     Nsol        (o)  number of real solutions 
+ *     Nsol        (o)  number of real solutions
  *
  *     17-Oct-2004 / Raoul Rausch
  *     Conversion from Fortran to C
@@ -86,7 +86,7 @@ int quintic(double dd[6], double sol[5], double soli[5], int *Nsol, double xstar
 	//printf("\n Quintic!\n");
 
 	if (dd[5] == 0.0)
-	{ 
+	{
 		//printf("\n ERROR: NOT A QUINTIC EQUATION");
 		return 0;
 	}
@@ -116,7 +116,7 @@ int quintic(double dd[6], double sol[5], double soli[5], int *Nsol, double xstar
 
 	quartic(dd4, sol4, soli4, &Nsol4);
 
-	
+
 	sol[0] = eC;
 	soli[0] = 0.0;
 
@@ -141,7 +141,7 @@ int quintic(double dd[6], double sol[5], double soli[5], int *Nsol, double xstar
  *     dd(0:4)     (i)  vector containing the polynomial coefficients
  *     sol(1:4)    (o)  results, real part
  *     soli(1:4)   (o)  results, imaginary part
- *     Nsol        (o)  number of real solutions 
+ *     Nsol        (o)  number of real solutions
  *     ==================================================================
  *  	17-Oct-2004 / Raoul Rausch
  *		Conversion from Fortran to C
@@ -172,7 +172,7 @@ int quintic(double dd[6], double sol[5], double soli[5], int *Nsol, double xstar
 	p = (-3.0*pow(b,2) + 8.0 *a*c)/(8.0*pow(a,2));
 	q = (pow(b,3) - 4.0*a*b*c + 8.0 *d*pow(a,2)) / (8.0*pow(a,3));
 	r = (-3.0*pow(b,4) + 16.0 *a*pow(b,2)*c - 64.0 *pow(a,2)*b*d + 256.0 *pow(a,3)*f)/(256.0*pow(a,4));
-	
+
 	// Solve cubic resolvent
 	AA[3] = 8.0;
 	AA[2] = -4.0*p;
@@ -182,7 +182,7 @@ int quintic(double dd[6], double sol[5], double soli[5], int *Nsol, double xstar
 	//printf("\n bcubic %.4e\t%.4e\t%.4e\t%.4e ", AA[0], AA[1], AA[2], AA[3]);
 	cubic(AA, z, &ncube);
 	//printf("\n acubic %.4e\t%.4e\t%.4e ", z[0], z[1], z[2]);
-	
+
 	zsol = - 1.e99;
 	for (i=0;i<ncube;i++)	zsol = max(zsol, z[i]);	//Not sure C has max fct
 	z[0] =zsol;
@@ -237,7 +237,7 @@ int quintic(double dd[6], double sol[5], double soli[5], int *Nsol, double xstar
 		soli[3] = -sqrt(-0.25 * sqp);
 		*Nsol = 0;
 	}
-	
+
 	for (i=0;i<4;i++)	sol[i] -= b/(4.0*a);
 	return 0;
  }

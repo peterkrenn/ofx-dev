@@ -48,16 +48,16 @@ extern "C" {
 /**
  * \brief Format of 2D convolution mask.
  *
- * Format of 2D convolution mask, whose height \c h \c and width \c w \c 
+ * Format of 2D convolution mask, whose height \c h \c and width \c w \c
  * have to be odd.
  *
- * For GAN_MASK2D_SYMMETRIC, only \f$ ((h-1)/2+1)((w-1)/2+1) \f$ elements, 
- * belonging to the upper left quadrant, need to be 
+ * For GAN_MASK2D_SYMMETRIC, only \f$ ((h-1)/2+1)((w-1)/2+1) \f$ elements,
+ * belonging to the upper left quadrant, need to be
  * specified by the user. The other quadrants are symmetric.
  *
- * For GAN_MASK2D_ANTISYMMETRIC, only \f$ (h-1)(w-1)/4 \f$ elements, 
+ * For GAN_MASK2D_ANTISYMMETRIC, only \f$ (h-1)(w-1)/4 \f$ elements,
  * belonging to the upper left quadrant and excluding those located in the
- * central axis of the mask, have to be defined. The upper right and the 
+ * central axis of the mask, have to be defined. The upper right and the
  * lower left quadrants are antisymmetric (multiplied by -1) and the lower
  * right quadrant is symmetric. The pixels located in the central axis
  * are equal to zero.
@@ -110,8 +110,8 @@ typedef struct
  * instead.
  */
 Gan_Mask2D *gan_mask2D_form_gen ( Gan_Mask2D *mask,
-                                  Gan_Mask2DFormat format, 
-                                  Gan_Matrix *data, 
+                                  Gan_Mask2DFormat format,
+                                  Gan_Matrix *data,
                                   unsigned int rows,
                                   unsigned int cols);
 
@@ -155,7 +155,7 @@ Gan_Mask2D* gan_mask2D_gen_from_Gan_Image (Gan_Image *img);
  * \sa gan_mask2D_form() and gan_mask2D_alloc_data().
  */
 #ifdef GAN_GENERATE_DOCUMENTATION
-Gan_Mask2D *gan_mask2D_alloc ( Gan_Mask2DFormat format, 
+Gan_Mask2D *gan_mask2D_alloc ( Gan_Mask2DFormat format,
                                unsigned int rows,
 			       unsigned int cols);
 #else
@@ -172,7 +172,7 @@ Gan_Mask2D *gan_mask2D_alloc ( Gan_Mask2DFormat format,
  * \sa gan_mask2D_form() and gan_mask2D_alloc().
  */
 #ifdef GAN_GENERATE_DOCUMENTATION
-Gan_Mask2D *gan_mask2D_alloc_data ( Gan_Mask2DFormat format, 
+Gan_Mask2D *gan_mask2D_alloc_data ( Gan_Mask2DFormat format,
                                     Gan_Matrix *data, unsigned int rows,
 				    unsigned int cols );
 #else
@@ -190,7 +190,7 @@ Gan_Mask2D *gan_mask2D_alloc_data ( Gan_Mask2DFormat format,
  */
 #ifdef GAN_GENERATE_DOCUMENTATION
 Gan_Mask2D *gan_mask2D_form ( Gan_Mask2D *mask,
-                              Gan_Mask2DFormat format, 
+                              Gan_Mask2DFormat format,
                               unsigned int rows,
 			      unsigned int cols);
 #else
@@ -209,7 +209,7 @@ Gan_Mask2D *gan_mask2D_form ( Gan_Mask2D *mask,
  */
 #ifdef GAN_GENERATE_DOCUMENTATION
 Gan_Mask2D *gan_mask2D_form_data ( Gan_Mask2D *mask,
-                                   Gan_Mask2DFormat format, 
+                                   Gan_Mask2DFormat format,
                                    Gan_Matrix *data, unsigned int rows,
 				   unsigned int cols);
 #else

@@ -9,9 +9,9 @@
 * Author:        $Author: pm $
 * Copyright:     Modifications (c) 2000 Imagineer Software Limited
 *
-* Notes:         
-* Private func:  
-* History:       Modified from original CLAPACK source code 
+* Notes:
+* Private func:
+* History:       Modified from original CLAPACK source code
 *
 **************************************************************************/
 
@@ -30,8 +30,8 @@ extern "C" {
 
 double gan_dlamch(Gan_LapackLamchFlag cmach);
 Gan_Bool gan_dlamc1(long *beta, long *t, Gan_Bool *rnd, Gan_Bool *ieee1);
-Gan_Bool gan_dlamc2(long *beta, long *t, Gan_Bool *rnd, 
-                    double *eps, long *emin, double *rmin, long *emax, 
+Gan_Bool gan_dlamc2(long *beta, long *t, Gan_Bool *rnd,
+                    double *eps, long *emin, double *rmin, long *emax,
                     double *rmax);
 double gan_dlamc3(double a, double b);
 Gan_Bool gan_dlamc4(long *emin, double start, long base);

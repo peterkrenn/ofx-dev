@@ -2,7 +2,7 @@
 	Copyright (C) 2005-2007 Feeling Software Inc.
 	Portions of the code are:
 	Copyright (C) 2005-2007 Sony Computer Entertainment America
-	
+
 	MIT License: http://www.opensource.org/licenses/mit-license.php
 */
 /*
@@ -45,7 +45,7 @@ class FCDExtra;
 	The COLLADA libraries are contained within the FCDocument object.
 
 	@ingroup FCDocument
-*/	
+*/
 template <class T>
 class FCOLLADA_EXPORT FCDLibrary : public FCDObject
 {

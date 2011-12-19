@@ -3,7 +3,7 @@
 * openFrameworks
 *
 * This class represents a blob with inter-frame information.
-* This includes a persistent id to assume a persistent identity over 
+* This includes a persistent id to assume a persistent identity over
 * time.
 *
 */
@@ -18,21 +18,21 @@ class ofxTouchTrackedBlob : public ofxTouchBlob {
   public:
 
     int id;
-    
+
     ofPoint deltaLoc;
     ofPoint deltaLocTotal;
     ofPoint predictedPos;
     float deltaArea;
-    
-    
+
+
     // Used only by BlobTracker
     //
     bool markedForDeletion;
     int framesLeft;
     vector<float> error;
     vector<int> closest;  // ids of the closest points, sorted
-    
-    
+
+
 
     ofxTouchTrackedBlob() {
         id = -1;
@@ -42,7 +42,7 @@ class ofxTouchTrackedBlob : public ofxTouchBlob {
         markedForDeletion = false;
         framesLeft = 0;
     }
-    
+
     ofxTouchTrackedBlob( const ofxTouchBlob& b ) {
         area = b.area;
         length = b.length;
@@ -51,13 +51,13 @@ class ofxTouchTrackedBlob : public ofxTouchBlob {
         hole = b.hole;
         contour = b.contour;
 
-        id = -1;        
+        id = -1;
         deltaArea = 0.0f;
         markedForDeletion = false;
         framesLeft = 0;
     }
-    
-    
+
+
 
 
     int getLowestError() {

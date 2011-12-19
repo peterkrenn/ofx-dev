@@ -30,7 +30,7 @@ ofxTouchContourFinder::ofxTouchContourFinder() {
 ofxTouchContourFinder::~ofxTouchContourFinder() {
 	free( myMoments );
 }
- 
+
 void ofxTouchContourFinder::reset() {
     blobs.clear();
 }
@@ -43,14 +43,14 @@ void ofxTouchContourFinder::draw( float x, float y ) {
 	ofSetColor( 255,0,200,100 );
     glPushMatrix();
     glTranslatef( x, y, 0.0 );
-    
+
 	ofNoFill();
 	for( int i=0; i<blobs.size(); i++ ) {
-		ofRect( blobs[i].box.x, blobs[i].box.y, 
+		ofRect( blobs[i].box.x, blobs[i].box.y,
                 blobs[i].box.width, blobs[i].box.height );
 	}
 	ofDisableAlphaBlending();
-	
+
 	ofSetColor(0xffffff);
 	for( int i=0; i<blobs.size(); i++ ) {
 		glBegin(GL_LINE_LOOP);
@@ -74,14 +74,14 @@ void ofxTouchContourFinder::findContours( ofxCvGrayscaleImage&  input,
 									  bool bFindHoles) {
 	reset();
 
-	// opencv will clober the image it detects contours on, so we want to 
-    // copy it into a copy before we detect contours.  That copy is allocated 
+	// opencv will clober the image it detects contours on, so we want to
+    // copy it into a copy before we detect contours.  That copy is allocated
     // if necessary (necessary = (a) not allocated or (b) wrong size)
 	// so be careful if you pass in different sized images to "findContours"
-	// there is a performance penalty, but we think there is not a memory leak 
-    // to worry about better to create mutiple contour finders for different 
-    // sizes, ie, if you are finding contours in a 640x480 image but also a 
-    // 320x240 image better to make two ofCvContourFinder objects then to use 
+	// there is a performance penalty, but we think there is not a memory leak
+    // to worry about better to create mutiple contour finders for different
+    // sizes, ie, if you are finding contours in a 640x480 image but also a
+    // 320x240 image better to make two ofCvContourFinder objects then to use
     // one, because you will get penalized less.
 
 	if( inputCopy.width == 0 ) {
@@ -91,7 +91,7 @@ void ofxTouchContourFinder::findContours( ofxCvGrayscaleImage&  input,
 		if( inputCopy.width == input.width && inputCopy.height == input.height ) {
 			inputCopy = input;
 		} else {
-			// we are allocated, but to the wrong size -- 
+			// we are allocated, but to the wrong size --
 			// been checked for memory leaks, but a warning:
 			// be careful if you call this function with alot of different
 			// sized "input" images!, it does allocation every time
@@ -107,12 +107,12 @@ void ofxTouchContourFinder::findContours( ofxCvGrayscaleImage&  input,
 	contour_storage = cvCreateMemStorage( 1000 );
 	storage	= cvCreateMemStorage( 1000 );
 
-	CvContourRetrievalMode  retrieve_mode 
+	CvContourRetrievalMode  retrieve_mode
         = (bFindHoles) ? CV_RETR_LIST : CV_RETR_EXTERNAL;
-	cvFindContours( inputCopy.getCvImage(), contour_storage, &contour_list, 
+	cvFindContours( inputCopy.getCvImage(), contour_storage, &contour_list,
                     sizeof(CvContour), retrieve_mode, CV_CHAIN_APPROX_SIMPLE );
 	CvSeq* contour_ptr = contour_list;
-		
+
 	nCvSeqsFound = 0;
 
 
@@ -127,22 +127,22 @@ void ofxTouchContourFinder::findContours( ofxCvGrayscaleImage&  input,
 		}
 		contour_ptr = contour_ptr->h_next;
 	}
-    
-    
+
+
 	// sort the pointers based on size
 	if( nCvSeqsFound > 0 ) {
 		qsort( cvSeqBlobs, nCvSeqsFound, sizeof(CvSeq*), qsort_carea_compare);
 	}
 
 
-	// now, we have nCvSeqsFound contours, sorted by size in the array 
+	// now, we have nCvSeqsFound contours, sorted by size in the array
     // cvSeqBlobs let's get the data out and into our structures that we like
 	for( int i = 0; i < MIN(nConsidered, nCvSeqsFound); i++ ) {
 		blobs.push_back( ofxTouchBlob() );
 		float area = cvContourArea( cvSeqBlobs[i], CV_WHOLE_SEQ );
 		CvRect rect	= cvBoundingRect( cvSeqBlobs[i], 0 );
 		cvMoments( cvSeqBlobs[i], myMoments );
-		
+
 		blobs[i].area 				= fabs(area);
 		blobs[i].hole 				= area < 0 ? true : false;
 		blobs[i].length 			= cvArcLength(cvSeqBlobs[i]);
@@ -152,9 +152,9 @@ void ofxTouchContourFinder::findContours( ofxCvGrayscaleImage&  input,
 		blobs[i].box.height         = rect.height;
 		blobs[i].center.x 			= (int) (myMoments->m10 / myMoments->m00);
 		blobs[i].center.y 			= (int) (myMoments->m01 / myMoments->m00);
-		
-		// get the points for the blob:	
-		CvPoint pt;	
+
+		// get the points for the blob:
+		CvPoint pt;
 		CvSeqReader reader;
 		cvStartReadSeq( cvSeqBlobs[i], &reader, 0 );
 

@@ -59,7 +59,7 @@ void Thingy::draw() {
 
 bool Thingy::mousePressed(float _x, float _y) {
 	// when given an x & y we figure out distance
-	float vx = pos.x - _x; 
+	float vx = pos.x - _x;
 	float vy = pos.y - _y;
 	float dist = (float)sqrt(vx*vx + vy*vy);
 	// and return whether that distance is inside of the radius of our circle

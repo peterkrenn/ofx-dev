@@ -10,7 +10,7 @@
 	NSMutableArray* datay;
 	NSMutableArray* dataz;
 	NSTimer* animTimer;
-	
+
 	NSLock* lock;
 	float _x;
 	float _y;

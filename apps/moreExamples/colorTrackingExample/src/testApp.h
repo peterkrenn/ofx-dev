@@ -1,8 +1,8 @@
 /*
 	Tracking colors: tracking laser
       example found at http://www.berio.alg-a.org/spip.php?article145
-	
-	This is what this color tracking code does: 
+
+	This is what this color tracking code does:
 	  It takes an incomming image, either from a live cam or a static picture,
 	  and converts it from RGB to HSV, which is a better color system for tracking.
 	  Then, changing the HSV values, we try to isolate the color that we want	to
@@ -58,13 +58,13 @@ class testApp : public ofSimpleApp{
 
         int minHue, maxHue, minSat, maxSat, minVal, maxVal;
 		float hue, hueWidth, sat, satWidth, val, valWidth;
-		
+
 	protected:
 
-		laserTracking LT;	
-	
+		laserTracking LT;
+
 	private:
-		
+
 		bool					videoAsInputSource;
 };
 

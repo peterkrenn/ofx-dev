@@ -79,9 +79,9 @@ public:
 
 	bool saveImage(const char *filename);
 
-	//! return the (B,G,R) gain of a camera. 
+	//! return the (B,G,R) gain of a camera.
 	const float *getGain(int cam);
-	//! return the (B,G,R) bias of a camera. 
+	//! return the (B,G,R) bias of a camera.
 	const float *getBias(int cam);
 
 	//! returns the irradiance for a given normal.

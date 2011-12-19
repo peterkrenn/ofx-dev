@@ -6,8 +6,8 @@ OF_ADDONS_PATH = ../../../addons
 
 CC = gcc
 PROJECT_DIR = ./
-CFLAGS += -Wall -fexceptions 
-#= CFLAGS += -I$(OF_LIBS_PATH)/libofw/include 
+CFLAGS += -Wall -fexceptions
+#= CFLAGS += -I$(OF_LIBS_PATH)/libofw/include
 
 #= libofw cflags
 CFLAGS += -I$(OF_LIBS_PATH)/openFrameworks/ -I$(OF_LIBS_PATH)/openFrameworks/events -I$(OF_LIBS_PATH)/openFrameworks/app -I$(OF_LIBS_PATH)/openFrameworks/communication -I$(OF_LIBS_PATH)/openFrameworks/graphics -I$(OF_LIBS_PATH)/openFrameworks/video -I$(OF_LIBS_PATH)/openFrameworks/utils -I$(OF_LIBS_PATH)/openFrameworks/sound -I$(OF_LIBS_PATH)/rtAudio/include -I$(OF_LIBS_PATH)/fmodex/inc -I$(OF_LIBS_PATH)/GLee/include -I$(OF_LIBS_PATH)/GLee/ -I$(OF_LIBS_PATH)/freeimage/include -I$(OF_LIBS_PATH)/freeimage -I$(OF_LIBS_PATH)/alsa/include -I$(OF_LIBS_PATH)/alsa/include/alsa -I$(OF_LIBS_PATH)/freetype/include/linux -I$(OF_LIBS_PATH)/freetype/include/linux/freetype2 -I$(OF_LIBS_PATH)/unicap/include -I$(OF_LIBS_PATH)/gstappsink/include -I../../../addons -I$(OF_LIBS_PATH)/poco/include
@@ -22,7 +22,7 @@ LDFLAGS += -L$(OF_LIBS_PATH)/libofw/lib -L$(OF_LIBS_PATH)/fmodex/lib/linux -L$(O
 LIBS += -lofw -lofw_coreaddons -lfmodex -lraw1394 -lglut -lGL -lGLU -lXxf86vm -lasound -lPocoFoundation -lunicap
 CFLAGS += -DLINUX
 
-OBJS = src/main.o src/testApp.o src/particle.o src/pointRecorder.o 
+OBJS = src/main.o src/testApp.o src/particle.o src/pointRecorder.o
 
 Debug: TARGET_NAME = Debug
 Debug: OBJ_OUTPUT = build/Debug/

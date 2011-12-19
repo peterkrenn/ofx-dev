@@ -19,9 +19,9 @@
 class ofxCvColorTrack {
 
 	public:
-		
+
 		ofxCvColorTrack();
-		void  		findColor (	int r, int g, int b);  
+		void  		findColor (	int r, int g, int b);
 		void		update(ofxCvColorImage &input);
 		void		setTolerance(int t);
 		float		getX();
@@ -37,11 +37,11 @@ class ofxCvColorTrack {
 		//----------------------------------- an array of cvSequences
 		int 					nCvSeqsFound;
 		CvSeq* 					cvSeqBlobs[500];
-		
+
 		int 					nBlobs;
-		ofxCvBlob				* blobs; 
+		ofxCvBlob				* blobs;
 		int red;
-		int green; 
+		int green;
 		int blue;
 		float					xAvg;
 		float					yAvg;
@@ -52,8 +52,8 @@ class ofxCvColorTrack {
 		int					tolerance;
 		int					xPosition(int pixelNum, int h, int w);
 		int					yPosition(int pixelNum,	int h, int w);
-		
-		
+
+
 
 };
 

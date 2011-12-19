@@ -1,10 +1,10 @@
 /*
 	TUIO C++ Library for OpenFrameworks
     http://www.openframeworks.cc
-	
+
 	Copyright (c) 2008 by Matthias Dörfelt based on the Classes by Martin Kaltenbrunner
 	which can be found at http://reactivision.sourceforge.net/
-	
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
@@ -30,4 +30,4 @@
 #include "ofxTuioObject.h"
 #include "ofxTuioPoint.h"
 
-#endif	
+#endif

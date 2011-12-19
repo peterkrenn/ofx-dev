@@ -4,7 +4,7 @@ class Matrix {
 
 public:
 
-// Default Constructor. Creates a 1 by 1 matrix; sets value to zero. 
+// Default Constructor. Creates a 1 by 1 matrix; sets value to zero.
 Matrix () {
   nRow_ = 1; nCol_ = 1;
   data_ = new double [1];  // Allocate memory
@@ -22,7 +22,7 @@ Matrix(int nR, int nC = 1) {
 }
 
 // Copy Constructor.
-// Used when a copy of an object is produced 
+// Used when a copy of an object is produced
 // (e.g., passing to a function by value)
 Matrix(const Matrix& mat) {
   this->copy(mat);   // Call private copy function.
@@ -49,7 +49,7 @@ int nCol() const { return nCol_; }
 
 // Parenthesis operator function.
 // Allows access to values of Matrix via (i,j) pair.
-// Example: a(1,1) = 2*b(2,3); 
+// Example: a(1,1) = 2*b(2,3);
 // If column is unspecified, take as 1.
 double& operator() (int i, int j = 1) {
   assert(i > 0 && i <= nRow_);          // Bounds checking for rows

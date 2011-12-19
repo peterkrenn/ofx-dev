@@ -105,7 +105,7 @@ void ofxCamera::remove(){
 
 
 void ofxCamera::moveLocal(float _x, float _y, float _z){
-	moveLocal(ofxVec3f(_x, _y, _z));	
+	moveLocal(ofxVec3f(_x, _y, _z));
 }
 
 void ofxCamera::moveLocal(ofxVec3f move){
@@ -115,7 +115,7 @@ void ofxCamera::moveLocal(ofxVec3f move){
 
 	posCoord += upVec.rescaled(move.y);
 	eyeCoord += upVec.rescaled(move.y);
-	
+
 	posCoord += dir.cross(upVec).rescaled(move.x);
 	eyeCoord += dir.cross(upVec).rescaled(move.x);
 }

@@ -6,16 +6,16 @@
 class pointRecorder {
 
 	public:
-	
+
         pointRecorder();
-	
+
 		void addPoint(ofPoint pt);
 		void draw();
-	
+
 		int	 maxNumPts;
 		vector <ofPoint> pts;
 		void drawArrow(float oX, float oY,float nX, float nY);
-	
+
 
 };
 

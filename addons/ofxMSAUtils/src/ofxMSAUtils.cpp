@@ -23,7 +23,7 @@ void msaConstrain(float &pos, float &vel, float min, float max, float bounce) {
 		pos = max;
 		vel = -fabs(vel) * bounce;
 	}
-}	
+}
 
 void msaConstrain(ofPoint &pos, ofPoint &vel, ofPoint &min, ofPoint &max, float bounce) {
 	msaConstrain(pos.x, vel.x, min.x, max.x, bounce);
@@ -78,7 +78,7 @@ static GLfloat verts[] = {
 void msaDrawQuadAtCorner() {
 	glEnableClientState( GL_TEXTURE_COORD_ARRAY );
 	glTexCoordPointer(2, GL_FLOAT, 0, tex_coords );
-	glEnableClientState(GL_VERTEX_ARRAY);		
+	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(2, GL_FLOAT, 0, verts );
 	glDrawArrays( GL_TRIANGLE_FAN, 0, 4 );
 	glDisableClientState( GL_TEXTURE_COORD_ARRAY );
@@ -87,7 +87,7 @@ void msaDrawQuadAtCorner() {
 void msaDrawQuadAtCenter() {
 	glEnableClientState( GL_TEXTURE_COORD_ARRAY );
 	glTexCoordPointer(2, GL_FLOAT, 0, verts );
-	glEnableClientState(GL_VERTEX_ARRAY);		
+	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(2, GL_FLOAT, 0, verts );
 	glDrawArrays( GL_TRIANGLE_FAN, 0, 4 );
 	glDisableClientState( GL_TEXTURE_COORD_ARRAY );

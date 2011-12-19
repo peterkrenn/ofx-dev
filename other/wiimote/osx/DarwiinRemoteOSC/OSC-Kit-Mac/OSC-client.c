@@ -25,7 +25,7 @@ MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 */
 
 
-/* 
+/*
   Author: Matt Wright
   Version 2.2: Calls htonl in the right places 20000620
   Version 2.3: Gets typed messages right.
@@ -41,7 +41,7 @@ MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 #define GET_ARGS 3     /* Getting arguments to a message.  If we see a message
 			  name or a bundle open/close then the current message
 			  will end. */
-#define DONE 4         /* All open bundles have been closed, so can't write 
+#define DONE 4         /* All open bundles have been closed, so can't write
 		          anything else */
 
 
@@ -65,7 +65,7 @@ void OSC_initBuffer(OSCbuf *buf, int size, char *byteArray) {
     OSC_resetBuffer(buf);
 }
 
-void OSC_resetBuffer(OSCbuf *buf) {	
+void OSC_resetBuffer(OSCbuf *buf) {
     buf->bufptr = buf->buffer;
     buf->state = EMPTY;
     buf->bundleDepth = 0;
@@ -172,7 +172,7 @@ int OSC_openBundle(OSCbuf *buf, OSCTimeTag tt) {
 	intp[1] = htonl(intp[1]);
 
 #ifdef HAS8BYTEINT
-	{ /* tt is a 64-bit int so we have to swap the two 32-bit words. 
+	{ /* tt is a 64-bit int so we have to swap the two 32-bit words.
 	    (Otherwise tt is a struct of two 32-bit words, and even though
 	     each word was wrong-endian, they were in the right order
 	     in the struct.) */
@@ -293,7 +293,7 @@ int OSC_writeAddressAndTypes(OSCbuf *buf, char *name, char *types) {
 
     paddedLength = OSC_effectiveStringLength(types);
 
-    CheckOverflow(buf, paddedLength);    
+    CheckOverflow(buf, paddedLength);
 
     buf->typeStringPtr = buf->bufptr + 1; /* skip comma */
     buf->bufptr += OSC_padString(buf->bufptr, types);
@@ -316,7 +316,7 @@ static int CheckTypeTag(OSCbuf *buf, char expectedType) {
 		    "According to the type tag I expected an argument of a different type.";
 		printf("* Expected %c, string now %s\n", expectedType, buf->typeStringPtr);
 	    }
-	    return 9; 
+	    return 9;
 	}
 	++(buf->typeStringPtr);
     }
@@ -388,7 +388,7 @@ int OSC_writeStringArg(OSCbuf *buf, char *arg) {
 	   tag string. */
 
 	CheckOverflow(buf, len+4); /* Too conservative */
-	buf->bufptr += 
+	buf->bufptr +=
 	    OSC_padStringWithAnExtraStupidComma(buf->bufptr, arg);
 
     } else {
@@ -418,7 +418,7 @@ int OSC_writeSCStringArg(OSCbuf *buf, char *arg) {
 	   tag string. */
 
 	CheckOverflow(buf, len+4); /* Too conservative */
-	buf->bufptr += 
+	buf->bufptr +=
 	    OSC_padStringWithAnExtraStupidComma(buf->bufptr, arg);
 
     } else {
@@ -442,7 +442,7 @@ static int strlen(char *s) {
 #define STRING_ALIGN_PAD 4
 int OSC_effectiveStringLength(char *string) {
     int len = strlen(string) + 1;  /* We need space for the null char. */
-    
+
     /* Round up len to next multiple of STRING_ALIGN_PAD to account for alignment padding */
     if ((len % STRING_ALIGN_PAD) != 0) {
         len += STRING_ALIGN_PAD - (len % STRING_ALIGN_PAD);
@@ -452,17 +452,17 @@ int OSC_effectiveStringLength(char *string) {
 
 static int OSC_padString(char *dest, char *str) {
     int i;
-    
+
     for (i = 0; str[i] != '\0'; i++) {
         dest[i] = str[i];
     }
-    
+
     return OSC_WritePadding(dest, i);
 }
 
 static int OSC_padStringWithAnExtraStupidComma(char *dest, char *str) {
     int i;
-    
+
     dest[0] = ',';
     for (i = 0; str[i] != '\0'; i++) {
         dest[i+1] = str[i];
@@ -470,7 +470,7 @@ static int OSC_padStringWithAnExtraStupidComma(char *dest, char *str) {
 
     return OSC_WritePadding(dest, i+1);
 }
- 
+
 static int OSC_WritePadding(char *dest, int i) {
     dest[i] = '\0';
     i++;

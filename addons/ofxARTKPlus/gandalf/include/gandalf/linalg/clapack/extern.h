@@ -9,9 +9,9 @@
 * Author:        $Author: pm $
 * Copyright:     Modifications (c) 2000 Imagineer Software Limited
 *
-* Notes:         
-* Private func:  
-* History:       Modified from original CLAPACK source code 
+* Notes:
+* Private func:
+* History:       Modified from original CLAPACK source code
 *
 **************************************************************************/
 
@@ -46,7 +46,7 @@ int dgetrf_ ( integer *m, integer *n, doublereal *a, integer *lda,
 int dgetri_ ( integer *n, doublereal *a, integer *lda, integer *ipiv,
               doublereal *work, integer *lwork, integer *info );
 int dspev_ ( char *jobz, char *uplo, integer *n, doublereal *ap,
-             doublereal *w, doublereal *z, integer *ldz, doublereal *work, 
+             doublereal *w, doublereal *z, integer *ldz, doublereal *work,
              integer *info );
 int dgeqrf_ ( integer *m, integer *n, doublereal *a, integer *lda,
               doublereal *tau, doublereal *work, integer *lwork,
@@ -59,7 +59,7 @@ int dgelqf_ ( integer *m, integer *n, doublereal *a, integer *lda,
 int dgelq2_ ( integer *m, integer *n, doublereal *a, integer *lda,
               doublereal *tau, doublereal *work, integer *info );
 int dorgqr_ ( integer *m, integer *n, integer *k, doublereal *a, integer *lda,
-              doublereal *tau, doublereal *work, integer *lwork, 
+              doublereal *tau, doublereal *work, integer *lwork,
               integer *info );
 int dorg2r_ ( integer *m, integer *n, integer *k, doublereal *a, integer *lda,
               doublereal *tau, doublereal *work, integer *info );
@@ -70,17 +70,17 @@ int dorgl2_( integer *m, integer *n, integer *k, doublereal *a, integer *lda,
              doublereal *tau, doublereal *work, integer *info );
 int dorg2l_ ( integer *m, integer *n, integer *k, doublereal *a, integer *lda,
               doublereal *tau, doublereal *work, integer *info );
-int dgesvd_ ( char *jobu, char *jobvt, integer *m, integer *n, 
+int dgesvd_ ( char *jobu, char *jobvt, integer *m, integer *n,
               doublereal *a, integer *lda, doublereal *s,
               doublereal *u, integer *ldu, doublereal *vt, integer *ldvt,
               doublereal *work, integer *lwork, integer *info );
 int dgeev_ ( char *jobvl, char *jobvr, integer *n, doublereal *a, integer *lda,
-             doublereal *wr, doublereal *wi, doublereal *vl, 
-             integer *ldvl, doublereal *vr, integer *ldvr, doublereal *work, 
+             doublereal *wr, doublereal *wi, doublereal *vl,
+             integer *ldvl, doublereal *vr, integer *ldvr, doublereal *work,
              integer *lwork, integer *info );
-int dgees_ ( char *jobvs, char *sort, L_fp select, integer *n, 
-             doublereal *a, integer *lda, integer *sdim, doublereal *wr, 
-             doublereal *wi, doublereal *vs, integer *ldvs, doublereal *work, 
+int dgees_ ( char *jobvs, char *sort, L_fp select, integer *n,
+             doublereal *a, integer *lda, integer *sdim, doublereal *wr,
+             doublereal *wi, doublereal *vs, integer *ldvs, doublereal *work,
              integer *lwork, logical *bwork, integer *info );
 int dgesv_ ( integer *n, integer *nrhs, doublereal *a, integer *lda,
              integer *ipiv, doublereal *b, integer *ldb, integer *info );
@@ -97,7 +97,7 @@ int sgetrf_ ( integer *m, integer *n, real *a, integer *lda,
 int sgetri_ ( integer *n, real *a, integer *lda, integer *ipiv,
               real *work, integer *lwork, integer *info );
 int sspev_ ( char *jobz, char *uplo, integer *n, real *ap,
-             real *w, real *z, integer *ldz, real *work, 
+             real *w, real *z, integer *ldz, real *work,
              integer *info );
 int sgeqrf_ ( integer *m, integer *n, real *a, integer *lda,
               real *tau, real *work, integer *lwork,
@@ -110,7 +110,7 @@ int sgelqf_ ( integer *m, integer *n, real *a, integer *lda,
 int sgelq2_ ( integer *m, integer *n, real *a, integer *lda,
               real *tau, real *work, integer *info );
 int sorgqr_ ( integer *m, integer *n, integer *k, real *a, integer *lda,
-              real *tau, real *work, integer *lwork, 
+              real *tau, real *work, integer *lwork,
               integer *info );
 int sorg2r_ ( integer *m, integer *n, integer *k, real *a, integer *lda,
               real *tau, real *work, integer *info );
@@ -121,19 +121,19 @@ int sorgl2_( integer *m, integer *n, integer *k, real *a, integer *lda,
              real *tau, real *work, integer *info );
 int sorg2l_ ( integer *m, integer *n, integer *k, real *a, integer *lda,
               real *tau, real *work, integer *info );
-int sgesvd_ ( char *jobu, char *jobvt, integer *m, integer *n, 
+int sgesvd_ ( char *jobu, char *jobvt, integer *m, integer *n,
               real *a, integer *lda, real *s,
               real *u, integer *ldu, real *vt, integer *ldvt,
               real *work, integer *lwork, integer *info );
 int sgeev_ ( char *jobvl, char *jobvr, integer *n, real *a, integer *lda,
-             real *wr, real *wi, real *vl, 
-             integer *ldvl, real *vr, integer *ldvr, real *work, 
+             real *wr, real *wi, real *vl,
+             integer *ldvl, real *vr, integer *ldvr, real *work,
              integer *lwork, integer *info );
-int sgees_ ( char *jobvs, char *sort, L_fp select, integer *n, 
+int sgees_ ( char *jobvs, char *sort, L_fp select, integer *n,
              real *a, integer *lda, integer *sdim, real *wr, real *wi,
              real *vs, integer *ldvs, real *work, integer *lwork,
              logical *bwork, integer *info );
-int sgesv_ ( integer *n, integer *nrhs, real *a, integer *lda, 
+int sgesv_ ( integer *n, integer *nrhs, real *a, integer *lda,
              integer *ipiv, real *b, integer *ldb, integer *info );
 
 #undef integer

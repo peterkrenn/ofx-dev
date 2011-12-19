@@ -102,7 +102,7 @@ void ofArduino::processSysExData(vector<unsigned char> data){
 
 	// act on reserved sysEx messages (extended commands) or trigger SysEx event...
 	/*
-	
+
 	// zach - altered because VS is unhappy with switches that have no case.
 
 	switch(data.front()) { //first byte in buffer is command

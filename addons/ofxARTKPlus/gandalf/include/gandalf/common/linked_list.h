@@ -61,12 +61,12 @@ typedef struct Gan_List_Node
  */
 typedef struct Gan_List
 {
-   
+
    Gan_List_Node *p_first;         /**< First node in list */
    Gan_List_Node *p_current;       /**< Current node in list */
    Gan_List_Node *p_last;          /**< Last node in list */
    Gan_List_Node *p_stack_current; /**< Node stored on the stack */
-   
+
    int node_count;                 /**< Number of nodes in list */
    int current_position;           /**< Current position in list */
    int current_position_stack;     /**< Position stored on stack */
@@ -134,7 +134,7 @@ GANDALF_API Gan_Bool gan_list_compare( Gan_List *List1, Gan_List *List2 );
  * Returns the data pointed to by the previous node and decrements the current
  * position such that gan_list_get_prev() can be called repeatedly in order to
  * iterate through the list. Call gan_list_goto_head() or another
- * gan_goto_...() function to set the current position in the list first. 
+ * gan_goto_...() function to set the current position in the list first.
  * \a TYPE is the type the data returned should be cast to, e.g. \c int.
  */
 #ifdef GAN_GENERATE_DOCUMENTATION

@@ -1,21 +1,21 @@
 /***********************************************************************
  -----------------------------------
- 
+
  Copyright (c) 2008, Memo Akten, www.memo.tv
- 
+
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- 
+
  ***********************************************************************/
 
 #include "Balls.h"
@@ -33,10 +33,10 @@ Ball::Ball(float initX, float initY, float initVelX, float initVelY, float initS
 
 void Ball::update() {
 //	printf("Ball update  \n");
-	
+
 	vel.y += BALL_GRAVITY;
 	Particle::update();
-	
+
 	if(pos.y < core_radius) {
 		vel.y *= -1;
 		pos.y = core_radius;
@@ -45,15 +45,15 @@ void Ball::update() {
 		if(vel.y > -10) vel.y = -10;
 		pos.y = HEIGHT - core_radius;
 	}
-	
+
 	fluid->addAtNorm(pos.x * INV_WIDTH, pos.y * INV_HEIGHT, vel.x * INV_WIDTH, vel.y * INV_HEIGHT, BALL_FLUID_CREATE, BALL_FLUID_SPEED, ofRandom(0, 1), ofRandom(0, 1), ofRandom(0, 1));
-	
+
 }
 
 
 bool Ball::doGravityAndCollision(Ball* ball2) {
-//	Ball* ball1 = this;		// can't be bothered to changet the function 
-	
+//	Ball* ball1 = this;		// can't be bothered to changet the function
+
     float dx = ball2->pos.x - pos.x;
     float dy = ball2->pos.y - pos.y;
     float r2 = dx*dx + dy*dy;
@@ -89,25 +89,25 @@ bool Ball::doGravityAndCollision(Ball* ball2) {
 void Ball::render() {
 	glColor4f(age, age, age, 1.0f);
 	Particle::render();		// render particle
-	
+
 	if(bDrawLine) {			// and line
 	    float dx = lineX - pos.x;
 		float dy = lineY - pos.y;
 		float r2 = dx*dx + dy*dy;
 		if(r2<BALL_LINE_THRESH) {
-			ofEnableSmoothing();	
+			ofEnableSmoothing();
 			ofSetColor(255, 255, 255, (BALL_LINE_THRESH - r2)* 255.0f / BALL_LINE_THRESH);
 			ofLine(pos.x, pos.y, lineX, lineY);
-			ofDisableSmoothing();	
+			ofDisableSmoothing();
 		} else {
 			bDrawLine = false;
 		}
 	}
-	
+
 }
 
- 
- 
+
+
  /********************* BALL Manager ***********************/
 
 void BallManager::add(float initX, float initY, float initVelX, float initVelY) {
@@ -123,7 +123,7 @@ void BallManager::update() {
 //	printf("BallManager::update() with %i particles \n", particles.size());
 	lastTriggerCounter ++;
 	ParticleManager::update();
-	
+
 	for (list<Particle*>::iterator it = particles.begin(); it != particles.end(); it++) {
 		Ball* ball1 = (Ball*) *it;
 		for (list<Particle*>::iterator it2 = it; it2 != particles.end(); it2++) {

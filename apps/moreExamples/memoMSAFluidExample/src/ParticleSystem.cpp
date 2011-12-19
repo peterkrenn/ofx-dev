@@ -20,21 +20,21 @@ ParticleSystem::ParticleSystem() {
 void ParticleSystem::updateAndDraw(){
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_LINE_SMOOTH);       
-	
+	glEnable(GL_LINE_SMOOTH);
+
 	if(myApp->renderUsingVA) {
 		for(int i=0; i<MAX_PARTICLES; i++) {
 			if(particles[i].alpha > 0) {
 				particles[i].update();
 				particles[i].updateVertexArrays(i, posArray, colArray);
 			}
-		}    
+		}
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glVertexPointer(2, GL_FLOAT, 0, posArray);
-		
+
 		glEnableClientState(GL_COLOR_ARRAY);
 		glColorPointer(3, GL_FLOAT, 0, colArray);
-		
+
 		glDrawArrays(GL_LINES, 0, MAX_PARTICLES * 2);
 
 		glDisableClientState(GL_VERTEX_ARRAY);
@@ -49,7 +49,7 @@ void ParticleSystem::updateAndDraw(){
 		}
 		glEnd();
 	}
-	
+
 	glDisable(GL_BLEND);
 }
 

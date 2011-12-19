@@ -1,21 +1,21 @@
 /***********************************************************************
- 
+
  Copyright (c) 2009, Memo Akten, www.memo.tv
  *** The Mega Super Awesome Visuals Company ***
- 
+
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- 
+
  ***********************************************************************/
 
 
@@ -42,7 +42,7 @@ ofxMSAParticle::ofxMSAParticle(ofxMSAParticle &p) {
 void ofxMSAParticle::init(float x, float y, float z, float m, float d) {
 	_params = NULL;
 	_physics = NULL;
-	
+
 	set(x, y, z);
 	_oldPos.set(x, y, z);
 	setMass(m);
@@ -176,7 +176,7 @@ ofxMSAParticle* ofxMSAParticle::setVelocity(ofPoint &vel) {
 ofxMSAParticle* ofxMSAParticle::setVelocity(float x, float y, float z) {
 	ofPoint temp;
 	temp.set(x, y, z);
-	setVelocity(temp);		
+	setVelocity(temp);
 	return this;
 }
 
@@ -187,14 +187,14 @@ ofxMSAParticle* ofxMSAParticle::addVelocity(ofPoint &vel) {
 
 ofxMSAParticle* ofxMSAParticle::addVelocity(float x, float y, float z) {
 	ofPoint temp;
-	temp.set(x, y, z);		
+	temp.set(x, y, z);
 	addVelocity(temp);
 	return this;
 }
 
 ofPoint &ofxMSAParticle::getVelocity() {
 //	return (*this - _oldPos);
-	return _vel; 
+	return _vel;
 }
 
 void ofxMSAParticle::kill() {
@@ -213,11 +213,11 @@ void ofxMSAParticle::doVerlet() {
 			ofPoint gravityForce = _params->gravity;
 			addVelocity(gravityForce);
 		}
-		
+
 		ofPoint curPos = *this;
 		_vel = curPos - _oldPos;
 		*this += _vel * _params->drag * _drag + _params->timeStep2;
-//		*this += _vel + 
+//		*this += _vel +
 		_oldPos = curPos;
 	}
 }
@@ -263,8 +263,8 @@ void ofxMSAParticle::checkWorldEdges() {
 void ofxMSAParticle::debugDraw() {
 	glPushMatrix();
 	glTranslatef(x, y, z);
-#ifndef TARGET_OF_IPHONE		
+#ifndef TARGET_OF_IPHONE
 	glutSolidSphere(_radius, 5, 5);
-#endif	
+#endif
 	glPopMatrix();
 }

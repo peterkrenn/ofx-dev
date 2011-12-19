@@ -37,13 +37,13 @@ public:
 	bool		mouseDragged(int x, int y, int button);
 	bool		mousePressed(int x, int y, int button);
 	bool		mouseReleased(int x, int y, int button);
-	
+
 	void		buildFromXml();
 	void		saveToXml();
 
 	ofxPoint2f	valueToFraction(ofxPoint2f value);
 	ofxPoint2f	fractionToValue(ofxPoint2f fraction);
-	
+
 	ofxPoint2f	mValue;
 	ofxPoint2f	mMinVal;
 	ofxPoint2f	mMaxVal;

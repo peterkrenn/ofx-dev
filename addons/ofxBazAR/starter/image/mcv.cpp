@@ -1,6 +1,6 @@
 /*
-Copyright 2005, 2006 Computer Vision Lab, 
-Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland. 
+Copyright 2005, 2006 Computer Vision Lab,
+Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland.
 All rights reserved.
 
 This file is part of BazAR.
@@ -16,7 +16,7 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 BazAR; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301, USA 
+Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 #include <iostream>
 #include <math.h>
@@ -210,14 +210,14 @@ IplImage * mcvGrayToColor(IplImage * grayImage)
   if (grayImage->depth == IPL_DEPTH_32F)
     {
       IplImage * tempImage;
-      
+
       double min = 255, max = 0;
       CvPoint Pmin, Pmax;
       cvMinMaxLoc(grayImage, &min, &max, &Pmin, &Pmax);
       tempImage = cvCreateImage(cvSize(grayImage->width, grayImage->height), IPL_DEPTH_8U, 1);
       cvConvertScale(grayImage, tempImage, 255. / (max - min), -min * 255 / (max - min));
-      cvCvtColor(tempImage, result, CV_GRAY2RGB);      
-      cvReleaseImage(&tempImage);      
+      cvCvtColor(tempImage, result, CV_GRAY2RGB);
+      cvReleaseImage(&tempImage);
     }
   else
     cvCvtColor(grayImage, result, CV_GRAY2RGB);
@@ -261,7 +261,7 @@ IplImage * mcvFloatToHue(IplImage * floatImage, int curve_number)
   if (floatImage->depth != IPL_DEPTH_32F)
     return 0;
 
-  IplImage * result = cvCreateImage(cvSize(floatImage->width, floatImage->height), 
+  IplImage * result = cvCreateImage(cvSize(floatImage->width, floatImage->height),
                                     IPL_DEPTH_8U, 3);
   double min = 255, max = 0;
   CvPoint Pmin, Pmax;
@@ -279,7 +279,7 @@ IplImage * mcvFloatToHue(IplImage * floatImage, int curve_number)
         int l1 = int( ((log(row[x]) - log(min)) / (log(max) - log(min))) * curve_number );
         int l2 = int( ((log(row[x + 1]) - log(min)) / (log(max) - log(min))) * curve_number );
         int l3 = int( ((log(row[x + floatImage->width]) - log(min)) / (log(max) - log(min))) * curve_number );
-        if (l1 != l2 || l1 != l3) 
+        if (l1 != l2 || l1 != l3)
           use_color = false;
       }
 
@@ -308,7 +308,7 @@ IplImage * mcvFloatToGray(IplImage * floatImage, int curve_number)
   if (floatImage->depth != IPL_DEPTH_32F)
     return 0;
 
-  IplImage * result = cvCreateImage(cvSize(floatImage->width, floatImage->height), 
+  IplImage * result = cvCreateImage(cvSize(floatImage->width, floatImage->height),
                                     IPL_DEPTH_8U, 3);
   double min = 255, max = 0;
   CvPoint Pmin, Pmax;
@@ -326,7 +326,7 @@ IplImage * mcvFloatToGray(IplImage * floatImage, int curve_number)
         int l1 = int( (row[x] - min) / (max - min) * curve_number );
         int l2 = int( (row[x + 1] - min) / (max - min) * curve_number );
         int l3 = int( (row[x + floatImage->width] - min) / (max - min) * curve_number );
-        if (l1 != l2 || l1 != l3) 
+        if (l1 != l2 || l1 != l3)
           use_gray = false;
       }
 
@@ -361,7 +361,7 @@ IplImage * showLocalMinima(IplImage * image)
     for(int x = 1; x < image->width - 1; x++)
     {
       if (row[x] < row[x - 1] && row[x] < row[x + 1] &&
-        row[x] < row[x - dy] && row[x] < row[x + dy] && 
+        row[x] < row[x - dy] && row[x] < row[x + dy] &&
         row[x] < row[x - dy - 1] && row[x] < row[x + dy - 1] &&
         row[x] < row[x - dy + 1] && row[x] < row[x + dy + 1])
       {
@@ -388,8 +388,8 @@ IplImage * showLocalMaxima(IplImage * image)
     for(int x = 1; x < image->width - 1; x++)
     {
       if (row[x] > row[x - 1] && row[x] > row[x + 1] &&
-          row[x] > row[x - dy] && row[x] > row[x + dy] && 
-          row[x] > row[x - dy - 1] && row[x] > row[x + dy - 1] && 
+          row[x] > row[x - dy] && row[x] > row[x + dy] &&
+          row[x] > row[x - dy - 1] && row[x] > row[x + dy - 1] &&
           row[x] > row[x - dy + 1] && row[x] > row[x + dy + 1])
       {
         row_r[3 * x] = 0;
@@ -501,7 +501,7 @@ IplImage * mcvLoadImage(const char * filename, int code, bool verbose)
 	ofxCvColorImage _im = ofxCvColorImage();
 	_im = _img.getPixels();
 	IplImage * result = _im.getCvImage();
-		
+
 
   if (verbose && !result)
     cout << "ERROR !" << endl;
@@ -615,7 +615,7 @@ void mcvAddWhiteNoise(const IplImage * image, const int minNoise, const int maxN
       int p = line[x];
       int noise = rand() % (2 * deltaNoise + 1) - deltaNoise;
 
-      if (noise < 0) 
+      if (noise < 0)
         noise -= minNoise;
       else
         noise += minNoise;
@@ -641,7 +641,7 @@ void mcvAddWhiteNoise(const IplImage * image, const int maxNoise)
 
       p += rand() % (2 * maxNoise + 1) - maxNoise;
 
-      if (p > 255) 
+      if (p > 255)
         p = 255;
       else if (p < 0)
         p = 0;
@@ -792,16 +792,16 @@ void imcvR3z(double Rz[3][3], double angle)
 
 void imcvDiag3(double D[3][3], double d1, double d2, double d3)
 {
-  D[0][0] = d1; D[0][1] = 0.; D[0][2] = 0.; 
-  D[1][0] = 0.; D[1][1] = d2; D[1][2] = 0.; 
-  D[2][0] = 0.; D[2][1] = 0.; D[2][2] = d3; 
+  D[0][0] = d1; D[0][1] = 0.; D[0][2] = 0.;
+  D[1][0] = 0.; D[1][1] = d2; D[1][2] = 0.;
+  D[2][0] = 0.; D[2][1] = 0.; D[2][2] = d3;
 }
 
 void imcvTransl3(double T[3][3], double tx, double ty)
 {
-  T[0][0] = 1.; T[0][1] = 0.; T[0][2] = tx; 
-  T[1][0] = 0.; T[1][1] = 1.; T[1][2] = ty; 
-  T[2][0] = 0.; T[2][1] = 0.; T[2][2] = 1.; 
+  T[0][0] = 1.; T[0][1] = 0.; T[0][2] = tx;
+  T[1][0] = 0.; T[1][1] = 1.; T[1][2] = ty;
+  T[2][0] = 0.; T[2][1] = 0.; T[2][2] = 1.;
 }
 
 void imcvMul_MN3(double A[3][3], double B[3][3], double AB[3][3])
@@ -846,17 +846,17 @@ void imcvMul_MNMt3(double M[3][3], double N[3][3], double MNMt[3][3])
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-/* 
+/*
 cf Multiple view geometry, p. 19
 A = T(tx, ty) R(theta) R(-phi) D(lambda1, lambda2) R(phi)
 
-!!! actually compute the inverse of A to be opencv complient 
+!!! actually compute the inverse of A to be opencv complient
 */
 
-void mcvComputeAffineTransfo(float * a, 
-                             int u, int v, 
-                             float theta, float phi, 
-                             float lambda1, float lambda2, 
+void mcvComputeAffineTransfo(float * a,
+                             int u, int v,
+                             float theta, float phi,
+                             float lambda1, float lambda2,
                              float tx, float ty)
 {
   double K[3][3];

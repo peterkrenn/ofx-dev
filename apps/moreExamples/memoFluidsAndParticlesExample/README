@@ -1,5 +1,5 @@
 /***********************************************************************
- 
+
   blog post at: http://www.memo.tv/source_code_for_fluid_solver_optical_flow_particles
 
   forums: http://www.openframeworks.cc/forum/viewtopic.php?t=972&postdays=0&postorder=asc&start=0
@@ -11,7 +11,7 @@ for more info and the installation behind the example: http://www.memo.tv/source
 
 with ofx-dev the example should build fine and work well without changes from the website..
 
- 
+
 here are the changes i made for compiling this example with the ofx-dev bundle:
 
 	diff --git a/addons/ofxOpenCv/src/ofxCvGrayscaleImage.cpp b/addons/ofxOpenCv/src/ofxCvGrayscaleImage.cpp
@@ -24,20 +24,20 @@ here are the changes i made for compiling this example with the ofx-dev bundle:
 
 
  -----------------------------------
- 
+
  Copyright (c) 2008, Memo Akten, www.memo.tv
- 
+
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- 
+
  ***********************************************************************/

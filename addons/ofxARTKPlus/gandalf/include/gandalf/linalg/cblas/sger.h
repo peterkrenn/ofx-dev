@@ -9,9 +9,9 @@
 * Author:        $Author: pm $
 * Copyright:     Modifications (c) 2000 Imagineer Software Limited
 *
-* Notes:         
-* Private func:  
-* History:       Modified from original CLAPACK source code 
+* Notes:
+* Private func:
+* History:       Modified from original CLAPACK source code
 *
 **************************************************************************/
 
@@ -26,8 +26,8 @@ extern "C" {
 
 /* only declare this function locally if there is no LAPACK installed */
 #if !defined(HAVE_LAPACK) || defined(FORCE_LOCAL_LAPACK)
-Gan_Bool gan_sger ( long m, long n, float alpha, 
-                    float *x, long incx, float *y, long incy, 
+Gan_Bool gan_sger ( long m, long n, float alpha,
+                    float *x, long incx, float *y, long incy,
                     float *a, long lda );
 #endif
 

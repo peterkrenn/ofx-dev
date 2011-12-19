@@ -1,6 +1,6 @@
 /*
-Copyright 2005, 2006 Computer Vision Lab, 
-Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland. 
+Copyright 2005, 2006 Computer Vision Lab,
+Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland.
 All rights reserved.
 
 This file is part of BazAR.
@@ -16,7 +16,7 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 BazAR; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301, USA 
+Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 #include <iostream>
 // #include <highgui.h>
@@ -37,14 +37,14 @@ PyrImage::PyrImage(IplImage *im, int nblev) : nbLev(nblev)
 }
 
 PyrImage::~PyrImage() {
-  for (int i=0; i<nbLev; ++i) 
+  for (int i=0; i<nbLev; ++i)
     cvReleaseImage(&images[i]);
   delete [] images;
 }
 
 void PyrImage::build()
 {
-  for (int i=1; i<nbLev; ++i) 
+  for (int i=1; i<nbLev; ++i)
     cvPyrDown(images[i-1], images[i]);
 }
 
@@ -56,7 +56,7 @@ PyrImage *PyrImage::load(int level, const char *filename, int color, bool fatal)
 	ofxCvColorImage _im = ofxCvColorImage();
 	_im = _img.getPixels();
 	IplImage *im = _im.getCvImage();
-	
+
 
   if (im == 0) {
     cerr << filename << ": unable to load image.\n";
@@ -72,9 +72,9 @@ PyrImage *PyrImage::load(int level, const char *filename, int color, bool fatal)
 
 int PyrImage::convCoord(int x, int from, int to, unsigned max)
 {
-  if (max == 2) 
+  if (max == 2)
     return (convCoord(x, from, to, 0) + convCoord(x, from, to, 1)) >> 1;
-  if (to==from) 
+  if (to==from)
     return x;
   if (to<from) {
     if (max == 1) {
@@ -83,7 +83,7 @@ int PyrImage::convCoord(int x, int from, int to, unsigned max)
         r = r*2 + 1;
       }
       return r;
-    } 
+    }
     return x << ( from - to );
   }
   return x >> ( to - from );
@@ -91,13 +91,13 @@ int PyrImage::convCoord(int x, int from, int to, unsigned max)
 
 float PyrImage::convCoordf(float x, int from, int to)
 {
-  if (to == from) 
+  if (to == from)
     return x;
 
-  if (to<from) 
+  if (to<from)
     return x * float(1 << (from-to));
 
-  return x / float(1 << (to-from)); 
+  return x / float(1 << (to-from));
 }
 
 void PyrImage::setPixel(unsigned x, unsigned y, CvScalar &val)
@@ -106,7 +106,7 @@ void PyrImage::setPixel(unsigned x, unsigned y, CvScalar &val)
     return;
 
   for (int i=0; i<nbLev; ++i) {
-    cvSet2D(images[i], 
+    cvSet2D(images[i],
       convCoord((int)y, 0, i),
       convCoord((int)x, 0, i),
       val);
@@ -127,7 +127,7 @@ PyrImage *PyrImage::clone() const
   return p;
 }
 
-void PyrImage::setImageROI(CvRect rect) 
+void PyrImage::setImageROI(CvRect rect)
 {
   CvRect r;
   for (int i=0; i<nbLev; ++i) {

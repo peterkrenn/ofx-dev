@@ -20,34 +20,34 @@ void testApp::setup(){
 	colorSwitch = false;
 	//fade out the fluid a little
 	fluid.set_fade(true, 0.3);
-	
+
 
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-	
+
 	//**Adding Objects to the fluid**//
-	//each object must have a unique int id 
+	//each object must have a unique int id
 	f_object.set_id(1); //setting id
 	f_object.randomize_color();//randomises its color you can also use
 	//set_color(r, g, b); integers from 0 to 255
 	f_object.set_position(mx, my);
 	fluid.add_object(f_object);//adding object to the fluid
-	
+
 	//adding another fluid object just for fun
 	f_object.set_id(2);
 	f_object.randomize_color();
 	//f_object.set_position(mx + 350 , my + 150); //you can do it like this
 	fluid.add_object(f_object);
-	
+
 	//**Doing this to show how to use a pointer and get_fluid function
 	//to affect the objects you need to do it before update or it wont work
 	//this is why you cant set the position in the mouse functions
 	ofxFluidObject * ob;
 	ob = fluid.get_fluid(2);
 	ob->set_position(mx + 350 , my + 150);
-	
+
 	//**Adding a force to the fluid at ball2 position**//
 	force.set_id(1);
 	force.set_position(ball2.x, ball2.y);
@@ -55,7 +55,7 @@ void testApp::update(){
 
 	//update fluid
 	fluid.update();
-	
+
 	//get fluid velocity at ball position
 	vel 	= fluid.get_velocity ( ball.x, ball.y );
 	//get fluid density at ball position
@@ -75,7 +75,7 @@ void testApp::draw(){
 	//draw the ball
 	ball.draw();
 	ball2.draw();
-	
+
 	ofSetColor(255, 0, 0);
 	ofDrawBitmapString(		"fps: "+ofToString(ofGetFrameRate()) , 20, 30);
 }
@@ -96,23 +96,23 @@ void testApp::keyPressed  (int key){
 		//if pointer is not null randomize color
 		if (ob != 0) ob->randomize_color(true);
 	}
-	
-	
+
+
 }
 
 //--------------------------------------------------------------
-void testApp::keyReleased  (int key){ 
-	
+void testApp::keyReleased  (int key){
+
 }
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ){
-	
+
 }
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button){
-	
+
 	mx = x;
 	my = y;
 
@@ -120,7 +120,7 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-	
+
 }
 
 //--------------------------------------------------------------

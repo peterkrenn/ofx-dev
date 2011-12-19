@@ -49,7 +49,7 @@ public:
 	std::string toString();
 
 	virtual void deleteContents();
-	
+
 	const std::vector<Test*> tests() const;
 
 private:
@@ -81,7 +81,7 @@ inline void TestSuite::addTest(Test* test)
 // Returns a std::string representation of the test suite.
 inline std::string TestSuite::toString()
 {
-	return "suite " + _name; 
+	return "suite " + _name;
 }
 
 

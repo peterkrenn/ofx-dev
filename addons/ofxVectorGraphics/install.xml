@@ -19,9 +19,9 @@
 			    <file>../../../addons/ofxVectorGraphics/libs/CreEPS.cpp</file>
 			    <file>../../../addons/ofxVectorGraphics/libs/CreEPS.hpp</file>
 		    </folder>
-	
+
 	    </src>
-	
+
 	    <include>
 		    <path>../../../addons/ofxVectorGraphics/src</path>
 		    <path>../../../addons/ofxVectorGraphics/libs</path>

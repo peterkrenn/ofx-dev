@@ -21,25 +21,25 @@
 
 class ofxGuiColor : public ofxGuiObject
 	{
-		
+
 	public:
-		
+
 		ofxGuiColor();
-		
+
 		void	init(int id, string name, int x, int y, int width, int height, ofRGBA value, int mode);
-		
+
 		void	setValue(ofRGBA value);
-		
+
 		bool	update(int id, int task, void* data, int length);
 		void	draw();
-		
+
 		bool	mouseDragged(int x, int y, int button);
 		bool	mousePressed(int x, int y, int button);
 		bool	mouseReleased(int x, int y, int button);
-		
+
 		void	buildFromXml();
 		void	saveToXml();
-		
+
 		int		mouseToSlider(float y);
 
 		int		mSize, mSlider;

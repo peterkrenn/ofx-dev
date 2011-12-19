@@ -89,7 +89,7 @@ void ofTexture::allocate(int w, int h, int internalGlDataType, bool bUseARBExten
 			texData.tex_t = w;
 			texData.tex_u = h;
 			texData.textureTarget = GL_TEXTURE_RECTANGLE_ARB;
-		} else 
+		} else
 	#endif
 	{
 		//otherwise we need to calculate the next power of 2 for the requested dimensions
@@ -111,8 +111,8 @@ void ofTexture::allocate(int w, int h, int internalGlDataType, bool bUseARBExten
 	glEnable(texData.textureTarget);
 
 		glBindTexture(texData.textureTarget, (GLuint)texData.textureName[0]);
-	#ifndef TARGET_OF_IPHONE 
-		// can't do this on OpenGL ES: on full-blown OpenGL, 
+	#ifndef TARGET_OF_IPHONE
+		// can't do this on OpenGL ES: on full-blown OpenGL,
 		// internalGlDataType and glDataType (GL_LUMINANCE below)
 		// can be different; on ES they must be exactly the same.
 		glTexImage2D(texData.textureTarget, 0, texData.glTypeInternal, (GLint)texData.tex_w, (GLint)texData.tex_h, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, 0);  // init to black...
@@ -161,11 +161,11 @@ void ofTexture::loadData(unsigned char * data, int w, int h, int glDataType){
 	texData.glType  = glDataType;
 
 	//compute new tex co-ords based on the ratio of data's w, h to texture w,h;
-	#ifndef TARGET_OF_IPHONE	
+	#ifndef TARGET_OF_IPHONE
 		if (texData.textureTarget == GL_TEXTURE_RECTANGLE_ARB){
 			texData.tex_t = w;
 			texData.tex_u = h;
-		} else 
+		} else
 	#endif
 	{
 		texData.tex_t = (float)(w) / (float)texData.tex_w;
@@ -240,7 +240,7 @@ void ofTexture::loadScreenData(int x, int y, int w, int h){
 		if (texData.textureTarget == GL_TEXTURE_RECTANGLE_ARB){
 			texData.tex_t = (float)(w);
 			texData.tex_u = (float)(h);
-		} else 
+		} else
 	#endif
 	{
 		texData.tex_t = (float)(w) / (float)texData.tex_w;
@@ -282,7 +282,7 @@ void ofTexture::resetAnchor(){
 
 //----------------------------------------------------------
 void ofTexture::bind(){
-	//we could check if it has been allocated - but we don't do that in draw() 
+	//we could check if it has been allocated - but we don't do that in draw()
 	glEnable(texData.textureTarget);
 	glBindTexture( texData.textureTarget, (GLuint)texData.textureName[0]);
 }
@@ -361,10 +361,10 @@ void ofTexture::draw(float x, float y, float w, float h){
 		GLfloat tx1 = texData.tex_t - offsetw;
 		GLfloat ty1 = texData.tex_u - offseth;
 
-	glPushMatrix(); 
-	
+	glPushMatrix();
+
 		glTranslatef(x,y,0.0f);
-		
+
 		GLfloat tex_coords[] = {
 			tx0,ty0,
 			tx1,ty0,
@@ -377,10 +377,10 @@ void ofTexture::draw(float x, float y, float w, float h){
 			px1,py1,
 			px0,py1
 		};
-		
+
 		glEnableClientState( GL_TEXTURE_COORD_ARRAY );
 			glTexCoordPointer(2, GL_FLOAT, 0, tex_coords );
-			glEnableClientState(GL_VERTEX_ARRAY);		
+			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(2, GL_FLOAT, 0, verts );
 			glDrawArrays( GL_TRIANGLE_FAN, 0, 4 );
 		glDisableClientState( GL_TEXTURE_COORD_ARRAY );

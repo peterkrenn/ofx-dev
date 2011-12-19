@@ -24,10 +24,10 @@
  * along with this framework; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * For further information please contact 
+ * For further information please contact
  *   Dieter Schmalstieg
  *   <schmalstieg@icg.tu-graz.ac.at>
- *   Graz University of Technology, 
+ *   Graz University of Technology,
  *   Institut for Computer Graphics and Vision,
  *   Inffeldgasse 16a, 8010 Graz, Austria.
  * ========================================================================
@@ -75,8 +75,8 @@ loadFromFile(const char* filename)
 
 	n=fscanf(fp, "%d%d%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%d\n",
 		&this->xsize, &this->ysize, &_cc[0],&_cc[1],&_fc[0],&_fc[1],
-		&_kc[0],&_kc[1],&_kc[2],&_kc[3],&_kc[4],&_kc[5],&undist_iterations); 
-				
+		&_kc[0],&_kc[1],&_kc[2],&_kc[3],&_kc[4],&_kc[5],&undist_iterations);
+
 	if((n!=13) || ferror(fp))
 	{
 		return(false);
@@ -207,11 +207,11 @@ logSettings(Logger* logger)
 	if(logger != NULL)
 	{
 		logger->artLogEx("ARToolKitPlus: CamSize %d , %d\n", xsize, ysize);
-		logger->artLogEx("ARToolKitPlus: cc = [%.2f  %.2f]  fc = [%.2f  %.2f]\n", 
+		logger->artLogEx("ARToolKitPlus: cc = [%.2f  %.2f]  fc = [%.2f  %.2f]\n",
 			cc[0], cc[1], fc[0], fc[1]);
-		logger->artLogEx("ARToolKitPlus: kc = [%.4f %.4f %.4f %.4f %.4f %.4f]\n", 
+		logger->artLogEx("ARToolKitPlus: kc = [%.4f %.4f %.4f %.4f %.4f %.4f]\n",
 			kc[0], kc[1], kc[2], kc[3], kc[4], kc[5]);
-		logger->artLogEx("ARToolKitPlus: undist_iterations = %i\n", undist_iterations); 
+		logger->artLogEx("ARToolKitPlus: undist_iterations = %i\n", undist_iterations);
 	}
 }
 

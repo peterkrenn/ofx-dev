@@ -129,7 +129,7 @@ private:
 
 public:
 
-	iec61883Reader( int port = 0, int channel = 63, int buffers = 50, 
+	iec61883Reader( int port = 0, int channel = 63, int buffers = 50,
 		BusResetHandler = 0, BusResetHandlerData = 0, bool hdv = false );
 	~iec61883Reader();
 
@@ -145,9 +145,9 @@ public:
 
 private:
 	static int ResetHandlerProxy( raw1394handle_t handle, unsigned int generation );
-	static int Mpeg2HandlerProxy( unsigned char *data, int length, unsigned int dropped, 
+	static int Mpeg2HandlerProxy( unsigned char *data, int length, unsigned int dropped,
 		void *callback_data );
-	static int DvHandlerProxy( unsigned char *data, int length, int complete, 
+	static int DvHandlerProxy( unsigned char *data, int length, int complete,
 		void *callback_data );
 	static void* ThreadProxy( void *arg );
 };

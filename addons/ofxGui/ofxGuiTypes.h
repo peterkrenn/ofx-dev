@@ -30,7 +30,7 @@
 #define OFXGUI_PANEL_SPACING	10
 
 #define OFXGUI_BUTTON_HEIGHT	10
-#define OFXGUI_FILES_HEIGHT		15	
+#define OFXGUI_FILES_HEIGHT		15
 #define OFXGUI_SLIDER_HEIGHT	10
 #define OFXGUI_COLOR_HEIGHT		30
 #define OFXGUI_MATRIX_SPACING	 6
@@ -110,7 +110,7 @@ enum
 	kofxGui_Get_IntArray,
 	kofxGui_Get_FloatArray,
 	kofxGui_Get_String,
-	
+
 	kofxGui_Set_Bool,
 	kofxGui_Set_Int,
 	kofxGui_Set_Float,
@@ -137,9 +137,9 @@ static inline float linear(float fract, float x0, float x1)
 // -----------------------------------------------------------------------------
 
 class ofxGuiListener
-{ 
+{
 public:
-	
+
 	virtual void handleGui(int parameterId, int task, void* data, int length){}
 };
 
@@ -148,18 +148,18 @@ public:
 class ofCell
 {
 public:
-	
+
 	int id;
 	int value;
 
 	ofCell()
-	{ 
+	{
 		id		= 0;
 		value	= 0;
 	}
-	
+
 	ofCell(int _id, int _value)
-	{ 
+	{
 		id		= _id;
 		value	= _value;
 	}
@@ -170,20 +170,20 @@ public:
 class ofRGBA
 {
 public:
-	
+
 	float r;
 	float g;
 	float b;
 	float a;
-	
+
 	ofRGBA()
-	{ 
+	{
 		r = 0.0f;
 		g = 0.0f;
 		b = 0.0f;
 		a = 1.0f;
 	}
-	
+
 	ofRGBA(int rgba)
 	{
 		r = ((rgba >> 24) & 0xFF) / 255.0f;
@@ -191,18 +191,18 @@ public:
 		b = ((rgba >>  8) & 0xFF) / 255.0f;
 		a = ((rgba >>  0) & 0xFF) / 255.0f;
 	}
-	
+
 	ofRGBA(string hex)
 	{
 		int rgba;
 		sscanf(hex.c_str(), "%x", &rgba);
-		
+
 		r = ((rgba >> 24) & 0xFF) / 255.0f;
 		g = ((rgba >> 16) & 0xFF) / 255.0f;
 		b = ((rgba >>  8) & 0xFF) / 255.0f;
 		a = ((rgba >>  0) & 0xFF) / 255.0f;
 	}
-	
+
 	ofRGBA(int _r, int _g, int _b, int _a)
 	{
 		r = (float)_r / 255.0f; r = MAX(0.0f, MIN(r, 1.0f));
@@ -218,7 +218,7 @@ public:
 		b = _b; b = MAX(0.0f, MIN(b, 1.0f));
 		a = _a; a = MAX(0.0f, MIN(a, 1.0f));
 	}
-	
+
 	void setChanel(int chanel, float value)
 	{
 		switch (chanel)
@@ -239,61 +239,61 @@ public:
 	}
 
 	int toInt(int mode)
-	{		
+	{
 		int red		= roundInt(r * 255.0f) & 0xFF;
 		int green	= roundInt(g * 255.0f) & 0xFF;
 		int blue	= roundInt(b * 255.0f) & 0xFF;
 		int alpha	= roundInt(a * 255.0f) & 0xFF;
-		
+
 		int value	= 0;
-		
+
 		if(mode == kofxGui_Color_RGB)
 			value = (red << 16) | (green << 8) | (blue << 0);
 		else if(mode == kofxGui_Color_RGBA)
 			value = (red << 24) | (green << 16) | (blue << 8) | (alpha << 0);
-		
+
 		return value;
 	}
 
 	string toString(int mode)
 	{
 		char hex[9];
-		
+
 		int red		= roundInt(r * 255.0f);
 		int green	= roundInt(g * 255.0f);
 		int blue	= roundInt(b * 255.0f);
 		int alpha	= roundInt(a * 255.0f);
-		
+
 		if(mode == kofxGui_Color_RGB)
 			sprintf(hex, "%.2X%.2X%.2X", red, green, blue);
 		else if(mode == kofxGui_Color_RGBA)
 			sprintf(hex, "%.2X%.2X%.2X%.2X", red, green, blue, alpha);
-		
+
 		return hex;
 	}
-}; 
+};
 
 // -----------------------------------------------------------------------------
 
 class ofPointList
-{		
+{
 public:
-	
+
 	int		activePoint;
 	vector	<ofxPoint2f> points;
-	
+
 	ofPointList()
 	{
 		activePoint	= -1;
 	}
-		
+
 	void addPointAtPosition(ofxPoint2f p)
 	{
 		for(int i = 1; i < points.size(); i++)
 		{
 			ofxPoint2f	prev	= points.at(i - 1);
 			ofxPoint2f	next	= points.at(i);
-			
+
 			if(p.x >= prev.x && p.x <= next.x)
 			{
 				points.insert(points.begin() + i, p);
@@ -301,7 +301,7 @@ public:
 			}
 		}
 	}
-	
+
 	void deleteActivePoint()
 	{
 		if(activePoint > 0 && activePoint < points.size() - 1)
@@ -311,21 +311,21 @@ public:
 	ofxPoint2f positionToValue(ofxPoint2f p)
 	{
 		ofxPoint2f value = p;
-		
+
 		for(int i = 1; i < points.size(); i++)
 		{
 			ofxPoint2f	prev	= points.at(i - 1);
 			ofxPoint2f	next	= points.at(i);
-			
+
 			if(p.x >= prev.x && p.x <= next.x)
 			{
 				float fraction = (p.x - prev.x) / (next.x - prev.x);
 				value.y = linear(fraction, prev.y, next.y);
-				
+
 				break;
 			}
 		}
-		
+
 		return value;
 	}
 };

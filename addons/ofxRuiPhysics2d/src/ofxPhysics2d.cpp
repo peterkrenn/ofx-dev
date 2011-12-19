@@ -1,18 +1,18 @@
-/* 
+/*
  * Copyright (c) 2009, Rui Madeira
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * http://creativecommons.org/licenses/LGPL/2.1/
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -33,7 +33,7 @@ ofxPhysics2d::ofxPhysics2d(ofxVec2f _grav, bool _bCollisions, int _numIterations
 
 ofxPhysics2d::~ofxPhysics2d(){
 	for(int i=0; i<particles.size(); i++){
-		delete particles[i];	
+		delete particles[i];
 	}
 	particles.clear();
 	for(int i=0; i<constraints.size(); i++){
@@ -47,7 +47,7 @@ void ofxPhysics2d::update(float timeStep){
 		particles[i]->applyImpulse(gravity);
 		particles[i]->update(timeStep);
 	}
-	
+
 	for(int n=0; n<numIterations; n++){
 		for(int i=0; i<constraints.size(); i++){
 			constraints[i]->update();
@@ -77,7 +77,7 @@ void ofxPhysics2d::renderParticles(){
 
 void ofxPhysics2d::renderConstraints(){
 	for(int i=0; i<constraints.size(); i++){
-		constraints[i]->render();	
+		constraints[i]->render();
 	}
 }
 
@@ -145,19 +145,19 @@ ofxParticle* ofxPhysics2d::getParticle(uint _i){
 	return particles[_i];
 }
 ofxConstraint* ofxPhysics2d::getConstraint(uint _i){
-	return constraints[_i];	
+	return constraints[_i];
 }
 
 bool ofxPhysics2d::hasParticle(ofxParticle*p){
 	for(int i=0; i<particles.size(); i++){
-		if(particles[i] == p) return true;	
+		if(particles[i] == p) return true;
 	}
 	return false;
 }
 
 bool ofxPhysics2d::hasConstraint(ofxConstraint*c){
 	for(int i=0; i<constraints.size(); i++){
-		if(constraints[i] == c) return true;	
+		if(constraints[i] == c) return true;
 	}
 	return false;
 }
@@ -167,15 +167,15 @@ bool ofxPhysics2d::has(ofxParticle*p){
 }
 
 bool ofxPhysics2d::has(ofxConstraint*c){
-	return hasConstraint(c);	
+	return hasConstraint(c);
 }
 
 void ofxPhysics2d::setNumIterations(uint _n){
-	numIterations = _n;	
+	numIterations = _n;
 }
 
 int ofxPhysics2d::getNumIterations(){
-	return numIterations;	
+	return numIterations;
 }
 
 void ofxPhysics2d::enableCollisions(bool _bEnable){
@@ -183,7 +183,7 @@ void ofxPhysics2d::enableCollisions(bool _bEnable){
 }
 
 bool ofxPhysics2d::collisionsEnabled(){
-	return bCollisions;	
+	return bCollisions;
 }
 
 void ofxPhysics2d::checkBounds(bool _bCheck){
@@ -225,7 +225,7 @@ void ofxPhysics2d::deleteConstraintsWithParticle(ofxParticle *p){
 ofxConstraint* ofxPhysics2d::getConstraintWithParticle(ofxParticle *p){
 	for(int i=0; i<constraints.size(); i++){
 		if(constraints[i]->getA() == p or constraints[i]->getB() == p){
-			return constraints[i];	
+			return constraints[i];
 		}
 	}
 	return NULL;
@@ -270,11 +270,11 @@ void ofxPhysics2d::boundsConstrain(){
 }
 
 int ofxPhysics2d::getNumParticles(){
-	return particles.size();	
+	return particles.size();
 }
 
 int ofxPhysics2d::getNumConstraints(){
-	return constraints.size();	
+	return constraints.size();
 }
 
 vector<ofxParticle*>& ofxPhysics2d::getParticles(){

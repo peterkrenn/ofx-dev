@@ -10,7 +10,7 @@
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation; either version 2 of the License, or
  (at your option) any later version.
- 
+
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -31,49 +31,49 @@
 //The Fluid Class
 //	----------------------------------------------------------------------------------------------------
 class ofx2dFluid : public ofx2dSolver {
-	
+
 	public:
-	
+
 		//constructors
 		//this constructor has a default grid size of 100
 		ofx2dFluid ();
-		//this constructor can set the grid size 
+		//this constructor can set the grid size
 		ofx2dFluid (int _gridSize);
-	
+
 		//destructor
 		~ofx2dFluid ();
-	
+
 		//draw variables
 		bool	wireframe, //draw wireframe
 				drawvelocities, //draw velocities
-				drawcircle, //draw circles 
+				drawcircle, //draw circles
 				drawbounds, //draw bounds
 				drawAlpha;
-	
+
 		//general variables
 		float height, width;//with and height of fluid
-	
+
 		//force and source values
 		float	force, source; //amount of influence of force and source points
-	
+
 		//influence values
 		float gravity, wind, fade; //self explanatory
-	
+
 		//influences
 		bool	fadeOut,
 				addWind,
 				addGravity;
-	
+
 		//**still working on this-----------------//
 		rgbFloat bound_color;//bound color//	 //
 		//--------------------------------------//
-	
+
 		//fluid objects
 		list <ofxFluidObject> fluid_objects;
-	
+
 		//force position data
 		list <ofxForceObject> force_objects;
-	
+
 		// main fluid functions//
 		void update(); //updates the fluid
 		void draw(); //draws the fluid
@@ -93,13 +93,13 @@ class ofx2dFluid : public ofx2dSolver {
 		void set_wind ( bool _set, float _wind = 1.5f);//sets the wind value
 		void set_gravity ( bool _set, float _gravity = 5.0);//sets the gravity value
 		void set_alpha ( bool _set); //true to turn on alpha **off by default for speeds sake
-	
+
 		//**still working on this part----------------------------------------------------------//
 		void add_bound (float _x, float _y);//adds blocked pixels where there is no fluid		//
 		void remove_bound ( float _x, float _y);// removes blocked pixels						//
 		void set_bnd_color ( float _r, float _g, float _b);//sets boundry color					//
 		//**------------------------------------------------------------------------------------//
-	
+
 	private:
 		//position variables
 		int omx, omy, mx, my;

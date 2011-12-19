@@ -1,5 +1,5 @@
 /*
-Copyright © 1998. The Regents of the University of California (Regents). 
+Copyright © 1998. The Regents of the University of California (Regents).
 All Rights Reserved.
 
 Written by Matt Wright, The Center for New Music and Audio Technologies,
@@ -22,7 +22,7 @@ PURPOSE. THE SOFTWARE AND ACCOMPANYING DOCUMENTATION, IF ANY, PROVIDED
 HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION TO PROVIDE
 MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-The OpenSound Control WWW page is 
+The OpenSound Control WWW page is
     http://www.cnmat.berkeley.edu/OpenSoundControl
 */
 
@@ -34,10 +34,10 @@ The OpenSound Control WWW page is
  Time tags in OSC have the same format as in NTP: 64 bit fixed point, with the
  top 32 bits giving number of seconds sinve midnight 1/1/1900 and the bottom
  32 bits giving fractional parts of a second.  We represent this by an 8-byte
- unsigned long if possible, or else a struct. 
+ unsigned long if possible, or else a struct.
 
  NB: On many architectures with 8-byte ints, it's illegal (like maybe a bus error)
- to dereference a pointer to an 8 byte int that's not 8-byte aligned.  
+ to dereference a pointer to an 8 byte int that's not 8-byte aligned.
 */
 
 #ifndef OSC_TIMETAG
@@ -54,12 +54,12 @@ The OpenSound Control WWW page is
 	// CR -- Just implementing a Mac specifc version here.
 	#define HAS8BYTEINT
 	#include <sys/time.h>
-	
+
     typedef long long int8;
     typedef unsigned long long uint8;
     typedef unsigned long uint4;
-#else 
-    /* You may have to redefine this typedef if ints on your system 
+#else
+    /* You may have to redefine this typedef if ints on your system
        aren't 4 bytes. */
     typedef unsigned int uint4;
 #endif

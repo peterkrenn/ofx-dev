@@ -2,22 +2,22 @@
 
 
 //--------------------------------------------------------------
-void testApp::setup(){	
+void testApp::setup(){
 	ofSetVerticalSync(true);
 	rotateView = true;
 	currentRot = 0;
-	
+
 	// create a 2D spline with ofxVec2f's
 	int numItems = 10;
 	int padding = 30;
 	float len = (ofGetWidth() - padding*2.0f) / numItems;
-	
+
 	spline2D.reserve(numItems);		// not essential, but good habit if you know how big its gonna be
 	for(int i=0; i<numItems; i++) {
 		ofxVec2f v = ofxVec2f(i * len + padding - ofGetWidth()/2, ofGetHeight()/2 + ofGetHeight()*0.2f * cos(i*0.9));
 		spline2D.push_back(v);
-	}	
-	
+	}
+
 	glEnable(GL_DEPTH_TEST);
 }
 
@@ -32,30 +32,30 @@ void testApp::draw() {
 	} else {
 		currentRot = 0;
 	}
-	
-	
+
+
 	int numSteps = floor(mouseX / (float)ofGetWidth() * 1000);
 	if(numSteps<10) numSteps = 10;
-	float spacing = 1.0/numSteps;	
-	
+	float spacing = 1.0/numSteps;
+
 	// draw raw ofxVec2fs
 	ofSetColor(0xFFFFFF);
 	spline2D.drawRaw();
-	
+
 	// draw cubic interpolated ofxVec2fs
 	ofSetColor(0x0000FF);
 	spline2D.drawSmooth(numSteps);
-	
+
 	// draw raw spline2D
 	ofSetColor(0xFFFFFF);
 	splineMouse.drawRaw();
-	
+
 	// draw cubic interpolated spline2D
 	ofSetColor(0xFF0000);
 	splineMouse.drawSmooth(numSteps);
-	
+
 	glPopMatrix();
-	
+
 
 	ofSetColor(0);
 	string uiLin = splineMouse.getInterpolation() == OFX_MSA_SPLINE_LINEAR ? "* " : "  ";
@@ -72,7 +72,7 @@ void testApp::draw() {
 					   + "\n"
 					   + "'c' to clear 3D spline\n"
 					   , 20, 20);
-	
+
 }
 
 void testApp::keyPressed(int key) {
@@ -85,17 +85,17 @@ void testApp::keyPressed(int key) {
 			splineMouse.setInterpolation(OFX_MSA_SPLINE_CUBIC);
 			spline2D.setInterpolation(OFX_MSA_SPLINE_CUBIC);
 			break;
-			
+
 		case 'd':
 			splineMouse.setUseDistance(!splineMouse.getUseDistance());
 			spline2D.setUseDistance(splineMouse.getUseDistance());
 			break;
-			
+
 		case 'c':
 		case 'C':
 			splineMouse.clear();
 			break;
-			
+
 		case 'r':
 		case 'R':
 			rotateView ^= true;

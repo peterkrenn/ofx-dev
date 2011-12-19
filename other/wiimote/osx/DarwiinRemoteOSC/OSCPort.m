@@ -28,7 +28,7 @@
     free(_types);
 	if (_ownsSocket)
 		close(_sock);
-    
+
     [super dealloc];
 }
 
@@ -42,16 +42,16 @@
         NSLog(@"Couldn't create socket");
         return nil;
     }
-    
+
     serverAddress.sin_family      = AF_INET;
     serverAddress.sin_addr.s_addr = inet_addr(ipAddress);
     serverAddress.sin_port        = htons(portNumber);
-    
+
     if (connect(sock, (struct sockaddr *) &serverAddress, sizeof(serverAddress)) < 0) {
         NSLog(@"Couldn't connect socket");
         return nil;
     }
-    
+
     return [[[self alloc] initWithSocket:sock] autorelease];
 }
 
@@ -59,15 +59,15 @@
 {
     if (!(self = [self init]))
         return nil;
-    
+
     _sock	= socket;
     _oscBuffer	= (OSCbuf*) malloc(sizeof(OSCbuf));
 	_oscDataBuffer = malloc(DEFAULT_BUFFER_SIZE);
     _types	= (char*) malloc(DEFAULT_TYPES_SIZE);
 	_ownsSocket = YES;
-    
+
     OSC_initBuffer(_oscBuffer, DEFAULT_BUFFER_SIZE, _oscDataBuffer);
-    
+
     return self;
 }
 
@@ -83,8 +83,8 @@
     return [self sendTo:"/d_load" types:"s", synthDefFilename];
 }
 
-- (BOOL)newSynthFromDef:(char*)synthDefName 
-                synthID:(int)synthID 
+- (BOOL)newSynthFromDef:(char*)synthDefName
+                synthID:(int)synthID
             parentGroup:(int)parentGroup
 {
     return [self sendTo:"/s_new" types:"sii", synthDefName, synthID, parentGroup];
@@ -94,15 +94,15 @@
 {
     return [self sendTo:"/n_free" types:"i", synthID];
 }
-            
+
 - (BOOL)sendTo:(char*)address types:(char*)types, ...
 {
     // potential holders for variable arguments
     char* s;
-    
+
     va_list args;
     va_start(args, types);
-    
+
     [self beginSendTo:address types:types];
 
     // use the user supplied types for this
@@ -124,7 +124,7 @@
         }
     }
     va_end(args);
-    
+
 #ifdef DEBUG
 	NSLog(@"\tSending packet of size %i to %s", OSC_packetSize(_oscBuffer), OSC_getPacket(_oscBuffer));
 #endif
@@ -153,7 +153,7 @@
 - (BOOL)completeSend {
     send(_sock, OSC_getPacket(_oscBuffer), OSC_packetSize(_oscBuffer), 0);
 	OSC_resetBuffer(_oscBuffer);
-	
+
 	return YES;
 }
 

@@ -43,7 +43,7 @@ public:
 	void		setFrameRate(float targetRate);
 
 	int			getFrameNum();
-	
+
 	void		setFullscreen(bool fullscreen);
 	void		toggleFullscreen();
 
@@ -94,9 +94,9 @@ private:
 
 	int				requestedWidth;
 	int				requestedHeight;
-	
+
 	int 			nonFullScreenW;
-	int 			nonFullScreenH;	
+	int 			nonFullScreenH;
 	int 			nonFullScreenX;
 	int 			nonFullScreenY;
 

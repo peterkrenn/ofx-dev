@@ -5,15 +5,15 @@
 
 ofxLight::ofxLight(){
 	bool anyLight = false;
-	for(int i=0; i<8; i++){ 
-		if(!(bool)glIsEnabled(GL_LIGHT0 +i)){ 
+	for(int i=0; i<8; i++){
+		if(!(bool)glIsEnabled(GL_LIGHT0 +i)){
 			lightEnum = GL_LIGHT0 + i;
 			lightNum = i;
 			anyLight = true;
 			break;
 		}
 	}
-	
+
 	if(!anyLight){
 		std::cout << "error creating light, maybe you're exceding the maximum 8 lights allowed?" << std::endl;
 		return;
@@ -22,12 +22,12 @@ ofxLight::ofxLight(){
 	ambient(0, 0, 0);
 	diffuse(0, 0, 0);
 	specular(0, 0, 0);
-	
+
 	on();
 	if(!(bool)glIsEnabled(GL_LIGHTING)){
 		ofxLightsOn();
 	}
-	
+
 	isSpot = false;
 }
 
@@ -45,15 +45,15 @@ void ofxLight::off(){
 void ofxLight::pointLight(float _r, float _g, float _b, float _x, float _y, float _z){
 	diffuse(_r, _g, _b);
 	position(_x, _y, _z);
-	
+
 	if(isSpot){
 		spotCutOff(180);
 	}
 }
 
-void ofxLight::spotLight(float _r, float _g, float _b, 
-				   float _x, float _y, float _z, 
-				   float _nx, float _ny, float _nz, 
+void ofxLight::spotLight(float _r, float _g, float _b,
+				   float _x, float _y, float _z,
+				   float _nx, float _ny, float _nz,
 				   float _angle, float _concentration){
 	diffuse(_r, _g, _b);
 	position(_x, _y, _z);
@@ -65,7 +65,7 @@ void ofxLight::spotLight(float _r, float _g, float _b,
 
 void ofxLight::directionalLight(float _r, float _g, float _b, float _nx, float _ny, float _nz){
 	diffuse(_r, _g, _b);
-	GLfloat justDirection[] = {-_nx, -_ny, _nz, 0.0f}; 
+	GLfloat justDirection[] = {-_nx, -_ny, _nz, 0.0f};
 	glLightfv(lightEnum, GL_POSITION, justDirection);
 }
 
@@ -75,7 +75,7 @@ void ofxLight::ambient(float _r, float _g, float _b){
 	_r/=255.0f;
 	_g/=255.0f;
 	_b/=255.0f;
-	
+
 	GLfloat ambientLight[4] = {_r, _g, _b, 1.0f};
 	glLightfv(lightEnum, GL_AMBIENT, ambientLight);
 }
@@ -84,7 +84,7 @@ void ofxLight::specular(float _r, float _g, float _b){
 	_r/=255.0f;
 	_g/=255.0f;
 	_b/=255.0f;
-	
+
 	GLfloat specularLight[4] = {_r, _g, _b, 1.0f};
 	glLightfv(lightEnum, GL_SPECULAR, specularLight);
 }
@@ -93,7 +93,7 @@ void ofxLight::diffuse(float _r, float _g, float _b){
 	_r/=255.0f;
 	_g/=255.0f;
 	_b/=255.0f;
-	
+
 	GLfloat diffuseLight[4] = {_r, _g, _b, 1.0f};
 	glLightfv(lightEnum, GL_DIFFUSE, diffuseLight);
 }
@@ -157,43 +157,43 @@ void ofxMaterialSpecular(float _r, float _g, float _b){
 	_r/=255.0f;
 	_g/=255.0f;
 	_b/=255.0f;
-	
+
 	GLfloat materialSpecularArray[] = {_r, _g, _b};
-	glMaterialfv(GL_FRONT, GL_SPECULAR, materialSpecularArray); 
+	glMaterialfv(GL_FRONT, GL_SPECULAR, materialSpecularArray);
 }
 
 void ofxMaterialEmission(float _r, float _g, float _b){
 	_r/=255.0f;
 	_g/=255.0f;
 	_b/=255.0f;
-	
+
 	 GLfloat materialEmissionArray[] = {_r, _g, _b};
-	 glMaterialfv(GL_FRONT, GL_EMISSION, materialEmissionArray); 
+	 glMaterialfv(GL_FRONT, GL_EMISSION, materialEmissionArray);
 }
 
 void ofxMaterialShininess(float _degrees){
 	_degrees = MIN(128, _degrees);
-	 glMaterialfv(GL_FRONT, GL_SHININESS, &_degrees); 
+	 glMaterialfv(GL_FRONT, GL_SHININESS, &_degrees);
 }
 
 
 //normal calculation
 void ofxCalcNormal(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3){
-	
+
 	float vec1X = x2-x1;
 	float vec1Y = y2-y1;
 	float vec1Z = z2-z1;
-	
+
 	float vec2X = x3-x2;
 	float vec2Y = y3-y2;
 	float vec2Z = z3-z2;
-	
+
 	float crossX = vec1Y*vec2Z - vec1Z*vec2Y;
 	float crossY = vec1Z*vec2X - vec1X*vec2Z;
 	float crossZ = vec1X*vec2Y - vec1Y*vec2X;
-	
+
 	float dist = sqrt(crossX*crossX + crossY*crossY + crossZ*crossZ);
-	
+
 	glNormal3f(crossX/dist, crossY/dist, crossZ/dist);
 }
 

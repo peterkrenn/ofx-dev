@@ -15,7 +15,7 @@ v0.5	 19/02/09
 - with safeMode on (default):
    - array is automatically reallocated when space runs out
    - all client states are enabled and disabled as nessecary
-- with safeMode off (for advanced users) you can get much better performance if you know what to do, see docs. 
+- with safeMode off (for advanced users) you can get much better performance if you know what to do, see docs.
 - lots of other optimizations and restructuring
 - all methods now inline
 - using normal arrays instead of vectors

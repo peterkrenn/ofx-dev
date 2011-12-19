@@ -21,12 +21,12 @@ public:
 	float G;
 	bool	doTail;
 	Perlin *noise;
-	
+
 	Ponto pontos[NumP];
 
 	Particles(ofxVec3f iniPos, ofxVec3f _vel,  Perlin *_noise, int _type);
 	~Particles();
-	
+
 	void move();
 	void render();
 	void moveTrail();

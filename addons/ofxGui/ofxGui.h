@@ -23,17 +23,17 @@
 
 class ofxGui
 {
-	
+
 public:
-	
+
 	static			ofxGui* Instance(ofxGuiListener* listener);
-	
+
 	void			update(int parameterId, int type, void* data, int length);
 	void			draw();
-	
+
 	void			activate(bool activate);
 	void			forceUpdate(bool update);
-	
+
 	void			keyPressed(int key);
 	void			keyReleased(int key);
 
@@ -46,13 +46,13 @@ public:
 	bool			buildFromXml(string file);
 	void			saveToXml(string file);
 
-	bool			mIsActive, mDoUpdate, mXmlDone;	
-	
+	bool			mIsActive, mDoUpdate, mXmlDone;
+
 	ofxGuiGlobals*	mGlobals;
 	vector			<ofxGuiObject*>	mObjects;
 
 private:
-	
+
 	ofxGui(ofxGuiListener* listener);
 };
 

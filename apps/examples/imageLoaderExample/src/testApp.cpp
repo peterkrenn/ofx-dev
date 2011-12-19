@@ -3,7 +3,7 @@
 
 
 //--------------------------------------------------------------
-void testApp::setup(){	 
+void testApp::setup(){
 	bikers.loadImage("images/bikers.jpg");
 	gears.loadImage("images/gears.gif");
 	tdf.loadImage("images/tdf_1972_poster.jpg");
@@ -18,7 +18,7 @@ void testApp::setup(){
 
 //--------------------------------------------------------------
 void testApp::update(){
-	ofBackground(255,255,255);	
+	ofBackground(255,255,255);
 }
 
 
@@ -26,25 +26,25 @@ void testApp::update(){
 void testApp::draw(){
 
 	ofSetupScreen();
-	
+
 	ofSetColor(0xFFFFFF);
 
 	bikers.draw(0,0);
 	gears.draw(600,0);
 	tdf.draw(600,300);
-	
+
 	ofSetColor(0xDD3333);
 	tdfSmall.draw(200,300);
-	
+
 	ofSetColor(0xFFFFFF);
 	ofEnableAlphaBlending();
 	transparency.draw(sin(ofGetElapsedTimeMillis()/1000.0f) * 100 + 500,20);
 	ofDisableAlphaBlending();
-	
-	
+
+
 	ofSetColor(0x000000);
-	
-	// getting the pixels out of an image, 
+
+	// getting the pixels out of an image,
 	// and then use the values to draw circles
 	unsigned char * pixels = bikeIcon.getPixels();
 	int w = bikeIcon.width;
@@ -53,38 +53,38 @@ void testApp::draw(){
 		for (int j = 0; j < h; j++){
 			int value = pixels[j * w + i];
 			float pct = 1 - (value / 255.0f);
-			ofCircle(i*10,500 + j*10,1 + 5*pct);		
+			ofCircle(i*10,500 + j*10,1 + 5*pct);
 		}
 	}
-	
+
 	ofSetColor(0xFFFFFF);
 	bikeIcon.draw(300,500, 20,20);
 }
 
 
 //--------------------------------------------------------------
-void testApp::keyPressed  (int key){ 
-	
+void testApp::keyPressed  (int key){
+
 }
 
 //--------------------------------------------------------------
-void testApp::keyReleased(int key){ 
-	
+void testApp::keyReleased(int key){
+
 }
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ){
-	
+
 }
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button){
-	
+
 }
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-	
+
 }
 
 //--------------------------------------------------------------

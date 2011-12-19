@@ -46,7 +46,7 @@ string ofSecondsToMinutes(float s) {
 //-------------------------------------------------------------
 
 /*
- These are math function grabbed from the processing 
+ These are math function grabbed from the processing
  utils. They are handdy and fast.
  */
 

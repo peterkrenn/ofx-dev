@@ -45,39 +45,39 @@ extern "C" {
  * \{
  */
 
-Gan_Bool gan_convolve2D_f ( float *source, 
+Gan_Bool gan_convolve2D_f ( float *source,
                             int sstride,
-                            float *dest,   
+                            float *dest,
                             int dstride,
-                            Gan_Mask2D *mask, 
+                            Gan_Mask2D *mask,
                             unsigned long width );
-Gan_Bool gan_convolve2D_d ( double *source, 
+Gan_Bool gan_convolve2D_d ( double *source,
                             int sstride,
                             double *dest,
-                            int dstride,  
-                            Gan_Mask2D *mask, 
-                            unsigned long width);
-Gan_Bool gan_convolve2D_i ( int *source, 
-                            int sstride,
-                            int *dest,  
                             int dstride,
-                            Gan_Mask2D *mask, 
+                            Gan_Mask2D *mask,
                             unsigned long width);
-Gan_Bool  gan_convolve2D_uc ( unsigned char *source, 
+Gan_Bool gan_convolve2D_i ( int *source,
+                            int sstride,
+                            int *dest,
+                            int dstride,
+                            Gan_Mask2D *mask,
+                            unsigned long width);
+Gan_Bool  gan_convolve2D_uc ( unsigned char *source,
                               int sstride,
-                              unsigned char *dest, 
+                              unsigned char *dest,
                               int dstride,
                               Gan_Mask2D *mask,
                               unsigned long width );
-Gan_Bool gan_convolve2D_us ( unsigned short *source, 
+Gan_Bool gan_convolve2D_us ( unsigned short *source,
                              int sstride,
-                             unsigned short *dest,   
+                             unsigned short *dest,
                              int dstride,
-                             Gan_Mask2D *mask, 
+                             Gan_Mask2D *mask,
                              unsigned long width);
 Gan_Bool  gan_convolve2D_ui ( unsigned int *source,
                               int sstride,
-                              unsigned int *dest,  
+                              unsigned int *dest,
                               int dstride,
                               Gan_Mask2D *mask,
                               unsigned long width );

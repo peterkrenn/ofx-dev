@@ -1,6 +1,6 @@
 /*
-Copyright 2005, 2006 Computer Vision Lab, 
-Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland. 
+Copyright 2005, 2006 Computer Vision Lab,
+Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland.
 All rights reserved.
 
 This file is part of BazAR.
@@ -16,7 +16,7 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 BazAR; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301, USA 
+Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 /*
 * Author:
@@ -114,7 +114,7 @@ void yape::reserve_tmp_arrays(void)
       for(int j = 0; j < bin_nb_v; j++)
       {
         bins[i][j].clear();
-        bins[i][j].reserve(yape_bin_size); 
+        bins[i][j].reserve(yape_bin_size);
       }
   else
   {
@@ -251,7 +251,7 @@ bool yape::double_check(IplImage * image, int x, int y, short * dirs, unsigned c
 #define B1_EQUAL_B2_NOT_INF    9
 
 void yape::perform_one_point(const unsigned char * I, const int x, short * Scores,
-                             const int Im, const int Ip, 
+                             const int Im, const int Ip,
                              const short * dirs, const unsigned char opposite, const unsigned char dirs_nb)
 {
   int score = 0;
@@ -340,7 +340,7 @@ void yape::perform_one_point(const unsigned char * I, const int x, short * Score
             PUT_B2_IN_B1_AND_GET_B2();
         if (B2_SUP) GOTO_END_NOT_AN_INTEREST_POINT
           GOTO_STATE(B1_EQUAL_B2_NOT_SUP);
-      } 
+      }
       // A ~ I0
       if (B1_NOT_SUP) GOTO_END_NOT_AN_INTEREST_POINT
         if (B2_NOT_SUP) GOTO_END_NOT_AN_INTEREST_POINT
@@ -377,7 +377,7 @@ void yape::perform_one_point(const unsigned char * I, const int x, short * Score
       {
         if (B2_SUP) GOTO_END_NOT_AN_INTEREST_POINT
           GOTO_STATE(B1_INF_B2_NOT_SUP);
-      } 
+      }
       // A ~ I0
       if (B2_SUP) GOTO_STATE(B1_INF_B2_SUP);
       if (B2_INF) GOTO_STATE(B1_INF_B2_INF);
@@ -502,7 +502,7 @@ int yape::detect(IplImage * image, keypoint * points, int max_point_number, IplI
   int points_nb = pick_best_points(points, max_point_number);
 
   if (use_subpixel)
-    for(int i = 0; i < points_nb; i++) 
+    for(int i = 0; i < points_nb; i++)
       subpix_refine(used_filtered_image, points + i);
 
   return points_nb;
@@ -547,7 +547,7 @@ int yape::pick_best_points(keypoint * points, unsigned int max_point_number)
     return points_nb;
   }
   else
-    if (tmp_points.size() > 0) 
+    if (tmp_points.size() > 0)
     {
       sort(tmp_points.begin(), tmp_points.end());
 
@@ -556,8 +556,8 @@ int yape::pick_best_points(keypoint * points, unsigned int max_point_number)
       int tot_pts = tmp_points.size()<max_point_number ? tmp_points.size() : max_point_number;
 
       int points_nb = 0;
-      for(points_nb = 0; 
-        points_nb<tot_pts && tmp_points[points_nb].score>score_threshold; 
+      for(points_nb = 0;
+        points_nb<tot_pts && tmp_points[points_nb].score>score_threshold;
         points_nb++)
         points[points_nb] = tmp_points[points_nb];
 
@@ -599,7 +599,7 @@ void yape::raw_detect(IplImage *im) {
 
       if (Im<I[x+R] && I[x+R]<Ip && Im<I[x-R] && I[x-R]<Ip)
         Scores[x] = 0;
-      else 
+      else
         perform_one_point(I, x, Scores, Im, Ip, dirs, opposite, dirs_nb);
     }
   }
@@ -711,7 +711,7 @@ int yape::get_local_maxima(IplImage * image, int R, float scale /*, keypoint * p
       // skip 0 score pixels
       if (abs(Sb[0]) < 5)
         ++x; // if this pixel is 0, the next one will not be good enough. Skip it.
-      else 
+      else
       {
         if (third_check(Sb, next_line) && is_local_maxima(Sb, R, scores))
         {
@@ -805,11 +805,11 @@ void yape::subpix_refine(IplImage *im, keypoint *p)
 
   if ((delta[0] >= -1) && (delta[0] <= 1))
     p->u += delta[0];
-  else 
+  else
     p->u+=0.5f;
   if ((delta[1] >= -1) && (delta[1] <= 1))
     p->v += delta[1];
-  else 
+  else
     p->v+=0.5f;
 }
 
@@ -821,7 +821,7 @@ void yape::subpix_refine(IplImage *im, keypoint *p)
 \param h height passed to Yape constructor
 \param nbLev pyramid depth
 */
-pyr_yape::pyr_yape(int w, int h, int nbLev) 
+pyr_yape::pyr_yape(int w, int h, int nbLev)
 : yape (w,h)
 {
   internal_pim = 0;
@@ -840,7 +840,7 @@ pyr_yape::pyr_yape(int w, int h, int nbLev)
   }
 }
 
-pyr_yape::~pyr_yape() 
+pyr_yape::~pyr_yape()
 {
   if (internal_pim) delete internal_pim;
 
@@ -865,11 +865,11 @@ void pyr_yape::select_level(int l)
 /*! Detect features on the pyramid, filling the scale field of keypoints with
 * the pyramid level. \return the detected keypoint number.
 */
-int pyr_yape::detect(PyrImage *image, keypoint *points, int max_point_number) 
+int pyr_yape::detect(PyrImage *image, keypoint *points, int max_point_number)
 {
   reserve_tmp_arrays();
 
-  for (int i=image->nbLev-1; i>=0; --i) 
+  for (int i=image->nbLev-1; i>=0; --i)
   {
     select_level(i);
     raw_detect(image->images[i]);
@@ -907,10 +907,10 @@ int pyr_yape::pyramidBlurDetect(IplImage *im, keypoint *points, int max_point_nu
 
   PyrImage *pim;
 
-  if (caller_pim == 0) 
+  if (caller_pim == 0)
   {
-    if (internal_pim && ((internal_pim->images[0]->width != im->width) 
-        || (internal_pim->images[0]->height != im->height))) 
+    if (internal_pim && ((internal_pim->images[0]->width != im->width)
+        || (internal_pim->images[0]->height != im->height)))
     {
       delete internal_pim;
       internal_pim = 0;
@@ -920,8 +920,8 @@ int pyr_yape::pyramidBlurDetect(IplImage *im, keypoint *points, int max_point_nu
       internal_pim = new PyrImage(cvCreateImage(cvGetSize(im), IPL_DEPTH_8U, 1), pscores->nbLev);
 
     pim = internal_pim;
-  } 
-  else 
+  }
+  else
   {
     pim = caller_pim;
     assert (im->width == caller_pim->images[0]->width);
@@ -942,8 +942,8 @@ void pyr_yape::save_image_of_detected_points(char * name, IplImage * image, keyp
   IplImage * point_image = mcvGrayToColor(image);
   for(int i = 0; i < points_nb; i++)
     mcvCircle(point_image,
-              (int)PyrImage::convCoordf(points[i].u, (int)points[i].scale, 0), 
-              (int)PyrImage::convCoordf(points[i].v, (int)points[i].scale, 0), 
+              (int)PyrImage::convCoordf(points[i].u, (int)points[i].scale, 0),
+              (int)PyrImage::convCoordf(points[i].v, (int)points[i].scale, 0),
               PyrImage::convCoord(2 * radius, (int)points[i].scale, 0), mcvRainbowColor((int)points[i].scale), 1);
   mcvSaveImage(name, point_image);
   cvReleaseImage(&point_image);
@@ -959,7 +959,7 @@ void pyr_yape::stat_points(keypoint *points, int nb_pts)
     histogram[(int)(points[i].scale)]++;
 
   for (int l=0; l< pscores->nbLev; ++l)
-    cout << "Level " << l << ": " << histogram[l] << " keypoints (" 
+    cout << "Level " << l << ": " << histogram[l] << " keypoints ("
          << 100.0f * (float)histogram[l]/(float)nb_pts << "%)\n";
 
   delete[] histogram;

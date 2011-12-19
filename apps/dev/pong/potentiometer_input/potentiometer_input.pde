@@ -6,7 +6,7 @@ void setup()
 void loop()
 {
   if (Serial.available())
-  {  
+  {
     if (Serial.read() == 'a')
     {
       Serial.print('^');
@@ -14,6 +14,6 @@ void loop()
       Serial.print('$');
     }
   }
-  
+
   delay(20);
 }

@@ -50,7 +50,7 @@ using Poco::Delegate;
 static bool factoryLoaded = false;
 
 class StreamEventArgs {
-	
+
 	public:
 		unsigned char *  buff;
 		int bytesToRead;
@@ -65,10 +65,10 @@ class SimpleWebScraper : public ofxThread  {
 
         void getText(string url_);
 		void getStreamThreaded(string url_);
-		
+
 		// testing! -----
 		void getStreamUnthreaded(string url_);
-		
+
 		// threading -----------------------------------------------
 		void threadedFunction();
         void start();
@@ -78,23 +78,23 @@ class SimpleWebScraper : public ofxThread  {
 		BasicEvent<string>				textReady;
 		BasicEvent<StreamEventArgs>		unthreadedStreamReady;
 		BasicEvent<StreamEventArgs>		threadedStreamReady;
-		
+
 
 		void notifyTextReceived(string response);
 		void notifyUnthreadedStreamReceived( const StreamEventArgs args_);
 		void notifyThreadedStreamReceived( const StreamEventArgs args_);
-		
-		
+
+
     private:
-		
+
 		// perform the requests on the thread
 		void handleTextRequest(string url_);
 		void handleStreamRequest(string url_);
-        
+
 		string			url;
-        string			response;        
-		bool			bResponseReady;		
-		int				requestType;		
+        string			response;
+		bool			bResponseReady;
+		int				requestType;
 		StreamEventArgs args;
 
 

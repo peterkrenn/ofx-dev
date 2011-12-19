@@ -1,14 +1,14 @@
 /**
  * File:          $RCSfile: image_grey_noc.h,v $
  * Module:        Grey level image macros
- * Part of:       Gandalf Library 
+ * Part of:       Gandalf Library
  *
  * Revision:      $Revision: 1.25 $
  * Last edited:   $Date: 2005/08/22 08:52:19 $
  * Author:        $Author: jps $
  * Copyright:     (c) 2000 Imagineer Software Limited
  *
- * Short Desc:    
+ * Short Desc:
  * Description:   The defines in this file serves as documentation for families
  *                of functions, where the specific instance of '?' can be
  *                d, i, p, rgb_d, rgb_i, rgb_uc, rgb_ui, uc, ui,

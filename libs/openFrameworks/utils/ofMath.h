@@ -6,7 +6,7 @@
 // the random () calls are based on misconceptions described here:
 // http://www.azillionmonkeys.com/qed/random.html
 // (Bad advice from C.L.C. FAQ)
-// we should correct this -- 
+// we should correct this --
 // -----------------------------------------------------------
 
 
@@ -21,7 +21,7 @@ void 		ofSeedRandom();
 void 		ofSeedRandom(int val);
 float 		ofRandom(float val0, float val1);		// random (x - y)
 float 		ofRandomf();							// random (-1 - 1)
-float 		ofRandomuf();							// random (0 - 1) 
+float 		ofRandomuf();							// random (0 - 1)
 
 float		ofNormalize(float value, float min, float max);
 float		ofMap(float value, float inputMin, float inputMax, float outputMin, float outputMax);

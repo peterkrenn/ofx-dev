@@ -2,7 +2,7 @@
 #include "Emitter.h"
 
 Emitter::Emitter(){
-	
+
 	radius = 0;
 	currentRadius = 0;
 	type   = 0;
@@ -31,7 +31,7 @@ void Emitter::move(ofxVec3f target){
 void Emitter::render(){
 	glColor3f(1.0f, 0.0f, 0.0f);
 	ofCircle(pos.x, pos.y, (radius)*2);
-	// ofTranslate(0, 0, pos.z);	
+	// ofTranslate(0, 0, pos.z);
 	// if (type == 0) {
 	// 	ofCircle(pos.x, pos.y, (radius)*2);
 	//    // ofCircle(pos.x, pos.y, pos.z, size*scale);

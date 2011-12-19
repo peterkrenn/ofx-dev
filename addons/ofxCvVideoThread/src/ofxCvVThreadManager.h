@@ -19,24 +19,24 @@ using Poco::Delegate;
 //	----------------------------------------------------------------------------------------------------
 
 class ofxCvVThreadEventManager{
-	
+
 public:
 	void addNewFrameListener(ofxCvVThreadListener * listener){
 		ofxVThreadNewFrameEvent += Delegate<ofxCvVThreadListener, ofxCvVThreadEventArgs>(listener, &ofxCvVThreadListener::_xVThreadNewFrame);
 	}
-	
+
 	void removeNewFrameListener(ofxCvVThreadListener * listener){
 		ofxVThreadNewFrameEvent -= Delegate<ofxCvVThreadListener, ofxCvVThreadEventArgs>(listener, &ofxCvVThreadListener::_xVThreadNewFrame);
 	}
-	
+
 	void notifyNewFrame(ofxCvVideoThread * sender){
 		ofxVThreadNewFrameEvent.notifyAsync(sender,voidEventArgs);
 		ofSleepMillis(5);
 	}
-	
+
 private:
 	Poco::BasicEvent<ofxCvVThreadEventArgs> ofxVThreadNewFrameEvent;
-	
+
 	ofxCvVThreadEventArgs 	voidEventArgs;
 };
 

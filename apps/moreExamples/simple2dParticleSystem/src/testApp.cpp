@@ -4,13 +4,13 @@
 
 // Particles are generated each cycle through,
 // fall with gravity and fade out over time
-// A ParticleSystem object manages a variable size 
+// A ParticleSystem object manages a variable size
 // list of particles.
 
 #include "testApp.h"
 
 //--------------------------------------------------------------
-void testApp::setup(){	 
+void testApp::setup(){
 	ofSetFrameRate(60);
 	ofxVec2f ps_loc(ofGetWidth()/2,ofGetHeight()/2);
 	ofxVec2f ps_loc2(600,200);

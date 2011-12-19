@@ -28,7 +28,7 @@ Particle::Particle(ofxVec2f l) {
 
 //--------------------------------------------------------------
 // Method to update location
-void Particle::update() {            
+void Particle::update() {
 	vel += acc;
 	loc += vel;
 	timer -= 1.0;

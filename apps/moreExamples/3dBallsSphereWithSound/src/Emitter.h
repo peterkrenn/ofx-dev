@@ -17,12 +17,12 @@ class Emitter{
 public:
 	float rotX, rotY, radius, currentRadius;
 	int band, type;
-	
+
 	ofxVec3f pos, acel, vel;
-	
+
 	Emitter();
 	~Emitter();
-	
+
 	void updateRadius(float _target);
 	void move(ofxVec3f target);
 	void render();

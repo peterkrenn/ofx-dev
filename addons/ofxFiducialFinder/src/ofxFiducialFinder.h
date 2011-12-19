@@ -10,7 +10,7 @@
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation; either version 2 of the License, or
  (at your option) any later version.
- 
+
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -38,28 +38,28 @@
 //also doesnt get acceleration, speed, etc info
 
 class ofxFiducialFinder {
-	
+
 	public:
-	
+
 		//constructor & destructor
 		ofxFiducialFinder();
 		~ofxFiducialFinder();
-	
+
 		//vector to store fiducials
 		vector <ofxFiducial> _fiducials;
-	
+
 		//find fiducials in gray image
 		void findFiducials( ofxCvGrayscaleImage& input );
-	
+
 		//initialize the tree where the fiducial data is from file
 		void initTree( const char *file_name );
-	
+
 		//initialize the default tree where the fiducial data is
 		void initDefaultTree();
 
-	
+
 	private:
-	
+
 		//width and height of gray image
 		int m_width, m_height;
 		//is the segmenter initialized
@@ -70,12 +70,12 @@ class ofxFiducialFinder {
 		Segmenter segmenter;
 		//tree ID map
 		TreeIdMap treeidmap;
-	
+
 		//fiducial tracker
 		FidtrackerX fidtrackerx;
 		//max number of fiducials
 		FiducialX fiducials[ MAX_FIDUCIAL_COUNT*2 ];
-			
+
 		//deinitialize segmenter
 		void deinitSegmenter();
 };

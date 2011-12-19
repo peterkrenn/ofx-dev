@@ -1,6 +1,6 @@
 /*
-Copyright 2005, 2006 Computer Vision Lab, 
-Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland. 
+Copyright 2005, 2006 Computer Vision Lab,
+Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland.
 All rights reserved.
 
 This file is part of BazAR.
@@ -16,7 +16,7 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 BazAR; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301, USA 
+Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 #include <assert.h>
 #include <fstream>
@@ -49,16 +49,16 @@ int used_memory() {
 #endif
 }
 
-image_classification_tree::image_classification_tree(LEARNPROGRESSION _LearnProgress) 
+image_classification_tree::image_classification_tree(LEARNPROGRESSION _LearnProgress)
                                                      : image_classifier(_LearnProgress)
 {
   root = 0;
 }
 
 
-image_classification_tree::image_classification_tree(int _image_width, int _image_height, 
-                                                     int _class_number, int _max_depth, 
-                                                     LEARNPROGRESSION _LearnProgress) 
+image_classification_tree::image_classification_tree(int _image_width, int _image_height,
+                                                     int _class_number, int _max_depth,
+                                                     LEARNPROGRESSION _LearnProgress)
                                                      : image_classifier(_image_width, _image_height, _class_number,_LearnProgress)
 {
   max_depth = _max_depth;
@@ -172,9 +172,9 @@ void image_classification_tree::refine(example_generator * vg, int call_number)
     {
       image_classification_node * node = root;
 
-      while(!node->is_leaf()) 
+      while(!node->is_leaf())
         node = node->children[node->child_index(*it)];
-      
+
       node->P[(*it)->class_index]++;
     }
 
@@ -225,7 +225,7 @@ void image_classification_tree::test(example_generator * vg, int call_number)
     else
       cout << std::setprecision(1) << 100. * float(inlier_total[i]) / total[i] << "% inliers]." << flush;
   }
-  
+
   int T = 0, IT = 0;
   for(int i = 0; i < class_number; i++)
   {
@@ -241,7 +241,7 @@ int image_classification_tree::recognize(image_class_example * image, float * co
 {
   image_classification_node * node = root;
 
-  while(!node->is_leaf()) 
+  while(!node->is_leaf())
     node = node->children[node->child_index(image)];
 
   if (confidence != 0)
@@ -259,9 +259,9 @@ float * image_classification_tree::posterior_probabilities(image_class_example *
   {
     int dot_product = (int)I[node->d1] - (int)I[node->d2];
 
-    if (dot_product <= 0) 
+    if (dot_product <= 0)
       node = node->children[0];
-    else 
+    else
       node = node->children[1];
   }
   return node->P;

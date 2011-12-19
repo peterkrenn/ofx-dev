@@ -14,15 +14,15 @@ ofxCvColorImage::ofxCvColorImage() {
 
 //--------------------------------------------------------------------------------
 ofxCvColorImage::ofxCvColorImage( const ofxCvColorImage& _mom ) {
-    init(); 
+    init();
     if( _mom.bAllocated ) {
         // cast non-const,  to get read access to the mon::cvImage
-        ofxCvColorImage& mom = const_cast<ofxCvColorImage&>(_mom); 
-        allocate(mom.width, mom.height);    
+        ofxCvColorImage& mom = const_cast<ofxCvColorImage&>(_mom);
+        allocate(mom.width, mom.height);
         cvCopy( mom.getCvImage(), cvImage, 0 );
     } else {
         ofLog(OF_LOG_NOTICE, "in ofxCvColorImage copy constructor, mom not allocated");
-    }    
+    }
 }
 
 //--------------------------------------------------------------------------------
@@ -39,7 +39,7 @@ void ofxCvColorImage::clear() {
     if (bAllocated == true && cvGrayscaleImage != NULL){
         cvReleaseImage( &cvGrayscaleImage );
     }
-    ofxCvImage::clear();    //call clear in base class    
+    ofxCvImage::clear();    //call clear in base class
 }
 
 
@@ -78,7 +78,7 @@ void ofxCvColorImage::setFromPixels( unsigned char* _pixels, int w, int h ) {
     ofRectangle roi = getROI();
     ofRectangle inputROI = ofRectangle( roi.x, roi.y, w, h);
     ofRectangle iRoi = getIntersectionROI( roi, inputROI );
-        
+
     if( iRoi.width > 0 && iRoi.height > 0 ) {
         // copy pixels from _pixels, however many we have or will fit in cvImage
         for( int i=0; i < iRoi.height; i++ ) {
@@ -89,11 +89,11 @@ void ofxCvColorImage::setFromPixels( unsigned char* _pixels, int w, int h ) {
         flagImageChanged();
     } else {
         ofLog(OF_LOG_ERROR, "in setFromPixels, ROI mismatch");
-    }    
+    }
 }
 
 //--------------------------------------------------------------------------------
-void ofxCvColorImage::setFromGrayscalePlanarImages( ofxCvGrayscaleImage& red, ofxCvGrayscaleImage& green, ofxCvGrayscaleImage& blue){     
+void ofxCvColorImage::setFromGrayscalePlanarImages( ofxCvGrayscaleImage& red, ofxCvGrayscaleImage& green, ofxCvGrayscaleImage& blue){
 	if( red.width == width && red.height == height &&
         green.width == width && green.height == height &&
         blue.width == width && blue.height == height )
@@ -102,7 +102,7 @@ void ofxCvColorImage::setFromGrayscalePlanarImages( ofxCvGrayscaleImage& red, of
          flagImageChanged();
 	} else {
         ofLog(OF_LOG_ERROR, "in setFromGrayscalePlanarImages, images are different sizes");
-	}     
+	}
 }
 
 
@@ -118,7 +118,7 @@ void ofxCvColorImage::operator = ( const ofxCvGrayscaleImage& _mom ) {
 	if( pushSetBothToTheirIntersectionROI(*this,mom) ) {
 		cvCvtColor( mom.getCvImage(), cvImage, CV_GRAY2RGB );
         popROI();       //restore prevoius ROI
-        mom.popROI();   //restore prevoius ROI         
+        mom.popROI();   //restore prevoius ROI
         flagImageChanged();
 	} else {
         ofLog(OF_LOG_ERROR, "in =, ROI mismatch");
@@ -129,11 +129,11 @@ void ofxCvColorImage::operator = ( const ofxCvGrayscaleImage& _mom ) {
 void ofxCvColorImage::operator = ( const ofxCvColorImage& _mom ) {
     if(this != &_mom) {  //check for self-assignment
         // cast non-const,  no worries, we will reverse any chages
-        ofxCvColorImage& mom = const_cast<ofxCvColorImage&>(_mom);    
+        ofxCvColorImage& mom = const_cast<ofxCvColorImage&>(_mom);
         if( pushSetBothToTheirIntersectionROI(*this,mom) ) {
             cvCopy( mom.getCvImage(), cvImage, 0 );
             popROI();       //restore prevoius ROI
-            mom.popROI();   //restore prevoius ROI              
+            mom.popROI();   //restore prevoius ROI
             flagImageChanged();
         } else {
             ofLog(OF_LOG_ERROR, "in =, ROI mismatch");
@@ -146,7 +146,7 @@ void ofxCvColorImage::operator = ( const ofxCvColorImage& _mom ) {
 //--------------------------------------------------------------------------------
 void ofxCvColorImage::operator = ( const ofxCvFloatImage& _mom ) {
     // cast non-const,  no worries, we will reverse any chages
-    ofxCvFloatImage& mom = const_cast<ofxCvFloatImage&>(_mom); 
+    ofxCvFloatImage& mom = const_cast<ofxCvFloatImage&>(_mom);
 	if( pushSetBothToTheirIntersectionROI(*this,mom) ) {
         if( cvGrayscaleImage == NULL ) {
             cvGrayscaleImage = cvCreateImage( cvSize(cvImage->width,cvImage->height), IPL_DEPTH_8U, 1 );
@@ -155,7 +155,7 @@ void ofxCvColorImage::operator = ( const ofxCvFloatImage& _mom ) {
 		cvConvertScale( mom.getCvImage(), cvGrayscaleImage, 1, 0 );
 		cvCvtColor( cvGrayscaleImage, cvImage, CV_GRAY2RGB );
         popROI();       //restore prevoius ROI
-        mom.popROI();   //restore prevoius ROI          
+        mom.popROI();   //restore prevoius ROI
         cvSetImageROI(cvGrayscaleImage, cvRect(roiX,roiY,width,height));
         flagImageChanged();
 	} else {
@@ -178,7 +178,7 @@ unsigned char* ofxCvColorImage::getPixels() {
             // we need pixels, allocate it
             pixels = new unsigned char[width*height*3];
             pixelsWidth = width;
-            pixelsHeight = height;            
+            pixelsHeight = height;
         } else if(pixelsWidth != width || pixelsHeight != height) {
             // ROI changed, reallocate pixels for new size
             delete pixels;
@@ -186,7 +186,7 @@ unsigned char* ofxCvColorImage::getPixels() {
             pixelsWidth = width;
             pixelsHeight = height;
         }
-        
+
         // copy from ROI to pixels
         for( int i = 0; i < height; i++ ) {
             memcpy( pixels + (i*width*3),
@@ -207,7 +207,7 @@ void ofxCvColorImage::convertToGrayscalePlanarImages(ofxCvGrayscaleImage& red, o
         cvCvtPixToPlane(cvImage, red.getCvImage(), green.getCvImage(), blue.getCvImage(), NULL);
 	} else {
         ofLog(OF_LOG_ERROR, "in convertToGrayscalePlanarImages, images are different sizes");
-	}     
+	}
 }
 
 
@@ -252,14 +252,14 @@ void ofxCvColorImage::scaleIntoMe( ofxCvImage& mom, int interpolationMethod ){
     //for interpolation you can pass in:
     //CV_INTER_NN - nearest-neigbor interpolation,
     //CV_INTER_LINEAR - bilinear interpolation (used by default)
-    //CV_INTER_AREA - resampling using pixel area relation. It is preferred method 
-    //                for image decimation that gives moire-free results. In case of 
+    //CV_INTER_AREA - resampling using pixel area relation. It is preferred method
+    //                for image decimation that gives moire-free results. In case of
     //                zooming it is similar to CV_INTER_NN method.
     //CV_INTER_CUBIC - bicubic interpolation.
-        
-    if( mom.getCvImage()->nChannels == cvImage->nChannels && 
+
+    if( mom.getCvImage()->nChannels == cvImage->nChannels &&
         mom.getCvImage()->depth == cvImage->depth ) {
-    
+
         if ((interpolationMethod != CV_INTER_NN) &&
             (interpolationMethod != CV_INTER_LINEAR) &&
             (interpolationMethod != CV_INTER_AREA) &&

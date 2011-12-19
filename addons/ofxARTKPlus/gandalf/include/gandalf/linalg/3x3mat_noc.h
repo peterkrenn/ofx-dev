@@ -496,7 +496,7 @@ GANDALF_API Gan_SquMatrix33 *gan_squmat33_from_squmat_q ( const Gan_SquMatrix *A
   GAN_REP3_ABC((A)->,=(p)->,*(q)->,xx,xy,xz,x,x,x,x,y,z),\
   GAN_REP3_ABC((A)->,=(p)->,*(q)->,yx,yy,yz,y,y,y,x,y,z),\
   GAN_REP3_ABC((A)->,=(p)->,*(q)->,zx,zy,zz,z,z,z,x,y,z),A)
- 
+
 /* matrix/vector multiply */
 #define gan_mat33_multv3_q(A,p,q)\
  (GAN_TEST_OP3(A,p,q,Gan_Matrix33,Gan_Vector3,Gan_Vector3),\

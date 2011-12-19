@@ -74,7 +74,7 @@ bool PerspectiveProjection::setPlanes(double nearPlane, double farPlane)
 /*! Project eye coordinates to image coordinates.
  * uv[0] is the horizontal axis (left -> right) and uv[1] is the vertical axis,
  * pointing up.
- */ 
+ */
 void PerspectiveProjection::eyeToImage(const double eye[3], double uv[2]) const
 {
 	uv[0] = (f * eye[0] + s * eye[1]) / eye[2] + cx;
@@ -84,7 +84,7 @@ void PerspectiveProjection::eyeToImage(const double eye[3], double uv[2]) const
 /*! Find the 3D eye coordinate of a given pixel.
  * u is the horizontal axis (left -> right) and v is the vertical axis,
  * pointing up.
- */ 
+ */
 void PerspectiveProjection::imageToEye(double u, double v, double eye[3], double w) const
 {
 	if (w==0) w = nearPlane;
@@ -115,7 +115,7 @@ void PerspectiveProjection::imageToEye(const double uv[2], double eye[3], double
  * OpenGl, after projection, clips coordinates to [-1, 1] on all axis. It is
  * converted then to window coordinates.
  */
-void PerspectiveProjection::setGlProjection() const 
+void PerspectiveProjection::setGlProjection() const
 {
 #ifdef HAVE_GL
 	glMatrixMode(GL_PROJECTION);
@@ -221,8 +221,8 @@ void PerspectiveCamera::setGlModelView() const
 #ifdef HAVE_GL
 	GLdouble m[16];
 
-	for (int i=0; i<3; ++i) 
-		for (int j=0;j<4; ++j) 
+	for (int i=0; i<3; ++i)
+		for (int j=0;j<4; ++j)
 			m[i+j*4] = worldToEyeMat.m[i][j];
 	m[3+0*4] = m[3+1*4] = m[3+2*4] = 0;
 	m[3+3*4]=1;
@@ -244,7 +244,7 @@ void PerspectiveCamera::setByTarget(const Vec3 pos, const Vec3 target, double ro
 
 	z.setSub(target, pos);
 	z.normalize();
-	
+
 	x.setCross(z,up);
 	y.setCross(x,z);
 
@@ -326,13 +326,13 @@ void PerspectiveCamera::loadTdir(const double _tdir[3][4], int w, int h)
 	f = sqrt(ppt[0][0]-cx*cx-s*s);
 
 	worldToEyeMat.m[1][0] = (tdir[1][0] - cy*worldToEyeMat.m[2][0])/g;
-	worldToEyeMat.m[0][0] = (tdir[0][0] - s*worldToEyeMat.m[1][0] - cx*worldToEyeMat.m[2][0])/f; 
+	worldToEyeMat.m[0][0] = (tdir[0][0] - s*worldToEyeMat.m[1][0] - cx*worldToEyeMat.m[2][0])/f;
 
 	worldToEyeMat.m[1][1] = (tdir[1][1] - cy*worldToEyeMat.m[2][1])/g;
-	worldToEyeMat.m[0][1] = (tdir[0][1] - s*worldToEyeMat.m[1][1] - cx*worldToEyeMat.m[2][1])/f; 
+	worldToEyeMat.m[0][1] = (tdir[0][1] - s*worldToEyeMat.m[1][1] - cx*worldToEyeMat.m[2][1])/f;
 
 	worldToEyeMat.m[1][2] = (tdir[1][2] - cy*worldToEyeMat.m[2][2])/g;
-	worldToEyeMat.m[0][2] = (tdir[0][2] - s*worldToEyeMat.m[1][2] - cx*worldToEyeMat.m[2][2])/f; 
+	worldToEyeMat.m[0][2] = (tdir[0][2] - s*worldToEyeMat.m[1][2] - cx*worldToEyeMat.m[2][2])/f;
 
 	worldToEyeMat.m[1][3] = (tdir[1][3] - cy*worldToEyeMat.m[2][3])/g;
 	worldToEyeMat.m[0][3] = (tdir[0][3] - s*worldToEyeMat.m[1][3] - cx*worldToEyeMat.m[2][3])/f;
@@ -361,8 +361,8 @@ bool PerspectiveCamera::loadTdir(const char *tdirFile, int w, int h)
 	if (!file.good()) return false;
 	double tdir[3][4];
 
-	for (int j=0; j<3; ++j) 
-		for (int i=0; i<4; ++i) 
+	for (int j=0; j<3; ++j)
+		for (int i=0; i<4; ++i)
 			file >> tdir[j][i];
 	char line[256];
 	while (file.getline(line,256)) {
@@ -415,8 +415,8 @@ bool PerspectiveCamera::loadTdir(const char *tdirFile, int w, int h)
 
 			file.close();
 			if (setPlanes(n,f))
-				std::cout << "Reading clipping planes from " << fn 
-					<< ": near=" << n 
+				std::cout << "Reading clipping planes from " << fn
+					<< ": near=" << n
 					<< " far=" << f << endl;
 			else
 				std::cerr << "Troubles loading " << fn << "!\n";
@@ -466,7 +466,7 @@ bool PerspectiveCamera::loadTdir(const char *tdirFile)
 	};
 
 	int best=0;
-	double bestDelta = diagDiff(mode[0], cx, cy);	
+	double bestDelta = diagDiff(mode[0], cx, cy);
 	for (int i=1; mode[i].w != -1; ++i) {
 		double delta = diagDiff(mode[i], cx, cy);
 		if (delta < bestDelta) {
@@ -505,7 +505,7 @@ void PerspectiveCamera::imageToWorld(double u, double v, Vec3 &w, double depth) 
 	eyeToWorld(uvw, w);
 }
 
-void PerspectiveCamera::translate(double dx, double dy, double dz) 
+void PerspectiveCamera::translate(double dx, double dy, double dz)
 {
 	worldToEyeMat.m[0][3] -= dx;
 	worldToEyeMat.m[1][3] -= dy;
@@ -553,7 +553,7 @@ ostream& operator << (ostream& os, const PerspectiveProjection &cam)
 	return os;
 }
 
-ostream& operator << (ostream& os, const PerspectiveCamera &cam) 
+ostream& operator << (ostream& os, const PerspectiveCamera &cam)
 {
 	os << ((PerspectiveProjection) cam) << endl;
 	os << cam.getWorldToEyeMat();

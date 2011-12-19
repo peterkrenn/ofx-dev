@@ -7,9 +7,9 @@
 
 
 class ofxGuiTitle {
-	
+
 public:
-	
+
 	float		posx, posy;
 	string		name;
 
@@ -20,23 +20,23 @@ public:
 	ofxGuiTitle(string _name) {
 		name = _name;
 	}
-	
+
 	//--------------------------------------------------------------------- set title
 	void set(string _name) {
 		name = _name;
 	}
-	
+
 	//--------------------------------------------------------------------- render
 	void render(float _x, float _y) {
-		
+
 		//update postion of gui object
 		posx = _x;
 		posy = _y;
-		
-		
+
+
 		ofEnableAlphaBlending();
 		glPushMatrix();
-		glTranslatef(posx, posy, 0);		
+		glTranslatef(posx, posy, 0);
 		ofFill();
 		ofSetColor(105, 105, 105, 200);
 		ofRect(0, SLIDER_H, SLIDER_W, 25);
@@ -45,6 +45,6 @@ public:
 		ofDisableAlphaBlending();
 		glPopMatrix();
 	}
-	
+
 };
 #endif

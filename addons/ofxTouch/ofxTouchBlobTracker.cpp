@@ -41,7 +41,7 @@ ofxTouchTrackedBlob&  ofxTouchBlobTracker::getById( int id ) {
             return blobs[i];
         }
     }
-    
+
 }
 
 
@@ -51,14 +51,14 @@ void ofxTouchBlobTracker::draw( float x, float y ) {
 	ofSetColor( 255,0,200,100 );
     glPushMatrix();
     glTranslatef( x, y, 0.0 );
-    
+
 	ofFill();
 	for( int i=0; i<blobs.size(); i++ ) {
-		ofRect( blobs[i].box.x, blobs[i].box.y, 
+		ofRect( blobs[i].box.x, blobs[i].box.y,
                 blobs[i].box.width, blobs[i].box.height );
 	}
 	ofDisableAlphaBlending();
-	
+
 	ofSetColor(0xffffff);
 	for( int i=0; i<blobs.size(); i++ ) {
 		glBegin(GL_LINE_LOOP);
@@ -67,14 +67,14 @@ void ofxTouchBlobTracker::draw( float x, float y ) {
 		}
 		glEnd();
 	}
-    
-    ofSetColor( 0xffffff );    
+
+    ofSetColor( 0xffffff );
     for( int i=0; i<blobs.size(); i++ ) {
         ostringstream docstring;
         //docstring << blobs[i].id << endl;
         docstring << findOrder(blobs[i].id) << endl;
-        ofDrawBitmapString( docstring.str(), 
-                            blobs[i].center.x, blobs[i].center.y );    
+        ofDrawBitmapString( docstring.str(),
+                            blobs[i].center.x, blobs[i].center.y );
     }
 	glPopMatrix();
 }
@@ -113,7 +113,7 @@ void ofxTouchBlobTracker::trackBlobs( const vector<ofxTouchBlob>& _blobs ) {
     // frame. We are optimizing for the least change in distance.
     // While this works really well we could also optimize for lowest
     // deviation from predicted position, change in size etc...
-    
+
 	for( i=0; i<cursize; i++ ) {
 		blobs[i].error.clear();
 		blobs[i].closest.clear();
@@ -122,9 +122,9 @@ void ofxTouchBlobTracker::trackBlobs( const vector<ofxTouchBlob>& _blobs ) {
             //calc error - distance to blob in prev frame
             float deviationX = blobs[i].center.x - (*prev)[j].center.x;
             float deviationY = blobs[i].center.y - (*prev)[j].center.y;
-            float error = (float)sqrt( deviationX*deviationX 
+            float error = (float)sqrt( deviationX*deviationX
                                      + deviationY*deviationY );
-        
+
 			blobs[i].error.push_back( error );
 			blobs[i].closest.push_back( j );
 		}
@@ -136,9 +136,9 @@ void ofxTouchBlobTracker::trackBlobs( const vector<ofxTouchBlob>& _blobs ) {
 		for( j=0; j<prevsize; j++ )	{
 			for( k=0; k<prevsize-1-j; k++ )	{
 				// ugly as hell, I know.
-				if( blobs[i].error[blobs[i].closest[k+1]] 
+				if( blobs[i].error[blobs[i].closest[k+1]]
                     < blobs[i].error[blobs[i].closest[k]] ) {
-                    
+
                     int tmp = blobs[i].closest[k];  // swap
                     blobs[i].closest[k] = blobs[i].closest[k+1];
                     blobs[i].closest[k+1] = tmp;
@@ -158,7 +158,7 @@ void ofxTouchBlobTracker::trackBlobs( const vector<ofxTouchBlob>& _blobs ) {
 	ids.clear();
 
 
-	// collect id's.. 
+	// collect id's..
 	for( i=0; i<cursize; i++ ) {
 		ids.push_back( -1 );
 	}
@@ -171,7 +171,7 @@ void ofxTouchBlobTracker::trackBlobs( const vector<ofxTouchBlob>& _blobs ) {
 
 
 	// FIXME: we could scale numcheck depending on how many blobs there are
-	// if we are tracking a lot of blobs, we could check less.. 
+	// if we are tracking a lot of blobs, we could check less..
 
 	if( cursize <= 4 ) {
 		numcheck = 4;
@@ -186,7 +186,7 @@ void ofxTouchBlobTracker::trackBlobs( const vector<ofxTouchBlob>& _blobs ) {
 	if( prevsize < numcheck ) {
 		numcheck = prevsize;
 	}
-    
+
 	if( blobs.size() > 0 ) {
 		permute(0);
     }
@@ -195,9 +195,9 @@ void ofxTouchBlobTracker::trackBlobs( const vector<ofxTouchBlob>& _blobs ) {
 	unsigned int num_results = matrix.size();
 
 
-	// loop through all the potential 
+	// loop through all the potential
     // ID configurations and find one with lowest error
-    
+
 	float best_error = 99999, error;
 	int best_error_ndx = -1;
 
@@ -214,14 +214,14 @@ void ofxTouchBlobTracker::trackBlobs( const vector<ofxTouchBlob>& _blobs ) {
 
 		if( error < best_error)	{
 			best_error = error;
-			best_error_ndx = j;		
+			best_error_ndx = j;
 		}
 	}
 
 
-	// now that we know the optimal configuration, 
+	// now that we know the optimal configuration,
     // set the IDs and calculate some things..
-    
+
 	if( best_error_ndx != -1 ) {
 		for( i=0; i<cursize; i++ ) {
 			if( matrix[best_error_ndx][i] != -1 ) {
@@ -232,12 +232,12 @@ void ofxTouchBlobTracker::trackBlobs( const vector<ofxTouchBlob>& _blobs ) {
 
 			if( blobs[i].id != -1 ) {
 				ofxTouchTrackedBlob *oldblob = &(*prev)[matrix[best_error_ndx][i]];
-                
+
 				blobs[i].deltaLoc.x = (blobs[i].center.x - oldblob->center.x);
 				blobs[i].deltaLoc.y = (blobs[i].center.y - oldblob->center.y);
 
 				blobs[i].deltaArea = blobs[i].area - oldblob->area;
-                
+
 				blobs[i].predictedPos.x = blobs[i].center.x + blobs[i].deltaLoc.x;
 				blobs[i].predictedPos.y = blobs[i].center.y + blobs[i].deltaLoc.y;
 
@@ -251,14 +251,14 @@ void ofxTouchBlobTracker::trackBlobs( const vector<ofxTouchBlob>& _blobs ) {
 			}
 		}
 	}
-    
-    
-    
-    
+
+
+
+
     // fire events
     //
 
-	// assign ID's for any blobs that are new this frame (ones that didn't get 
+	// assign ID's for any blobs that are new this frame (ones that didn't get
 	// matched up with a blob from the previous frame).
 	for( i=0; i<cursize; i++ ) {
 		if(blobs[i].id == -1)	{
@@ -267,16 +267,16 @@ void ofxTouchBlobTracker::trackBlobs( const vector<ofxTouchBlob>& _blobs ) {
 			if( currentID >= 65535 ) {
 				currentID = 0;
             }
-            
+
 			//doTouchEvent(blobs[i].getTouchData());
-            doBlobOn( blobs[i] );              
+            doBlobOn( blobs[i] );
 		} else {
-            float totalLength = 
-                (float)sqrt( blobs[i].deltaLocTotal.x*blobs[i].deltaLocTotal.x 
+            float totalLength =
+                (float)sqrt( blobs[i].deltaLocTotal.x*blobs[i].deltaLocTotal.x
                            + blobs[i].deltaLocTotal.y*blobs[i].deltaLocTotal.y );
 			if( totalLength >= minimumDisplacementThreshold ) {
 				//doUpdateEvent( blobs[i].getTouchData() );
-                doBlobMoved( blobs[i] );                
+                doBlobMoved( blobs[i] );
 				blobs[i].deltaLocTotal = ofPoint( 0.0f, 0.0f );
 			}
 		}
@@ -297,20 +297,20 @@ void ofxTouchBlobTracker::trackBlobs( const vector<ofxTouchBlob>& _blobs ) {
 			if( ghost_frames == 0 )	{
 				//doUntouchEvent((*prev)[i].getTouchData());
                 doBlobOff( (*prev)[i] );
-                
+
 			} else if( (*prev)[i].markedForDeletion ) {
 				(*prev)[i].framesLeft -= 1;
 				if( (*prev)[i].framesLeft <= 0 ) {
 					//doUntouchEvent( (*prev)[i].getTouchData() );
                     doBlobOff( (*prev)[i] );
 				} else {
-					blobs.push_back( (*prev)[i] );  // keep it around 
+					blobs.push_back( (*prev)[i] );  // keep it around
                                                     // until framesleft = 0
                 }
 			} else {
 				(*prev)[i].markedForDeletion = true;
 				(*prev)[i].framesLeft = ghost_frames;
-				blobs.push_back( (*prev)[i] );  // keep it around 
+				blobs.push_back( (*prev)[i] );  // keep it around
                                                 // until framesleft = 0
 			}
 		}
@@ -330,7 +330,7 @@ void ofxTouchBlobTracker::doBlobOn( const ofxTouchTrackedBlob& b ) {
     } else {
         cout << "doBlobOn() event for blob: " << b.id << endl;
     }
-}    
+}
 void ofxTouchBlobTracker::doBlobMoved( const ofxTouchTrackedBlob& b ) {
     if( listener != NULL ) {
         listener->blobMoved( b.center.x, b.center.y, b.id, findOrder(b.id) );
@@ -345,15 +345,15 @@ void ofxTouchBlobTracker::doBlobOff( const ofxTouchTrackedBlob& b ) {
         cout << "doBlobOff() event for blob: " << b.id << endl;
     }
 }
-    
-    
+
+
 
 
 
 // Helper Methods
 //
 //
-inline void ofxTouchBlobTracker::permute( int start ) {  
+inline void ofxTouchBlobTracker::permute( int start ) {
     if( start == ids.size() ) {
         //for( int i=0; i<start; i++)
         //{
@@ -366,9 +366,9 @@ inline void ofxTouchBlobTracker::permute( int start ) {
         int numchecked = 0;
 
         for( int i=0; i<blobs[start].closest.size(); i++ ) {
-            if( blobs[start].error[blobs[start].closest[i]] 
+            if( blobs[start].error[blobs[start].closest[i]]
                 > reject_distance_threshold ) {
-                
+
                 break;
             }
 
@@ -401,10 +401,10 @@ inline bool ofxTouchBlobTracker::checkValidNew( int start ) {
         }
 	}
 
-	if( newidcount > extraIDs ) { 
+	if( newidcount > extraIDs ) {
         return false;
     }
-    
+
 	return true;
 }
 

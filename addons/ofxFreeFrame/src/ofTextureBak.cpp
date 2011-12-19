@@ -24,9 +24,9 @@ ofTextureBak::ofTextureBak(const ofTextureBak& mom){
 		textureTarget = GL_TEXTURE_2D;
 	}
 	// do nothing. (since copying a texture via graphics card is not possible)
-}	
+}
 
-//----------------------------------------------------------			
+//----------------------------------------------------------
 ofTextureBak& ofTextureBak::operator=(const ofTextureBak& mom){
 	// do nothing. (since copying a texture via graphics card is not possible)
 	return * this;

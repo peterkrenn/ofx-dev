@@ -66,7 +66,7 @@ GANDALF_API Gan_Bool gan_clapack_orgqr ( Gan_Matrix *A, Gan_Vector *tau,
 GANDALF_API Gan_Bool gan_clapack_orglq ( Gan_Matrix *A, Gan_Vector *tau,
                              double *work, unsigned long work_size );
 GANDALF_API Gan_Bool gan_clapack_gesv ( Gan_Matrix *A, Gan_Matrix *B, long *ipiv );
-                            
+
 #ifdef HAVE_LAPACK
 /* these functions are not locally defined in Gandalf */
 GANDALF_API Gan_Bool gan_clapack_geev ( Gan_Matrix *A,

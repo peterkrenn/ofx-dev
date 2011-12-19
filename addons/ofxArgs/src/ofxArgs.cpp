@@ -16,7 +16,7 @@ ofxArgs::ofxArgs(int argc, char* argv[]){
 	for(int i=0; i < argc; i++){
 		cVal = argv[i];
 		nextVal = (i < argc-1)?argv[i+1]:"";
-		
+
 		int pos = cVal.find('=');
 		if(pos != string::npos){
 			string key = cVal.substr(0, pos);

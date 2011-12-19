@@ -7,13 +7,13 @@ Ported to OF0.2 by SH101 - http://zombie.nu
 */
 
 void testApp::setup(){
-	
+
 	ofSeedRandom();
-	
+
 	SM = new simulationManager();
 	PM = new particleManager();
 	SM->PM = PM;
-	
+
 }
 
 void testApp::update(){
@@ -23,27 +23,27 @@ void testApp::update(){
 }
 
 void testApp::draw(){
-	
+
 	ofSetupScreen();
 	SM->draw();
 	PM->draw();
 }
 
 //--------------------------------------------------------------
-void testApp::keyPressed  (int key){ 
+void testApp::keyPressed  (int key){
 
 }
 
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ){
-	
+
 
 }
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button){
-	
+
 
 	PM->PTS[0]->pos.x = (float)x;
 	PM->PTS[0]->pos.y = (float)y;
@@ -51,16 +51,16 @@ void testApp::mouseDragged(int x, int y, int button){
 		dx = (float)x - lastx;
 		dy = (float)y - lasty;
 		lastx = (float)x;
-		lasty = (float)y;		
-		
+		lasty = (float)y;
+
 }
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-	
+
 	lastx = (float)x;
 	lasty = (float)y;
-	
+
 }
 
 //--------------------------------------------------------------

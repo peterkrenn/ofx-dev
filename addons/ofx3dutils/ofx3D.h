@@ -14,21 +14,21 @@
 	void ofSphere(float _r, float _x, float _y);
 	void ofSphere(float _r, float _x, float _y, float _res);
 	void ofTeaPot(float d, float x, float y);
-	
+
 	//------------------------------------------------------------------- Nurb
 	void ofNurb();
 	void ofInitNurb();
 	void ofNurbCtrlPoints();
-	
+
 	//------------------------------------------------------------------- Lights
 	void ofInitLights();
 	void ofLightsOn();
 	void ofLightsOff();
 	void ofPositionLight(float x, float y, float z);
 	void ofPositionLight();
-	
+
 	void ofFog();
 	//------------------------------------------------------------------- 3D Modes
 	void ofSet3DMode(int mode);
-	
+
 #endif

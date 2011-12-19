@@ -26,7 +26,7 @@ class Sketch < Processing::App
     paddles.each { |paddle| paddle.draw }
     @ball.draw
   end
-  
+
   def paddles
     return @left_paddle, @right_paddle
   end

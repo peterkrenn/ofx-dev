@@ -10,8 +10,8 @@
  *
  * Short Desc:  Module to handle errors, warning and information messages.
  *
- * Description:        
- * 
+ * Description:
+ *
  * Definitions:
  * library:     a collection of code that can be used by disparate applications
  * application: the code or program that utilises the library
@@ -19,7 +19,7 @@
  * private:     a function that is intended to be called from the library
  * public:      a function that is intended to be called from the application
  * error record: a struct holding error code, file name, line number,
- *              and text message for one error. 
+ *              and text message for one error.
  * error trace: a LIFO stack of error records, which allows temporary storage of
  *              error information until defered retrieval by application
  * top record:  the most recent error stored in trace
@@ -87,9 +87,9 @@
  *
  * Consequences and liabilities:
  * (1) The application is able to:
- *        - control when errors are reported to the user interface 
+ *        - control when errors are reported to the user interface
  *          (the library should not itself report errors to the user)
- *        - provide its own error reporting mechanism 
+ *        - provide its own error reporting mechanism
  *          (to suit its own user interface).
  *        - extract sufficient information from the library to
  *          enable sufficient error reporting to be performed.
@@ -142,7 +142,7 @@
  * error trace.
  *
  * PMN 2000-11-28 Created.
- * 
+ *
  */
 
 /* This library is free software; you can redistribute it and/or

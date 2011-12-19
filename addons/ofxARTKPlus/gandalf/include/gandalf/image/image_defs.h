@@ -223,7 +223,7 @@ typedef struct Gan_Image
    /// function to free image
    void (*free_func) ( struct Gan_Image *img );
 
-#ifndef NDEBUG   
+#ifndef NDEBUG
 
    /// set image pixel for each format
    union

@@ -1,21 +1,21 @@
 /***********************************************************************
  -----------------------------------
- 
+
  Copyright (c) 2008, Memo Akten, www.memo.tv
- 
+
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- 
+
  ***********************************************************************/
 
 
@@ -38,7 +38,7 @@ void MotionTracker::init(int w, int h, int i) {
 	index = i;
 	posX = index * camWidth;
 	posY = 0;
-	
+
 	mirrorVideo = false;
 	camThreshold = DEFAULT_CAM_THRESHOLD;
 	camSilAlpha = DEFAULT_CAM_SIL_ALPHA;
@@ -46,19 +46,19 @@ void MotionTracker::init(int w, int h, int i) {
 
 	vidGrabber.setDeviceID(i); // must set camera ID and other options before calling initGrabber
 	vidGrabber.initGrabber(camWidth, camHeight, false); // no texture
-	
+
 	opticalFlow.allocate(optFlowWidth, optFlowHeight);
-	
+
 	colorImg.allocate(camWidth, camHeight);
 	greyNow.allocate(camWidth, camHeight);
 	greyBgDiff.allocate(camWidth, camHeight);
 	greyPrev.allocate(camWidth, camHeight);
 	greyCurDiff.allocate(camWidth, camHeight);
 	greyBg.allocate(camWidth, camHeight);
-	
+
 	bLearnBG = true;
 	bHasNewFrame = false;
-	
+
 	reset();
 }
 
@@ -102,7 +102,7 @@ void MotionTracker::reset() {
 	greyCurDiff.set(0);
     cvSetZero(opticalFlow.vel_x);
     cvSetZero(opticalFlow.vel_y);
-	
+
 	frameCounter = 0;
 }
 
@@ -129,13 +129,13 @@ void MotionTracker::getVelAverageComponents(float *u, float *v, ofRectangle* bou
 		bounds = new ofRectangle(0, 0, optFlowWidth, optFlowHeight);
 		cleanBounds = true;
 	}
-	
+
 	// normalize the bounds to optical flow system
 	bounds->x = (float)bounds->x/(float)camWidth*(float)optFlowWidth; // normalize co-ords from camera size to optical flow size
 	bounds->y = (float)bounds->y/(float)camHeight*(float)optFlowHeight;
 	bounds->width = (float)bounds->width/(float)camWidth*(float)optFlowWidth;
 	bounds->height = (float)bounds->height/(float)camHeight*(float)optFlowHeight;
-	
+
 	// fix out of bounds
 	if(bounds->x < 0){
 		bounds->width += bounds->x;
@@ -151,14 +151,14 @@ void MotionTracker::getVelAverageComponents(float *u, float *v, ofRectangle* bou
 	else if(bounds->y + bounds->height > optFlowHeight){
 		bounds->height -= ((bounds->y + bounds->height) - optFlowHeight);
 	}
-	
+
 /**	cout << "--bounds:norm--" << endl;
 	cout << "x:" << bounds->x << endl;
 	cout << "y:" << bounds->y << endl;
 	cout << "w:" << bounds->width << endl;
 	cout << "h:" << bounds->height << endl;
 	cout << "--------------------" << endl;*/
-	
+
 	*u = 0.0;
 	*v = 0.0;
 	for(int i=bounds->x; i < bounds->x+(int)bounds->width; i++){
@@ -168,10 +168,10 @@ void MotionTracker::getVelAverageComponents(float *u, float *v, ofRectangle* bou
 //			cout << i << "," << j << "::" << *u << "," << *v << endl;
 		}
 	}
-	
+
 	*u /= 2.0 * (float)bounds->height; // effectively: u / (width*height) * width/2.0
 	*v /= 2.0 * (float)bounds->width; // effectively: v / (width*height) * height/2.0
-	
+
 	if(cleanBounds)
 		delete bounds;
 }
@@ -193,8 +193,8 @@ void MotionTracker::getVelAverageAngleMag(float *angle, float *magnitude, ofRect
  colorImg.mirror(false, true);					// mirror it
  }
  unlock();
- } 
- 
+ }
+
  return true;
  }
  */
@@ -210,15 +210,15 @@ void MotionTracker::update(){
 		if(mirrorVideo) colorImg.mirror(false, true);		// mirror it
 
 		greyNow.setFromColorImage(colorImg);			// make color image grey
-		
+
 		if (bLearnBG == true) {							// save background if nessecary
 			greyBg = greyNow;
 			bLearnBG = false;
 		}
-		
+
 		// bg difference
 		greyBgDiff.absDiff(greyBg, greyNow);			// subtract background from it
-		
+
 //		greyBgDiff.threshold(camThreshold, CV_THRESH_TOZERO);		// chop dark areas		THIS DOES NOT WORK HERE! MESSY EDGES FOR OPTICAL FLOW
 
 		// consecutive frame difference and optical flow
@@ -227,29 +227,29 @@ void MotionTracker::update(){
 			ofxCvGrayscaleImage optFlowBgDiff = greyBgDiff;
 			optFlowPrev.resize(this->optFlowWidth, this->optFlowHeight);
 			optFlowBgDiff.resize(this->optFlowWidth, this->optFlowHeight);
-			
+
 			opticalFlow.calc(optFlowPrev, optFlowBgDiff, 11);
 			cvSmooth(opticalFlow.vel_x, opticalFlow.vel_x, CV_BLUR , camVelocityBlur);
 			cvSmooth(opticalFlow.vel_y, opticalFlow.vel_y, CV_BLUR , camVelocityBlur);
-			
+
 			greyCurDiff.absDiff(greyPrev, greyBgDiff);			// curDiff is the difference between the last 2 frames
 			greyCurDiff.threshold(camThreshold, CV_THRESH_TOZERO);		// chop dark areas
 			greyCurDiff.blur(3);
 		} else {
 			frameCounter ++;
 		}
-		
+
 		greyPrev = greyBgDiff;							// save frame for next frame
-		
+
 //		greyNow.threshold(App::camThreshold, CV_THRESH_TOZERO);		// chop dark areas		GOOD FOR RENDERING
 //		cvCanny(greyPrev.getCvImage(), greyNow.getCvImage(), 50, 100, 3);
 //		greyNow.blur(5);
 
 //		greyBgDiff.threshold(App::camThreshold);		// chop dark areas
-		greyBgDiff.threshold(camThreshold, CV_THRESH_TOZERO);		// chop dark areas		
+		greyBgDiff.threshold(camThreshold, CV_THRESH_TOZERO);		// chop dark areas
 		greyBgDiff.blur(3);
 
-	} 	
+	}
 	//	printf("ending MotionTracker %i update \n", index);
 }
 
@@ -257,7 +257,7 @@ void MotionTracker::update(){
 //--------------------------------------------------------------
 void MotionTracker::drawDebugVideo(int x, int y, int w, int h){
 //		printf("drawing MOTION TRACKER %i \n", index);
-	
+
 	glColor3f(1.0f, 1.0f, 1.0f);
 	x -= w;
 	colorImg.draw(x += w, y, w, h);
@@ -304,7 +304,7 @@ void MotionTracker::drawOpticalFlowAverage(int x, int y, int w, int h, ofRectang
 	float ratioY = (float)h / (float)this->optFlowHeight;
 	float u, v;
 	getVelAverageComponents(&u, &v, averageBounds);
-	
+
 	glColor3f(0.0f, 0.0f, 0.0f);
 	ofFill();
 	ofRect(x, y, w, h);
@@ -315,7 +315,7 @@ void MotionTracker::drawOpticalFlowAverage(int x, int y, int w, int h, ofRectang
 
 
 //--------------------------------------------------------------
-void MotionTracker::keyPressed  (int key){ 
+void MotionTracker::keyPressed  (int key){
 	switch (key){
 		case 't':if(ofGetWindowMode() == OF_WINDOW) vidGrabber.videoSettings();
 			break;

@@ -1,7 +1,7 @@
 #include "testApp.h"
 
 //--------------------------------------------------------------
-void testApp::setup(){	 
+void testApp::setup(){
 	// test world has a default constructor in testApp.h
 }
 
@@ -16,13 +16,13 @@ void testApp::draw(){
 }
 
 //--------------------------------------------------------------
-void testApp::keyPressed  (int key){ 
+void testApp::keyPressed  (int key){
 	// any key will change the gravity
 	world.reverseGravity();
 }
 
 //--------------------------------------------------------------
-void testApp::keyReleased  (int key){ 
+void testApp::keyReleased  (int key){
 }
 
 //--------------------------------------------------------------

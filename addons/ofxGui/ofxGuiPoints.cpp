@@ -27,28 +27,28 @@ void ofxGuiPoints::init(int id, string name, int x, int y, int width, int height
 	mParamId		= id;
 	mParamName		= name;
 
-	mObjX			= x; 
+	mObjX			= x;
 	mObjY			= y;
-	
+
 	mObjWidth		= width;
 	mObjHeight		= textHeight + height;
-	
+
 	mDisplay		= display;
 	mSteps			= steps;
-	
+
 	setRange(min, max);
 	setValue(value);
 	setControlRegion(0, textHeight, width, height);
 
-	mList.points.push_back(ofxPoint2f(mMinVal.x, mMinVal.y + mValDlt.y * 0.5)); 
+	mList.points.push_back(ofxPoint2f(mMinVal.x, mMinVal.y + mValDlt.y * 0.5));
 	mList.points.push_back(ofxPoint2f(mMaxVal.x, mMinVal.y + mValDlt.y * 0.5));
-	
+
 	float	size	= mGlobals->mPointSize / 2.0;
 	float	x1		= size / mCtrWidth;
 	float	y1		= size / mCtrHeight;
 	float	x2		= x1 * mValDlt.x;
 	float	y2		= y1 * mValDlt.y;
-	
+
 	mDistance		= sqrt(x2 * x2 + y2 * y2);
 }
 
@@ -61,7 +61,7 @@ void ofxGuiPoints::setValue(ofxPoint2f value)
 
 //	----------------------------------------------------------------------------------------------------
 
-void ofxGuiPoints::setRange(ofxPoint2f min, ofxPoint2f max) 
+void ofxGuiPoints::setRange(ofxPoint2f min, ofxPoint2f max)
 {
 	mMinVal	= min;
 	mMaxVal	= max;
@@ -74,7 +74,7 @@ bool ofxGuiPoints::update(int id, int task, void* data, int length)
 {
 	bool		handled	= false;
 	ofxPoint2f	value	= mValue;
-	
+
 	if(id == mParamId)
 	{
 		if(task == kofxGui_Set_Float)
@@ -84,7 +84,7 @@ bool ofxGuiPoints::update(int id, int task, void* data, int length)
 
 		handled = true;
 	}
-	
+
 	if(value!= mValue)
 	{
 		mOutVal = mList.positionToValue(mValue);
@@ -101,33 +101,33 @@ void ofxGuiPoints::draw()
 	glPushMatrix();
 
 		glTranslatef(mObjX, mObjY, 0.0f);
-	
+
 		if(mParamName != "")
 			drawParamString(0.0, 0.0, mParamName + ": " + pointToString(mList.activePoint != -1 ? mOutVal : mValue, mDisplay), false);
 
 		ofxPoint2f	p	= fractionToLocal(valueToFraction(mValue));
-		
+
 		float		x	= mCtrWidth * p.x;
 		float		y	= mCtrHeight * p.y;
-		
+
 		float		d	= mGlobals->mPointSize;
 		float		r	= d / 2.0;
-	
+
 		ofFill();
-	
+
 		//	background
 		glColor4f(mGlobals->mCoverColor.r, mGlobals->mCoverColor.g, mGlobals->mCoverColor.b, mGlobals->mCoverColor.a);
 		ofRect(mCtrX, mCtrY, mCtrWidth, mCtrHeight);
-	
+
 		ofNoFill();
-	
+
 		//	lines
 		glColor4f(mGlobals->mCurveColor.r, mGlobals->mCurveColor.g, mGlobals->mCurveColor.b, mGlobals->mCurveColor.a);
-		
+
 		ofBeginShape();
 			for(int i = 0; i < mList.points.size(); i++)
 			{
-				ofxPoint2f p = fractionToLocal(valueToFraction(mList.points.at(i)));				
+				ofxPoint2f p = fractionToLocal(valueToFraction(mList.points.at(i)));
 				ofVertex(p.x, p.y);
 			}
 		ofEndShape(false);
@@ -135,27 +135,27 @@ void ofxGuiPoints::draw()
 		//	x-bar
 		glColor4f(mGlobals->mAxisColor.r, mGlobals->mAxisColor.g, mGlobals->mAxisColor.b, mGlobals->mAxisColor.a);
 		ofLine(p.x + 0.5, mCtrY, p.x + 0.5, mCtrBottom);
-		
+
 		if(mList.activePoint != -1)
 		{
 			//	y-bar
 			glColor4f(mGlobals->mAxisColor.r, mGlobals->mAxisColor.g, mGlobals->mAxisColor.b,mGlobals->mAxisColor.a);
 			ofLine(mCtrX, p.y + 0.5, mCtrRight, p.y + 0.5);
 		}
-	
-		//	handles		
+
+		//	handles
 		for(int i = 0; i < mList.points.size(); i++)
 		{
 			glColor4f(mGlobals->mHandleColor.r, mGlobals->mHandleColor.g, mGlobals->mHandleColor.b, mGlobals->mHandleColor.a);
-			
+
 			ofxPoint2f p	= fractionToLocal(valueToFraction(mList.points.at(i)));
 			ofRect(p.x - r, p.y - r, d, d);
 		}
-	
+
 		//	frame
 		glColor4f(mGlobals->mFrameColor.r, mGlobals->mFrameColor.g, mGlobals->mFrameColor.b, mGlobals->mFrameColor.a);
 		ofRect(mCtrX, mCtrY, mCtrWidth, mCtrHeight);
-		
+
 	glPopMatrix();
 }
 
@@ -181,25 +181,25 @@ bool ofxGuiPoints::mouseDragged(int x, int y, int button)
 				mList.points[mList.activePoint] = point;
 			}
 			else
-			{				
+			{
 				if(point.x < mList.points[mList.activePoint - 1].x)
 					point.x = mList.points[mList.activePoint - 1].x;
 				else if(point.x > mList.points[mList.activePoint + 1].x)
 					point.x = mList.points[mList.activePoint + 1].x;
-					
+
 				mList.points[mList.activePoint] = point;
 			}
 		}
-		
+
 		setValue(point);
-		
+
 		if(value != mValue)
 		{
 			mOutVal = mList.positionToValue(point);
 			mGlobals->mListener->handleGui(mParamId, kofxGui_Set_Point, &mOutVal, sizeof(ofxPoint2f));
 		}
 	}
-	
+
 	return mMouseIsDown;
 }
 
@@ -213,7 +213,7 @@ bool ofxGuiPoints::mousePressed(int x, int y, int button)
 	{
 		ofxPoint2f	inside	= fractionToValue(mouseToFraction(point));
 		bool		onPoint	= isPointWithinDistance(inside);
-		
+
 		if(button == 2)
 		{
 			if(onPoint)
@@ -221,7 +221,7 @@ bool ofxGuiPoints::mousePressed(int x, int y, int button)
 			else
 				mList.addPointAtPosition(inside);
 		}
-		
+
 		mMouseIsDown = true;
 		mouseDragged(x, y, button);
 	}
@@ -229,7 +229,7 @@ bool ofxGuiPoints::mousePressed(int x, int y, int button)
 	{
 		mMouseIsDown = false;
 	}
-	
+
 	return mMouseIsDown;
 }
 
@@ -238,13 +238,13 @@ bool ofxGuiPoints::mousePressed(int x, int y, int button)
 bool ofxGuiPoints::mouseReleased(int x, int y, int button)
 {
 	bool handled = mMouseIsDown;
-	
+
 	if(mMouseIsDown)
 	{
 		mMouseIsDown		= false;
 		mList.activePoint	= -1;
 	}
-	
+
 	return handled;
 }
 
@@ -257,20 +257,20 @@ void ofxGuiPoints::buildFromXml()
 	if(numberOfTags > 0)
 	{
 		mList.points.clear();
-		
+
 		for(int i = 0; i < numberOfTags; i++)
 		{
 			mGlobals->mXml.pushTag("POINT", i);
 
 			float	x = mGlobals->mXml.getValue("X", 0.0);
 			float	y = mGlobals->mXml.getValue("Y", 0.0);
-			
-			mList.points.push_back(ofxPoint2f(x, y)); 
+
+			mList.points.push_back(ofxPoint2f(x, y));
 
 			mGlobals->mXml.popTag();
 		}
 	}
-	
+
 	mOutVal = mList.positionToValue(mValue);
 	mGlobals->mListener->handleGui(mParamId, kofxGui_Set_Point, &mOutVal, sizeof(ofxPoint2f));
 }
@@ -287,15 +287,15 @@ void ofxGuiPoints::saveToXml()
 	mGlobals->mXml.setValue("OBJECT:MAX_Y", mMaxVal.y, id);
 	mGlobals->mXml.setValue("OBJECT:VALUE_X", mValue.x, id);
 	mGlobals->mXml.setValue("OBJECT:VALUE_Y", mValue.y, id);
-		
+
 	mGlobals->mXml.pushTag("OBJECT", id);
 
 	for(int i = 0; i < mList.points.size(); i++)
 	{
-		ofxPoint2f p	= mList.points.at(i);				
+		ofxPoint2f p	= mList.points.at(i);
 
 		id = mGlobals->mXml.addTag("POINT");
-		
+
 		mGlobals->mXml.setValue("POINT:X", p.x, id);
 		mGlobals->mXml.setValue("POINT:Y", p.y, id);
 	}
@@ -322,18 +322,18 @@ ofxPoint2f ofxGuiPoints::fractionToValue(ofxPoint2f fraction)
 bool ofxGuiPoints::isPointWithinDistance(ofxPoint2f position)
 {
 	mList.activePoint = -1;
-	
+
 	for(int i = 0; i < mList.points.size(); i++)
 	{
 		ofxPoint2f	point	= mList.points.at(i);
 		float		delta	= point.distance(position);
-		
+
 		if(delta < mDistance)
 		{
 			mList.activePoint = i;
 			break;
 		}
 	}
-	
+
 	return mList.activePoint != -1;
 }

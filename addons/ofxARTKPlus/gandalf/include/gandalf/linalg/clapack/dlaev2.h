@@ -9,9 +9,9 @@
 * Author:        $Author: pm $
 * Copyright:     Modifications (c) 2000 Imagineer Software Limited
 *
-* Notes:         
-* Private func:  
-* History:       Modified from original CLAPACK source code 
+* Notes:
+* Private func:
+* History:       Modified from original CLAPACK source code
 *
 **************************************************************************/
 
@@ -28,7 +28,7 @@ extern "C" {
 /* only declare this function locally if there is no LAPACK installed */
 #if !defined(HAVE_LAPACK) || defined(FORCE_LOCAL_LAPACK)
 
-Gan_Bool gan_dlaev2(double a, double b, double c, 
+Gan_Bool gan_dlaev2(double a, double b, double c,
                     double *rt1, double *rt2, double *cs1, double *sn1);
 
 #endif /* #if !defined(HAVE_LAPACK) || defined(FORCE_LOCAL_LAPACK) */

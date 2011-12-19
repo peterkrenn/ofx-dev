@@ -1,5 +1,5 @@
 /*
-Copyright © 1998. The Regents of the University of California (Regents). 
+Copyright © 1998. The Regents of the University of California (Regents).
 All Rights Reserved.
 
 Written by Matt Wright, The Center for New Music and Audio Technologies,
@@ -22,7 +22,7 @@ PURPOSE. THE SOFTWARE AND ACCOMPANYING DOCUMENTATION, IF ANY, PROVIDED
 HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION TO PROVIDE
 MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-The OpenSound Control WWW page is 
+The OpenSound Control WWW page is
     http://www.cnmat.berkeley.edu/OpenSoundControl
 */
 
@@ -79,7 +79,7 @@ int OSCPaddedStrlen(const char *s) {
 
     /* Now i is the length with no null bytes.  We need 1-4 null bytes,
        to make the total length a multiple of 4.   So we add 4, as if
-       we need 4 null bytes, then & 0xfffffffc to round down to the nearest 
+       we need 4 null bytes, then & 0xfffffffc to round down to the nearest
        multiple of 4. */
 
     return (i + 4) & 0xfffffffc;

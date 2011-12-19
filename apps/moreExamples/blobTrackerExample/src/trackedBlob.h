@@ -19,16 +19,16 @@ class trackedBlob : public ofxCvBlob{
             hole            = A.hole;
             nPts            = A.nPts;
 			bNew			= true;
-			
+
 			pts.clear();
 			pts.assign(nPts, ofPoint());
-			
+
 			for(int i = 0; i < nPts; i++){
 				pts[i] = A.pts[i];
 			}
-		
+
         }
-		
+
         //---------------------------------------------
         trackedBlob(){
             id              = 0;

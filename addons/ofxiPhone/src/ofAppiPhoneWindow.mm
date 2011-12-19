@@ -1,21 +1,21 @@
 /***********************************************************************
- 
+
  Copyright (c) 2009, Memo Akten, www.memo.tv
  *** The Mega Super Awesome Visuals Company ***
- 
+
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- 
+
  ***********************************************************************/
 
 
@@ -37,7 +37,7 @@ ofAppiPhoneWindow::ofAppiPhoneWindow() {
 	printf("ofAppiPhoneWindow::ofAppiPhoneWindow()\n");
 	nFrameCount = 0;
 	bEnableSetupScreen = true;
-	
+
 	windowPos.set(NOT_INITIALIZED, NOT_INITIALIZED);
 	windowSize.set(NOT_INITIALIZED, NOT_INITIALIZED);
 	screenSize.set(NOT_INITIALIZED, NOT_INITIALIZED);
@@ -49,7 +49,7 @@ ofAppiPhoneWindow::ofAppiPhoneWindow() {
 
 void ofAppiPhoneWindow::setupOpenGL(int w, int h, int screenMode) {
 	printf("ofAppiPhoneWindow::setupOpenGL()\n");
-	
+
 	windowMode = screenMode;	// use this as flag for displaying status bar or not
 	iPhoneGlobals.iPhoneOFWindow = this;
 
@@ -66,10 +66,10 @@ void ofAppiPhoneWindow::initializeWindow() {
 void  ofAppiPhoneWindow::runAppViaInfiniteLoop(ofBaseApp * appPtr) {
 	printf("ofAppiPhoneWindow::runAppViaInfiniteLoop()\n");
 	iPhoneGlobals.baseApp = appPtr;		// save reference to our testApp
-	
+
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	UIApplicationMain(nil, nil, nil, @"iPhoneAppDelegate");		// this will run the infinite loop checking all events
-	[pool release];	
+	[pool release];
 }
 
 
@@ -141,7 +141,7 @@ void ofAppiPhoneWindow::setWindowTitle(string title) {
 
 void ofAppiPhoneWindow::setFullscreen(bool fullscreen) {
 	[[UIApplication sharedApplication] setStatusBarHidden:fullscreen animated:YES];
-	
+
 	if(fullscreen) windowMode		= OF_FULLSCREEN;
 	else windowMode					= OF_WINDOW;
 }
@@ -163,7 +163,7 @@ void ofAppiPhoneWindow::disableSetupScreen(){
 
 void ofAppiPhoneWindow::timerLoop() {
 	iPhoneGlobals.baseApp->update();
-	
+
 	// this could be taken out and included in ofAppBaseWIndow
 	glViewport( 0, 0, ofGetWidth(), ofGetHeight() );
 	float * bgPtr = ofBgColorPtr();
@@ -172,13 +172,13 @@ void ofAppiPhoneWindow::timerLoop() {
 		glClearColor(bgPtr[0],bgPtr[1],bgPtr[2], bgPtr[3]);
 		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
-	if(bEnableSetupScreen ) ofSetupScreen();		
-	
+	if(bEnableSetupScreen ) ofSetupScreen();
+
 	iPhoneGlobals.baseApp->draw();
 	[iPhoneGlobals.glView swapBuffers];
-	
-	
-	
+
+
+
 	// -------------- fps calculation:
   	timeNow = ofGetElapsedTimef();
 	if( (timeNow-timeThen) > 0.05f || nFramesForFPS == 0 ) {
@@ -189,6 +189,6 @@ void ofAppiPhoneWindow::timerLoop() {
   	}
 	nFramesForFPS++;
   	// --------------
-	
+
 	nFrameCount++;		// increase the overall frame count
 }

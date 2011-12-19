@@ -24,10 +24,10 @@
  * along with this framework; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * For further information please contact 
+ * For further information please contact
  *   Dieter Schmalstieg
  *   <schmalstieg@icg.tu-graz.ac.at>
- *   Graz University of Technology, 
+ *   Graz University of Technology,
  *   Institut for Computer Graphics and Vision,
  *   Inffeldgasse 16a, 8010 Graz, Austria.
  * ========================================================================

@@ -1,12 +1,12 @@
 //
 // ofxCvOpticalFlowBM.h - a OpenCV cvCalcOpticalFlowBM warpper for openFrameworks
 //
-// Copyright (C) 2008 Takashi Maekawa <takachin@generative.info> 
+// Copyright (C) 2008 Takashi Maekawa <takachin@generative.info>
 // Copyright (C) 2008 Satoru Higa
 //     All rights reserved.
 //     This is free software with ABSOLUTELY NO WARRANTY.
 //
-// You can redistribute it and/or modify it under the terms of 
+// You can redistribute it and/or modify it under the terms of
 // the GNU Lesser General Public License.
 //
 
@@ -27,16 +27,16 @@ class ofxCvOpticalFlowBM
 public:
 	ofxCvOpticalFlowBM(void);
 	~ofxCvOpticalFlowBM(void);
-		
+
 	void allocate(int _w, int _h);
 
 	void calc( ofxCvGrayscaleImage & pastImage,
-			   ofxCvGrayscaleImage & currentImage,					   
+			   ofxCvGrayscaleImage & currentImage,
 			   int size
 			  );
 
 	void setCalcStep(int _cols, int _rows);
-		
+
 	void reset();
 	void draw();
 

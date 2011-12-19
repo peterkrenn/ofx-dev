@@ -120,7 +120,7 @@ extern "C" {
  * \param prev Address of previous (next oldest) record in error trace
  *             Prev for last record is NULL.
  * \param f_static_record Is this record statically or dynamically allocated
- *        If it's static, don't try and free() it. 
+ *        If it's static, don't try and free() it.
  * \param f_static_message Is the text message in this record is contained in a
  *        statically or dynamically allocated char array.
  *        If it's static, don't try and free() it.
@@ -128,8 +128,8 @@ extern "C" {
  *                spare.
  * \param func_name       Name of function in which error occurs
  * \param err_code        Numeric code of error. Default set is defined
- *                        in gan_exception_codes*.h 
- * \param file_name       Name of file in which error occurs 
+ *                        in gan_exception_codes*.h
+ * \param file_name       Name of file in which error occurs
  * \param line_number     Line in file at which error occurs
  * \param message         Message string describing error
  * \param number          Number attached to error
@@ -151,7 +151,7 @@ typedef struct Gan_ErrorTrace
    int f_static_record;               /**< ( GAN_ET_YES | GAN_ET_NO ) */
    int f_static_message;              /**< ( GAN_ET_YES | GAN_ET_NO ) */
    int f_spare;                       /**< ( GAN_ET_YES | GAN_ET_NO ) */
-    
+
    const char *func_name;
    int         err_code;
    const char *file_name;

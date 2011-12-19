@@ -1,10 +1,10 @@
 /**
  * File:          $RCSfile: complex.h,v $
  * Module:        Complex numbers
- * Part of:       Gandalf Library 
+ * Part of:       Gandalf Library
  *
- * Revision:      
- * Last edited:   
+ * Revision:
+ * Last edited:
  * Author:        Michael Lincoln
  * Copyright:     (c) 2002 University of Essex
  */

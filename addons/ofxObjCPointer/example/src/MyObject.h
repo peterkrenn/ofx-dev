@@ -20,6 +20,6 @@ public:
 		c = _c;
 		d = _d;
 	}
-	
+
 	float a, b, c, d;
 };

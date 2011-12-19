@@ -31,10 +31,10 @@ public:
 
 	void hideCursor();
 	void showCursor();
-	
+
 	void setFullscreen(bool fullScreen);
 	void toggleFullscreen();
-	
+
 	static void exitApp();
 
 	void setWindowTitle(string title);
@@ -66,7 +66,7 @@ public:
 	static void resize_cb(int w, int h);
 
 
-	
-	 
+
+
 };
 

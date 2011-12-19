@@ -9,7 +9,7 @@ void testApp::setup(){
 	vidGrabber.initGrabber(320,240);
 
     staticImage.loadImage("image.jpg");
-    
+
 	// Allocations
     colorImg.allocate(staticImage.width, staticImage.height);				// Static Image as imput source
 	colorImg.allocate(vidGrabber.width, vidGrabber.height);					// Live Cam as input source
@@ -36,7 +36,7 @@ void testApp::update(){
 
 	vidGrabber.grabFrame();
 	if (vidGrabber.isFrameNew()){
-	
+
 		//Calculate min and max thersholds values
 		minHue = max((hue - hueWidth*0.5) * 255, 0.0);
 		maxHue = min((hue + hueWidth*0.5) * 255, 255.0);
@@ -44,25 +44,25 @@ void testApp::update(){
 		maxSat = min((sat + satWidth*0.5) * 255, 255.0);
 		minVal = max((val - valWidth*0.5) * 255, 0.0);
 		maxVal = min((val + valWidth*0.5) * 255, 255.0);
-	
+
 		// Live video or Static image: input source
 		if(videoAsInputSource){
-			colorImg.setFromPixels(vidGrabber.getPixels(), vidGrabber.width, vidGrabber.height);	
+			colorImg.setFromPixels(vidGrabber.getPixels(), vidGrabber.width, vidGrabber.height);
 		}else{
 			colorImg.setFromPixels(staticImage.getPixels(), staticImage.width, staticImage.height);
 		}
-		
+
 		// HSV
 		colorImgHSV = colorImg;
 		colorImgHSV.convertRgbToHsv();
 		colorImgHSV.convertToGrayscalePlanarImages(hueImg, satImg, valImg);
-	
+
 		// Perform tracking calculations
 		unsigned char * huePixels = hueImg.getPixels();
 		unsigned char * satPixels = satImg.getPixels();
 		unsigned char * valPixels = valImg.getPixels();
 		int nPixels = vidGrabber.width * vidGrabber.height;
-	
+
 		for (int i = 0; i < nPixels; i++){
 			if ((huePixels[i] >= minHue && huePixels[i] <= maxHue) &&
 				(satPixels[i] >= minSat && satPixels[i] <= maxSat) &&
@@ -73,9 +73,9 @@ void testApp::update(){
 			}
 		}
 		trackedTexture.loadData(colorTrackedPixels, vidGrabber.width, vidGrabber.height, GL_LUMINANCE);
-	
+
 	// ******Laser
-	LT.calcColorRange(hue, hueWidth, sat, satWidth, val);	
+	LT.calcColorRange(hue, hueWidth, sat, satWidth, val);
 	}
 
 }
@@ -84,21 +84,21 @@ void testApp::update(){
 void testApp::draw(){
 
 	ofSetColor(0xffffff);
-	
+
 	// Draw Input source
 	ofDrawBitmapString("Input source:", 20, 20);
-	colorImg.draw(20, 25);						 
-	
+	colorImg.draw(20, 25);
+
 	// Draw HSV texture
-	ofDrawBitmapString("Input source converted to HSV:", 20, vidGrabber.height+45);	
+	ofDrawBitmapString("Input source converted to HSV:", 20, vidGrabber.height+45);
 	colorImgHSV.draw(20, vidGrabber.height+50);
 
 	// Processed image: Tracked Texture
-	ofDrawBitmapString("Result of HSV adjustments. Tracked texture:", vidGrabber.width+40, 20);	
+	ofDrawBitmapString("Result of HSV adjustments. Tracked texture:", vidGrabber.width+40, 20);
 	trackedTexture.draw(vidGrabber.width+40, 25);
 
 	LT.drawColorRange(vidGrabber.width+40, vidGrabber.height+50, 120, 44);
-	ofSetColor(0xffffff);	
+	ofSetColor(0xffffff);
 	ofDrawBitmapString("hue: " + ofToString(hue) + "('a', 'z')", vidGrabber.width+40, vidGrabber.height+120);
 	ofDrawBitmapString("hue width: " + ofToString(hueWidth) + "('s', 'x')", vidGrabber.width+40, vidGrabber.height+135);
 	ofDrawBitmapString("saturation: " + ofToString(sat) + "('d', 'c')", vidGrabber.width+40, vidGrabber.height+150);
@@ -113,7 +113,7 @@ void testApp::draw(){
 	ofDrawBitmapString("maxVal: " + ofToString(maxVal), vidGrabber.width+40, vidGrabber.height+285);
 
 	ofDrawBitmapString("Switch video/image input: 'i'", vidGrabber.width+40, vidGrabber.height+310);
-	ofDrawBitmapString("Video Configuration-preferences: 'p'", vidGrabber.width+40, vidGrabber.height+325);	
+	ofDrawBitmapString("Video Configuration-preferences: 'p'", vidGrabber.width+40, vidGrabber.height+325);
 }
 
 
@@ -165,7 +165,7 @@ void testApp::keyPressed(int key){
 			break;
 		case 'p':
 			vidGrabber.videoSettings();
-			break;			
+			break;
 	}
 }
 

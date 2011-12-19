@@ -48,7 +48,7 @@ public:
 
 	ofTrueTypeFont();
 	virtual ~ofTrueTypeFont();
-		
+
 	// 			-- default, non-full char set, anti aliased:
 	void 		loadFont(string filename, int fontsize);
 	void 		loadFont(string filename, int fontsize, bool _bAntiAliased, bool _bFullCharacterSet, bool makeContours = false);
@@ -61,14 +61,14 @@ public:
   	void 		setLineHeight(float height);
 	float 		stringWidth(string s);
 	float 		stringHeight(string s);
-	
+
 	ofRectangle    getStringBoundingBox(string s, float x, float y);
-	
+
 	void 		drawString(string s, float x, float y);
 	void		drawStringAsShapes(string s, float x, float y);
-	
+
 	int 		nCharacters;
-	
+
 	ofTTFCharacter getCharacterAsPoints(int character);
 
 protected:
@@ -82,7 +82,7 @@ protected:
 
 	void 			drawChar(int c, float x, float y);
 	void			drawCharAsShape(int c, float x, float y);
-	
+
 	int 			ofNextPow2(int a);
 	int				border, visibleBorder;
 

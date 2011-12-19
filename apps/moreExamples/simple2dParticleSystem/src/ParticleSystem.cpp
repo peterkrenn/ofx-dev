@@ -3,18 +3,18 @@
 // Daniel Shiffman <http://www.shiffman.net>
 
 // A class to describe a group of Particles
-// An ArrayList is used to manage the list of Particles 
+// An ArrayList is used to manage the list of Particles
 
 #include "ParticleSystem.h"
 
 //--------------------------------------------------------------
 ParticleSystem::ParticleSystem() {
-   
+
 }
 
 //--------------------------------------------------------------
 ParticleSystem::ParticleSystem(int num, ofxVec2f v) {
-	origin.set(v);					// Store the origin point		
+	origin.set(v);					// Store the origin point
 	for (int i = 0; i < num; i++) {
 		particles.push_back(Particle(origin));    // Add "num" amount of particles to the arraylist
 	}
@@ -22,7 +22,7 @@ ParticleSystem::ParticleSystem(int num, ofxVec2f v) {
 }
 //--------------------------------------------------------------
 void ParticleSystem::init(int num, ofxVec2f v) {
-	origin.set(v);					// Store the origin point			
+	origin.set(v);					// Store the origin point
 	for (int i = 0; i < num; i++) {
 		particles.push_back(Particle(origin));    // Add "num" amount of particles to the arraylist
 	}
@@ -40,7 +40,7 @@ void ParticleSystem::run() {
 }
 //--------------------------------------------------------------
 void ParticleSystem::render() {
-	// Cycle through the ArrayList and render particles	
+	// Cycle through the ArrayList and render particles
 	for (int i = 0; i < particles.size(); i++) {
 		particles[i].render();
 	}

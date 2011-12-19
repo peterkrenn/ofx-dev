@@ -23,11 +23,11 @@ public:
 	float G;
 	Perlin *noise;
 	ofxVec3f *camPos;
-	
-	
+
+
 	Particles(ofxVec3f iniPos, ofxVec3f _vel,  Perlin *_noise, ofxVec3f *_camPos);
 	~Particles();
-	
+
 	void move();
 	void render();
 };
