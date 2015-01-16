@@ -490,7 +490,7 @@ GANDALF_API Gan_SquMatrix44_f *gan_squmat44f_from_squmatf_q ( const Gan_SquMatri
   GAN_REP4_ABC((A)->,=(p)->,*(q)->,yx,yy,yz,yw,y,y,y,y,x,y,z,w),\
   GAN_REP4_ABC((A)->,=(p)->,*(q)->,zx,zy,zz,zw,z,z,z,z,x,y,z,w),\
   GAN_REP4_ABC((A)->,=(p)->,*(q)->,wx,wy,wz,ww,w,w,w,w,x,y,z,w),A)
- 
+
 /* matrix/vector multiply */
 #define gan_mat44f_multv4_q(A,p,q)\
  (GAN_TEST_OP3(A,p,q,Gan_Matrix44_f,Gan_Vector4_f,Gan_Vector4_f),\

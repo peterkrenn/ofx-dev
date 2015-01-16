@@ -24,7 +24,7 @@
 	NSArray* configSortDescriptors;
 	NSString* oscRemoteAddress;
 	NSArray* oscPort;
-	
+
     IBOutlet NSDrawer *drawer;
     IBOutlet GraphView *graphView;
 	IBOutlet GraphView *graphView2;
@@ -36,7 +36,7 @@
 	IBOutlet NSWindow* mainWindow;
 	IBOutlet PreferenceWindow* preferenceWindow;
 	IBOutlet NSWindow* enterNameWindow;
-	
+
 	IBOutlet NSButton* upButton;
 	IBOutlet NSButton* downButton;
 	IBOutlet NSButton* leftButton;
@@ -49,14 +49,14 @@
 	IBOutlet NSButton* oneButton;
 	IBOutlet NSButton* twoButton;
 	IBOutlet NSPopUpButton* mouseMode;
-	
+
 	IBOutlet NSLevelIndicator* batteryLevel;
 	IBOutlet NSTextField* newNameField;
 	IBOutlet NSTextField* theRemoteAddress;
 	IBOutlet NSTextField* theRemotePort;
 	IBOutlet NSButton* oscOKbutton;
-	
-	
+
+
 		IBOutlet NSTextField* irPoint1X;
 	IBOutlet NSTextField* irPoint1Y;
 	IBOutlet NSTextField* irPoint1Size;
@@ -72,25 +72,25 @@
 	IBOutlet NSTextField* irPoint4X;
 	IBOutlet NSTextField* irPoint4Y;
 	IBOutlet NSTextField* irPoint4Size;
-	
-	
+
+
 	WiiRemoteDiscovery *discovery;
 	WiiRemote* wii;
 	OSCPort* port;
 	OSCInPort* portIn;
 	CGPoint point;
 	CGPoint previousPoint;
-	
+
 	BOOL isLeftButtonDown, isRightButtonDown;
-	
+
 	int mouseEventMode;
 	int x1, x2, x3, y1, y2, y3, z1, z2, z3;
 	int x0, y0, z0;
 	unsigned char tmpAccX, tmpAccY, tmpAccZ;
-	
+
 	WiiJoyStickCalibData nunchukJsCalib;
 	WiiAccCalibData wiiAccCalib, nunchukAccCalib;
-	
+
 }
 
 

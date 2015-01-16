@@ -27,7 +27,7 @@ class ofxCvGrayscaleImage : public ofxCvImage {
     // virtual void  clear();                                                 //in base class
 	//virtual float getWidth();                                               //in base class
 	//virtual float getHeight();                                              //in base class
-    // virtual void  setUseTexture( bool bUse );                              //in base class   
+    // virtual void  setUseTexture( bool bUse );                              //in base class
 
 
     // ROI - region of interest
@@ -38,28 +38,28 @@ class ofxCvGrayscaleImage : public ofxCvImage {
     // virtual void  setROI( ofRectangle& rect );                             //in base class
     // virtual ofRectangle  getROI();                                         //in base class
     // virtual void  resetROI();                                              //in base class
-    // virtual ofRectangle  getIntersectionROI( ofRectangle& rec1,      
+    // virtual ofRectangle  getIntersectionROI( ofRectangle& rec1,
     //                                          ofRectangle& rec2 );          // inbase class
-    
-    
-    
+
+
+
     // Set Pixel Data
     //
     virtual void  set( float value );
-    // virtual void  operator -= ( float value );                              //in base class 
+    // virtual void  operator -= ( float value );                              //in base class
     // virtual void  operator += ( float value );                              //in base class
-    
+
     virtual void  setFromPixels( unsigned char* _pixels, int w, int h );
     virtual void  operator = ( unsigned char* _pixels );
     virtual void  operator = ( const ofxCvGrayscaleImage& mom );
     virtual void  operator = ( const ofxCvColorImage& mom );
     virtual void  operator = ( const ofxCvFloatImage& mom );
-    virtual void  operator = ( const IplImage* mom );    
+    virtual void  operator = ( const IplImage* mom );
 
-    // virtual void  operator -= ( ofxCvImage& mom );                          //in base class 
-    // virtual void  operator += ( ofxCvImage& mom );                          //in base class 
-    // virtual void  operator *= ( ofxCvImage& mom );                          //in base class 
-    // virtual void  operator &= ( ofxCvImage& mom );                          //in base class 
+    // virtual void  operator -= ( ofxCvImage& mom );                          //in base class
+    // virtual void  operator += ( ofxCvImage& mom );                          //in base class
+    // virtual void  operator *= ( ofxCvImage& mom );                          //in base class
+    // virtual void  operator &= ( ofxCvImage& mom );                          //in base class
 
     virtual void  absDiff( ofxCvGrayscaleImage& mom );
     virtual void  absDiff( ofxCvGrayscaleImage& mom, ofxCvGrayscaleImage& dad );
@@ -115,14 +115,14 @@ class ofxCvGrayscaleImage : public ofxCvImage {
     //                                ofPoint& C, ofPoint& D );                //in base class
     // virtual void  warpIntoMe( ofxCvImage& mom,
     //                           ofPoint src[4], ofPoint dst[4] );             //in base class
-                             
+
 
     // Other Image Operations
     //
     // virtual int  countNonZeroInRegion( int x, int y, int w, int h );        //in base class
-    
-    
-    
+
+
+
     //---------------------------------------------
     //---------------- legacy ---------------------
 	// this code is kept here to allow older ofxCv code to work
@@ -138,9 +138,9 @@ class ofxCvGrayscaleImage : public ofxCvImage {
 
 
   private:
-  
+
     void init();
-    
+
 };
 
 

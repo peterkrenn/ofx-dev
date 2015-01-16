@@ -31,7 +31,7 @@ class testApp : public ofBaseApp {
 #else
         ofVideoPlayer           video;
 #endif
-    
+
         bool            ffGL_1, ffGL_2, ffGL_3;
         int             vidWidth, vidHeight;
 

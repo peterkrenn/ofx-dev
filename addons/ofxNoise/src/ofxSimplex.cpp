@@ -171,11 +171,11 @@ float ofxSimplex::noise(float x, float y, float z){
 	float x1 = x0 - i1 + OFX_SIMPLEX_G3; // Offsets for second corner in (x,y,z) coords
 	float y1 = y0 - j1 + OFX_SIMPLEX_G3;
 	float z1 = z0 - k1 + OFX_SIMPLEX_G3;
-	
+
 	float x2 = x0 - i2 + OFX_SIMPLEX_F3; // Offsets for third corner in (x,y,z)
 	float y2 = y0 - j2 + OFX_SIMPLEX_F3;
 	float z2 = z0 - k2 + OFX_SIMPLEX_F3;
-	
+
 	float x3 = x0 - 0.5; // Offsets for last corner in (x,y,z)
 	float y3 = y0 - 0.5;
 	float z3 = z0 - 0.5;
@@ -183,7 +183,7 @@ float ofxSimplex::noise(float x, float y, float z){
 	int ii = i & 0xff;
 	int jj = j & 0xff;
 	int kk = k & 0xff;
-	
+
 	// Calculate the contribution from the four corners
 	float t0 = 0.6 - x0 * x0 - y0 * y0 - z0 * z0;
 	if (t0 > 0) {
@@ -289,28 +289,28 @@ float ofxSimplex::noise(float x, float y, float z, float w){
 	float y1 = y0 - j1 + OFX_SIMPLEX_G4;
 	float z1 = z0 - k1 + OFX_SIMPLEX_G4;
 	float w1 = w0 - l1 + OFX_SIMPLEX_G4;
-	
+
 	float x2 = x0 - i2 + OFX_SIMPLEX_G42; // Offsets for third corner in (x,y,z,w)
 	float y2 = y0 - j2 + OFX_SIMPLEX_G42;
 	float z2 = z0 - k2 + OFX_SIMPLEX_G42;
 	float w2 = w0 - l2 + OFX_SIMPLEX_G42;
-	
+
 	float x3 = x0 - i3 + OFX_SIMPLEX_G43; // Offsets for fourth corner in (x,y,z,w)
 	float y3 = y0 - j3 + OFX_SIMPLEX_G43;
 	float z3 = z0 - k3 + OFX_SIMPLEX_G43;
 	float w3 = w0 - l3 + OFX_SIMPLEX_G43;
-	
+
 	float x4 = x0 + OFX_SIMPLEX_G44; // Offsets for last corner in (x,y,z,w)
 	float y4 = y0 + OFX_SIMPLEX_G44;
 	float z4 = z0 + OFX_SIMPLEX_G44;
 	float w4 = w0 + OFX_SIMPLEX_G44;
-	
+
 	// Work out the hashed gradient indices of the five simplex corners
 	int ii = i & 0xff;
 	int jj = j & 0xff;
 	int kk = k & 0xff;
 	int ll = l & 0xff;
-	
+
 	// Calculate the contribution from the five corners
 	float t0 = 0.6 - x0 * x0 - y0 * y0 - z0 * z0 - w0 * w0;
 	if (t0 > 0) {

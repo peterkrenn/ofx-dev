@@ -5,7 +5,7 @@
 #include "SimpleWebScraper.h"
 #include "ofMemoryImage.h"
 
-	
+
 
 /*
 
@@ -29,29 +29,29 @@ class testApp : public ofSimpleApp{
 		void mouseDragged(int x, int y, int button);
 		void mousePressed(int x, int y, int button);
 		void mouseReleased();
-		
+
 		// callback events ----------------------------------------------------------
 		void onTextReceived(const void* pSender, string& response) {
 			cout << "text received :" << endl;
 			resp = response;
 		}
-		
+
 		void onUnthreadedStreamReceived(const void* pSender, StreamEventArgs & args_) {
 			cout << "unthreaded stream received. " << endl;
 			memImg.loadFromData(args_.buff,args_.bytesToRead);
 		}
-		
+
 		void onThreadedStreamReceived(const void* pSender, StreamEventArgs & args_) {
-		
+
 			cout << "threaded stream received. " << endl;
 			args = &args_;
 			threadedMemImage.loadFromData(args_.buff,args_.bytesToRead);
 			received = true;
 		}
-		
+
 		bool received;
 
-        SimpleWebScraper sws;		
+        SimpleWebScraper sws;
 
 		string			resp;
 		ofMemoryImage	memImg;

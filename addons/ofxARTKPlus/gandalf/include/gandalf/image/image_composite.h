@@ -61,7 +61,7 @@ GANDALF_API Gan_Image *gan_image_blend_fixed_alpha_q ( Gan_Image *source1,
 
 /**
  * \brief Macro: Composite with overwriting
- * \param image The input/output image 
+ * \param image The input/output image
  * \param source_with_alpha The input image with the alpha channel
  * \param source_mask Binary mask for source image or \c NULL
  * \return Composited \a image, or \c NULL on failure.
@@ -83,7 +83,7 @@ GANDALF_API Gan_Image *gan_image_composite_i ( Gan_Image *image,
 
 /**
  * \brief Macro: Composite into a new image
- * \param image The input image 
+ * \param image The input image
  * \param source_with_alpha The input image with the alpha channel
  * \param source_mask Binary mask for source image or \c NULL
  * \return Composited output image, or \c NULL on failure.
@@ -105,7 +105,7 @@ GANDALF_API Gan_Image *gan_image_composite_s ( Gan_Image *image,
 
 /**
  * \brief Macro: Blend with overwriting
- * \param image The input/output image 
+ * \param image The input/output image
  * \param source2 The second input image
  * \param alpha Alpha image
  * \param invert_alpha Whether to invert the alpha image
@@ -130,7 +130,7 @@ GANDALF_API Gan_Image *gan_image_blend_i ( Gan_Image *image,
 
 /**
  * \brief Macro: Blend images into a new image
- * \param image The input image 
+ * \param image The input image
  * \param source2 The second input image
  * \param alpha Alpha image
  * \param invert_alpha Whether to invert the alpha image
@@ -155,7 +155,7 @@ GANDALF_API Gan_Image *gan_image_blend_s ( Gan_Image *image,
 
 /**
  * \brief Macro: Blend with fixed alpha with overwriting
- * \param image The input/output image 
+ * \param image The input/output image
  * \param source2 The second input image
  * \param alpha Alpha value
  * \param mask Mask for blend
@@ -178,7 +178,7 @@ GANDALF_API Gan_Image *gan_image_blend_fixed_alpha_i ( Gan_Image *image,
 
 /**
  * \brief Macro: Blend images with fixed alpha into a new image
- * \param image The input image 
+ * \param image The input image
  * \param source2 The second input image
  * \param alpha Alpha value
  * \param mask Mask for blend

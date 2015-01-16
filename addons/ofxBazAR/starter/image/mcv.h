@@ -1,6 +1,6 @@
 /*
-Copyright 2005, 2006 Computer Vision Lab, 
-Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland. 
+Copyright 2005, 2006 Computer Vision Lab,
+Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland.
 All rights reserved.
 
 This file is part of BazAR.
@@ -16,7 +16,7 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 BazAR; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301, USA 
+Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 #ifndef MCV_H
 #define MCV_H
@@ -123,8 +123,8 @@ void mcvChangeGamma(IplImage * image, float gamma); // I -> 255 * (I / 255) ^ ga
 IplImage * mcvGetPatch(IplImage * image, int u, int v, int width, int height);
 void mcvGetPatch(IplImage * image, IplImage * patch, int u, int v);
 
-void mcvComputeAffineTransfo(float * a, 
-                             int u, int v, 
+void mcvComputeAffineTransfo(float * a,
+                             int u, int v,
                              float theta, float phi, float lambda1, float lambda2, float tx, float ty);
 
 #endif // MCV_H

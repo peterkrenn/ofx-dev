@@ -3,20 +3,20 @@ using namespace std;
 
 
 //--------------------------------------------------------------
-void testApp::setup(){	
+void testApp::setup(){
 	ofBackground(3, 2, 2);
 	#ifndef GRAB_FRAME_SEQUENCE
 	ofSetVerticalSync(true);
 	ofSetFrameRate(30);
 	#endif
-	
+
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
 	center.x = ofGetWidth()/2;
 	center.y = ofGetHeight()/2;
 	center.z = 0;
-	
+
 	noise = new Perlin(4, 4, 1, time(NULL));
 	for(int i=0; i<NumBoids; i++){
 		boid[i].rotX = ofRandom(0, 360);
@@ -25,19 +25,19 @@ void testApp::setup(){
 	counter = 0;
 
 	pause = false;
-	
+
 	music.loadSound("music.mp3");
-	
+
 	music.play();
 	music.setVolume(1);
-	
+
 #ifdef GRAB_FRAME_SEQUENCE
 	totalFrames = (float)music.length/music.internalFreq*30;
 	snapShooter = new SnapShooter("teste", totalFrames, true);
 #endif
-	
+
 	sphere.camPos = &cam.pos;
-	
+
 	for(int i=0; i<NumBoids; i++){
 		boid[i].partPtr = &p;
 	}
@@ -47,7 +47,7 @@ void testApp::setup(){
 	cam.center = &center;
 	for(int i=0; i<NumBoids; i++){
 		boid[i].camPos = &cam.pos;
-	}		
+	}
 }
 
 //--------------------------------------------------------------
@@ -59,19 +59,19 @@ void testApp::update(){
 
 
 	counter++;
-	
+
 	float *fftList = ofSoundGetSpectrum(NumBands);
-	
+
 	float totalFFT = 0;
 	for(int i=0; i<NumBands; i++){
 		totalFFT += fftList[i]*50;
 	}
 	averFFT = totalFFT / NumBands;
-	
+
 	//boids
 	for(int i=0; i<NumBoids; i++){
 		float div = 3000;
-		float fftVal = fftList[boid[i].band] * 50; 
+		float fftVal = fftList[boid[i].band] * 50;
 		float targetRadius = averFFT*300+fftVal*10;
 		boid[i].updateRadius(targetRadius);
 		ofxVec3f rot = ofxVec3f(0, 0, boid[i].radius);
@@ -84,11 +84,11 @@ void testApp::update(){
 		rot.rotate(boid[i].rotX, boid[i].rotY, 0);
 		ofxVec3f pos = center + rot;
 		boid[i].move(pos, alpha);
-	}	
-	
-	
+	}
+
+
 	//sphere
-	
+
 	for(int i=0; i<SphereNumRows; i++){
 		for(int j=0; j<SphereNumRows; j++){
 			float fftVal = fftList[sphere.p[i][j].band] * 50;
@@ -98,12 +98,12 @@ void testApp::update(){
 			sphere.p[i][j].updateAlpha(targetAlpha);
 		}
 	}
-	sphere.move(); 
-	
+	sphere.move();
+
 	//particles
 	if(averFFT >0.5){
 		int toAdd =  abs((int)(averFFT*AddMult));
-		
+
 		for(int i=0; i<toAdd; i++){
 			int whichBoid = (int)ofRandom(0, NumBoids);
 			ofxVec3f iniPos = boid[whichBoid].p[0].pos;
@@ -131,39 +131,39 @@ void testApp::draw(){
 	glRotatef(sphere.rotY, 0, 1, 0);
 	sphere.render();
 	glPopMatrix();
-		
+
 
 	for(int i=0; i<NumBoids; i++){
 		boid[i].render();
 	}
-	
+
 	for(int i=0; i<p.size(); i++){
 		p[i].render();
 	}
-	
+
 	#ifdef GRAB_FRAME_SEQUENCE
-	snapShooter->grabFrame();	
+	snapShooter->grabFrame();
 	#endif
 }
 
 //--------------------------------------------------------------
-void testApp::keyPressed  (int key){ 
+void testApp::keyPressed  (int key){
 if(key == 'i' or key == 'I') cout << ofGetFrameRate() << endl;
 if(key == 'p' or key == 'P') {
 	pause = !pause;
 	music.setPaused(pause);
 }
 
-    
+
 }
 
 //--------------------------------------------------------------
-void testApp::keyReleased  (int key){ 
+void testApp::keyReleased  (int key){
 }
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ){
-	
+
 
 }
 

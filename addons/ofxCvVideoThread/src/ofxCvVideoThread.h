@@ -23,14 +23,14 @@ enum ofxVThreadImgType{
 class ofxCvVThreadEventManager;
 class ofxCvVThreadListener;
 
-class ofxCvVideoThread: public ofxThread, 
-				public ofDrawListener, 
+class ofxCvVideoThread: public ofxThread,
+				public ofDrawListener,
 				public ofUpdateListener
 {
 public:
 	ofxCvVideoThread();
 	virtual ~ofxCvVideoThread();
-	
+
 	void 			threadedFunction();
 	void 			play();
     void 			stop();
@@ -39,55 +39,55 @@ public:
 	void			close();
 	void 			init(int w, int h, ofxVThreadImgType imgType);
 
-	
-	
+
+
 	unsigned char 	* 		getPixels();
 	ofxCvColorImage *		getCvColorImage();
 	ofxCvGrayscaleImage *	getCvGrayImage();
-	
+
 	void 			setVerbose(bool bTalkToMe);
 	void			setDeviceID(int _deviceID);
 
-	
+
 	void			update();
-	void 			draw();	
+	void 			draw();
 	void			draw( int x, int y );
 	void			draw( int x, int y, int w, int h );
 	void			addReadingThread();
 	void			removeReadingThread();
-	
-	
+
+
 
 	CvCapture* 		 	vidGrabber;
 	unsigned int		width, height;
 	int					x, y;
 	float  				speed;
-	//bool 				bLoaded;	
+	//bool 				bLoaded;
 	long				frame;
 	ofxVThreadImgType	imgType;
-	
+
 
 private:
-	
+
 	bool					_isPaused;
 	ofxCvGrayscaleImage 	grayImage;
 	ofxCvVTColorImage		colorImg;
 	int						_deviceID;
 	bool					_bTalkToMe;
 	bool					_isFrameNew;
-	int						readingThreads;					
-	
-	
-	
-	
-	
+	int						readingThreads;
+
+
+
+
+
 //--------------------------------------------------------------------------------
 //  events:
-	
+
 public:
 	void			addNewFrameListener(ofxCvVThreadListener * listener);
 	void			removeNewFrameListener(ofxCvVThreadListener * listener);
-	
+
 private:
 	ofxCvVThreadEventManager * eventManager;
 };

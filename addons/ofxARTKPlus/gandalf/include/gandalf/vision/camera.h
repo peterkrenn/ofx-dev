@@ -75,7 +75,7 @@ typedef struct Gan_CubicBSplineWeights
 {
    Gan_Vector2 weight[1 + (1 << GAN_CUBIC_BSPLINE_CAMERA_LEVEL)][1 + (1 << GAN_CUBIC_BSPLINE_CAMERA_LEVEL)];
 } Gan_CubicBSplineWeights;
-         
+
 /**
  * \brief Structure containing camera parameters in double precision.
  */
@@ -540,7 +540,7 @@ GANDALF_API Gan_Bool
                                Gan_Vector3 *pu, Gan_Vector3 *p );
 #else
 #define gan_camera_add_distortion_q(camera,pu,p)\
-           gan_camera_add_distortion(camera,pu,p,NULL) 
+           gan_camera_add_distortion(camera,pu,p,NULL)
 #endif
 
 /**

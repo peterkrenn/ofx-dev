@@ -1,6 +1,6 @@
 /*
-Copyright 2005, 2006 Computer Vision Lab, 
-Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland. 
+Copyright 2005, 2006 Computer Vision Lab,
+Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland.
 All rights reserved.
 
 This file is part of BazAR.
@@ -16,7 +16,7 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 BazAR; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301, USA 
+Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 #include "affinity.h"
 
@@ -138,7 +138,7 @@ void affinity::compute_cvGetQuandrangleSubPix_transform(CvMat * A_q, int w, int 
   ::cvmSet(A_q, 1, 2, ::cvmGet(A_q, 1, 0) * (w / 2 - cvmGet(0, 2)) + ::cvmGet(A_q, 1, 1) * (h / 2 - cvmGet(1, 2)));
 }
 
-void mcvGetQuadrangleSubPix(IplImage * src, IplImage * dest, affinity * A, 
+void mcvGetQuadrangleSubPix(IplImage * src, IplImage * dest, affinity * A,
                             int /*fill_outliers*/, CvScalar /*fill_value*/)
 {
   A->rows = 2;

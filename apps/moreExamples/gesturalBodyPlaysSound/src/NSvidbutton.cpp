@@ -3,7 +3,7 @@
 NSvidbutton::NSvidbutton(){
 
   count = 0;
-//	nFramesWhite = 0; 
+//	nFramesWhite = 0;
 	bShowImage = false;
 };
 
@@ -27,24 +27,24 @@ void NSvidbutton::setPosition(int _theNum, int _x, int _y, int _width, int _heig
 	h = _height;
 	toggle = false;
 }
-		
+
 
 void NSvidbutton::update(){
-	
-	
+
+
 	if (mySound.getIsPlaying() == false) {
 		if (bShowImage == true){
 			bShowImage = false;
 		}
 	}
-	
+
 	if (nPixelsWhite > (w*h/10)){
-	
+
 		if (toggle == false) {
 			toggle = true;
 			 mySound.play();
 			 bShowImage = true;
-		
+
 		  		}
 	} else {
 		toggle = false;
@@ -57,7 +57,7 @@ void NSvidbutton::draw(){
 	if (bShowImage) {
 	  myimage.draw(x,y);
 	}
-	
+
 /*	if (nPixelsWhite > (w*h/4)){
 		ofSetColor(255,0,0);
 	} else {

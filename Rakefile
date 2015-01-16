@@ -4,7 +4,7 @@ namespace :build do
   desc 'build ALL examples'
   task :examples do
     # ... xcodebuild -configuration Release -target "openFrameworks" -project "openFrameworks.xcodeproj"
-  end  
+  end
 end
 
 namespace :clean do

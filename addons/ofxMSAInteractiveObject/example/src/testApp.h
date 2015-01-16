@@ -7,9 +7,9 @@
 #include "MyTestObject.h"
 
 class testApp : public ofSimpleApp{
-	
+
 public:
-	
+
 	MyTestObject obj;
 	void setup();
 };

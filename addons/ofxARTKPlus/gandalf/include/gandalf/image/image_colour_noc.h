@@ -1,7 +1,7 @@
 /**
  * File:          $RCSfile: image_colour_noc.h,v $
  * Module:        Colour image macros & definitions
- * Part of:       Gandalf Library 
+ * Part of:       Gandalf Library
  *
  * Revision:      $Revision: 1.25 $
  * Last edited:   $Date: 2005/08/22 08:52:19 $

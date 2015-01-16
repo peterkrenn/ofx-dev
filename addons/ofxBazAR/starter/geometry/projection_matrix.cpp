@@ -1,6 +1,6 @@
 /*
-Copyright 2005, 2006 Computer Vision Lab, 
-Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland. 
+Copyright 2005, 2006 Computer Vision Lab,
+Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland.
 All rights reserved.
 
 This file is part of BazAR.
@@ -16,7 +16,7 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 BazAR; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301, USA 
+Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 #include <cmath>
 #include <iostream>
@@ -117,20 +117,20 @@ void projection_matrix::set_3x4_matrix(double P[3][4], int w, int h)
   fx = sqrt(AAt[0][0] - cx * cx - s * s);
 
   R[1][0] = (P[1][0] - cy * R[2][0]) / fy;
-  R[0][0] = (P[0][0] - s * R[1][0] - cx * R[2][0]) / fx; 
+  R[0][0] = (P[0][0] - s * R[1][0] - cx * R[2][0]) / fx;
 
   R[1][1] = (P[1][1] - cy * R[2][1]) / fy;
-  R[0][1] = (P[0][1] - s * R[1][1] - cx * R[2][1]) / fx; 
+  R[0][1] = (P[0][1] - s * R[1][1] - cx * R[2][1]) / fx;
 
   R[1][2] = (P[1][2] - cy * R[2][2]) / fy;
-  R[0][2] = (P[0][2] - s * R[1][2] - cx * R[2][2]) / fx; 
+  R[0][2] = (P[0][2] - s * R[1][2] - cx * R[2][2]) / fx;
 
   T[1] = (P[1][3] - cy * T[2]) / fy;
   T[0] = (P[0][3] - s * T[1] - cx * T[2]) / fx;
 
   if (gfla_det(R) < 0) {
     fy = -fy; // ??
-    for(int i = 0; i < 3; i++) 
+    for(int i = 0; i < 3; i++)
       R[1][i] = -R[1][i];
     T[1] = -T[1];
   }
@@ -151,8 +151,8 @@ bool projection_matrix::load_tdir(const char * tdir_filename, int w, int h)
   if (!file.good()) return false;
   double P[3][4];
 
-  for (int j=0; j<3; ++j) 
-    for (int i=0; i<4; ++i) 
+  for (int j=0; j<3; ++j)
+    for (int i=0; i<4; ++i)
       file >> P[j][i];
   file.close();
   set_3x4_matrix(P, w, h);
@@ -195,7 +195,7 @@ bool projection_matrix::load_tdir(const char * tdir_filename)
   };
 
   int best = 0;
-  double bestDelta = diagDiff(modes[0], modes[1], cx, cy); 
+  double bestDelta = diagDiff(modes[0], modes[1], cx, cy);
   for(int i = 1; modes[2 * i] != -1; i++) {
     double delta = diagDiff(modes[2 * i], modes[2 * i + 1], cx, cy);
     if (delta < bestDelta) {
@@ -314,7 +314,7 @@ bool projection_matrix::read_from_matchmover_output(FILE * f)
   }
 
   set_original_internal_parameters(int(2 * principal_point_u), int(2 * principal_point_v), // image size
-    focale_length, pixel_ratio * focale_length, 
+    focale_length, pixel_ratio * focale_length,
     principal_point_u, principal_point_v);
 
   gfla_mul_mat_vect_3x3(local_R, Oc, local_t);
@@ -398,7 +398,7 @@ bool projection_matrix::read_internal_parameters_from_tdir_file(const char * tdi
   double tdir_mat[12];
 
   FILE * tdir_file = fopen(tdir_filename, "r");
-  if (tdir_file == 0) 
+  if (tdir_file == 0)
   {
     perror(tdir_filename);
     return false;
@@ -428,8 +428,8 @@ bool projection_matrix::read_internal_parameters_from_tdir_file(const char * tdi
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 // External parameters:
 
-void projection_matrix::set_camera_centre_and_lookat_point(double Cx, double Cy, double Cz, 
-                                                           double Lx, double Ly, double Lz, 
+void projection_matrix::set_camera_centre_and_lookat_point(double Cx, double Cy, double Cz,
+                                                           double Lx, double Ly, double Lz,
                                                            double angle_vertical)
 {
   double rli1[3], rli2[3], rli3[3];
@@ -440,8 +440,8 @@ void projection_matrix::set_camera_centre_and_lookat_point(double Cx, double Cy,
   rli3[2] = Lz - Cz;
   gfla_normalize_3(rli3);
 
-  k[0] = sin(angle_vertical) * rli3[1]; 
-  k[1] = sin(angle_vertical) * rli3[0]; 
+  k[0] = sin(angle_vertical) * rli3[1];
+  k[1] = sin(angle_vertical) * rli3[0];
   k[2] = cos(angle_vertical);
   gfla_cross_product(rli3, k, rli1);
 
@@ -460,7 +460,7 @@ void projection_matrix::set_camera_centre_and_lookat_point(double Cx, double Cy,
   have_to_recompute_invAR = have_to_recompute_optical_centre = have_to_recompute_P = true;
 }
 
-void projection_matrix::set_external_parameters(double omega, double phi, double kappa, 
+void projection_matrix::set_external_parameters(double omega, double phi, double kappa,
                                                 double Tx, double Ty, double Tz)
 {
   gfla_get_rotation_from_euler_angles(R, omega, phi, kappa);
@@ -484,7 +484,7 @@ void projection_matrix::set_external_parameters_exp_map(double * state, CvMat * 
 
   double length = sqrt(om[0] * om[0] + om[1] * om[1] + om[2] * om[2]);
 
-  if (length > (2 * 3.14159 - 1)) 
+  if (length > (2 * 3.14159 - 1))
   {
     double new_length = fmod(length, 2 * 3.14159);
     double r = new_length / length;
@@ -509,7 +509,7 @@ void projection_matrix::set_external_parameters_exp_map(double * state, CvMat * 
   for(int i = 0; i < 3; i++)
   {
     for(int j = 0; j < 3; j++)
-      R[i][j] = cvmGet(&rotMat, i, j); 
+      R[i][j] = cvmGet(&rotMat, i, j);
     T[i] = t[i];
   }
 
@@ -526,7 +526,7 @@ void projection_matrix::get_external_parameters_exp_map(double * state)
   // Compute the rotation matrix
   for(int i = 0; i < 3; i++)
     for(int j = 0; j < 3; j++)
-      cvmSet(&rotMat, i, j, R[i][j]); 
+      cvmSet(&rotMat, i, j, R[i][j]);
 
   cvRodrigues(&rotMat, &rotVec, 0, CV_RODRIGUES_M2V);
 
@@ -632,8 +632,8 @@ void projection_matrix::set_external_parameters(CvMat * H)
 
   for(int i = 0; i < 3; i++)
   {
-    R[i][0] = R1p[i]; 
-    R[i][1] = R2p[i]; 
+    R[i][0] = R1p[i];
+    R[i][1] = R2p[i];
     R[i][2] = R3p[i];
   }
 
@@ -664,7 +664,7 @@ void projection_matrix::translate_z(double delta)
 
 
 void projection_matrix::rotate_x(double delta)
-{ 
+{
   double par[6];
 
   get_external_parameters(&par[0], &par[1], &par[2], &par[3], &par[4], &par[5]);
@@ -675,7 +675,7 @@ void projection_matrix::rotate_x(double delta)
 }
 
 void projection_matrix::rotate_y(double delta)
-{ 
+{
   double par[6];
 
   get_external_parameters(&par[0], &par[1], &par[2], &par[3], &par[4], &par[5]);
@@ -686,7 +686,7 @@ void projection_matrix::rotate_y(double delta)
 }
 
 void projection_matrix::rotate_z(double delta)
-{ 
+{
   double par[6];
 
   get_external_parameters(&par[0], &par[1], &par[2], &par[3], &par[4], &par[5]);
@@ -837,8 +837,8 @@ void projection_matrix::set_GL_PROJECTION(int xdim, int ydim, float * gl_vector)
   for(int j = 0; j < 4; j++)
   {
     gl_mat[j][0] = float(Stdir[0][j]);
-    gl_mat[j][1] = float(Stdir[1][j]); 
-    gl_mat[j][3] = float(Stdir[2][j]); 
+    gl_mat[j][1] = float(Stdir[1][j]);
+    gl_mat[j][3] = float(Stdir[2][j]);
   }
 
   // Plane distance computation in 3rd column:
@@ -846,7 +846,7 @@ void projection_matrix::set_GL_PROJECTION(int xdim, int ydim, float * gl_vector)
     gl_mat[j][2] = float( planes[j] * zratio );
   gl_mat[3][2]= float( -(1.0 + gl_mat[3][2] + zmin * zratio) );
 
-  for(int i = 0; i < 4; i++) 
+  for(int i = 0; i < 4; i++)
     gl_mat[i][1] = -gl_mat[i][1];
 
   for(int i = 0; i < 4; i++)

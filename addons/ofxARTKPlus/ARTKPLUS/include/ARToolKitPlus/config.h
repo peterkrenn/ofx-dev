@@ -24,10 +24,10 @@
 * along with this framework; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* For further information please contact 
+* For further information please contact
 *   Dieter Schmalstieg
 *   <schmalstieg@icg.tu-graz.ac.at>
-*   Graz University of Technology, 
+*   Graz University of Technology,
 *   Institut for Computer Graphics and Vision,
 *   Inffeldgasse 16a, 8010 Graz, Austria.
 * ========================================================================
@@ -110,7 +110,7 @@
 //#ifdef _USE_8BITIMAGE_
 //  #define AR_PIX_SIZE 1
 //  #define AR_PIX_FORMAT_LUM
-//#else 
+//#else
 //  #ifdef _USE_16BITIMAGE_
 //    #define AR_PIX_SIZE 2
 //    #define AR_PIX_FORMAT_RGB565
@@ -133,8 +133,8 @@
 
 
 /*------------------------------------------------------------
- * see 
- * http://www.hitl.washington.edu/people/grof/SharedSpace/Download/Doc/art240.html 
+ * see
+ * http://www.hitl.washington.edu/people/grof/SharedSpace/Download/Doc/art240.html
  * for an explanation of the next two define blocks
  */
 
@@ -163,7 +163,7 @@
 // constants influencing accuracy of arGetTransMat(...)
 #define   AR_GET_TRANS_MAT_MAX_LOOP_COUNT         5
 #define   AR_GET_TRANS_MAT_MAX_FIT_ERROR          1.0
-// criterium for arGetTransMatCont(...) to call 
+// criterium for arGetTransMatCont(...) to call
 // arGetTransMat(...) instead
 #define   AR_GET_TRANS_CONT_MAT_MAX_FIT_ERROR     1.0
 
@@ -179,10 +179,10 @@
 // plays some role in arDetectMarker2 I don't understand yet
 #define   AR_CHAIN_MAX      10000
 // maximum number of markers that can be simultaneously loaded
-//#define   AR_PATT_NUM_MAX      50 
+//#define   AR_PATT_NUM_MAX      50
 
 // These parameters control the way the toolkit warps a found
-// marker to a perfect square. The square has size 
+// marker to a perfect square. The square has size
 // AR_PATT_SIZE_X * AR_SIZE_PATT_Y, the projected
 // square in the image is subsampled at a min of
 // AR_PATT_SIZE_X/Y and a max of AR_PATT_SAMPLE_NUM

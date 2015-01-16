@@ -1,6 +1,6 @@
 /*
-Copyright 2005, 2006 Computer Vision Lab, 
-Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland. 
+Copyright 2005, 2006 Computer Vision Lab,
+Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland.
 All rights reserved.
 
 This file is part of BazAR.
@@ -16,13 +16,13 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 BazAR; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301, USA 
+Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 #ifndef STARTER_H
 #define STARTER_H
 
 /*!\mainpage
- 
+
   \section intro Introduction
 
   Bazar is a computer vision library based on feature points detection and
@@ -45,15 +45,15 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA
   cd bazar-xx
   ./configure
   make
-  
+
   \subsection windows_install Windows
 
   Download the windows archive, run setup.exe and follow intructions.
 
   \section orga Library Organization
 
-  Bazar is made of several modules, implemented in two libraries: 
-  - \ref garfeild 
+  Bazar is made of several modules, implemented in two libraries:
+  - \ref garfeild
   - \ref starter
 
   \section Examples
@@ -76,7 +76,7 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA
   A multi camera geometric and photmetric calibration example which depends
   only on OpenCV.
 
-  \example multigl.cpp 
+  \example multigl.cpp
   A multi camera geometric and photometric calibration example, with OpenGL
   augmentation.
 */

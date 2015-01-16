@@ -1,21 +1,21 @@
 /***********************************************************************
  -----------------------------------
- 
+
  Copyright (c) 2009, Memo Akten, www.memo.tv
- 
+
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- 
+
  ***********************************************************************/
 
 /**************************** Spline Template Class ****************************/
@@ -33,8 +33,8 @@ public:
 		setInterpolation(OFX_MSA_SPLINE_CUBIC);
 		setUseDistance(false);
 	}
-	
-	
+
+
 	// use catmull rom interpolation to re-sample At normT position along the spline
 	// where normT: 0....1 based on length of spline
 	Type sampleAt(float t) {
@@ -44,19 +44,19 @@ public:
 		int i0, i1, i2, i3;
 		float mu;
 		findPosition(t, i1, mu);
-		
+
 		switch(_interpolationMethod) {
 			case OFX_MSA_SPLINE_CUBIC:
 				i0 = i1 - 1;
 				i2 = i1 + 1;
 				i3 = i2 + 1;
-				
+
 				if(i0 < 0) i0 = 0;
 				else if(i3 >= numItems) i3 = numItems-1;
-				
+
 				return cubicInterpolate(at(i0), at(i1), at(i2), at(i3), mu);
 				break;
-				
+
 			case OFX_MSA_SPLINE_LINEAR:
 				i2 = i1 + 1;
 				if(i2 >= numItems) i2 = numItems-1;
@@ -64,73 +64,73 @@ public:
 				break;
 		}
 	}
-	
+
 	void setInterpolation(int i) {
 		_interpolationMethod = i;
 	}
-	
+
 	int getInterpolation() {
 		return _interpolationMethod;
 	}
-	
+
 	void setUseDistance(bool b) {
 		_useDistance = b;
 	}
-	
+
 	bool getUseDistance() {
 		return _useDistance;
 	}
-	
+
 	// drawing methods dependant on <Type>
 	virtual void drawRaw(int dotSize, int lineWidth) {}
 	virtual void drawSmooth(int numSteps, int dotSize, int lineWidth) {}
-	
-	
+
+
 	/******************* stl::vector wrapper functions *******************/
 	void push_back(const Type& newData) {
 		_data.push_back(newData);						// add data
-		
+
 		if(size() > 1) {
 			int prevIndex	= _dist.size()-1;
 			Type distT		= newData - _data.at(prevIndex);	// get offset to previous node
 			float dist		= fabs(distT);						// actual distance to node
-			_dist.push_back(dist + _dist.at(prevIndex));		// push last nodes distance + current distance 
+			_dist.push_back(dist + _dist.at(prevIndex));		// push last nodes distance + current distance
 		} else {
 			_dist.push_back(0);
 		}
 	}
-	
+
 	int size() {
 		return _data.size();
 	}
-	
+
 	void reserve(int i) {
 		_data.reserve(i);
 		_dist.reserve(i);
 	}
-	
+
 	void clear() {
 		_data.clear();
-		_dist.clear();		
+		_dist.clear();
 	}
-	
+
 	const Type& at(int i) {
 		return _data.at(i);
 	}
-	
-	
-	
+
+
+
 protected:
 	int _interpolationMethod;
 	bool _useDistance;
 	vector<Type> _data;				// vector of all data
 	vector<float> _dist;			// vector of cumulative distances from i'th data point to beginning of spline
-	
-	
+
+
 	// given t(0...1) find the node index directly to the left of the point
 	void findPosition(float t, int &leftIndex, float &mu) {
 		int numItems = size();
-		if(_useDistance) {									// need to use 
+		if(_useDistance) {									// need to use
 //			printf("findPosition: %.4f\n", t);
 			float totalDistanceOfSpline = _dist.at(numItems-1);
 			float tDist = totalDistanceOfSpline * t;			// the distance we want to be from the start
@@ -156,22 +156,22 @@ protected:
 					limitRight = i1;
 				}
 				i1 = (limitLeft + limitRight)>>1;
-				
+
 			} while(true);
-			
+
 		} else {
 			float actT = t * (numItems - 1);
 			leftIndex = floor(actT);
 			mu = actT - leftIndex;
 		}
 	}
-	
-	
+
+
 	Type linearInterpolate(const Type& y1, const Type& y2, float mu) {
 		return (y2-y1) * mu + y1;
 	}
-	
-	
+
+
 	// this function is from Paul Bourke's site
 	// http://local.wasp.uwa.edu.au/~pbourke/miscellaneous/interpolation/
 	Type cubicInterpolate(const Type& y0, const Type& y1, const Type& y2, const Type& y3, float mu) {
@@ -180,7 +180,7 @@ protected:
 		Type a1 = y0 - y1 - a0;
 		Type a2 = y2 - y0;
 		Type a3 = y1;
-		
+
 		return(a0 * mu * mu2 + a1 * mu2 + a2 * mu + a3);
 	}
 };

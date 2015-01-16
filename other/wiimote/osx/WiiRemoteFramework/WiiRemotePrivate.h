@@ -20,12 +20,12 @@ enum {
 	kWiiRemoteDownButton				= 0x0400,
 	kWiiRemoteUpButton					= 0x0800,
 	kWiiRemotePlusButton				= 0x1000,
-	
-	
+
+
 	kWiiNunchukZButton					= 0x0001,
 	kWiiNunchukCButton					= 0x0002,
-	
-	
+
+
 	kWiiClassicControllerUpButton		= 0x0001,
 	kWiiClassicControllerLeftButton		= 0x0002,
 	kWiiClassicControllerZRButton		= 0x0004,
@@ -42,7 +42,7 @@ enum {
 	kWiiClassicControllerLButton		= 0x2000,
 	kWiiClassicControllerDownButton		= 0x4000,
 	kWiiClassicControllerRightButton	= 0x8000
-	
+
 };
 
 

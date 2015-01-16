@@ -23,24 +23,24 @@ bool fingerDetector::findFingers (ofxCvBlob blob)
 	ppico.clear();
 	kpointcurv.clear();
 	bfingerRuns.clear();
-	
+
 	for(int i=k; i<blob.nPts-k; i++)
 	{
-		
+
 		//calculating angre between vectors
 		v1.set(blob.pts[i].x-blob.pts[i-k].x,blob.pts[i].y-blob.pts[i-k].y);
 		v2.set(blob.pts[i].x-blob.pts[i+k].x,blob.pts[i].y-blob.pts[i+k].y);
-		
+
 		v1D.set(blob.pts[i].x-blob.pts[i-k].x,blob.pts[i].y-blob.pts[i-k].y,0);
 		v2D.set(blob.pts[i].x-blob.pts[i+k].x,blob.pts[i].y-blob.pts[i+k].y,0);
-		
+
 		vxv = v1D.cross(v2D);
-		
+
 		v1.normalize();
 		v2.normalize();
 		teta=v1.angle(v2);
-		
-		//control conditions 
+
+		//control conditions
 		if(fabs(teta) < 40)
 		{	//pik?
 			if(vxv.z > 0)
@@ -56,11 +56,11 @@ bool fingerDetector::findFingers (ofxCvBlob blob)
 	{
 		return true;
 	}
-	else 
+	else
 	{
 		return false;
 	}
-	
+
 }
 bool fingerDetector::findHands(ofxCvBlob smblob)
 {
@@ -68,25 +68,25 @@ bool fingerDetector::findHands(ofxCvBlob smblob)
 	smkpointcurv.clear();
 	lhand.clear();
 	rhand.clear();
-	
+
 	hcentroid=smblob.centroid;
 
 	for(int i=smk; i<smblob.nPts-smk; i++)
 	{
-		
+
 		v1.set(smblob.pts[i].x-smblob.pts[i-smk].x,smblob.pts[i].y-smblob.pts[i-smk].y);
 		v2.set(smblob.pts[i].x-smblob.pts[i+smk].x,smblob.pts[i].y-smblob.pts[i+smk].y);
-		
+
 		v1D.set(smblob.pts[i].x-smblob.pts[i-smk].x,smblob.pts[i].y-smblob.pts[i-smk].y,0);
 		v2D.set(smblob.pts[i].x-smblob.pts[i+smk].x,smblob.pts[i].y-smblob.pts[i+smk].y,0);
-		
+
 		vxv = v1D.cross(v2D);
-		
+
 		v1.normalize();
 		v2.normalize();
-		
+
 		teta=v1.angle(v2);
-		
+
 		if(fabs(teta) < 30)
 		{	//pik?
 			if(vxv.z > 0)
@@ -106,9 +106,9 @@ bool fingerDetector::findHands(ofxCvBlob smblob)
 		{
 			aux1.set(smppico[i].x-smppico[0].x,smppico[i].y-smppico[0].y);
 			dlh=aux1.length();
-		
-			//we detect left and right hand and 
-		
+
+			//we detect left and right hand and
+
 			if(dlh<100)
 			{
 				lhand.push_back(smppico[i]);
@@ -122,7 +122,7 @@ bool fingerDetector::findHands(ofxCvBlob smblob)
 	//try to find for each hand the point wich is farder to the centroid of the Blob
 	if(lhand.size()>0)
 	{
-		
+
 		aux1.set(lhand[0].x-hcentroid.x,lhand[0].y-hcentroid.y);
 		lhd=aux1.length();
 		max=lhd;
@@ -163,7 +163,7 @@ void fingerDetector::draw(float x, float y)
 {
 	for(int i=0; i<ppico.size(); i++)
 	{
-		ofEnableAlphaBlending(); 
+		ofEnableAlphaBlending();
 		ofFill();
 		 ofSetColor(255,0,0,20);
 		 ofCircle(x+ppico[i].x, y+ppico[i].y, 10);

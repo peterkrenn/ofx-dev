@@ -37,13 +37,13 @@ public:
 	bool	mouseDragged(int x, int y, int button);
 	bool	mousePressed(int x, int y, int button);
 	bool	mouseReleased(int x, int y, int button);
-	
+
 	void	buildFromXml();
 	void	saveToXml();
 
 	float	valueToFraction(float value);
 	float	fractionToValue(float fraction);
-	
+
 	float	mValue, mMinVal, mMaxVal, mValDlt;
 };
 

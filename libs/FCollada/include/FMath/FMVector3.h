@@ -2,7 +2,7 @@
 	Copyright (C) 2005-2007 Feeling Software Inc.
 	Portions of the code are:
 	Copyright (C) 2005-2007 Sony Computer Entertainment America
-	
+
 	MIT License: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -18,9 +18,9 @@ class FMVector4;
 /**
 	A 3 dimensional vector.
 
-	Simple, non-optimized vector class: * is the dot-product, ^ is the 
+	Simple, non-optimized vector class: * is the dot-product, ^ is the
 	cross-product.
-	
+
 	@ingroup FMath
 */
 class FCOLLADA_EXPORT
@@ -42,7 +42,7 @@ public:
 	inline FMVector3() {}
 	#else
 	inline FMVector3() { x = 123456789.0f; y = 123456789.0f; z = 123456789.0f; }
-	#endif 
+	#endif
 
 	/** Creates the FMVector3 with the coordinates given.
 		@param _x The first coordinate.
@@ -50,7 +50,7 @@ public:
 		@param _z The third coordinate. */
 	inline FMVector3(float _x, float _y, float _z) { x = _x; y = _y; z = _z; }
 
-	/** Copy constuctor. 
+	/** Copy constuctor.
 		@param rhs A second 3D vector. */
 	inline FMVector3(const FMVector3& rhs) { x = rhs.x; y = rhs.y; z = rhs.z; }
 
@@ -61,7 +61,7 @@ public:
 
 	/** Creates the FMVector3 from a list of floating-point values.
 		It takes the first three floating-point starting from and including \a startIndex
-		(0 indexing) in the array as the 3 coordinates. The first as the first 
+		(0 indexing) in the array as the 3 coordinates. The first as the first
 		coordinate, the second as the second, and the third as the third.
 		@param source The floating-point value array.
 		@param startIndex The index of the first element. */

@@ -296,7 +296,7 @@ GANDALF_API Gan_SquMatrix22 *gan_squmat22_from_squmat_q ( const Gan_SquMatrix *A
  (GAN_TEST_OP3(p,q,A,Gan_Vector2,Gan_Vector2,Gan_Matrix22),\
   GAN_REP2_ABC((A)->,=(p)->,*(q)->,xx,xy,x,x,x,y),\
   GAN_REP2_ABC((A)->,=(p)->,*(q)->,yx,yy,y,y,x,y),A)
- 
+
 /* matrix/vector multiply */
 #define gan_mat22_multv2_q(A,p,q)\
  (GAN_TEST_OP3(A,p,q,Gan_Matrix22,Gan_Vector2,Gan_Vector2),\

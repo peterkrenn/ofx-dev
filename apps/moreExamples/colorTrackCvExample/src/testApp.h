@@ -22,11 +22,11 @@ class testApp : public ofSimpleApp{
 
 		ofVideoGrabber 		vidGrabber0;
 		ofVideoGrabber		vidGrabber1;
-		
+
 		ofxCvColorImage  colorImg0;
 		ofxCvColorImage	colorImg1;
 		ofxCvColorImage  posterized;
-		
+
 		ofxCvColorTrack	cTracker0;
 		ofxCvColorTrack	cTracker1;
 

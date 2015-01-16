@@ -2,28 +2,28 @@
 
 
 //--------------------------------------------------------------
-void testApp::setup(){	
-	
+void testApp::setup(){
+
 	ofSetVerticalSync(true);
 	ofSetFrameRate(60);
-	
+
 	ofEnableAlphaBlending();
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-	
+
 	ofBackground(0,0,0);
 
 	drawCounter = 0;
-	
+
 	fireworkInterval = 2500;
 	lastFireworkLaunched = 0;
-	
+
 	seedFirework();
-	
+
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-	
+
 	for (int i = 0; i < fireworks.size(); i++){
 		if(fireworks[i].exploded == true){
 			fireworks[i].addForce(ofRandom(-.01,.01),0,ofRandom(-.01,.01));
@@ -33,7 +33,7 @@ void testApp::update(){
 		fireworks[i].addDampingForce();
 		fireworks[i].update();
 	}
-	
+
 	if((ofGetElapsedTimeMillis() - lastFireworkLaunched) >= fireworkInterval){
 		seedFirework();
 		lastFireworkLaunched = ofGetElapsedTimeMillis();
@@ -70,11 +70,11 @@ void testApp::draw(){
 }
 
 //--------------------------------------------------------------
-void testApp::keyPressed  (int key){ 
+void testApp::keyPressed  (int key){
 }
 
 //--------------------------------------------------------------
-void testApp::keyReleased  (int key){ 
+void testApp::keyReleased  (int key){
 }
 
 //--------------------------------------------------------------
@@ -87,7 +87,7 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-	
+
 }
 
 //--------------------------------------------------------------

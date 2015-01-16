@@ -15,7 +15,7 @@
 
 typedef struct FMOD_DSP_STATE FMOD_DSP_STATE;
 
-/* 
+/*
     DSP callbacks
 */
 typedef FMOD_RESULT (F_CALLBACK *FMOD_DSP_CREATECALLBACK)     (FMOD_DSP_STATE *dsp_state);
@@ -30,7 +30,7 @@ typedef FMOD_RESULT (F_CALLBACK *FMOD_DSP_DIALOGCALLBACK)     (FMOD_DSP_STATE *d
 /*
 [ENUM]
 [
-    [DESCRIPTION]   
+    [DESCRIPTION]
     These definitions can be used for creating FMOD defined special effects or DSP units.
 
     [REMARKS]
@@ -70,7 +70,7 @@ typedef enum
 
 
 /*
-[STRUCTURE] 
+[STRUCTURE]
 [
     [DESCRIPTION]
     Structure to define a parameter for a DSP unit.
@@ -89,7 +89,7 @@ typedef enum
     [PLATFORMS]
     Win32, Win64, Linux, Linux64, Macintosh, Xbox, Xbox360, PlayStation 2, GameCube, PlayStation Portable, PlayStation 3, Wii
 
-    [SEE_ALSO]    
+    [SEE_ALSO]
     System::createDSP
     DSP::setParameter
 ]
@@ -106,7 +106,7 @@ typedef struct FMOD_DSP_PARAMETERDESC
 
 
 /*
-[STRUCTURE] 
+[STRUCTURE]
 [
     [DESCRIPTION]
     When creating a DSP unit, declare one of these and provide the relevant callbacks and name for FMOD to use when it creates and uses a DSP unit of this type.
@@ -122,7 +122,7 @@ typedef struct FMOD_DSP_PARAMETERDESC
     [PLATFORMS]
     Win32, Win64, Linux, Linux64, Macintosh, Xbox, Xbox360, PlayStation 2, GameCube, PlayStation Portable, PlayStation 3, Wii
 
-    [SEE_ALSO]    
+    [SEE_ALSO]
     System::createDSP
     FMOD_DSP_STATE
 ]
@@ -150,7 +150,7 @@ typedef struct FMOD_DSP_DESCRIPTION
 
 
 /*
-[STRUCTURE] 
+[STRUCTURE]
 [
     [DESCRIPTION]
     DSP plugin structure that is passed into each callback.
@@ -177,7 +177,7 @@ struct FMOD_DSP_STATE
 /*
     ===================================================================================================
 
-    FMOD built in effect parameters.  
+    FMOD built in effect parameters.
     Use DSP::setParameter with these enums for the 'index' parameter.
 
     ===================================================================================================
@@ -185,8 +185,8 @@ struct FMOD_DSP_STATE
 
 /*
 [ENUM]
-[  
-    [DESCRIPTION]   
+[
+    [DESCRIPTION]
     Parameter types for the FMOD_DSP_TYPE_OSCILLATOR filter.
 
     [REMARKS]
@@ -194,7 +194,7 @@ struct FMOD_DSP_STATE
     [PLATFORMS]
     Win32, Win64, Linux, Linux64, Macintosh, Xbox, Xbox360, PlayStation 2, GameCube, PlayStation Portable, PlayStation 3, Wii
 
-    [SEE_ALSO]      
+    [SEE_ALSO]
     DSP::setParameter
     DSP::getParameter
     FMOD_DSP_TYPE
@@ -209,8 +209,8 @@ typedef enum
 
 /*
 [ENUM]
-[  
-    [DESCRIPTION]   
+[
+    [DESCRIPTION]
     Parameter types for the FMOD_DSP_TYPE_LOWPASS filter.
 
     [REMARKS]
@@ -218,7 +218,7 @@ typedef enum
     [PLATFORMS]
     Win32, Win64, Linux, Linux64, Macintosh, Xbox, Xbox360, PlayStation 2, GameCube, PlayStation Portable, PlayStation 3, Wii
 
-    [SEE_ALSO]      
+    [SEE_ALSO]
     DSP::setParameter
     DSP::getParameter
     FMOD_DSP_TYPE
@@ -233,23 +233,23 @@ typedef enum
 
 /*
 [ENUM]
-[  
-    [DESCRIPTION]   
+[
+    [DESCRIPTION]
     Parameter types for the FMOD_DSP_TYPE_ITLOWPASS filter.<br>
-    This is different to the default FMOD_DSP_TYPE_ITLOWPASS filter in that it uses a different quality algorithm and is 
-    the filter used to produce the correct sounding playback in .IT files.<br> 
+    This is different to the default FMOD_DSP_TYPE_ITLOWPASS filter in that it uses a different quality algorithm and is
+    the filter used to produce the correct sounding playback in .IT files.<br>
     FMOD Ex's .IT playback uses this filter.<br>
 
     [REMARKS]
-    Note! This filter actually has a limited cutoff frequency below the specified maximum, due to its limited design, 
-    so for a more  open range filter use FMOD_DSP_LOWPASS or if you don't mind not having resonance, 
+    Note! This filter actually has a limited cutoff frequency below the specified maximum, due to its limited design,
+    so for a more  open range filter use FMOD_DSP_LOWPASS or if you don't mind not having resonance,
     FMOD_DSP_LOWPASS_SIMPLE.<br>
     The effective maximum cutoff is about 8060hz.
 
     [PLATFORMS]
     Win32, Win64, Linux, Linux64, Macintosh, Xbox, Xbox360, PlayStation 2, GameCube, PlayStation Portable, PlayStation 3, Wii
 
-    [SEE_ALSO]      
+    [SEE_ALSO]
     DSP::setParameter
     DSP::getParameter
     FMOD_DSP_TYPE
@@ -264,8 +264,8 @@ typedef enum
 
 /*
 [ENUM]
-[  
-    [DESCRIPTION]   
+[
+    [DESCRIPTION]
     Parameter types for the FMOD_DSP_TYPE_HIGHPASS filter.
 
     [REMARKS]
@@ -273,7 +273,7 @@ typedef enum
     [PLATFORMS]
     Win32, Win64, Linux, Linux64, Macintosh, Xbox, Xbox360, PlayStation 2, GameCube, PlayStation Portable, PlayStation 3, Wii
 
-    [SEE_ALSO]      
+    [SEE_ALSO]
     DSP::setParameter
     DSP::getParameter
     FMOD_DSP_TYPE
@@ -288,8 +288,8 @@ typedef enum
 
 /*
 [ENUM]
-[  
-    [DESCRIPTION]   
+[
+    [DESCRIPTION]
     Parameter types for the FMOD_DSP_TYPE_ECHO filter.
 
     [REMARKS]
@@ -304,7 +304,7 @@ typedef enum
     [PLATFORMS]
     Win32, Win64, Linux, Linux64, Macintosh, Xbox, Xbox360, PlayStation 2, GameCube, PlayStation Portable, PlayStation 3, Wii
 
-    [SEE_ALSO]      
+    [SEE_ALSO]
     DSP::setParameter
     DSP::getParameter
     FMOD_DSP_TYPE
@@ -322,8 +322,8 @@ typedef enum
 
 /*
 [ENUM]
-[  
-    [DESCRIPTION]   
+[
+    [DESCRIPTION]
     Parameter types for the FMOD_DSP_TYPE_FLANGE filter.
 
     [REMARKS]
@@ -335,7 +335,7 @@ typedef enum
     [PLATFORMS]
     Win32, Win64, Linux, Linux64, Macintosh, Xbox, Xbox360, PlayStation 2, GameCube, PlayStation Portable, PlayStation 3, Wii
 
-    [SEE_ALSO]      
+    [SEE_ALSO]
     DSP::setParameter
     DSP::getParameter
     FMOD_DSP_TYPE
@@ -352,8 +352,8 @@ typedef enum
 
 /*
 [ENUM]
-[  
-    [DESCRIPTION]   
+[
+    [DESCRIPTION]
     Parameter types for the FMOD_DSP_TYPE_DISTORTION filter.
 
     [REMARKS]
@@ -361,7 +361,7 @@ typedef enum
     [PLATFORMS]
     Win32, Win64, Linux, Linux64, Macintosh, Xbox, Xbox360, PlayStation 2, GameCube, PlayStation Portable, PlayStation 3, Wii
 
-    [SEE_ALSO]      
+    [SEE_ALSO]
     DSP::setParameter
     DSP::getParameter
     FMOD_DSP_TYPE
@@ -375,8 +375,8 @@ typedef enum
 
 /*
 [ENUM]
-[  
-    [DESCRIPTION]   
+[
+    [DESCRIPTION]
     Parameter types for the FMOD_DSP_TYPE_NORMALIZE filter.
 
     [REMARKS]
@@ -390,7 +390,7 @@ typedef enum
     [PLATFORMS]
     Win32, Win64, Linux, Linux64, Macintosh, Xbox, Xbox360, PlayStation 2, GameCube, PlayStation Portable, PlayStation 3, Wii
 
-    [SEE_ALSO]      
+    [SEE_ALSO]
     DSP::setParameter
     DSP::getParameter
     FMOD_DSP_TYPE
@@ -406,8 +406,8 @@ typedef enum
 
 /*
 [ENUM]
-[  
-    [DESCRIPTION]   
+[
+    [DESCRIPTION]
     Parameter types for the FMOD_DSP_TYPE_PARAMEQ filter.
 
     [REMARKS]
@@ -420,7 +420,7 @@ typedef enum
     [PLATFORMS]
     Win32, Win64, Linux, Linux64, Macintosh, Xbox, Xbox360, PlayStation 2, GameCube, PlayStation Portable, PlayStation 3, Wii
 
-    [SEE_ALSO]      
+    [SEE_ALSO]
     DSP::setParameter
     DSP::getParameter
     FMOD_DSP_TYPE
@@ -437,8 +437,8 @@ typedef enum
 
 /*
 [ENUM]
-[  
-    [DESCRIPTION]   
+[
+    [DESCRIPTION]
     Parameter types for the FMOD_DSP_TYPE_PITCHSHIFT filter.
 
     [REMARKS]
@@ -460,7 +460,7 @@ typedef enum
     [PLATFORMS]
     Win32, Win64, Linux, Linux64, Macintosh, Xbox, Xbox360, PlayStation 2, GameCube, PlayStation Portable, PlayStation 3, Wii
 
-    [SEE_ALSO]      
+    [SEE_ALSO]
     DSP::setParameter
     DSP::getParameter
     FMOD_DSP_TYPE
@@ -478,19 +478,19 @@ typedef enum
 
 /*
 [ENUM]
-[  
-    [DESCRIPTION]   
+[
+    [DESCRIPTION]
     Parameter types for the FMOD_DSP_TYPE_CHORUS filter.
 
     [REMARKS]
     Chrous is an effect where the sound is more 'spacious' due to 1 to 3 versions of the sound being played along side the original signal but with the pitch of each copy modulating on a sine wave.<br>
     This is a highly configurable chorus unit.  It supports 3 taps, small and large delay times and also feedback.<br>
-    This unit also could be used to do a simple echo, or a flange effect. 
+    This unit also could be used to do a simple echo, or a flange effect.
 
     [PLATFORMS]
     Win32, Win64, Linux, Linux64, Macintosh, Xbox, Xbox360, PlayStation 2, GameCube, PlayStation Portable, PlayStation 3, Wii
 
-    [SEE_ALSO]      
+    [SEE_ALSO]
     DSP::setParameter
     DSP::getParameter
     FMOD_DSP_TYPE
@@ -512,8 +512,8 @@ typedef enum
 
 /*
 [ENUM]
-[  
-    [DESCRIPTION]   
+[
+    [DESCRIPTION]
     Parameter types for the FMOD_DSP_TYPE_REVERB filter.
 
     [REMARKS]
@@ -522,7 +522,7 @@ typedef enum
     [PLATFORMS]
     Win32, Win64, Linux, Linux64, Macintosh, Xbox, Xbox360, PlayStation 2, GameCube, PlayStation Portable, PlayStation 3, Wii
 
-    [SEE_ALSO]      
+    [SEE_ALSO]
     DSP::setParameter
     DSP::getParameter
     FMOD_DSP_TYPE
@@ -541,8 +541,8 @@ typedef enum
 
 /*
 [ENUM]
-[  
-    [DESCRIPTION]   
+[
+    [DESCRIPTION]
     Parameter types for the FMOD_DSP_TYPE_ITECHO filter.<br>
     This is effectively a software based echo filter that emulates the DirectX DMO echo effect.  Impulse tracker files can support this, and FMOD will produce the effect on ANY platform, not just those that support DirectX effects!<br>
 
@@ -557,7 +557,7 @@ typedef enum
     [PLATFORMS]
     Win32, Win64, Linux, Linux64, Macintosh, Xbox, Xbox360, PlayStation 2, GameCube, PlayStation Portable, PlayStation 3, Wii
 
-    [SEE_ALSO]      
+    [SEE_ALSO]
     DSP::SetParameter
     DSP::GetParameter
     FMOD_DSP_TYPE
@@ -575,8 +575,8 @@ typedef enum
 
 /*
 [ENUM]
-[  
-    [DESCRIPTION]   
+[
+    [DESCRIPTION]
     Parameter types for the FMOD_DSP_TYPE_COMPRESSOR unit.
     This is a simple linked multichannel software limiter that is uniform across the whole spectrum.<br>
 
@@ -592,7 +592,7 @@ typedef enum
     [PLATFORMS]
     Win32, Win64, Linux, Linux64, Macintosh, Xbox, Xbox360, PlayStation 2, GameCube, PlayStation Portable, PlayStation 3, Wii
 
-    [SEE_ALSO]      
+    [SEE_ALSO]
     DSP::SetParameter
     DSP::GetParameter
     FMOD_DSP_TYPE
@@ -601,7 +601,7 @@ typedef enum
 */
 typedef enum
 {
-    FMOD_DSP_COMPRESSOR_THRESHOLD,  /* Threshold level (dB) in the range from -60 through 0. The default value is 0. */ 
+    FMOD_DSP_COMPRESSOR_THRESHOLD,  /* Threshold level (dB) in the range from -60 through 0. The default value is 0. */
     FMOD_DSP_COMPRESSOR_ATTACK,     /* Gain reduction attack time (milliseconds), in the range from 10 through 200. The default value is 50. */
     FMOD_DSP_COMPRESSOR_RELEASE,    /* Gain reduction release time (milliseconds), in the range from 20 through 1000. The default value is 50. */
     FMOD_DSP_COMPRESSOR_GAINMAKEUP  /* Make-up gain (dB) applied after limiting, in the range from 0 through 30. The default value is 0. */
@@ -609,10 +609,10 @@ typedef enum
 
 /*
 [ENUM]
-[  
-    [DESCRIPTION]   
+[
+    [DESCRIPTION]
     Parameter types for the FMOD_DSP_TYPE_SFXREVERB unit.<br>
-    
+
     [REMARKS]
     This is a high quality I3DL2 based reverb which improves greatly on FMOD_DSP_REVERB.<br>
     On top of the I3DL2 property set, "Dry Level" is also included to allow the dry mix to be changed.<br>
@@ -624,7 +624,7 @@ typedef enum
     [PLATFORMS]
     Win32, Win64, Linux, Linux64, Macintosh, Xbox, Xbox360, PlayStation 2, GameCube, PlayStation Portable, PlayStation 3, Wii
 
-    [SEE_ALSO]      
+    [SEE_ALSO]
     DSP::SetParameter
     DSP::GetParameter
     FMOD_DSP_TYPE
@@ -653,18 +653,18 @@ typedef enum
 
 /*
 [ENUM]
-[  
-    [DESCRIPTION]   
+[
+    [DESCRIPTION]
     Parameter types for the FMOD_DSP_TYPE_LOWPASS_SIMPLE filter.<br>
     This is a very simple low pass filter, based on two single-pole RC time-constant modules.
-    The emphasis is on speed rather than accuracy, so this should not be used for task requiring critical filtering.<br> 
+    The emphasis is on speed rather than accuracy, so this should not be used for task requiring critical filtering.<br>
 
     [REMARKS]
 
     [PLATFORMS]
     Win32, Win64, Linux, Linux64, Macintosh, Xbox, Xbox360, PlayStation 2, GameCube, PlayStation Portable, PlayStation 3, Wii
 
-    [SEE_ALSO]      
+    [SEE_ALSO]
     DSP::setParameter
     DSP::getParameter
     FMOD_DSP_TYPE

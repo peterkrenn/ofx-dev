@@ -60,7 +60,7 @@ void Mat3x4::transform(const float src[4], float dst[4])
 
 	for (int i=0; i<3; ++i) {
 		dst[i]=0;
-		for(int j=0;j<4; j++) 
+		for(int j=0;j<4; j++)
 			dst[i] += s[j]*m[i][j];
 	}
 }
@@ -104,9 +104,9 @@ void Mat3x4::mul(const Mat3x4 &a)
 void Mat3x4::setTranslate(double x, double y, double z)
 {
 	setIdentity();
-	m[0][3] = x; 
-	m[1][3] = y; 
-	m[2][3] = z; 
+	m[0][3] = x;
+	m[1][3] = y;
+	m[2][3] = z;
 }
 
 void Mat3x4::setInverseByTranspose(const Mat3x4 &mat)

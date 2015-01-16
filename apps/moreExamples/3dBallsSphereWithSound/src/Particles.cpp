@@ -17,13 +17,13 @@ Particles::Particles(ofxVec3f iniPos, ofxVec3f _vel, Perlin *_noise, int _type=0
 	color[0] = abs((int)colorVec.x);
 	color[1] = abs((int)colorVec.y);
 	color[2] = abs((int)colorVec.z);
-	
+
 	G = -ofRandom(3, 6);
-	
+
 	for(int i=0; i<NumP; i++){
 		pontos[i] = Ponto(iniPos);
 	}
-	
+
 	doTail = false;
 }
 
@@ -35,20 +35,20 @@ float damp = 0.5;
 	int step = 2;
 	int mult = 5;
 	int div = 4000;
-	
+
 	float radXZ = noise->Get(pos.x/div, pos.z/div)* TWO_PI;
 	float radY = noise->Get(pos.x/div, pos.y/div)*TWO_PI;
-	
+
 	acel.x = cos(radXZ)*mult+ofRandom(-step, step);
 	acel.y = -sin(radY)*mult+ofRandom(-step, step);
 	acel.z = sin(radXZ)*mult+ofRandom(-step, step);
-	
+
 	vel += acel;
 	vel.y += G;
 	vel *= damp;
-	
+
 	pos += vel;
-	
+
 	if (doTail)		moveTrail();
 }
 
@@ -57,7 +57,7 @@ void Particles::render(){
 	ofSetColor(color[0],color[1], color[2]);
 	// float curTime = ofGetFrameNum() * 1.0f/60.0f;
 
-	ofTranslate(0, 0, pos.z);	
+	ofTranslate(0, 0, pos.z);
 	if (type == 0) {
 		ofCircle(pos.x, pos.y, (size*scale)*2);
 	   // ofCircle(pos.x, pos.y, pos.z, size*scale);
@@ -67,12 +67,12 @@ void Particles::render(){
 		ofSphere((size*scale)*4, pos.x, pos.y, 5);
 	}
 	ofTranslate(0, 0, -pos.z);
-    
+
 	if (doTail) {
 		ofSetColor(color[0],color[1], color[2], 40);
-		renderTrail();		
+		renderTrail();
 	}
-	
+
 }
 
 void Particles::moveTrail(){
@@ -89,10 +89,10 @@ void Particles::renderTrail(){
 	float actualSize = size * scale;
 	for(int i=0; i<NumP; i++){
 		float normalI = 1-((float)i)/(NumP-1);
-		
+
 		float offSetX = cos(pontos[i].ang)*actualSize*normalI;
-		float offSetY = sin(pontos[i].ang)*actualSize*normalI; 
-		
+		float offSetY = sin(pontos[i].ang)*actualSize*normalI;
+
 		glVertex3f(pontos[i].pos.x + offSetX, pontos[i].pos.y + offSetY, pontos[i].pos.z);
 		glVertex3f(pontos[i].pos.x - offSetX, pontos[i].pos.y - offSetY, pontos[i].pos.z);
 	}

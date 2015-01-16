@@ -1,8 +1,8 @@
 <install>
 	<author>elie zananiri + eloi maduell . 2008 </author>
 	<version>0.01</version>
-	
-	<add>	
+
+	<add>
 
 		<!-- 	=====================================================================	-->
 		<!--	========================== add for the "installation" of OF =========	-->
@@ -16,13 +16,13 @@
 #endif
 
 	</addons_h>
-	
-	
-	
+
+
+
 	<!-- ========================================================================= 	-->
 	<!--	setting per project 							-->
 	<!-- ========================================================================= 	-->
-	
+
 	<src>
 		<folder name="addons/ofxFreeFrame/src">
 			<src>../../../addons/ofxFreeFrame/src/ofxFreeFrame.h</src>
@@ -52,7 +52,7 @@
 			<src>../../../addons/ofxFreeFrame/lib/win32/WinDebugMessage.h</src>
 			<src>../../../addons/ofxFreeFrame/lib/win32/WinPluginInstance.h</src>
 			<src>../../../addons/ofxFreeFrame/lib/win32/WinTimer.h</src>
-		</folder>		
+		</folder>
 
 		<!-- needed OSX and linux source includes -->
 
@@ -63,10 +63,10 @@
 		<path>../../../addons/ofxFreeFrame/lib/common</path>
 		<path>../../../addons/ofxFreeFrame/lib/win32</path>
 		<path>../../../addons/ofxFreeFrame/lib/OSX</path>
-		
+
 		<!-- needed linux include path -->
 
 	</include>
 
-	</add>				
+	</add>
 </install>

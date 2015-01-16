@@ -5,11 +5,11 @@
 ofxCvVideoThread::ofxCvVideoThread()
 {
 	//fileName	= "";
-	
+
 	width		= 0;
 	height		= 0 ;
 	speed		= 0;
-	
+
 	_isPaused	= false;
 	x			= 0;
 	y			= 0;
@@ -17,9 +17,9 @@ ofxCvVideoThread::ofxCvVideoThread()
 	_deviceID = 0;
 	_bTalkToMe = false;
 	readingThreads=0;
-	
+
 	frame=0;
-	
+
 }
 
 ofxCvVideoThread::~ofxCvVideoThread()
@@ -31,10 +31,10 @@ void ofxCvVideoThread::init(int w, int h, ofxVThreadImgType _imgType){
 	width = w;
 	height = h;
 	imgType = _imgType;
-	
+
 	colorImg.allocate(w,h);
 	grayImage.allocate(w,h);
-	
+
 	startThread(true, _bTalkToMe);   // blocking, verbose
 }
 
@@ -45,7 +45,7 @@ void ofxCvVideoThread::play(){
 }
 
 void ofxCvVideoThread::stop(){
-    stopThread(); 
+    stopThread();
 }
 
 void ofxCvVideoThread::threadedFunction(){
@@ -57,16 +57,16 @@ void ofxCvVideoThread::threadedFunction(){
 	cvSetCaptureProperty(vidGrabber,CV_CAP_PROP_FRAME_WIDTH,width);
 	cvSetCaptureProperty(vidGrabber,CV_CAP_PROP_FRAME_HEIGHT,height);
 	speed=cvGetCaptureProperty(vidGrabber,CV_CAP_PROP_FPS);
-	
+
 	if(_bTalkToMe) printf("source fps: %f",cvGetCaptureProperty(vidGrabber,CV_CAP_PROP_FPS));
-		
+
 	while(true){
 
 		IplImage* image = cvQueryFrame(vidGrabber);
-	
+
 
 		lock();
-		if(!readingThreads && image){			
+		if(!readingThreads && image){
 			switch (imgType){
 				case OFX_VTHREAD_CV_COLOR:
 					colorImg.setFromCVImage(image);
@@ -100,10 +100,10 @@ void ofxCvVideoThread::draw( int _x, int _y ){
 		case OFX_VTHREAD_CV_COLOR:
 			colorImg.draw(_x,_y);
 		break;
-		
+
 		case OFX_VTHREAD_CV_GREY:
 			grayImage.draw(_x,_y);
-			
+
 		default:
 		break;
 	}
@@ -116,10 +116,10 @@ void ofxCvVideoThread::draw( int _x, int _y, int _w, int _h ){
 		case OFX_VTHREAD_CV_COLOR:
 			colorImg.draw( _x ,_y, _w, _h );
 		break;
-		
+
 		case OFX_VTHREAD_CV_GREY:
 			grayImage.draw( _x ,_y, _w, _h );
-			
+
 		default:
 		break;
 	}

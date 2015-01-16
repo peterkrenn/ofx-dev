@@ -60,7 +60,7 @@
 /* #undef HAVE_SCSL */
 
 /* Define if you have PNG libraries */
-//#define HAVE_PNG 
+//#define HAVE_PNG
 
 /* Define if you have TIFF library */
 /* #define HAVE_TIFF 1 */

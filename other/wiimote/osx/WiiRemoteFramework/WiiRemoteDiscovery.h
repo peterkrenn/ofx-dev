@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <IOBluetooth/objc/IOBluetoothDeviceInquiry.h> 
+#import <IOBluetooth/objc/IOBluetoothDeviceInquiry.h>
 #import "WiiRemote.h"
 
 

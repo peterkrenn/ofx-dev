@@ -1,6 +1,6 @@
 /*
-Copyright 2005, 2006 Computer Vision Lab, 
-Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland. 
+Copyright 2005, 2006 Computer Vision Lab,
+Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland.
 All rights reserved.
 
 This file is part of BazAR.
@@ -16,7 +16,7 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 BazAR; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301, USA 
+Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 #ifndef LS_MINIMIZER2_H
 #define LS_MINIMIZER2_H
@@ -49,21 +49,21 @@ public:
   enum {MAX_B_SIZE = 4};
 
   /*! Base structure containing observation data for minimization.
-  *  The user should create a new class inheriting from observation, 
-  *  or use the predefined observation_nn with provided function 
+  *  The user should create a new class inheriting from observation,
+  *  or use the predefined observation_nn with provided function
   *  pointers.
   */
   struct observation
   {
     virtual ~observation(){}
     observation() { set_default_values(); }
-    void set_default_values(void) { 
-      c_max = squared_c = std::numeric_limits<flt_t>::max(); 
+    void set_default_values(void) {
+      c_max = squared_c = std::numeric_limits<flt_t>::max();
       c_min = -std::numeric_limits<flt_t>::max();
-      confidence = 1.; 
-      weight = 1.; 
-      sqrt_weight = 1.; 
-      ground_truth_outlier = false; 
+      confidence = 1.;
+      weight = 1.;
+      sqrt_weight = 1.;
+      ground_truth_outlier = false;
       delete_me=false;
       array_delete_me=false;
     }
@@ -80,19 +80,19 @@ public:
   };
 
   //! Function pointer type used by observation_nn
-  typedef void (*func_nn_ptr)(const flt_t *state, const flt_t *data, int data_size, 
+  typedef void (*func_nn_ptr)(const flt_t *state, const flt_t *data, int data_size,
     flt_t *b, flt_t *J, void **user_data);
 
   //! Pre-defined structure for users that prefer function pointers to class heritage.
-  template <int nb_data, int nb_obs> 
+  template <int nb_data, int nb_obs>
   struct observation_nn : observation {
     flt_t data[nb_data];
     flt_t y[nb_obs];
 
     func_nn_ptr f;
 
-    observation_nn(func_nn_ptr eval, const flt_t *d, const flt_t *b) { 
-      f = eval; 
+    observation_nn(func_nn_ptr eval, const flt_t *d, const flt_t *b) {
+      f = eval;
       memcpy(data, d, nb_data*sizeof(flt_t));
       memcpy(y, b, nb_obs*sizeof(flt_t));
       this->b = &y[0];
@@ -184,7 +184,7 @@ public:
   void lm_set_max_iterations(int it);
   //! if f iterations do not decrease the function, stop.
   void lm_set_max_failures_in_a_row(int f);
-  //! stop condition. Very restrictive: 0.999  less restrictive: 0.9 
+  //! stop condition. Very restrictive: 0.999  less restrictive: 0.9
   void lm_set_tol_cos(flt_t t);
 
   void lm_set_initial_lambda(flt_t l);

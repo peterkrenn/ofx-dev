@@ -23,7 +23,7 @@ class ofxCvFloatImage;
 
 
 class ofxCvImage : public ofBaseDraws, public ofBaseHasTexture, public ofBaseHasPixels {
-    
+
   public:
 
     int width;                 // DEPRACATED, will be made private, use getWidth() instead !!
@@ -41,7 +41,7 @@ class ofxCvImage : public ofBaseDraws, public ofBaseHasTexture, public ofBaseHas
     virtual void flagImageChanged();  //mostly used internally
     virtual void setUseRoiOffsetWhenDrawing( bool bUse );
 
-    
+
     // ROI - region of interest
     //
     virtual void  pushROI();
@@ -52,8 +52,8 @@ class ofxCvImage : public ofBaseDraws, public ofBaseHasTexture, public ofBaseHas
     virtual void  resetROI();
     virtual ofRectangle  getIntersectionROI( const ofRectangle& rec1,
                                              const ofRectangle& rec2 );
-    
-    
+
+
     // Set Pixel Data
     //
     virtual void  set( float value ) = 0;
@@ -65,12 +65,12 @@ class ofxCvImage : public ofBaseDraws, public ofBaseHasTexture, public ofBaseHas
     virtual void  operator = ( const ofxCvColorImage& mom ) = 0;
     virtual void  operator = ( const ofxCvFloatImage& mom ) = 0;
     virtual void  operator = ( const IplImage* mom );
-    
+
     virtual void  operator -= ( ofxCvImage& mom );
     virtual void  operator += ( ofxCvImage& mom );
     virtual void  operator *= ( ofxCvImage& mom );
     virtual void  operator &= ( ofxCvImage& mom );
-    
+
 
     // Get Pixel Data
     //
@@ -85,8 +85,8 @@ class ofxCvImage : public ofBaseDraws, public ofBaseHasTexture, public ofBaseHas
     virtual void setAnchorPercent( float xPct, float yPct );
     virtual void setAnchorPoint( int x, int y );
     virtual void resetAnchor();
-    
-    
+
+
     // Image Filter Operations
     //
     virtual void  erode( );                     // based on 3x3 shape
@@ -141,10 +141,10 @@ class ofxCvImage : public ofBaseDraws, public ofBaseHasTexture, public ofBaseHas
     bool pushSetBothToTheirIntersectionROI( ofxCvImage& img1, ofxCvImage& img2 );
 
     virtual void  rangeMap( IplImage* img, float min1, float max1, float min2, float max2 );
-                                     
+
     virtual void swapTemp();  // swap cvImageTemp back
                               // to cvImage after an image operation
-                          
+
     IplImage*  cvImage;
     IplImage*  cvImageTemp;   // this is typically swapped back into cvImage
                               // after an image operation with swapImage()
@@ -152,29 +152,29 @@ class ofxCvImage : public ofBaseDraws, public ofBaseHasTexture, public ofBaseHas
     vector<ofRectangle>  roiStack;      // ROI stack
                                         // last rectangle is used for ROI
                                         // used with pushROI(), popROI()
-                                                                      
+
     int roiX;                 // region of interest offset x
-    int roiY;                 // region of interest offset y    
-                              
+    int roiY;                 // region of interest offset y
+
     int ipldepth;             // IPL_DEPTH_8U, IPL_DEPTH_16U, IPL_DEPTH_32F, ...
     int iplchannels;          // 1, 3, 4, ...
 
     int gldepth;              // GL_UNSIGNED_BYTE, GL_UNSIGNED_SHORT, GL_FLOAT, ...
     int glchannels;           // GL_LUMINANCE, GL_RGB, GL_RGBA, ...
-    
+
     unsigned char* 	pixels;	  // not width stepped for getPixels(), allocated on demand
     int  pixelsWidth;
     int  pixelsHeight;
     bool bPixelsDirty;        // pixels need to be reloaded
-    
+
     ofTexture  tex;		      // internal tex
     bool bUseTexture;
     bool bTextureDirty;       // texture needs to be reloaded before drawing
-    
+
     bool bUseRoiOffsetWhenDrawing;
-    
+
     ofPoint  anchor;
-    bool  bAnchorIsPct;    
+    bool  bAnchorIsPct;
 
 };
 

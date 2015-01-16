@@ -270,19 +270,19 @@ typedef enum
     /// Full matrix
     GAN_MATSTORAGE_FULL,
 
-    /// Lower triangular matrix   
+    /// Lower triangular matrix
     GAN_MATSTORAGE_LOWERTRIANGULAR,
 
-    /// Upper triangular matrix   
+    /// Upper triangular matrix
     GAN_MATSTORAGE_UPPERTRIANGULAR,
 
     /// Upper Hessenberg matrix
     GAN_MATSTORAGE_UPPERHESSENBERG,
 
-    /// A is a symmetric band matrix with the only the lower half stored.   
+    /// A is a symmetric band matrix with the only the lower half stored.
     GAN_MATSTORAGE_SYMMBANDLOWER,
 
-    /// A is a symmetric band matrix with the only the upper half stored.   
+    /// A is a symmetric band matrix with the only the upper half stored.
     GAN_MATSTORAGE_SYMMBANDUPPER,
 
     /// A is a band matrix

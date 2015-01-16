@@ -14,7 +14,7 @@
 - (id)initWithValue:(float)_value time:(struct timeval)_tval{
 	value = _value;
 	tval = _tval;
-	
+
 	return self;
 }
 - (float) value {

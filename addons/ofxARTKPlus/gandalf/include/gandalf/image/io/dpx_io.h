@@ -119,13 +119,13 @@ typedef struct Gan_DPXImageInfoHeader
 
    /// reference low data code value
    gan_uint32 ref_low_data;
-   
+
    /// reference low quantity represented
    gan_float32 ref_low_quantity;
-   
+
    /// reference high data code value
    gan_uint32 ref_high_data;
-   
+
    /// reference high quantity represented
    gan_float32 ref_high_quantity;
 

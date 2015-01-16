@@ -44,12 +44,12 @@
 class IplTexture {
 
 public:
-	IplTexture(IplImage *image=0, bool cache=true, bool smooth=true) 
-		: im(image), downsampled(0), allowCache(cache), reload(true),  
+	IplTexture(IplImage *image=0, bool cache=true, bool smooth=true)
+		: im(image), downsampled(0), allowCache(cache), reload(true),
 		smooth(smooth), textureGenerated(false), refcnt(1) {}
-	
+
 	virtual ~IplTexture();
-		
+
 	//! Only call genTexture from a valid OpenGL context !
 	void genTexture();
 	void loadTexture();
@@ -68,7 +68,7 @@ public:
 	double v(double y) { return y*vScale + vOrigin; }
 
 	//! force texture regeneration.
-	void regen(); 
+	void regen();
 
 	//! Add a reference to the reference counter.
 	void addRef() { refcnt++; }
@@ -77,7 +77,7 @@ public:
 	 *  texture if it reaches 0.
 	 */
 	void unref();
-	
+
 	void clearWithoutDelete() { im = downsampled = 0; }
 
 private:

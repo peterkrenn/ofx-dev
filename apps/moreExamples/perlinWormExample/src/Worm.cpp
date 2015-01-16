@@ -13,7 +13,7 @@ Worm::Worm(ofxVec3f iniPos, Perlin *_noise){
 		if(radius == 0) radius = 0.1;
 		disk.push_back(Disk(iniPos, radius));
 	}
-	
+
 	ofxVec3f colorVec = ofxVec3f(0, 0, 0.8);
 	float rotX = ofRandom(0, 360);
 	float rotY = ofRandom(0, 360);
@@ -28,27 +28,27 @@ Worm::Worm(ofxVec3f iniPos, Perlin *_noise){
 	//float colorBW = ofRandom(0.5, 0.8);
 	float colorBW = ofRandom(0.7f, 1.0f);
 	for(int i=0; i<3; i++){
-		color[i] = colorBW; 
+		color[i] = colorBW;
 	}*/
 
 }
 
 void Worm::move(){
-	
+
 	//this part here, where perlin noise is used to get the angles find a rotating velocity vector is adapted from a robert hodgin source
-	//which can be found here: http://www.flight404.com/blog/?p=113 
+	//which can be found here: http://www.flight404.com/blog/?p=113
 	float step = 5;
 	int div = 4000;
 	int mult = 5;
-	
+
 	float radXZ = noise->Get(disk[0].center.x/div, disk[0].center.z/div)*TWO_PI;
 	float radY = noise->Get(disk[0].center.x/div, disk[0].center.y/div)*TWO_PI;
-	
+
 	ofxVec3f perlinVec = ofxVec3f(cos(radXZ)*mult, cos(radY)*mult, sin(radXZ)*mult);
 	ofxVec3f randomVec = ofxVec3f(ofRandom(-step, step), ofRandom(-step, step), ofRandom(-step, step));
-	
+
 	ofxVec3f target = disk[0].center + perlinVec + randomVec;
-	
+
 	disk[0].move(target, 0, 0);
 	for(int i=1; i<numDisks; i++){
 		//this bit of code here, to find the angles that each disk shoudl rotate, is taken from here
@@ -56,11 +56,11 @@ void Worm::move(){
 		float deltaX = disk[i].center.x - disk[i-1].center.x;
 		float deltaY = disk[i].center.y - disk[i-1].center.y;
 		float deltaZ = disk[i].center.z - disk[i-1].center.z;
-		
+
 		float rotY = atan2(deltaY ,deltaX);
 		float hyp = sqrt(deltaX*deltaX + deltaY*deltaY);
 		float rotX = atan2(hyp, deltaZ);
-		
+
 		disk[i].move(disk[i-1].center, rotX, rotY);
 	}
 }
@@ -70,13 +70,13 @@ void Worm::render(){
 	for(int i=0; i<numDisks-1; i++){
 		glBegin(GL_QUAD_STRIP);
 		for(int j=0; j<NUMP-1; j++){
-	
+
 			//cheating my way through normals...
 			ofxVec3f normalVec = disk[i].p[j] - disk[i].center;
 			normalVec.normalize();
 			glNormal3f(normalVec.x, normalVec.y, normalVec.z);
 			glVertex3f(disk[i].p[j].x, disk[i].p[j].y, disk[i].p[j].z);
-			
+
 			//and again...
 			normalVec = disk[i+1].p[j] - disk[i+1].center;
 			normalVec.normalize();
@@ -97,7 +97,7 @@ void Worm::renderContours(){
 		}
 		glEnd();
 	}
-	
+
 	for(int i=0; i<numDisks; i++){
 		glBegin(GL_LINE_STRIP);
 		for(int j=0; j<NUMP; j++){
@@ -120,7 +120,7 @@ glBegin(GL_LINES);
 	for(int i=0; i<numDisks-1; i++){
 		for(int j=0; j<NUMP; j++){
 		int nextP = (j+1) % NUMP;
-		
+
 			ofxVec3f vecA = ofxVec3f(disk[i].p[j].x, disk[i].p[j].y, disk[i].p[j].z) - ofxVec3f(disk[i+1].p[j].x, disk[i+1].p[j].y, disk[i+1].p[j].z);
 			ofxVec3f vecB = ofxVec3f(disk[i+1].p[j].x, disk[i+1].p[j].y, disk[i+1].p[j].z) - ofxVec3f(disk[i+1].p[nextP].x, disk[i+1].p[nextP].y, disk[i+1].p[nextP].z);
 			ofxVec3f normalVec = vecA.cross(vecB);
@@ -136,5 +136,5 @@ glBegin(GL_LINES);
 			glEnd();
 		}
 	}
-	
+
 }

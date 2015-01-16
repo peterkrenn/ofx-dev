@@ -46,7 +46,7 @@ void firework::seed(){
 	}
 	launch();
 }
-			
+
 void firework::launch(){
 	vel.set(0, ofRandom(-14,-11),0);
 }
@@ -87,7 +87,7 @@ void firework::update(){
 			int t_y = pos.y + particles[i].pos.y;
 			int t_z = pos.z + particles[i].pos.z;
 			particles[i].addTrailPoint(t_x, t_y, t_z);
-			
+
 			if(particles[i].finished == true){
 				finishedCounter++;
 			}
@@ -126,7 +126,7 @@ void firework::draw(){
 			particles[i].draw();
 		}
 	glPopMatrix();
-	
+
 	for (int i = 0; i < particles.size(); i++){
 		particles[i].drawTrails();
 	}

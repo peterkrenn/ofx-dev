@@ -24,9 +24,9 @@ class ofxCvColorImage : public ofxCvImage {
     // virtual void  allocate( int w, int h );                                //in base class
     virtual void  clear();
 	//virtual float getWidth();                                               //in base class
-	//virtual float getHeight();                                              //in base class    
-    // virtual void  setUseTexture( bool bUse );                              //in base class    
-    // virtual ofTexture&  getTextureReference();                             //in base class    
+	//virtual float getHeight();                                              //in base class
+    // virtual void  setUseTexture( bool bUse );                              //in base class
+    // virtual ofTexture&  getTextureReference();                             //in base class
 
 
     // ROI - region of interest
@@ -37,29 +37,29 @@ class ofxCvColorImage : public ofxCvImage {
     // virtual void  setROI( ofRectangle& rect );                             //in base class
     // virtual ofRectangle  getROI();                                         //in base class
     // virtual void  resetROI();                                              //in base class
-    // virtual ofRectangle  getIntersectionROI( ofRectangle& rec1,      
+    // virtual ofRectangle  getIntersectionROI( ofRectangle& rec1,
     //                                          ofRectangle& rec2 );          // inbase class
-    
+
 
     // Set Pixel Data
     //
     virtual void  set( float value );
     virtual void  set( int valueR, int valueG, int valueB);
     virtual void  operator -= ( float value );
-    virtual void  operator += ( float value ); 
-        
+    virtual void  operator += ( float value );
+
     virtual void  setFromPixels( unsigned char * _pixels, int w, int h );
     virtual void  setFromGrayscalePlanarImages( ofxCvGrayscaleImage& red, ofxCvGrayscaleImage& green, ofxCvGrayscaleImage& blue );
     virtual void  operator = ( unsigned char* _pixels );
     virtual void  operator = ( const ofxCvGrayscaleImage& mom );
     virtual void  operator = ( const ofxCvColorImage& mom );
     virtual void  operator = ( const ofxCvFloatImage& mom );
-    virtual void  operator = ( const IplImage* mom );    
-    
-    // virtual void  operator -= ( ofxCvImage& mom );                         //in base class 
-    // virtual void  operator += ( ofxCvImage& mom );                         //in base class 
-    // virtual void  operator *= ( ofxCvImage& mom );                         //in base class 
-    // virtual void  operator &= ( ofxCvImage& mom );                         //in base class     
+    virtual void  operator = ( const IplImage* mom );
+
+    // virtual void  operator -= ( ofxCvImage& mom );                         //in base class
+    // virtual void  operator += ( ofxCvImage& mom );                         //in base class
+    // virtual void  operator *= ( ofxCvImage& mom );                         //in base class
+    // virtual void  operator &= ( ofxCvImage& mom );                         //in base class
 
 
     // Get Pixel Data
@@ -67,7 +67,7 @@ class ofxCvColorImage : public ofxCvImage {
     virtual unsigned char*  getPixels();
     virtual void  convertToGrayscalePlanarImages( ofxCvGrayscaleImage& red, ofxCvGrayscaleImage& green, ofxCvGrayscaleImage& blue );
     // virtual IplImage*  getCvImage();                                        //in base class
-    
+
 
     // Draw Image
     //
@@ -76,18 +76,18 @@ class ofxCvColorImage : public ofxCvImage {
     //virtual void setAnchorPercent( float xPct, float yPct );                //in base class
     //virtual void setAnchorPoint( int x, int y );                            //in base class
     //virtual void resetAnchor();                                             //in base class
-        
+
 
     // Image Filter Operations
     //
     virtual void  contrastStretch();    // not yet implemented for this type
-    virtual void  convertToRange( float min, float max );   
+    virtual void  convertToRange( float min, float max );
     // virtual void  erode( );                                                //in base class
     // virtual void  dilate( );                                               //in base class
     // virtual void  blur( int value=3 );                                     //in base class
     // virtual void  blurGaussian( int value=3 );                             //in base class
     // virtual void  invert();                                                //in base class
-    
+
 
     // Image Transformation Operations
     //
@@ -111,18 +111,18 @@ class ofxCvColorImage : public ofxCvImage {
     //                                ofPoint& C, ofPoint& D );                //in base class
     // virtual void  warpIntoMe( ofxCvImage& mom,
     //                           ofPoint src[4], ofPoint dst[4] );             //in base class
-                             
+
 
     // Other Image Operations
     //
-    // virtual int  countNonZeroInRegion( int x, int y, int w, int h );  //in base class       
+    // virtual int  countNonZeroInRegion( int x, int y, int w, int h );  //in base class
 
 
   private:
-  
+
     void init();
     IplImage*  cvGrayscaleImage;    // internal helper grayscale, allocated on demand
-      
+
 };
 
 

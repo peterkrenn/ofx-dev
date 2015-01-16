@@ -67,7 +67,7 @@ typedef struct OpenGLTextureStruct
    int iTextureTileSize, iNumberOfTilesV, iNumberOfTilesH, iNumberOfTiles;
    GLuint *agluiTexture;
 
-  
+
    Gan_Vector2_i *av2iTilePosition;
    GLenum eTextureMode;
 
@@ -160,7 +160,7 @@ typedef struct _Gan_GLExt_Function_Pointers
    PFNGLFRAMEBUFFERRENDERBUFFEREXTPROC		fFramebufferRenderbufferEXT;
 
 
-   
+
 } Gan_GLExt_Function_Pointers;
 
 GANDALF_API void gan_initialise_glext_func_ptrs( Gan_GLExt_Function_Pointers* pExtFnPtrs);

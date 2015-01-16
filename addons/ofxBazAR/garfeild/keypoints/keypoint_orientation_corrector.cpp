@@ -1,6 +1,6 @@
 /*
-Copyright 2005, 2006 Computer Vision Lab, 
-Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland. 
+Copyright 2005, 2006 Computer Vision Lab,
+Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland.
 All rights reserved.
 
 This file is part of BazAR.
@@ -16,7 +16,7 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 BazAR; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301, USA 
+Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 #include <iostream>
 #include <cmath>
@@ -260,7 +260,7 @@ int keypoint_orientation_corrector::optimized_orientation_bucket_index(const Ipl
     return orientation_bucket_index;
 }
 
-void keypoint_orientation_corrector::rotate_patchf(IplImage * original_image, float u, float v, 
+void keypoint_orientation_corrector::rotate_patchf(IplImage * original_image, float u, float v,
                                                    IplImage * rotated_patch,
                                                    float angle)
 {
@@ -277,7 +277,7 @@ void keypoint_orientation_corrector::rotate_patchf(IplImage * original_image, fl
   cvGetQuadrangleSubPix(original_image, rotated_patch, &M);
 }
 
-void keypoint_orientation_corrector::rotate_patch(IplImage * original_image, int u, int v, 
+void keypoint_orientation_corrector::rotate_patch(IplImage * original_image, int u, int v,
                                                   IplImage * rotated_patch,
                                                   int orientation_bucket_index, int level)
 {
@@ -314,7 +314,7 @@ void keypoint_orientation_corrector::rotate_patch(IplImage * original_image, int
   }
 }
 
-float keypoint_orientation_corrector::estimate_orientation_in_radians(IplImage * image, int u, int v, 
+float keypoint_orientation_corrector::estimate_orientation_in_radians(IplImage * image, int u, int v,
                                                                       IplImage * _Ix, IplImage * _Iy)
 {
   // Avoid a warning:
@@ -325,7 +325,7 @@ float keypoint_orientation_corrector::estimate_orientation_in_radians(IplImage *
   return _orientation_bucket_index * 2 * 3.14159f / ANGLE_BUCKET_NUMBER;
 }
 
-int keypoint_orientation_corrector::correct_orientation(IplImage * image, int u, int v, 
+int keypoint_orientation_corrector::correct_orientation(IplImage * image, int u, int v,
                                                         IplImage * rotated_neighborhood,
                                                         IplImage * _Ix, IplImage * _Iy, int level)
 {
@@ -336,8 +336,8 @@ int keypoint_orientation_corrector::correct_orientation(IplImage * image, int u,
   return _orientation_bucket_index;
 }
 
-int keypoint_orientation_corrector::correct_orientationf(IplImage * image, float u, float v, 
-                                                         IplImage * rotated_neighborhood, 
+int keypoint_orientation_corrector::correct_orientationf(IplImage * image, float u, float v,
+                                                         IplImage * rotated_neighborhood,
                                                          float orientation_in_radians, int level)
 {
   if (subpixel_rotate)

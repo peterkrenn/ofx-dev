@@ -12,12 +12,12 @@ float		CAM_FLUID_SPEED	 =		0.0025f;							// factor for how much cam movement af
 void App::setup(){
 	ofBackground(0, 0, 0);
 	//ofHideCursor();
-	
+
 	mouseX = mouseY = mouseOldX = mouseOldY = mouseVelX = mouseVelY = 0;
 	ofSeedRandom();
 
 	ofSetFrameRate(FPS);
-	
+
 	showVideoColor		= false;
 	showVideoGrey		= false;
 	showVideoBGDiff		= false;
@@ -31,12 +31,12 @@ void App::setup(){
 	doOpticalFlow		= true;
 
 	ofSetBackgroundAuto(true);				// change this to false later
-	
+
 	glDepthMask(false);						// disable writing to depth buffer
 	glDisable(GL_DEPTH_TEST);				// disable sorting (dont really need both but whatever)
 	glEnable( GL_BLEND );					// enable blending
 	glBlendFunc(GL_ONE, GL_ONE);			// set to additive (ignoring all alpha values, don't need'em)
-	
+
 	// init objects
 	for(int i=0; i<NUM_CAMERAS; i++ ) motionTracker[i].init(320, 240, i);
 	fluid.init(WIDTH, HEIGHT, FLUID_NX, FLUID_NY, FLUID_DT, FLUID_VISC, FLUID_FADE_SPEED);
@@ -47,10 +47,10 @@ void App::setup(){
 //--------------------------------------------------------------
 void App::update(){
 	//	printf("***************\nStarting UPDATE loop \n");
-	
+
 	mouseVelX = mouseX - mouseOldX;
 	mouseVelY = mouseY - mouseOldY;
-	
+
 	if(showBalls) balls.update();
 	if(showGlitter) glitter.update();
 	fluid.update();
@@ -58,33 +58,33 @@ void App::update(){
 	if(doOpticalFlow) for(int i=0; i<NUM_CAMERAS; i++ ) {
 		motionTracker[i].update();
 		if(motionTracker[i].bHasNewFrame) {
-		
+
 			int fx, fy;			// fluid coordinates
 			float dx, dy;		// get cam velocity into these vars
 			float scrX, scrY;	// will store screen coordinates
 			float camX;			// will store cam velmap x coordinate
 
 			float speed2;		// absolute speed squared
-			
+
 			int startX	= motionTracker[i].index * CAM_FLUID_WIDTH;
 			int endX	= startX + CAM_FLUID_WIDTH;
 			float max = 0;
-			
+
 			float colR = sin(ofGetElapsedTimeMillis() * 0.01f) * 0.5 + 0.5;//ofRandom(0, 1);
 			float colG = cos(ofGetElapsedTimeMillis() * 0.01f) * 0.5 + 0.5;
 			float colB = sin(ofGetElapsedTimeMillis() * 0.0001f) * 0.5 + 0.5;
-			
+
 			for ( fx = startX; fx < endX; fx+= FLUID_INJECT_STEP ) {
 				camX = (fx - startX) * CAM_FLUID_INV_WIDTH;			// x coordinate in the camera velocity map
 				scrX = fx * FLUID_INV_NX * WIDTH;					// screen X coordinate
-				
+
 				for ( fy = 0; fy < FLUID_NY; fy+= FLUID_INJECT_STEP) {
 					scrY = fy * FLUID_INV_NY * HEIGHT;
-				
+
 					motionTracker[i].getVelAtNorm(camX, fy * FLUID_INV_NY, &dx, &dy);
 					speed2 = dx * dx + dy * dy;
 					max = MAX(speed2, max);
-					
+
 					if(speed2 > BALL_TRIGGER_THRESH * 2.0f) {
 						if(ofRandom(0, speed2) > BALL_TRIGGER_THRESH)	// pick a random number and create if above threshold (so less for slow)
 							balls.add(scrX, scrY, dx, dy);
@@ -93,11 +93,11 @@ void App::update(){
 						if(ofRandom(0, speed2) > GLITTER_TRIGGER_THRESH * 2.0)	// pick a random number and create if above threshold (so less for slow)
 							glitter.add(scrX + ofRandom(-GLITTER_DIST_RADIUS, GLITTER_DIST_RADIUS), scrY + ofRandom(-GLITTER_DIST_RADIUS, GLITTER_DIST_RADIUS), dx, dy);
 					}
-					
+
 					fluid.addAtPixel(fx, fy, dx, dy, CAM_FLUID_CREATE * FLUID_INJECT_STEP * FLUID_INJECT_STEP, CAM_FLUID_SPEED * FLUID_INJECT_STEP * FLUID_INJECT_STEP, colR, colG, colB, speed2 * speed2);
 				}
 			}
-			
+
 		}
 	}
 	//	printf("** ending UPDATE loop \n");
@@ -110,19 +110,19 @@ void App::draw(){
 	glDisable( GL_BLEND );				// see if this is quicker than clearing backgronud every frame
 	if(showFluid) fluid.draw();
 	glEnable( GL_BLEND );
-	
+
 	if(showBalls) balls.render();
 	if(showGlitter) glitter.render();
-	
+
 	for(int i=0; i<NUM_CAMERAS; i++ ) {
 		glColor4f(1.0f, 1.0f, 1.0f, 0.1f);
 		if(showVideoColor) motionTracker[i].drawColor();
 		if(showVideoGrey) motionTracker[i].drawGrey();
 		if(showVideoBGDiff) motionTracker[i].drawBGDiff();
 		if(showVideoCurDiff) motionTracker[i].drawCurDiff();
-		
+
 		if(showDebugVideo) motionTracker[i].drawDebugVideo();
-		
+
 	}
 
 	if(showConsole) {
@@ -138,19 +138,19 @@ void App::draw(){
 						   + " uniformity: " + ofToString(fluid.getUniformity())
 						   , 20, 30);
 	}
-	
+
 	mouseOldX = mouseX;
 	mouseOldY = mouseY;
-	
+
 	//	printf("ending DRAW loop \n");
 }
 
 //--------------------------------------------------------------
 void App::keyPressed  (int key){
 	for(int i=0; i<NUM_CAMERAS; i++) motionTracker[i].keyPressed(key);			// checks T (Settings) key and S (save background)
-	
+
 	switch(key) {
-	
+
 		case '0':
 		case '1':
 		case '2':
@@ -160,7 +160,7 @@ void App::keyPressed  (int key){
 		case '7':
 		case '8':
 		case '9': fluid.setVisc((key - '0') * 0.0001f);		break;
-			
+
 		case 'f': ofToggleFullscreen();							break;
 		case ']': CAM_FLUID_CREATE *= 1.05f;					break;
 		case '[': CAM_FLUID_CREATE *= 0.95f;					break;
@@ -177,14 +177,14 @@ void App::keyPressed  (int key){
 		case 'm': mirrorVideo = !mirrorVideo;					break;
 		case 'o': doOpticalFlow = !doOpticalFlow;				break;
 
-		case 'q': showVideoColor = !showVideoColor;				break;		
-		case 'w': showVideoGrey = !showVideoGrey;				break;		
-		case 'e': showVideoBGDiff = !showVideoBGDiff;			break;		
-		case 'r': showVideoCurDiff = !showVideoCurDiff;			break;	
-		
+		case 'q': showVideoColor = !showVideoColor;				break;
+		case 'w': showVideoGrey = !showVideoGrey;				break;
+		case 'e': showVideoBGDiff = !showVideoBGDiff;			break;
+		case 'r': showVideoCurDiff = !showVideoCurDiff;			break;
+
 		case OF_KEY_BACKSPACE: fluid.reset();					break;
-					
-		case '+':	
+
+		case '+':
 			camThreshold ++;
 			if (camThreshold > 255) camThreshold = 255;
 			break;
@@ -220,14 +220,14 @@ void App::mousePressed(int x, int y, int button){
 	//	printf("framerate : %.2f\n", ofGetFrameRate());
 	mouseX = x * INV_WIDTH;
 	mouseY = y * INV_HEIGHT;
-	
+
 	mouseDown = true;
-	
+
 	balls.add(mouseX * WIDTH, mouseY * HEIGHT, mouseVelX * WIDTH, mouseVelY * HEIGHT);
 }
 
 //--------------------------------------------------------------
 void App::mouseReleased(){
 	mouseDown = false;
-	
+
 }

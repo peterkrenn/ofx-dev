@@ -7,13 +7,13 @@
  * \brief This class represents a calibrated camera.
  * \ingroup geomcalib
  *
- * The camera space is right-handed, i.e.: 
+ * The camera space is right-handed, i.e.:
  *     x -> points right
  *     y -> points up
  *     z -> points away through screen
  *
  * The image space origin is bottom-left, and the y axis points up.
- * 
+ *
  * For square pixels s should be 0 and f==g.
  *
  * Projection equation of the 3D point P:
@@ -92,5 +92,5 @@ protected:
 
 std::ostream& operator << (std::ostream& os, const PerspectiveProjection &cam);
 std::ostream& operator << (std::ostream& os, const PerspectiveCamera &cam);
-	
+
 #endif

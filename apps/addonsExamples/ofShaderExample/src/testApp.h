@@ -6,13 +6,13 @@
 #include "ofShader.h"
 
 class testApp : public ofSimpleApp{
-	
+
 	public:
-		
+
 		void setup();
 		void update();
 		void draw();
-		
+
 		void keyPressed(int key);
 
 		ofShader shaderA;
@@ -25,11 +25,11 @@ class testApp : public ofSimpleApp{
 		ofxVec3f center;
 		Camera cam;
 		bool cam_IsActive;
-		
+
 		ofTexture tex;
 		bool useTex;
-		
+
 };
 
 #endif
-	
+

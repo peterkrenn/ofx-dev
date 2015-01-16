@@ -1,12 +1,12 @@
 //
 // ofxCvOpticalFlowBM.c - a OpenCV cvCalcOpticalFlowBM warpper for openFrameworks
 //
-// Copyright (C) 2008 Takashi Maekawa <takachin@generative.info> 
+// Copyright (C) 2008 Takashi Maekawa <takachin@generative.info>
 // Copyright (C) 2008 Satoru Higa
 //     All rights reserved.
 //     This is free software with ABSOLUTELY NO WARRANTY.
 //
-// You can redistribute it and/or modify it under the terms of 
+// You can redistribute it and/or modify it under the terms of
 // the GNU Lesser General Public License.
 //
 
@@ -20,29 +20,29 @@ ofxCvOpticalFlowBM::ofxCvOpticalFlowBM(void)
 
 ofxCvOpticalFlowBM::~ofxCvOpticalFlowBM(void)
 {
-  // TODO : release cv matrices 
+  // TODO : release cv matrices
   //cvReleaseImage(&vel_x);
   //cvReleaseImage(&vel_y);
 }
-	
+
 void ofxCvOpticalFlowBM::allocate(int _w, int _h){
 	captureWidth = _w;
 	captureHeight = _h;
-	
+
     cw = 320; ch = 240;
 
     block_size = 10;
     shift_size = 1;
-    
+
     rows = int(ceil(double(ch) / block_size));
     cols = int(ceil(double(cw) / block_size));
-    
+
     vel_x = cvCreateMat (rows, cols, CV_32FC1);
     vel_y = cvCreateMat (rows, cols, CV_32FC1);
-    
+
     cvSetZero(vel_x);
     cvSetZero(vel_y);
-    
+
     block = cvSize (block_size, block_size);
     shift = cvSize (shift_size, shift_size);
     max_range = cvSize (10, 10);

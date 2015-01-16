@@ -49,7 +49,7 @@ static int edge_pair(IplImage *im, int sum[], int _a[2], int _b[2], int _c[2], i
 		if (no_clipping) return 0;
 		y_stop = im->height - 1;
 	}
-	
+
 	float slope1 = float(b[0] - a[0])/float(b[1]-a[1]);
 	float delta1 = a[0] - slope1*a[1];
 
@@ -85,12 +85,12 @@ static int edge_pair(IplImage *im, int sum[], int _a[2], int _b[2], int _c[2], i
 			r += len;
 			unsigned char *ptr = (unsigned char *)im->imageData + y*im->widthStep + x_start*x_step;
 
-			if (im->nChannels>1) 
+			if (im->nChannels>1)
 				for (int x=0; x<len; ++x) {
 					for (int c=0;c<im->nChannels;++c) {
 						sum[c] += *ptr++;
 					}
-				} 
+				}
 			else
 				for (int x=0; x<len; ++x)
 					sum[0] += *ptr++;
@@ -111,7 +111,7 @@ static int edge_pair(IplImage *im, int sum[], int _a[2], int _b[2], int _c[2], i
  *  Otherwise, it is a value between 0 and 255.
  *  \return the function returns the number of pixels averaged.
  */
-int stat_triangle(IplImage *im, int pts[3][2], float avg[3]) 
+int stat_triangle(IplImage *im, int pts[3][2], float avg[3])
 {
 	int sum[3] = {0,0,0};
 	// for every edge pair...

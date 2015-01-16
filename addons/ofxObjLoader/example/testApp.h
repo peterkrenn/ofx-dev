@@ -9,9 +9,9 @@
 #include "ofAddons.h"
 
 class testApp : public ofSimpleApp{
-	
+
 	public:
-  
+
 		void setup();
 		void update();
 		void draw();
@@ -20,10 +20,10 @@ class testApp : public ofSimpleApp{
 		void mouseDragged(int x, int y, int button);
 		void mousePressed(int x, int y, int button);
 		void mouseReleased();
-		
+
 		//my 3d model
 		ofxObjLoader crane;
         bool bMousePressed;
 };
 
-#endif	
+#endif

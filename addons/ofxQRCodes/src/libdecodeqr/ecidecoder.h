@@ -47,7 +47,7 @@ namespace Qr{
         public:
             Decoder();
             ~Decoder();
-            
+
             unsigned char *raw_data();
             virtual int decode(int version,BitStream *bitstream);
 
@@ -86,7 +86,7 @@ namespace Qr{
             virtual int _get_charactor_count(int version);
             virtual int _read_data(BitStream *bitstream);
         };
-        
+
         class GenericDecoder :public Decoder{
         public:
             GenericDecoder();
@@ -94,7 +94,7 @@ namespace Qr{
             virtual int _get_charactor_count(int version);
             virtual int _read_data(BitStream *bitstream);
         };
-        
+
         class KanjiDecoder :public Decoder{
         private:
             short _read_buf;

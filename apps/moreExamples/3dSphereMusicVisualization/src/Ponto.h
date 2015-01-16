@@ -11,7 +11,7 @@
 
 class Ponto{
 public:
-	
+
 	ofxVec3f acel;
 	ofxVec3f vel;
 	ofxVec3f pos;
@@ -21,10 +21,10 @@ public:
 	float alphaVal;
 	int band;
 	int radius, currentRadius;
-	
+
 	Ponto();
 	~Ponto();
-	
+
 	void move(ofxVec3f target);
 	void updateRadius(float _radius);
 	void updateAlpha(float _alpha);

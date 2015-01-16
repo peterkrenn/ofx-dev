@@ -260,7 +260,7 @@ protected:
     exception is thrown). A successful probe is indicated by a return
     value of SUCCESS.
   */
-  virtual bool probeDeviceOpen( int device, StreamMode mode, int channels, 
+  virtual bool probeDeviceOpen( int device, StreamMode mode, int channels,
                                 int sampleRate, RtAudioFormat format,
                                 int *bufferSize, int numberOfBuffers );
 
@@ -554,7 +554,7 @@ public:
   void initialize(void);
   bool primeOutputBuffer();
   void probeDeviceInfo( RtApiDevice *info );
-  bool probeDeviceOpen( int device, StreamMode mode, int channels, 
+  bool probeDeviceOpen( int device, StreamMode mode, int channels,
                         int sampleRate, RtAudioFormat format,
                         int *bufferSize, int numberOfBuffers );
 };
@@ -586,7 +586,7 @@ public:
 
   void initialize(void);
   void probeDeviceInfo( RtApiDevice *info );
-  bool probeDeviceOpen( int device, StreamMode mode, int channels, 
+  bool probeDeviceOpen( int device, StreamMode mode, int channels,
                         int sampleRate, RtAudioFormat format,
                         int *bufferSize, int numberOfBuffers );
 };
@@ -614,7 +614,7 @@ public:
 
   void initialize(void);
   void probeDeviceInfo( RtApiDevice *info );
-  bool probeDeviceOpen( int device, StreamMode mode, int channels, 
+  bool probeDeviceOpen( int device, StreamMode mode, int channels,
                         int sampleRate, RtAudioFormat format,
                         int *bufferSize, int numberOfBuffers );
 };
@@ -651,7 +651,7 @@ public:
 
   void initialize(void);
   void probeDeviceInfo( RtApiDevice *info );
-  bool probeDeviceOpen( int device, StreamMode mode, int channels, 
+  bool probeDeviceOpen( int device, StreamMode mode, int channels,
                         int sampleRate, RtAudioFormat format,
                         int *bufferSize, int numberOfBuffers );
 };
@@ -683,12 +683,12 @@ public:
     // \brief Sample Rate.
     long sampleRate;
     // \brief The size of one sample * number of channels on the input device.
-    int inputFrameSize; 
+    int inputFrameSize;
     // \brief The size of one sample * number of channels on the output device.
-    int outputFrameSize; 
+    int outputFrameSize;
     /* \brief The number of times the read pointer had to be adjusted to avoid reading from an unsafe buffer position.
      *
-     * This field is only used when running in DUPLEX mode. INPUT mode devices just wait until the data is 
+     * This field is only used when running in DUPLEX mode. INPUT mode devices just wait until the data is
      * available.
      */
     int numberOfReadOverruns;
@@ -699,23 +699,23 @@ public:
     // \brief Number of bytes by attributable to the device driver by which writing must lead the current write pointer on this output device.
     unsigned long writeDeviceSafeLeadBytes;
     // \brief Number of bytes by which reading must trail the current read pointer on this input device.
-    unsigned long readDeviceSafeLeadBytes; 
-    /* \brief Estimated latency in seconds. 
+    unsigned long readDeviceSafeLeadBytes;
+    /* \brief Estimated latency in seconds.
     *
     * For INPUT mode devices, based the latency of the device's safe read pointer, plus one buffer's
     * worth of additional latency.
     *
-    * For OUTPUT mode devices, the latency of the device's safe write pointer, plus N buffers of 
+    * For OUTPUT mode devices, the latency of the device's safe write pointer, plus N buffers of
     * additional buffer latency.
     *
     * For DUPLEX devices, the sum of latencies for both input and output devices. DUPLEX devices
-    * also back off the read pointers an additional amount in order to maintain synchronization 
+    * also back off the read pointers an additional amount in order to maintain synchronization
     * between out-of-phase read and write pointers. This time is also included.
     *
-    * Note that most software packages report latency between the safe write pointer 
-    * and the software lead pointer, excluding the hardware device's safe write pointer 
+    * Note that most software packages report latency between the safe write pointer
+    * and the software lead pointer, excluding the hardware device's safe write pointer
     * latency. Figures of 1 or 2ms of latency on Windows audio devices are invariably of this type.
-    * The reality is that hardware devices often have latencies of 30ms or more (often much 
+    * The reality is that hardware devices often have latencies of 30ms or more (often much
     * higher for duplex operation).
     */
 
@@ -728,7 +728,7 @@ public:
 
   void initialize(void);
   void probeDeviceInfo( RtApiDevice *info );
-  bool probeDeviceOpen( int device, StreamMode mode, int channels, 
+  bool probeDeviceOpen( int device, StreamMode mode, int channels,
                         int sampleRate, RtAudioFormat format,
                         int *bufferSize, int numberOfBuffers );
 
@@ -767,7 +767,7 @@ public:
 
   void initialize(void);
   void probeDeviceInfo( RtApiDevice *info );
-  bool probeDeviceOpen( int device, StreamMode mode, int channels, 
+  bool probeDeviceOpen( int device, StreamMode mode, int channels,
                         int sampleRate, RtAudioFormat format,
                         int *bufferSize, int numberOfBuffers );
 
@@ -800,7 +800,7 @@ public:
 
   void initialize(void);
   void probeDeviceInfo( RtApiDevice *info );
-  bool probeDeviceOpen( int device, StreamMode mode, int channels, 
+  bool probeDeviceOpen( int device, StreamMode mode, int channels,
                         int sampleRate, RtAudioFormat format,
                         int *bufferSize, int numberOfBuffers );
 };

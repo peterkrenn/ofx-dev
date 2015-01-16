@@ -12,11 +12,11 @@ Boid::Boid(){
 	radius = 0;
 	currentRadius = 0;
 	larg = 10;
-	
+
 	r = (int)ofRandom(40, 60);
 	g = (int)ofRandom(10, 30);
 	b = (int)ofRandom(0, 10);
-	
+
 	band = (int)ofRandom(0, NumBands);
 	alpha = 0;
 	currentAlpha = 0;
@@ -37,7 +37,7 @@ void Boid::updateRadius(float target){
 void Boid::move(ofxVec3f target, float _alpha){
 	int minAlpha = 50;
 	float damp = 0.5;
-	
+
 	if(currentAlpha < _alpha) currentAlpha = _alpha;
 	currentAlpha *= damp;
 	alpha = currentAlpha + minAlpha;
@@ -56,7 +56,7 @@ void Boid::render(){
 	glBegin(GL_QUAD_STRIP);
 	for(int i=0; i<NumP; i++){
 	float angCam = atan2(camPos->x - p[i].pos.x, camPos->z - p[i].pos.z);
-	
+
 	float alphaVal = alpha-(float)i/(NumP-1)*alpha;
 	ofSetColor(r-(alphaVal-50)/10, g, b, alphaVal);
 		glVertex3f(p[i].pos.x-p[i].offX*cos(angCam), p[i].pos.y-p[i].offY, p[i].pos.z-p[i].offX*sin(angCam));
@@ -88,6 +88,6 @@ glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 	glEnd();*/
 glPopAttrib();
-	
+
 }
 

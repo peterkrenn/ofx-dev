@@ -3,12 +3,12 @@
 
 
 //--------------------------------------------------------------
-void testApp::setup(){	
-	ofBackground(255,255,255);	
+void testApp::setup(){
+	ofBackground(255,255,255);
 	ofSetFrameRate(60);
-	
+
 	nCurveVertexes = 7;
-	
+
 	curveVertices[0].x = 326;
 	curveVertices[0].y = 209;
 	curveVertices[1].x = 306;
@@ -23,7 +23,7 @@ void testApp::setup(){
 	curveVertices[5].y = 309;
 	curveVertices[6].x = 345;
 	curveVertices[6].y = 279;
-	
+
 	for (int i = 0; i < nCurveVertexes; i++){
 		curveVertices[i].bOver 			= false;
 		curveVertices[i].bBeingDragged 	= false;
@@ -42,14 +42,14 @@ void testApp::draw(){
 	ofSetColor(0xe0be21);
 
 	//------(a)--------------------------------------
-	// 
+	//
 	// 		draw a star
 	//
 	// 		use poly winding odd, the default rule
 	//
 	// 		info about the winding rules is here:
 	//		http://glprogramming.com/red/images/Image128.gif
-	// 
+	//
 	ofSetPolyMode(OF_POLY_WINDING_ODD);	// this is the normal mode
 	ofBeginShape();
 		ofVertex(200,135);
@@ -58,17 +58,17 @@ void testApp::draw(){
 		ofVertex(105,200);
 		ofVertex(50,25);
 	ofEndShape();
-	
-	
+
+
 	//------(b)--------------------------------------
-	// 
+	//
 	// 		draw a star
 	//
 	// 		use poly winding nonzero
 	//
 	// 		info about the winding rules is here:
 	//		http://glprogramming.com/red/images/Image128.gif
-	// 
+	//
 	ofSetColor(0xb5de10);
 	ofSetPolyMode(OF_POLY_WINDING_NONZERO);
 	ofBeginShape();
@@ -79,11 +79,11 @@ void testApp::draw(){
 		ofVertex(250,25);
 	ofEndShape();
 	//-------------------------------------
-	
-	
-	
+
+
+
 	//------(c)--------------------------------------
-	// 
+	//
 	// 		draw a star dynamically
 	//
 	// 		use the mouse position as a pct
@@ -99,7 +99,7 @@ void testApp::draw(){
 	float origx = 525;
 	float origy = 100;
 	float angle = 0;
-	
+
 	ofSetColor(0xa16bca);
 	ofBeginShape();
 	for (int i = 0; i < nStarPts; i++){
@@ -118,14 +118,14 @@ void testApp::draw(){
 	}
 	ofEndShape();
 	//-------------------------------------
-	
+
 	//------(d)--------------------------------------
-	// 
+	//
 	// 		poylgon of random points
 	//
 	// 		lots of self intersection, 500 pts is a good stress test
-	// 
-	// 
+	//
+	//
 	ofSetColor(0x0cb0b6);
 	ofSetPolyMode(OF_POLY_WINDING_ODD);
 	ofBeginShape();
@@ -134,10 +134,10 @@ void testApp::draw(){
 	}
 	ofEndShape();
 	//-------------------------------------
-	
-	
+
+
 	//------(e)--------------------------------------
-	// 
+	//
 	// 		use sin cos and time to make some spirally shape
 	//
 	glPushMatrix();
@@ -146,42 +146,42 @@ void testApp::draw(){
 		ofFill();
 		ofSetPolyMode(OF_POLY_WINDING_ODD);
 		ofBeginShape();
-		float angleStep 	= TWO_PI/(100.0f + sin(ofGetElapsedTimef()/5.0f) * 60); 
+		float angleStep 	= TWO_PI/(100.0f + sin(ofGetElapsedTimef()/5.0f) * 60);
 		float radiusAdder 	= 0.5f;
 		float radius 		= 0;
 		for (int i = 0; i < 200; i++){
 			float anglef = (i) * angleStep;
 			float x = radius * cos(anglef);
-			float y = radius * sin(anglef); 
+			float y = radius * sin(anglef);
 			ofVertex(x,y);
-			radius 	+= radiusAdder; 
+			radius 	+= radiusAdder;
 		}
 		ofEndShape(OF_CLOSE);
 	glPopMatrix();
 	//-------------------------------------
-	
+
 	//------(f)--------------------------------------
-	// 
+	//
 	// 		ofCurveVertex
-	// 
-	// 		because it uses catmul rom splines, we need to repeat the first and last 
+	//
+	// 		because it uses catmul rom splines, we need to repeat the first and last
 	// 		items so the curve actually goes through those points
 	//
 
 	ofSetColor(0x2bdbe6);
 	ofBeginShape();
-	
+
 		for (int i = 0; i < nCurveVertexes; i++){
-			
-			
+
+
 			// sorry about all the if/states here, but to do catmull rom curves
-			// we need to duplicate the start and end points so the curve acutally 
+			// we need to duplicate the start and end points so the curve acutally
 			// goes through them.
-			
+
 			// for i == 0, we just call the vertex twice
 			// for i == nCurveVertexes-1 (last point) we call vertex 0 twice
 			// otherwise just normal ofCurveVertex call
-			
+
 			if (i == 0){
 				ofCurveVertex(curveVertices[0].x, curveVertices[0].y); // we need to duplicate 0 for the curve to start at point 0
 				ofCurveVertex(curveVertices[0].x, curveVertices[0].y); // we need to duplicate 0 for the curve to start at point 0
@@ -193,10 +193,10 @@ void testApp::draw(){
 				ofCurveVertex(curveVertices[i].x, curveVertices[i].y);
 			}
 		}
-		
+
 	ofEndShape();
-	
-	
+
+
 	// show a faint the non-curve version of the same polygon:
 	ofEnableAlphaBlending();
 		ofNoFill();
@@ -206,8 +206,8 @@ void testApp::draw(){
 				ofVertex(curveVertices[i].x, curveVertices[i].y);
 			}
 		ofEndShape(true);
-		
-		
+
+
 		ofSetColor(0,0,0,80);
 		for (int i = 0; i < nCurveVertexes; i++){
 			if (curveVertices[i].bOver == true) ofFill();
@@ -216,17 +216,17 @@ void testApp::draw(){
 		}
 	ofDisableAlphaBlending();
 	//-------------------------------------
-	
-	
+
+
 	//------(g)--------------------------------------
-	// 
+	//
 	// 		ofBezierVertex
-	// 
+	//
 	// 		with ofBezierVertex we can draw a curve from the current vertex
 	//		through the the next three vertexes we pass in.
 	//		(two control points and the final bezier point)
-	//		
-	
+	//
+
 	float x0 = 500;
 	float y0 = 300;
 	float x1 = 550+50*cos(ofGetElapsedTimef()*1.0f);
@@ -235,17 +235,17 @@ void testApp::draw(){
 	float y2 = 300+100*sin(ofGetElapsedTimef());
 	float x3 = 650;
 	float y3 = 300;
-	
-	
-	
+
+
+
 	ofFill();
 	ofSetColor(0xFF9933);
 	ofBeginShape();
 	ofVertex(x0,y0);
 	ofBezierVertex(x1,y1,x2,y2,x3,y3);
 	ofEndShape();
-	
-	
+
+
 	ofEnableAlphaBlending();
 		ofFill();
 		ofSetColor(0,0,0,40);
@@ -254,99 +254,99 @@ void testApp::draw(){
 		ofCircle(x2,y2,4);
 		ofCircle(x3,y3,4);
 	ofDisableAlphaBlending();
-	
-	
-	
+
+
+
 	//------(h)--------------------------------------
-	// 
+	//
 	// 		holes / ofNextContour
-	// 
+	//
 	// 		with ofNextContour we can create multi-contour shapes
-	// 		this allows us to draw holes, for example... 
+	// 		this allows us to draw holes, for example...
 	//
 	ofFill();
 	ofSetColor(0xd3ffd3);
 	ofRect(80,480,140,70);
 	ofSetColor(0xff00ff);
-	
+
 	ofBeginShape();
-		
+
 		ofVertex(100,500);
 		ofVertex(180,550);
 		ofVertex(100,600);
-		
+
 		ofNextContour(true);
-		
+
 		ofVertex(120,520);
 		ofVertex(160,550);
 		ofVertex(120,580);
-		
+
 	ofEndShape(true);
 	//-------------------------------------
-	
-	
+
+
 	//------(i)--------------------------------------
-	// 
+	//
 	// 		CSG / ofNextContour
-	// 
-	// 		with different winding rules, you can even use ofNextContour to 
-	// 		perform constructive solid geometry 
-	// 		
+	//
+	// 		with different winding rules, you can even use ofNextContour to
+	// 		perform constructive solid geometry
+	//
 	// 		be careful, the clockwiseness or counter clockwisenss of your multiple
 	// 		contours matters with these winding rules.
 	//
 	// 		for csg ideas, see : http://glprogramming.com/red/chapter11.html
-	// 
+	//
 	// 		info about the winding rules is here:
 	//		http://glprogramming.com/red/images/Image128.gif
-	// 
+	//
 	ofNoFill();
-	
-	
+
+
 	glPushMatrix();
-	
+
 	ofSetPolyMode(OF_POLY_WINDING_ODD);
-	
+
 	ofBeginShape();
-		
+
 		ofVertex(300,500);
 		ofVertex(380,550);
 		ofVertex(300,600);
-		
+
 		ofNextContour(true);
-		
+
 		for (int i = 0; i < 20; i++){
 			float anglef = ((float)i / 19.0f) * TWO_PI;
 			float x = 340 + 30 * cos(anglef);
-			float y = 550 + 30 * sin(anglef); 
+			float y = 550 + 30 * sin(anglef);
 			ofVertex(x,y);
-			radius 	+= radiusAdder; 
+			radius 	+= radiusAdder;
 		}
-		
+
 
 	ofEndShape(true);
-	
+
 	glTranslatef(100,0,0);
-	
-	ofSetPolyMode(OF_POLY_WINDING_NONZERO);	
+
+	ofSetPolyMode(OF_POLY_WINDING_NONZERO);
 	ofBeginShape();
-		
+
 		ofVertex(300,500);
 		ofVertex(380,550);
 		ofVertex(300,600);
-		
+
 		ofNextContour(true);
-		
+
 		for (int i = 0; i < 20; i++){
 			float anglef = ((float)i / 19.0f) * TWO_PI;
 			float x = 340 + 30 * cos(anglef);
-			float y = 550 + 30 * sin(anglef); 
+			float y = 550 + 30 * sin(anglef);
 			ofVertex(x,y);
-			radius 	+= radiusAdder; 
+			radius 	+= radiusAdder;
 		}
-		
+
 	ofEndShape(true);
-	
+
 	glTranslatef(100,0,0);
 	ofSetPolyMode(OF_POLY_WINDING_ABS_GEQ_TWO);
 	ofBeginShape();
@@ -354,51 +354,51 @@ void testApp::draw(){
 		ofVertex(380,550);
 		ofVertex(300,600);
 		ofNextContour(true);
-		
+
 		for (int i = 0; i < 20; i++){
 			float anglef = ((float)i / 19.0f) * TWO_PI;
 			float x = 340 + 30 * cos(anglef);
-			float y = 550 + 30 * sin(anglef); 
+			float y = 550 + 30 * sin(anglef);
 			ofVertex(x,y);
-			radius 	+= radiusAdder; 
+			radius 	+= radiusAdder;
 		}
-		
-		
+
+
 	ofEndShape(true);
-	
+
 	glPopMatrix();
 	//-------------------------------------
-	
-	
+
+
 	ofSetColor(0x000000);
 	ofDrawBitmapString("(a) star\nwinding rule odd", 20,210);
-	
+
 	ofSetColor(0x000000);
 	ofDrawBitmapString("(b) star\nwinding rule nonzero", 220,210);
-	
+
 	ofSetColor(0x000000);
 	ofDrawBitmapString("(c) dynamically\ncreated shape", 420,210);
-	
+
 	ofSetColor(0x000000);
 	ofDrawBitmapString("(d) random points\npoly", 670,210);
-	
+
 	ofSetColor(0x000000);
 	ofDrawBitmapString("(e) fun with sin/cos", 20,410);
-	
+
 	ofSetColor(0x000000);
 	ofDrawBitmapString("(f) ofCurveVertex\nuses catmull rom\nto make curved shapes", 220,410);
-	
+
 	ofSetColor(0x000000);
 	ofDrawBitmapString("(g) ofBezierVertex\nuses bezier to draw curves", 460,410);
-	
-	
+
+
 	ofSetColor(0x000000);
 	ofDrawBitmapString("(h) ofNextContour\nallows for holes", 20,610);
-	
+
 	ofSetColor(0x000000);
 	ofDrawBitmapString("(i) ofNextContour\ncan even be used for CSG operations\nsuch as union and intersection", 260,620);
-	
-	
+
+
 }
 
 //--------------------------------------------------------------
@@ -407,7 +407,7 @@ void testApp::keyPressed(int key){
 
 //--------------------------------------------------------------
 void testApp::keyReleased(int key){
-	
+
 }
 
 //------------- -------------------------------------------------
@@ -420,7 +420,7 @@ void testApp::mouseMoved(int x, int y ){
 			curveVertices[i].bOver = true;
 		} else {
 			curveVertices[i].bOver = false;
-		}	
+		}
 	}
 }
 
@@ -444,7 +444,7 @@ void testApp::mousePressed(int x, int y, int button){
 			curveVertices[i].bBeingDragged = true;
 		} else {
 			curveVertices[i].bBeingDragged = false;
-		}	
+		}
 	}
 
 
@@ -454,7 +454,7 @@ void testApp::mousePressed(int x, int y, int button){
 void testApp::mouseReleased(int x, int y, int button){
 
 	for (int i = 0; i < nCurveVertexes; i++){
-		curveVertices[i].bBeingDragged = false;	
+		curveVertices[i].bBeingDragged = false;
 	}
 }
 

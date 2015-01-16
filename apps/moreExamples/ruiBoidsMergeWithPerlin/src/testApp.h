@@ -10,38 +10,38 @@
 #include "Particles.h"
 
 class testApp : public ofSimpleApp{
-	
+
 	public:
-		
+
 		void setup();
 		void update();
 		void draw();
-		
+
 		void keyPressed(int key);
 		void keyReleased(int key);
 		void mouseMoved(int x, int y );
 		void mouseDragged(int x, int y, int button);
 		void mousePressed(int x, int y, int button);
 		void mouseReleased();
-		
+
 		//
-		
+
 		Perlin *noise;
 		Boid *boid[numBoids];
-		
+
 		vector <Particles> particles;
 		GLint maxParticles;
 		int frameCounter;
-		
+
 		Camera cam;
 		GLint camDist;
-		
+
 		bool depthTest;
-		
+
 		float averX, averY, averZ;
-		
+
 		bool full;
-		
+
 		#ifdef SAVE_IMAGE_SEQUENCE
 		ofImage img;
 		bool takeSnapShot;
@@ -49,4 +49,4 @@ class testApp : public ofSimpleApp{
 };
 
 #endif
-	
+

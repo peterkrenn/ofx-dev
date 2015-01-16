@@ -28,7 +28,7 @@
  * previous version of the BCH encoder/decoder in C, 'bch2.c', was written by
  * Robert Morelos-Zaragoza (robert@spectra.eng.hawaii.edu) on 5/19/92.
  *
- * NOTE:    
+ * NOTE:
  *          The author is not responsible for any malfunctioning of
  *          this program, nor for any damage caused by it. Please include the
  *          original program along with these comments in any redistribution.
@@ -43,14 +43,14 @@
  *                    email: r.morelos-zaragoza@ieee.org
  *
  * COPYRIGHT NOTICE: This computer program is free for non-commercial purposes.
- * You may implement this program for any non-commercial application. You may 
+ * You may implement this program for any non-commercial application. You may
  * also implement this program for commercial purposes, provided that you
  * obtain my written permission. Any modification of this program is covered
  * by this copyright.
  *
  * == Copyright (c) 1994-7,  Robert Morelos-Zaragoza. All rights reserved.  ==
  *
- * m = order of the Galois field GF(2**m) 
+ * m = order of the Galois field GF(2**m)
  * n = 2**m - 1 = size of the multiplicative group of GF(2**m)
  * length = length of the BCH code
  * t = error correcting capability (max. no. of errors the code corrects)
@@ -58,13 +58,13 @@
  * k = n - deg(g(x)) = dimension (no. of information bits/codeword) of the code
  * p[] = coefficients of a primitive polynomial used to generate GF(2**m)
  * g[] = coefficients of the generator polynomial, g(x)
- * alpha_to [] = log table of GF(2**m) 
+ * alpha_to [] = log table of GF(2**m)
  * index_of[] = antilog table of GF(2**m)
  * data[] = information bits = coefficients of data polynomial, i(x)
  * bb[] = coefficients of redundancy polynomial x^(length-k) i(x) modulo g(x)
- * numerr = number of errors 
- * errpos[] = error positions 
- * recd[] = coefficients of the received polynomial 
- * decerror = number of decoding errors (in _message_ positions) 
+ * numerr = number of errors
+ * errpos[] = error positions
+ * recd[] = coefficients of the received polynomial
+ * decerror = number of decoding errors (in _message_ positions)
  *
  */

@@ -26,7 +26,7 @@ public:
   FFGLTextureStruct GetTextureInfo();
 
   void FreeResources(FFGLExtensions &e);
-  
+
   GLuint GetWidth() { return m_width; }
   GLuint GetHeight() { return m_height; }
   GLuint GetFBOHandle() { return m_fboHandle; }

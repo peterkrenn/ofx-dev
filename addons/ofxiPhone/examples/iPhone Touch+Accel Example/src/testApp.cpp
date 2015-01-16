@@ -12,47 +12,47 @@ public:
 	ofPoint pos;
 	ofPoint vel;
 	ofColor col;
-	
+
 	void init() {
 		pos.set(ofRandomWidth(), ofRandomHeight(), 0);
 		vel.set(ofRandomf(), ofRandomf(), 0);
-		
+
 		col.r = ofRandom(0, 255);
 		col.g = ofRandom(0, 255);
 		col.b = ofRandom(0, 255);
 		col.a = ofRandom(0, 255);
 	}
-	
+
 	void update() {
 		vel.x += ACCELEROMETER_FORCE * ofxAccelerometer.getForce().x * ofRandomuf();
 		vel.y += -ACCELEROMETER_FORCE * ofxAccelerometer.getForce().y * ofRandomuf();		// this one is subtracted cos world Y is opposite to opengl Y
-		
+
 		// add vel to pos
 		pos += vel;
-		
+
 		// check boundaries
 		if(pos.x < 0) {
 			pos.x = 0;
 			vel.x *= -BOUNCE_FACTOR;
 		} else if(pos.x >= ofGetWidth()) {
 			pos.x = ofGetWidth()-BOUNCE_FACTOR;
-			vel.x *= -BOUNCE_FACTOR;	
+			vel.x *= -BOUNCE_FACTOR;
 		}
-		
+
 		if(pos.y < 0) {
 			pos.y = 0;
 			vel.y *= -BOUNCE_FACTOR;
 		} else if(pos.y >= ofGetHeight()) {
 			pos.y = ofGetHeight()-BOUNCE_FACTOR;
-			vel.y *= -BOUNCE_FACTOR;	
+			vel.y *= -BOUNCE_FACTOR;
 		}
 	}
-	
+
 	void draw() {
 		ofSetColor(col.r, col.g, col.b, col.a);
 		ofCircle(pos.x, pos.y, 30);
 	}
-	
+
 	void moveTo(int x, int y) {
 		ofPoint oldPos = pos;
 		pos.set(x, y, 0);
@@ -64,19 +64,19 @@ public:
 Thing things[NUM_POINTS];
 
 //--------------------------------------------------------------
-void testApp::setup(){	
+void testApp::setup(){
 	printf("setup()\n");
-	
+
 	ofBackground(0, 0, 0);
 	ofSetBackgroundAuto(true);
 	ofSetFrameRate(60);
-	
+
 	// initialize the accelerometer
 	ofxAccelerometer.setup();
 
 	// touch events will be sent to this class (testApp)
 	ofxMultiTouch.addListener(this);
-	
+
 	for(int i=0; i<NUM_POINTS; i++) things[i].init();
 }
 
@@ -99,8 +99,8 @@ void testApp::exit() {
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ){
-	printf("mouseMoved: %i, %i\n", x, y);	// this will never get called 
-	
+	printf("mouseMoved: %i, %i\n", x, y);	// this will never get called
+
 }
 
 // mouse functions are there for backwards compatibility

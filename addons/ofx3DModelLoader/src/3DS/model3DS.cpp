@@ -73,7 +73,7 @@ void model3DS::loadModel(const char* filename, float scale){
 	m_boundingBox.maxX = m_boundingBox.maxY = m_boundingBox.maxZ = 3.4e-38f;
 
 	// Read all 3DS chunks recursively
-	
+
 	long end;
 	modelFile->seekg (0, ios::end);
 	end = modelFile->tellg();

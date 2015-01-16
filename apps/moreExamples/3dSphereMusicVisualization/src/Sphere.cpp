@@ -62,10 +62,9 @@ void Sphere::render(){
 
 
 
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+

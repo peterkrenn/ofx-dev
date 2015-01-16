@@ -16,7 +16,7 @@ float tiAngle(float dx, float dy){
 	theta = atan2(-dy, dx);
 	if(dy > 0)
 		theta += 2.0 * PI;
-	
+
 	return theta;
 }
 

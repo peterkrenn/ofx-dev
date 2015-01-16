@@ -14,7 +14,7 @@
 class Particle {
 
 	public:
-	
+
 		ofxVec2f loc;
 		ofxVec2f vel;
 		ofxVec2f acc;

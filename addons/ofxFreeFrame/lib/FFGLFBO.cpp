@@ -6,10 +6,10 @@ int FFGLFBO::Create(int _width,
 {
   int glWidth = 1;
   while (glWidth<_width) glWidth*=2;
-  
+
   int glHeight = 1;
   while (glHeight<_height) glHeight*=2;
-  
+
   m_width = _width;
   m_height = _height;
   m_glWidth = glWidth;
@@ -18,7 +18,7 @@ int FFGLFBO::Create(int _width,
   m_glTextureTarget = GL_TEXTURE_2D;
 
   m_glTextureHandle = 0;
-  
+
   e.glGenFramebuffersEXT(1, &m_fboHandle);
 
   return 1;
@@ -28,7 +28,7 @@ int IsTextureResident(GLuint handle)
 {
   GLboolean b;
 
-  if (glAreTexturesResident(1, &handle, &b))  
+  if (glAreTexturesResident(1, &handle, &b))
     return 1;
 
   return 0;
@@ -46,7 +46,7 @@ int FFGLFBO::BindAsRenderTarget(FFGLExtensions &e)
     e.glGenRenderbuffersEXT(1, &m_depthBufferHandle);
     e.glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, m_depthBufferHandle);
     e.glRenderbufferStorageEXT( GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT24, m_glWidth, m_glHeight);
-  
+
     //attach our depth buffer to the fbo
     e.glFramebufferRenderbufferEXT(
       GL_FRAMEBUFFER_EXT,
@@ -91,12 +91,12 @@ int FFGLFBO::BindAsRenderTarget(FFGLExtensions &e)
       e.glGenerateMipmapEXT(m_glTextureTarget);
 
     glTexParameteri(m_glTextureTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    
+
     if (do_mipmaps)
   	  glTexParameteri(m_glTextureTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     else
       glTexParameteri(m_glTextureTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    
+
     glTexParameteri(m_glTextureTarget, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(m_glTextureTarget, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
@@ -110,7 +110,7 @@ int FFGLFBO::BindAsRenderTarget(FFGLExtensions &e)
       m_glTextureTarget,
       m_glTextureHandle,
       0);
-  }  
+  }
 
   GLenum status = e.glCheckFramebufferStatusEXT( GL_FRAMEBUFFER_EXT );
 
@@ -150,7 +150,7 @@ int FFGLFBO::BindAsRenderTarget(FFGLExtensions &e)
 
   default:
 	//FFDebugMessage("Unknown GL_FRAMEBUFFER error");
-	return 0;		
+	return 0;
   }
 
   return 1;
@@ -168,10 +168,10 @@ FFGLTextureStruct FFGLFBO::GetTextureInfo()
 
   t.Width = m_width;
   t.Height = m_height;
-  
+
   t.HardwareWidth = m_glWidth;
   t.HardwareHeight = m_glHeight;
-  
+
   t.Handle = m_glTextureHandle;
 
   return t;

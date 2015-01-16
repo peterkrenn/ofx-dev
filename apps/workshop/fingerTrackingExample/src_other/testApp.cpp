@@ -72,7 +72,7 @@ void testApp::update(){
 	//if the point is still inside after 1.8s, do the particle thing
 	ofPoint bounds[4];
 	//bounds[0] = myHand.fingerPos.
-	
+
 	printf("%f \n", ofGetFrameRate());
 }
 
@@ -92,9 +92,9 @@ void testApp::draw(){
 	ofSetColor(0x333333);
 	ofRect(360,540,320,240);
 	ofSetColor(0xffffff);
-	
+
 	//****An attempt at shading
-	
+
 	// Transforming The Vertex
 	//gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
 	// Setting Each Pixel To Red
@@ -106,10 +106,10 @@ void testApp::draw(){
 		ofSetColor(0, 0, 0);
 		ofDrawBitmapString(ofToString(i), myHand.fingerPos[i].x+20, myHand.fingerPos[i].y+20);
 		ofSetColor(200, 200, 200);
-		ofCircle(myHand.fingerPos[i].x,myHand.fingerPos[i].y, 10); 
+		ofCircle(myHand.fingerPos[i].x,myHand.fingerPos[i].y, 10);
 	}
 
-	
+
 	// we could draw the whole contour finder
 	//contourFinder.draw(360,540);
 

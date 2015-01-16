@@ -9,7 +9,7 @@
 
 
 /*
-[STRUCTURE] 
+[STRUCTURE]
 [
     [DESCRIPTION]
     Use this structure with System::init to set the information required for linux

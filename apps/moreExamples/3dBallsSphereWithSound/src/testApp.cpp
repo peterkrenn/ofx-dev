@@ -2,21 +2,21 @@
 using namespace std;
 
 //--------------------------------------------------------------
-void testApp::setup(){	
+void testApp::setup(){
 	ofBackground(0, 0, 0);
 	ofSetFrameRate(32);
-	
+
 	glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
 	glEnable(GL_DEPTH_TEST);
-	
+
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	
-	
+
+
 	// center.x = ofGetWidth()/2;
 	// center.y = ofGetHeight()/2;
 	// center.z = 0;
-	
+
 	noise = new Perlin(4, 4, 1, time(NULL));
 	for(int i=0; i<NumEmitters; i++){
 		emitters[i].rotX = ofRandom(0, 360);
@@ -28,15 +28,15 @@ void testApp::setup(){
 	pause = false;
 	mode = 0;
 	doTail = true;
-	
+
 	// cam.pos.x = 0;
 	// cam.pos.y = center.y;
 	// cam.pos.z = 9000;
 	// cam.center = &center;
 	// cam.lookAt(center);
-	
+
 	bFullScreen = false;
-	
+
 	// ofInitLights();
 
 	ofSetVerticalSync(true);
@@ -44,49 +44,49 @@ void testApp::setup(){
 	centerX = ofGetWidth()/2;
 	centerY = ofGetHeight()/2;
 	centerZ = 0;
-	
+
 	rotX = 0;
 	rotY = 0;
 	bSmoothLight = true;
-	
+
 	//reflexions!!
 	ofxMaterialSpecular(120, 120, 120); //how much specular light will be reflect by the surface
 	ofxMaterialShininess(50); //how concentrated the reflexion will be (between 0 and 128
-	
+
 	//each light will emit white reflexions
 	light1.specular(255, 255, 255);
 	light2.specular(255, 255, 255);
 	light3.specular(255, 255, 255);
-	
+
 	camera.position(centerX, centerY, 1000); //initialize the camera at a far position from the sphere
-	
-	
+
+
 	music.loadSound("music.mp3");
 	music.play();
 	music.setVolume(1);
-	
+
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
 	counter++;
-	
+
 	float *fftList = ofSoundGetSpectrum(NumBands);
-	
+
 	float totalFFT = 0;
 	for(int i=0; i<NumBands; i++){
 		totalFFT += fftList[i]*50;
 	}
 	averFFT = totalFFT / NumBands;
-	
+
 
 	//light1
 	float L1DirectionX = 1;
 	float L1DirectionY = 0;
 	float L1DirectionZ = 0;
-	
+
 	light1.directionalLight(255, 0, 0, L1DirectionX, L1DirectionY, L1DirectionZ);
-	
+
 	//light2
 	float L2ConeAngle = 50;
 	float L2Concentration = 60;
@@ -96,13 +96,13 @@ void testApp::update(){
 	float L2DirectionX = 0;
 	float L2DirectionY = 0;
 	float L2DirectionZ = -1;
-	
-	light2.spotLight(0, 255, 0, 
-					 L2PosX, L2PosY, L2PosZ, 
+
+	light2.spotLight(0, 255, 0,
+					 L2PosX, L2PosY, L2PosZ,
 					 L2DirectionX, L2DirectionY, L2DirectionZ,
 					 L2ConeAngle,
 					 L2Concentration);
-	
+
 	//light3
 	float L3PosX = ofGetWidth();
 	float L3PosY = mouseY;
@@ -110,8 +110,8 @@ void testApp::update(){
 	light3.pointLight(0, 0, 255, L3PosX, L3PosY, L3PosZ);
 
 	//emitters
-	updateEmitters();	
-	
+	updateEmitters();
+
 	//particles
 	updateParticles();
 }
@@ -120,7 +120,7 @@ void testApp::update(){
 void testApp::draw(){
 	camera.place(); //this MUST be inside the draw function, and actually places the camera in position
 	if (mode != 0)	ofxLightsOn();
-	
+
 	ofSetColor(255, 255, 255);
 	glPushMatrix();
 	glTranslatef(centerX, centerY, centerZ);
@@ -130,38 +130,38 @@ void testApp::draw(){
 			p[i].render();
 		}
 	glPopMatrix();
-	
+
 	camera.remove();
 	if (mode != 0)	ofxLightsOff();
-	
+
 	ofSetColor(255,255,255);
-	ofDrawBitmapString("frameRate: " + ofToString( ofGetFrameRate() ) + " | drawTrails: " + ofToString( doTail ) + " (t) | mode: " + ofToString( mode ) + " (SPACE)", 3,13);	
+	ofDrawBitmapString("frameRate: " + ofToString( ofGetFrameRate() ) + " | drawTrails: " + ofToString( doTail ) + " (t) | mode: " + ofToString( mode ) + " (SPACE)", 3,13);
 }
 
 //--------------------------------------------------------------
-void testApp::keyPressed  (int key){ 
+void testApp::keyPressed  (int key){
 	if(key == 'i' or key == 'I') cout << ofGetFrameRate() << endl;
 	if(key == 'p' or key == 'P') {
 		pause = !pause;
 		music.setPaused(pause);
 	}
-	
+
 	if (key == ' ') {
 			if (mode >= 2)	mode=0;
 			else			mode++;
 	}
-	
+
 	if (key == 't') {
 		doTail = !doTail;
 	}
-	
+
 	if(key == 'f' or key == 'F') {
 		bFullScreen = !bFullScreen;
 		ofSetFullscreen(bFullScreen);
 		if(bFullScreen) ofHideCursor();
 		else ofShowCursor();
 	}
-	
+
 	if (key == 'o') {
 		rotX = rotX+2;
 	}
@@ -174,16 +174,16 @@ void testApp::keyPressed  (int key){
 	if (key == 'k') {
 		rotY = rotY-2;
 	}
-    
+
 }
 
 //--------------------------------------------------------------
-void testApp::keyReleased(int key){ 
+void testApp::keyReleased(int key){
 }
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ){
-	
+
 
 }
 
@@ -203,7 +203,7 @@ void testApp::updateEmitters(){
 	float *fftList = ofSoundGetSpectrum(NumBands);
 	for(int i=0; i<NumEmitters; i++){
 		float div = 3000;
-		float fftVal = fftList[emitters[i].band] * 50; 
+		float fftVal = fftList[emitters[i].band] * 50;
 		float targetRadius = averFFT*300+fftVal*10;
 		emitters[i].updateRadius(targetRadius);
 		ofxVec3f rot = ofxVec3f(0, 0, emitters[i].radius);
@@ -215,12 +215,12 @@ void testApp::updateEmitters(){
 		rot.rotate(emitters[i].rotX, emitters[i].rotY, 0);
 		ofxVec3f pos = center + rot;
 		emitters[i].move(pos);
-	}	
+	}
 }
 
 void testApp::updateParticles(){
 	int toAdd =  abs((int)(averFFT*AddMult));
-	
+
 	for(int i=0; i<toAdd; i++){
 		int whichEmitter = (int)ofRandom(0, NumEmitters);
 		ofxVec3f iniPos = emitters[whichEmitter].pos;

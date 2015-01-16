@@ -1,6 +1,6 @@
 /*
-Copyright 2005, 2006 Computer Vision Lab, 
-Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland. 
+Copyright 2005, 2006 Computer Vision Lab,
+Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland.
 All rights reserved.
 
 This file is part of BazAR.
@@ -16,7 +16,7 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 BazAR; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301, USA 
+Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 #ifndef OBSERVATION_TYPES_H
 #define OBSERVATION_TYPES_H
@@ -38,10 +38,10 @@ public:
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-typedef void (*function_2data_1measure)(const ls_minimizer_type d0, const ls_minimizer_type d1, 
-                                        const ls_minimizer_type * state, 
-                                        ls_minimizer_type & b0, 
-                                        ls_minimizer_type * J, 
+typedef void (*function_2data_1measure)(const ls_minimizer_type d0, const ls_minimizer_type d1,
+                                        const ls_minimizer_type * state,
+                                        ls_minimizer_type & b0,
+                                        ls_minimizer_type * J,
                                         void ** user_data);
 
 class observation_2data_1measure : public observation
@@ -55,10 +55,10 @@ public:
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-typedef void (*function_2data_2measures)(const ls_minimizer_type d0, const ls_minimizer_type d1, 
+typedef void (*function_2data_2measures)(const ls_minimizer_type d0, const ls_minimizer_type d1,
                                          const ls_minimizer_type * state,
-                                         ls_minimizer_type & b0, ls_minimizer_type & b1, 
-                                         ls_minimizer_type * J, 
+                                         ls_minimizer_type & b0, ls_minimizer_type & b1,
+                                         ls_minimizer_type * J,
                                          void ** user_data);
 
 class observation_2data_2measures : public observation
@@ -72,11 +72,11 @@ public:
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-typedef void (*function_3data_2measures)(const ls_minimizer_type d0, 
-		const ls_minimizer_type d1, const ls_minimizer_type d2, 
-		const ls_minimizer_type * state, 
-		ls_minimizer_type & b0, ls_minimizer_type & b1, 
-                                         ls_minimizer_type * J, 
+typedef void (*function_3data_2measures)(const ls_minimizer_type d0,
+		const ls_minimizer_type d1, const ls_minimizer_type d2,
+		const ls_minimizer_type * state,
+		ls_minimizer_type & b0, ls_minimizer_type & b1,
+                                         ls_minimizer_type * J,
                                          void ** user_data);
 
 class observation_3data_2measures : public observation

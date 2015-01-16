@@ -47,11 +47,11 @@ namespace CppUnit {
  *
  * see TestSuite
  */
-template <class ClassUnderTest> 
+template <class ClassUnderTest>
 class Orthodox: public TestCase
 {
 public:
-	Orthodox(): TestCase("Orthodox") 
+	Orthodox(): TestCase("Orthodox")
 	{
 	}
 
@@ -62,7 +62,7 @@ protected:
 
 
 // Run an orthodoxy test
-template <class ClassUnderTest> 
+template <class ClassUnderTest>
 void Orthodox<ClassUnderTest>::runTest()
 {
     // make sure we have a default constructor
@@ -92,7 +92,7 @@ void Orthodox<ClassUnderTest>::runTest()
 
 
 // Exercise a call
-template <class ClassUnderTest> 
+template <class ClassUnderTest>
 ClassUnderTest Orthodox<ClassUnderTest>::call(ClassUnderTest object)
 {
     return object;

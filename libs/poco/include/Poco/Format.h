@@ -101,7 +101,7 @@ std::string Foundation_API format(const std::string& fmt, const Any& value);
 	///   * - left align the result within the given field width
 	///   * + prefix the output value with a sign (+ or –) if the output value is of a signed type
 	///   * 0 if width is prefixed with 0, zeros are added until the minimum width is reached
-	///   * # For o, x, X, the # flag prefixes any nonzero output value with 0, 0x, or 0X, respectively; 
+	///   * # For o, x, X, the # flag prefixes any nonzero output value with 0, 0x, or 0X, respectively;
 	///     for e, E, f, the # flag forces the output value to contain a decimal point in all cases.
 	///
 	/// The following modifiers are supported:
@@ -116,11 +116,11 @@ std::string Foundation_API format(const std::string& fmt, const Any& value);
 	/// If the number of characters in the output value is less than the specified width, blanks or
 	/// leading zeros are added, according to the specified flags (-, +, 0).
 	///
-	/// Precision is a nonnegative decimal integer, preceded by a period (.), which specifies the number of characters 
+	/// Precision is a nonnegative decimal integer, preceded by a period (.), which specifies the number of characters
 	/// to be printed, the number of decimal places, or the number of significant digits.
 	///
 	/// Throws a BadCastException if an argument does not correspond to the type of its format specification.
-	/// 
+	///
 	/// If there are more format specifiers than values, the format specifiers without a corresponding value
 	/// are copied verbatim to output.
 	///
@@ -138,7 +138,7 @@ std::string Foundation_API format(const std::string& fmt, const Any& value1, con
 
 void Foundation_API format(std::string& result, const std::string& fmt, const Any& value);
 	/// Appends the formatted string to result.
-	
+
 void Foundation_API format(std::string& result, const std::string& fmt, const Any& value1, const Any& value2);
 void Foundation_API format(std::string& result, const std::string& fmt, const Any& value1, const Any& value2, const Any& value3);
 void Foundation_API format(std::string& result, const std::string& fmt, const Any& value1, const Any& value2, const Any& value3, const Any& value4);

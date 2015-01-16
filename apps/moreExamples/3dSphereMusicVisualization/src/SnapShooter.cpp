@@ -2,7 +2,7 @@
 #include "SnapShooter.h"
 
 SnapShooter::SnapShooter(string _fileName, int _numFrames, bool _close){
-	fileName = _fileName; 
+	fileName = _fileName;
 	maxFrames = _numFrames;
 	close = _close;
 	frameCounter = 0;
@@ -18,9 +18,9 @@ void SnapShooter::grabFrame(){
 		float elapsedTime = ofGetElapsedTimef();
 		seconds = (int)elapsedTime%60;
 		minutes = (int)(elapsedTime/60);
-		
+
 		string ellapsed = " elapsed: " + ofToString(minutes, 0) + "min "+ ofToString(seconds, 0) + "sec\n";
-		std::cout << ofToString(frameCounter, 0) + " of " + ofToString(maxFrames, 0) + " frames " + 
+		std::cout << ofToString(frameCounter, 0) + " of " + ofToString(maxFrames, 0) + " frames " +
 		"at " + ofToString(ofGetFrameRate(),2) + "fps" + ellapsed;
 	} else if(close)OF_EXIT_APP(0);
 }

@@ -1,6 +1,6 @@
 /*
-Copyright 2005, 2006 Computer Vision Lab, 
-Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland. 
+Copyright 2005, 2006 Computer Vision Lab,
+Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland.
 All rights reserved.
 
 This file is part of BazAR.
@@ -16,7 +16,7 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 BazAR; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301, USA 
+Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 /*! \ingroup starter */
 #ifndef LINEAR_ALGEBRA_H
@@ -49,8 +49,8 @@ void   gfla_copy_3x4(const double M[3][4], double copy[3][4]);
 double gfla_det(const double M[3][3]);
 double gfla_det(const double M11, const double M12,
                 const double M21, const double M22);
-double gfla_det(const double M11, const double M12, const double M13, 
-                const double M21, const double M22, const double M23, 
+double gfla_det(const double M11, const double M12, const double M13,
+                const double M21, const double M22, const double M23,
                 const double M31, const double M32, const double M33);
 
 // Print matrices:

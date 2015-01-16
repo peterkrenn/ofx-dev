@@ -14,17 +14,17 @@
 
 
 class ParticleSystem {
-public:	
-	
+public:
+
     float posArray[MAX_PARTICLES * 2 * 2];
     float colArray[MAX_PARTICLES * 3 * 2];
-	
+
     int curIndex;
-	
+
     Particle particles[MAX_PARTICLES];
-	
+
     ParticleSystem();
-	
+
     void updateAndDraw();
 	void addParticles(float x, float y, int count );
 	void addParticle(float x, float y);

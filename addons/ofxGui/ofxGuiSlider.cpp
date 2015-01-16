@@ -23,19 +23,19 @@ ofxGuiSlider::ofxGuiSlider()
 void ofxGuiSlider::init(int id, string name, int x, int y, int width, int height, float min, float max, float value, int display, int steps)
 {
 	int	textHeight	= (name == "") ? 0 : mGlobals->mParamFontHeight;
-	
+
 	mParamId		= id;
 	mParamName		= name;
 
-	mObjX			= x; 
+	mObjX			= x;
 	mObjY			= y;
-	
+
 	mObjWidth		= width;
 	mObjHeight		= textHeight + height;
-	
+
 	mDisplay		= display;
 	mSteps			= steps;
-			
+
 	setRange(min, max);
 	setValue(value);
 	setControlRegion(0, textHeight, width, height);
@@ -50,7 +50,7 @@ void ofxGuiSlider::setValue(float value)
 		float	fraction	= valueToFraction(value);
 		float	steps		= (float)mSteps - 1;
 		float	slice		= roundInt(fraction * steps) / steps;
-							   
+
 		value = mMinVal + mValDlt * slice;
 
 		if (mDisplay == kofxGui_Display_String && value != mValue)
@@ -59,13 +59,13 @@ void ofxGuiSlider::setValue(float value)
 			mGlobals->mListener->handleGui(mParamId, kofxGui_Get_String, &id, sizeof(int));
 		}
 	}
-	
-	mValue = value;	
+
+	mValue = value;
 }
 
 //	----------------------------------------------------------------------------------------------------
 
-void ofxGuiSlider::setRange(float min, float max) 
+void ofxGuiSlider::setRange(float min, float max)
 {
 	mMinVal	= min;
 	mMaxVal	= max;
@@ -77,17 +77,17 @@ void ofxGuiSlider::setRange(float min, float max)
 bool ofxGuiSlider::update(int id, int task, void* data, int length)
 {
 	bool handled = false;
-	
+
 	if(id == mParamId)
 	{
 		if(task == kofxGui_Set_Float)
 			setValue(*(float*)data);
 		else if(task == kofxGui_Set_String)
 			mDisplaySting = *(string*)data;
-		
+
 		handled = true;
 	}
-	
+
 	return handled;
 }
 
@@ -98,7 +98,7 @@ void ofxGuiSlider::draw()
 	glPushMatrix();
 
 		glTranslatef(mObjX, mObjY, 0.0);
-	
+
 		if(mParamName != "")
 		{
 			if (mDisplay == kofxGui_Display_String && mSteps > 1)
@@ -106,11 +106,11 @@ void ofxGuiSlider::draw()
 			else
 				drawParamString(0.0, 0.0, mParamName + ": " + floatToString(mValue, mDisplay), false);
 		}
-	
+
 		float x = (mCtrWidth * valueToFraction(mValue));
-	
+
 		ofFill();
-	
+
 		//	background
 		glColor4f(mGlobals->mCoverColor.r, mGlobals->mCoverColor.g, mGlobals->mCoverColor.b, mGlobals->mCoverColor.a);
 		ofRect(mCtrX, mCtrY, mCtrWidth, mCtrHeight);
@@ -122,13 +122,13 @@ void ofxGuiSlider::draw()
 		//	handle
 		glColor4f(mGlobals->mHandleColor.r, mGlobals->mHandleColor.g, mGlobals->mHandleColor.b, mGlobals->mHandleColor.a);
 		ofRect(x, mCtrY, 1.0, mCtrHeight);
-		
+
 		ofNoFill();
 
 		//	frame
 		glColor4f(mGlobals->mFrameColor.r, mGlobals->mFrameColor.g, mGlobals->mFrameColor.b, mGlobals->mFrameColor.a);
 		ofRect(mCtrX, mCtrY, mCtrWidth, mCtrHeight);
-	
+
 	glPopMatrix();
 }
 
@@ -146,7 +146,7 @@ bool ofxGuiSlider::mouseDragged(int x, int y, int button)
 			mGlobals->mListener->handleGui(mParamId, kofxGui_Set_Float, &mValue, sizeof(float));
 		}
 	}
-	
+
 	return mMouseIsDown;
 }
 
@@ -158,7 +158,7 @@ bool ofxGuiSlider::mousePressed(int x, int y, int button)
 
 	if (mMouseIsDown)
 		mouseDragged(x, y, button);
-	
+
 	return mMouseIsDown;
 }
 
@@ -167,10 +167,10 @@ bool ofxGuiSlider::mousePressed(int x, int y, int button)
 bool ofxGuiSlider::mouseReleased(int x, int y, int button)
 {
 	bool handled = mMouseIsDown;
-	
+
 	if(mMouseIsDown)
 		mMouseIsDown = false;
-	
+
 	return handled;
 }
 

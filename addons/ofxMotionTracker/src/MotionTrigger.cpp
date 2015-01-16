@@ -38,13 +38,13 @@ void MotionTrigger::ceaseFire(){
 bool MotionTrigger::isReadyToFire(){
 	if(this->triggerDelay == 0 && this->shouldTrigger())
 		return true;
-	
+
 	int currentTime = ofGetElapsedTimeMillis();
 	if(this->fireTime <= 0 && this->shouldTrigger())
 		this->fireTime = currentTime + this->triggerDelay;
 	else if(this->fireTime > 0 && (currentTime - this->fireTime) >= this->triggerDelay)
 		return true;
-	
+
 	return false;
 }
 
@@ -56,10 +56,10 @@ bool MotionTrigger::shouldTrigger(){
 		// normalize the optical flow angle
 		angle -= 90.0; // needed to offset/correct from optical flow solver
 		angle = tiNormalizeAngle(angle);
-		
+
 		float angleLow = tiNormalizeAngle(this->triggerAngle - this->triggerAngleSpread);
 		float angleHigh = tiNormalizeAngle(this->triggerAngle + this->triggerAngleSpread);
-		
+
 		if(angleLow <= angleHigh){
 			if(angle >= angleLow && angle <= angleHigh)
 				check = true;
@@ -122,25 +122,25 @@ void MotionTrigger::draw(){
 void MotionTrigger::drawOpticalFlowTrigger(int x, int y, int w, int h){
 	float ratioX = ((float)w / (float)this->camWidth) / 2.0;
 	float ratioY = ((float)h / (float)this->camHeight) / 2.0;
-	
+
 	ofSetColor(255, 255, 0);
 	this->drawOpticalFlowAverage(x, y, w, h, this->triggerArea);
-	
+
 	ofSetColor(255, 0, 0);
 	float centerX = x + w/2.0;
 	float centerY = y + h/2.0;
 	float x2, y2;
-	
+
 	float lowAngle = tiNormalizeAngle(this->triggerAngle - this->triggerAngleSpread);
 	x2 = centerX + tiAngleXComponent(lowAngle, this->triggerMagnitude * ratioX);
 	y2 = centerY + tiAngleYComponent(lowAngle, this->triggerMagnitude * ratioY);
 	ofLine(centerX, centerY, x2, y2);
-	
+
 	float highAngle = tiNormalizeAngle(this->triggerAngle + this->triggerAngleSpread);
 	x2 = centerX + tiAngleXComponent(highAngle, this->triggerMagnitude * ratioX);
 	y2 = centerY + tiAngleYComponent(highAngle, this->triggerMagnitude * ratioY);
 	ofLine(centerX, centerY, x2, y2);
-	
+
 #ifdef DRAW_TRIGGER_ARC
 	ofNoFill();
 	ofSetCircleResolution(360);
@@ -149,10 +149,10 @@ void MotionTrigger::drawOpticalFlowTrigger(int x, int y, int w, int h){
 	ofSetCircleResolution(CIRC_RESOLUTION);
 	ofFill();
 #endif
-	
+
 	if(this->isFiring())
 		ofCircle(centerX, centerY, this->triggerMagnitude * ratioX * 0.5);
-	
+
 	ofSetColor(255, 255, 255);
 }
 

@@ -28,7 +28,7 @@ extern void twomat_gradian (
                             double Rx,
                             double Ry,
                             double Rz,
-                            CvMat *R_jacobian, 
+                            CvMat *R_jacobian,
                             double S_matrix[3][3],
                             double Sx,
                             double Sy,
@@ -92,7 +92,7 @@ CamCalibration::CamCalibration(){
 }
 
 CamCalibration::~CamCalibration(){
-  ClearAll(); 
+  ClearAll();
 }
 
 void CamCalibration::ClearAll(){
@@ -205,7 +205,7 @@ bool CamCalibration::StoreHomographiesToFile( char* file_name ){
     printf("----------------------------\n\n");
     fclose( stream );
     return true;
-  } else 
+  } else
     return false;
 }
 
@@ -290,7 +290,7 @@ double CamCalibration::GetScreenDistance( int c, int h1, int h2 ){
     cvMatMul( &m_h2, &m_w, &m_p2 ); HomogenousNormalizeVector( &m_p2 );
 
     // Return euclidean distance:
-    return sqrt( pow(cvmGet(&m_p1,0,0)-cvmGet(&m_p2,0,0),2) + 
+    return sqrt( pow(cvmGet(&m_p1,0,0)-cvmGet(&m_p2,0,0),2) +
       pow(cvmGet(&m_p1,1,0)-cvmGet(&m_p2,1,0),2) );
 }
 
@@ -313,7 +313,7 @@ double CamCalibration::GetSolutionQuality( std::vector<s_struct_solution> soluti
   //////////////////////////////
   // Q2 - Number of connections:
   int overall_connections  = (int)v_camera.size()*(int)v_camera[0]->v_homography.size();
-  int solution_connections = 0; 
+  int solution_connections = 0;
   for( int h = 0; h < (int)v_camera[0]->v_homography.size(); h++ ){
     int current_connections = 0;
     for( int i = 0; i < (int)solution.size(); i++ )
@@ -327,7 +327,7 @@ double CamCalibration::GetSolutionQuality( std::vector<s_struct_solution> soluti
   //////////////////////////////
   // Q3 - Distances:
   double overall_distances  = 0;
-  double solution_distances = 0; 
+  double solution_distances = 0;
   for( int c = 0; c < (int)v_camera.size(); c++ ){
     int hom_cam_num = 0;
     for( int i = 0; i < (int)solution.size(); i++ )
@@ -396,7 +396,7 @@ bool CamCalibration::FilterBestHomographiesFillingMethod( int num, double p_PreF
   int totalHom = 0;
 
   // 1. PHASE - retain individual cam homographies:
-  for( int c = 0; c < cam; c++ ){   
+  for( int c = 0; c < cam; c++ ){
     int hnum = 0;
     for( unsigned h = 0; h < v_camera[c]->v_homography.size(); h++ )
       if (v_camera[c]->v_homography[h]->m_homography) {
@@ -465,7 +465,7 @@ bool CamCalibration::FilterBestHomographiesFillingMethod( int num, double p_PreF
       int taken=0;
       int missed=0;
       for( int h = 0; h < (int)v_camera[0]->v_homography.size(); h++ ) {
-        if (v_camera[i]->v_homography[h]->m_homography 
+        if (v_camera[i]->v_homography[h]->m_homography
           && v_camera[j]->v_homography[h]->m_homography) {
             if (!v_camera[i]->v_homography[h]->b_discard
               && !v_camera[j]->v_homography[h]->b_discard)
@@ -477,10 +477,10 @@ bool CamCalibration::FilterBestHomographiesFillingMethod( int num, double p_PreF
       if (taken > 5 || missed ==0) continue;
       int required = imin(missed,5);
       for( int h = 0; h < (int)v_camera[0]->v_homography.size(); h++ ) {
-        if (v_camera[i]->v_homography[h]->m_homography 
+        if (v_camera[i]->v_homography[h]->m_homography
           && v_camera[j]->v_homography[h]->m_homography) {
             if (v_camera[i]->v_homography[h]->b_discard
-              || v_camera[j]->v_homography[h]->b_discard) 
+              || v_camera[j]->v_homography[h]->b_discard)
             {
               v_camera[i]->v_homography[h]->b_discard=false;
               v_camera[j]->v_homography[h]->b_discard=false;
@@ -494,7 +494,7 @@ bool CamCalibration::FilterBestHomographiesFillingMethod( int num, double p_PreF
   // 3. PHASE - discard unused homographies:
   for( int c = 0; c < cam; c++ )
     for( int h = 0; h < (int)v_camera[c]->v_homography.size(); h++ )
-      if( v_camera[c]->v_homography[h]->m_homography && 
+      if( v_camera[c]->v_homography[h]->m_homography &&
         v_camera[c]->v_homography[h]->b_discard       )
         DeleteWorldPlaneHomography(c,h);
 
@@ -562,7 +562,7 @@ bool CamCalibration::FilterBestHomographiesRandomMethod( int num, int p_Solution
   int deleted = 0;
   for( int c = 0; c < (int)v_camera.size(); c++ )
     for( int h = 0; h < (int)v_camera[c]->v_homography.size(); h++ )
-      if( v_camera[c]->v_homography[h]->m_homography ){    
+      if( v_camera[c]->v_homography[h]->m_homography ){
         bool del_hom = true;
 
         // Search in best solution if homography is there:
@@ -590,7 +590,7 @@ bool CamCalibration::Calibrate( int p_HomographyNum, int p_PreFilter, int p_Solu
                                  bool filter_ok;
                                  switch( p_PreFilter ){
     case  0: filter_ok = FilterBestHomographiesGreedyMethod ( p_HomographyNum );  break;
-    case  1: filter_ok = FilterBestHomographiesFillingMethod( p_HomographyNum, p_PreFilter_a ); break; 
+    case  1: filter_ok = FilterBestHomographiesFillingMethod( p_HomographyNum, p_PreFilter_a ); break;
     case  2: filter_ok = FilterBestHomographiesRandomMethod ( p_HomographyNum, p_Solutions, p_PreFilter_a, p_PreFilter_b, p_PreFilter_c );  break;
     default: filter_ok = FilterBestHomographiesFillingMethod( p_HomographyNum, p_PreFilter_a ); break;
                                  }
@@ -651,7 +651,7 @@ CvMat* CamCalibration::GetM( enum matrix_desc desc, int c, int h ){
 double CamCalibration::GetRandomValue( double min, double max ){
   double delta = max - min;
   double value = (double)rand()/(double)RAND_MAX;
-  return min + delta*value; 
+  return min + delta*value;
 }
 
 // Box-Muller method:
@@ -743,7 +743,7 @@ void CamCalibration::Rotate3DVector( CvMat* v, double x, double y, double z ){
   z *= 2*M_PI/360.00;
   double a_Rx[] = {   1,    0,    0, 0,
     0,  cos(x), -sin(x), 0,
-    0,  sin(x),  cos(x), 0, 
+    0,  sin(x),  cos(x), 0,
     0,    0,    0, 1 };
   double a_Ry[] = { cos(y),    0, -sin(y), 0,
     0,    1,    0, 0,
@@ -841,12 +841,12 @@ void CamCalibration::CreatePlaneObjectWorldPoints( int c, int h ){
     cvmSet( (*s_plane_object).v_m_wp[i], 3, 0, 1.0                     );
 
     // Translate and Rotate the Point to its World Position:
-    Rotate3DVector   (  (*s_plane_object).v_m_wp[i], 
+    Rotate3DVector   (  (*s_plane_object).v_m_wp[i],
       (*s_plane_object).rx,
       (*s_plane_object).ry,
       (*s_plane_object).rz      );
 
-    Translate3DVector(  (*s_plane_object).v_m_wp[i], 
+    Translate3DVector(  (*s_plane_object).v_m_wp[i],
       (*s_plane_object).tx,
       (*s_plane_object).ty,
       (*s_plane_object).tz      );
@@ -940,9 +940,9 @@ bool CamCalibration::HomographySingular( int c, int h, double p_InitialGuess_a, 
   double a4 = VectorAngle( &m_p4, &m_p1, &m_p4, &m_p3 );
   double e1 = p_InitialGuess_a;
   double e2 = p_InitialGuess_b;
-  if( a1 < e2 || (a1 > (M_PI/2.00) - e1 && a1 < (M_PI/2.00) + e1) || a1 > M_PI - e2 || 
-    a2 < e2 || (a2 > (M_PI/2.00) - e1 && a2 < (M_PI/2.00) + e1) || a2 > M_PI - e2 || 
-    a3 < e2 || (a3 > (M_PI/2.00) - e1 && a3 < (M_PI/2.00) + e1) || a3 > M_PI - e2 || 
+  if( a1 < e2 || (a1 > (M_PI/2.00) - e1 && a1 < (M_PI/2.00) + e1) || a1 > M_PI - e2 ||
+    a2 < e2 || (a2 > (M_PI/2.00) - e1 && a2 < (M_PI/2.00) + e1) || a2 > M_PI - e2 ||
+    a3 < e2 || (a3 > (M_PI/2.00) - e1 && a3 < (M_PI/2.00) + e1) || a3 > M_PI - e2 ||
     a4 < e2 || (a4 > (M_PI/2.00) - e1 && a4 < (M_PI/2.00) + e1) || a4 > M_PI - e2   ){
       return true;
   }
@@ -1102,7 +1102,7 @@ CvMat* m_B = cvCreateMat( rows_of_a, 1, CV_64FC1 );
 for( int h = 0; h < 2; h++ ){
 // Get the homography number (of first or second):
 int hom = h1;
-if( h == 1 ) hom = h2; 
+if( h == 1 ) hom = h2;
 
 // Get pointer:
 homography* m_homography = v_camera[c]->v_homography[hom]->m_homography;
@@ -1209,7 +1209,7 @@ homs++;
 
 // Get Eigenvectors:
 cvGEMM( m_A, m_A, 1, NULL, 0, m_ATA, CV_GEMM_A_T );
-cvEigenVV( m_ATA, m_EVE, m_EVA, DBL_EPSILON ); 
+cvEigenVV( m_ATA, m_EVE, m_EVA, DBL_EPSILON );
 
 
 // Grab omegas out of X
@@ -1502,15 +1502,15 @@ bool CamCalibration::CreateMatrixCH(){
             bool briged = false;
             for( int c2 = 0; c2 < (int)v_camera.size(); c2++ ){
               for( int h2 = 0; h2 < (int)v_camera[c2]->v_homography.size(); h2++ ){
-                if( (cvmGet( m_CH, c1, h2 ) == 1 || cvmGet( m_CH, c1, h2 ) == 2) && 
-                  (cvmGet( m_CH, c2, h1 ) == 1 || cvmGet( m_CH, c2, h1 ) == 2) && 
+                if( (cvmGet( m_CH, c1, h2 ) == 1 || cvmGet( m_CH, c1, h2 ) == 2) &&
+                  (cvmGet( m_CH, c2, h1 ) == 1 || cvmGet( m_CH, c2, h1 ) == 2) &&
                   (cvmGet( m_CH, c2, h2 ) == 1 || cvmGet( m_CH, c2, h2 ) == 2) &&
-                  c1 != c2 && h1 != h2 ){  
+                  c1 != c2 && h1 != h2 ){
 
                     briged     = true;
                     big_briged = true;
                     cvmSet( m_CH, c1, h1, 1 );
-                    CreateEstimated3ChainMatrixRT( h1, c2, h2, c1 );   
+                    CreateEstimated3ChainMatrixRT( h1, c2, h2, c1 );
                 }
                 if( briged ) break;
               }
@@ -1739,7 +1739,7 @@ void ProjObs::eval_func(const double *params, double *f, double *J, void **user_
           }
         }
         gc+=6;
-      } 
+      }
     }
   }
 }
@@ -1867,14 +1867,14 @@ void CamCalibration::PlotPointsToImagesAfterOptimization(){
     for( int c = 0; c < (int)v_camera.size(); c++ ){
       if( cvmGet( m_CH, c, h ) == 1 ){
         sprintf(file_name,"E:\\andreas_camcal_16_12_2005\\cam%02d%04d.bmp",c+1,h+2048); //TODO: 2048!!!!!
-		  
+
 		ofImage _img = ofImage();
 		_img.loadImage(file_name);
 		ofxCvColorImage _im = ofxCvColorImage();
 		_im = _img.getPixels();
-		  
+
 		if( image[c] = _im.getCvImage() ){         //!!!!!!!!!!!!!!!
-			
+
           // Draw box:
           FILE * boxfile;
           if( (boxfile = fopen( "box.txt", "r+t" )) != NULL ){
@@ -1911,7 +1911,7 @@ void CamCalibration::PlotPointsToImagesAfterOptimization(){
         }
       }
     }
-    if( cvmGet( m_CH, 0, h ) == 1 && 
+    if( cvmGet( m_CH, 0, h ) == 1 &&
       cvmGet( m_CH, 1, h ) == 1 &&
       cvmGet( m_CH, 2, h ) == 1 &&
       cvmGet( m_CH, 3, h ) == 1 &&
@@ -1928,9 +1928,9 @@ void CamCalibration::PlotPointsToImagesAfterOptimization(){
         cvLine( im, cvPoint( 320,0 ), cvPoint( 320,480 ), CV_RGB ( 255,255,255 ),2,CV_AA,0 );
         cvLine( im, cvPoint( 640,0 ), cvPoint( 640,480 ), CV_RGB ( 255,255,255 ),2,CV_AA,0 );
         sprintf(file_name,"__cam%04d_%04d.bmp",cnt,h);
-		
+
 //		cvSaveImage( file_name, im );
-		
+
         cvReleaseImage( &image[0] ); //TODO!
         cvReleaseImage( &image[1] ); //TODO!
         cvReleaseImage( &image[2] ); //TODO!
@@ -2144,7 +2144,7 @@ void CamCalibration::PrintOptimizedResultErrors( double *params){
             if( cam->v_camera[c]->v_homography[h]->m_homography )
               hom++;
           printf( "Camera %02d:     %8.3f %8.3f %8.3f %8.3f %5d\n",
-            c, 
+            c,
             params[c*4+1], params[c*4]/params[c*4+1] ,  params[c*4+2], params[c*4+3],
             hom );
         }
@@ -2200,11 +2200,11 @@ void CamCalibration::PrintOptimizedResultErrors( double *params){
             cvPutText( im, info, cvPoint( 10,30 ), &font, CV_RGB ( 255,0,0 ) );
             sprintf( info, "%.3f", 0 );
             cvPutText( im, info, cvPoint( 10,height-10 ), &font, CV_RGB ( 255,0,0 ) );
-            if( cut_error > 0.1*max_error && cut_error < 0.9*max_error ){  
+            if( cut_error > 0.1*max_error && cut_error < 0.9*max_error ){
               sprintf( info, "%.3f", cut_error );
               cvPutText( im, info, cvPoint( 10,y_cut-5 ), &font, CV_RGB ( 255,0,0 ) );
             }
-            sprintf( info, "Maximal Camera Error in Pixel over homographies", 0 );  
+            sprintf( info, "Maximal Camera Error in Pixel over homographies", 0 );
             cvPutText( im, info, cvPoint( 150,30 ), &font, CV_RGB ( 200,255,100 ) );
 
             /*
@@ -2215,9 +2215,9 @@ void CamCalibration::PrintOptimizedResultErrors( double *params){
             */
             IplImage *im2 = cvCreateImage(cvSize(800,600), IPL_DEPTH_8U, 3); //TODO: Hier echte groesse von parametern!
             cvResize(im, im2, CV_INTER_LINEAR );
-		
+
 //            cvShowImage( "Error Histogram", im2 );
-		
+
 //            cvWaitKey(10);
             cvReleaseImage( &im );
             cvReleaseImage( &im2 );
@@ -2305,7 +2305,7 @@ bool CamCalibration::OptimizeCalibrationByMinimalParameterMethod( int iter, doub
 
     // Get number parameters and observations:
     int parameter_number   = GetParameterNumber();
-    /* int observation_number = GetObservationNumber(); */ 
+    /* int observation_number = GetObservationNumber(); */
 
     ls_minimizer2 minimizer(parameter_number);
     minimizer.set_state_change_callback(updateCB);
@@ -2332,9 +2332,9 @@ bool CamCalibration::OptimizeCalibrationByMinimalParameterMethod( int iter, doub
     // Add the observations for ...
     for( int c = 0; c < (int)v_camera.size(); c++ )         // ... cameras
       for( int h = 0; h < (int)v_camera[c]->v_homography.size(); h++ )   // ... homographies
-        if( v_camera[c]->v_homography[h]->m_homography ){     
+        if( v_camera[c]->v_homography[h]->m_homography ){
           int points = v_camera[c]->v_homography[h]->s_plane_object->p;
-          for( int point = 0; point < points; point++ ) { // ... points 
+          for( int point = 0; point < points; point++ ) { // ... points
 
             // Add homography number and point:
             ProjObs *o = new ProjObs();
@@ -2406,7 +2406,7 @@ void CamCalibration::PrintOptimizedResultsToFile1()
   }
 }
 
-void CamCalibration::PrintOptimizedResultsToFile2( char* file_descriptor, bool create_png, char* sequence_descriptor, 
+void CamCalibration::PrintOptimizedResultsToFile2( char* file_descriptor, bool create_png, char* sequence_descriptor,
                                                    char* png_descriptor, int c_start, int h_start )
 {
   FILE *stream;

@@ -16,18 +16,18 @@
 
  class Boid{
  public:
-	
+
 	Ponto *p[numPoints];
-		
+
 	GLint step;
 	GLint r, g, b;
 	Perlin *noise;
 	vector <Particles> *part;
 	GLfloat k;
-		
+
 	Boid(Perlin *_noise, vector <Particles> *_part);
 	~Boid();
-	
+
 	void mover();
 	void render();
 	void constrainMovement(float _averX, float _averY, float _averZ);
@@ -35,8 +35,8 @@
 };
 
 #endif
-	
-	
- 
-	
+
+
+
+
 

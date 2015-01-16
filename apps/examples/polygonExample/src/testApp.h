@@ -12,18 +12,18 @@ typedef struct {
 	bool 	bBeingDragged;
 	bool 	bOver;
 	float 	radius;
-	
+
 }	draggableVertex;
 
 
 class testApp : public ofBaseApp{
-	
+
 	public:
-		
+
 		void setup();
 		void update();
 		void draw();
-		
+
 		void keyPressed(int key);
 		void keyReleased(int key);
 		void mouseMoved(int x, int y );
@@ -31,12 +31,12 @@ class testApp : public ofBaseApp{
 		void mousePressed(int x, int y, int button);
 		void mouseReleased(int x, int y, int button);
 		void windowResized(int w, int h);
-		
-		
+
+
 		int nCurveVertexes;
 		draggableVertex curveVertices[7];
 		draggableVertex bezierVertices[4];
 };
 
 #endif
-	
+

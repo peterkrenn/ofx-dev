@@ -10,7 +10,7 @@
 
 
 @interface GraphPoint : NSObject {
-	
+
 	struct timeval tval;
 	//float tval;
 	float value;

@@ -20,22 +20,22 @@
 class ofxCvContourFinder : public ofBaseDraws {
 
   public:
-  
+
     vector<ofxCvBlob>  blobs;
     int                nBlobs;    // DEPRECATED: use blobs.size() instead
-      
+
 
     ofxCvContourFinder();
     virtual  ~ofxCvContourFinder();
-    
+
 	virtual float getWidth() { return _width; };    //set after first findContours call
 	virtual float getHeight() { return _height; };  //set after first findContours call
-    
+
     virtual int  findContours( ofxCvGrayscaleImage& input,
                                int minArea, int maxArea,
                                int nConsidered, bool bFindHoles,
                                bool bUseApproximation = true);
-                               // approximation = don't do points for all points 
+                               // approximation = don't do points for all points
                                // of the contour, if the contour runs
                                // along a straight line, for example...
 
@@ -44,7 +44,7 @@ class ofxCvContourFinder : public ofBaseDraws {
     virtual void  draw( float x, float y, float w, float h );
 	virtual void setAnchorPercent(float xPct, float yPct);
     virtual void setAnchorPoint(int x, int y);
-	virtual void resetAnchor();      
+	virtual void resetAnchor();
     //virtual ofxCvBlob  getBlob(int num);
 
 
@@ -58,9 +58,9 @@ class ofxCvContourFinder : public ofBaseDraws {
     CvMemStorage*           storage;
     CvMoments*              myMoments;
     vector<CvSeq*>          cvSeqBlobs;  //these will become blobs
-    
+
     ofPoint  anchor;
-    bool  bAnchorIsPct;      
+    bool  bAnchorIsPct;
 
     virtual void reset();
 

@@ -16,7 +16,7 @@ Camera::Camera(){
 	w = glutGet(GLUT_WINDOW_WIDTH);
 	h = glutGet(GLUT_WINDOW_HEIGHT);
 	aspectRatio = (float)w/(float)h;
-	
+
 	vx = vy = vz = 0;
 	k = 0.1;
 	damp = 0.3;
@@ -24,7 +24,7 @@ Camera::Camera(){
 	upY = 1;
 	upZ = 0;
 	eyeX = eyeY = eyeZ = 0;
-	
+
 	camX = ofGetWidth()/2;
 	camY = ofGetHeight()/2;
 	camZ = 0;
@@ -37,21 +37,21 @@ void Camera::goTo(float _x, float _y, float _z){
 	vx += ax;
 	vx *= damp;
 	camX += ax;
-	
+
 	ay = (_y - camY)*k;
 	vy += ay;
 	vy *= damp;
 	camY += vy;
-	
+
 	az = (_z - camZ) * k;
 	vz += az;
 	vz *= damp;
 	camZ += az;
-	
+
 	eyeX = camX;
 	eyeY = camY;
 	eyeZ = camZ-1;
-	
+
 }
 
 void Camera::place(){

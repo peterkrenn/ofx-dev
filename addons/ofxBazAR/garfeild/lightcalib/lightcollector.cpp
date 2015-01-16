@@ -64,12 +64,12 @@ void LightCollector::copy(const LightCollector &lc)
 	if (lc.triangles) {
 		triangles = new int[nbTri*3];
 		memcpy(triangles, lc.triangles, sizeof(int)*nbTri*3);
-	} else 
+	} else
 		triangles=0;
 	if (lc.avg) {
 		avg = new float[avgChannels*nbTri];
 		memcpy(avg, lc.avg, sizeof(float)*avgChannels*nbTri);
-	} else 
+	} else
 		avg=0;
 	if (lc.worldRT) worldRT=cvCloneMat(lc.worldRT);
 	else worldRT = 0;
@@ -91,14 +91,14 @@ int stat_triangle(IplImage *im, int pts[3][2], float avg[3]);
 void LightCollector::averageImage(IplImage *im, CvMat *_homography)
 {
 	if (avgChannels != im->nChannels) {
-		if (avgChannels < im->nChannels) { 
+		if (avgChannels < im->nChannels) {
 			delete[] avg;
 			avg = 0;
 		}
 		avgChannels = im->nChannels;
 	}
 	if (!avg) avg = new float[avgChannels*nbTri];
-	
+
 	// apply the homography to every mesh vertex
 	if (_homography)
 		cvMatMul(_homography, vertices, transformed);
@@ -110,7 +110,7 @@ void LightCollector::averageImage(IplImage *im, CvMat *_homography)
 	cvGetRow(transformed, &r3, 2);
 	cvDiv(&r1,&r3,&r1);
 	cvDiv(&r2,&r3,&r2);
-	
+
 	nbPix=0;
 	for (int t=0; t<nbTri;t++) {
 		int pts[3][2];
@@ -185,7 +185,7 @@ void LightCollector::drawGrid(IplImage *im, CvMat *_homography)
 	cvGetRow(transformed, &r3, 2);
 	cvDiv(&r1,&r3,&r1);
 	cvDiv(&r2,&r3,&r2);
-	
+
 	for (int t=0; t<nbTri;t++) {
 		int pts[3][2];
 		for (int i=0; i<3; i++) {
@@ -225,7 +225,7 @@ int LightCollector::serializeSize()
 	return sizeof(Hdr)+nbTri*avgChannels*sizeof(float);
 }
 
-void LightCollector::serialize(char *buffer) 
+void LightCollector::serialize(char *buffer)
 {
 	Hdr *hdr = (Hdr *) buffer;
 	hdr->nx = nx;

@@ -1,9 +1,9 @@
 #include "testApp.h"
 
 //--------------------------------------------------------------
-void testApp::setup(){	 
+void testApp::setup(){
 	ofSetFrameRate(60);
-	tuio.start(3333);	
+	tuio.start(3333);
 }
 
 //--------------------------------------------------------------
@@ -21,18 +21,18 @@ void testApp::draw(){
 
 
 //--------------------------------------------------------------
-void testApp::keyPressed  (int key){ 
-	
+void testApp::keyPressed  (int key){
+
 }
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ){
-	
+
 }
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button){
-	
+
 }
 
 //--------------------------------------------------------------

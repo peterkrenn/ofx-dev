@@ -74,7 +74,7 @@ typedef struct Gan_LineFeature
     * 90 degrees clockwise/anticlockwise from \f$ x \f$ axis for positive
     * \f$ y \f$ up/down respectively.
     */
-   Gan_SquMatrix22_f N, Ni; 
+   Gan_SquMatrix22_f N, Ni;
 
    /// fields for user program to define
    int status;

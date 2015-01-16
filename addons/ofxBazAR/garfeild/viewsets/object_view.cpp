@@ -1,6 +1,6 @@
 /*
-Copyright 2005, 2006 Computer Vision Lab, 
-Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland. 
+Copyright 2005, 2006 Computer Vision Lab,
+Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland.
 All rights reserved.
 
 This file is part of BazAR.
@@ -16,7 +16,7 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 BazAR; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301, USA 
+Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 #include <iostream>
 using namespace std;
@@ -25,7 +25,7 @@ using namespace std;
 #include "object_view.h"
 
 // Constructor for training stage:
-object_view::object_view(PyrImage * _image) : 
+object_view::object_view(PyrImage * _image) :
                 image(cvCreateImage(cvGetSize(_image->images[0]), IPL_DEPTH_8U, 1), _image->nbLev),
                 gradX(cvCreateImage(cvGetSize(_image->images[0]), IPL_DEPTH_16S, 1), _image->nbLev),
                 gradY(cvCreateImage(cvGetSize(_image->images[0]), IPL_DEPTH_16S, 1), _image->nbLev)
@@ -33,7 +33,7 @@ object_view::object_view(PyrImage * _image) :
 }
 
 // Constructor for recognition stage (alloc memory once):
-object_view::object_view(int width, int height, int nbLev) : 
+object_view::object_view(int width, int height, int nbLev) :
                 image(cvCreateImage(cvSize(width, height), IPL_DEPTH_8U, 1), nbLev),
                 gradX(cvCreateImage(cvSize(width, height), IPL_DEPTH_16S, 1), nbLev),
                 gradY(cvCreateImage(cvSize(width, height), IPL_DEPTH_16S, 1), nbLev)
@@ -52,7 +52,7 @@ void object_view::build_from_image_0(int kernelSize)
   comp_gradient();
 }
 
-void object_view::build(IplImage *im, int kernelSize) 
+void object_view::build(IplImage *im, int kernelSize)
 {
   if (kernelSize == 0)
     cvCopy(im, image[0]);

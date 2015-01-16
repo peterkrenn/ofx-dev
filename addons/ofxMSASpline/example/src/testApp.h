@@ -11,15 +11,15 @@
 
 
 class testApp : public ofSimpleApp{
-	
+
 public:
-	
+
 	ofxMSASpline2D spline2D;
 	ofxMSASpline3D splineMouse;
-	
+
 	float currentRot;
 	bool rotateView;
-	
+
 	void setup();
 	void draw();
 

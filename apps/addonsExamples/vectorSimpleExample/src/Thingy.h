@@ -10,9 +10,9 @@ struct Dimensions {
 class Thingy {
 
 private:
-	
+
 public:
-	
+
 	// constructors
 	Thingy();
 	Thingy(float _x, float _y);
@@ -20,7 +20,7 @@ public:
 	~Thingy();
 	// copy constructor
 	Thingy(const Thingy &thingy);
-	
+
 	// methods
 	void setup();
 	void setup(float _x, float _y);
@@ -28,7 +28,7 @@ public:
 	void update();
 	void draw();
 	bool mousePressed(float _x, float _y);
-	
+
 	// properties
 	Dimensions pos;
 	Dimensions speed;

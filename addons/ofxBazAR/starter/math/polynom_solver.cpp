@@ -1,6 +1,6 @@
 /*
-Copyright 2005, 2006 Computer Vision Lab, 
-Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland. 
+Copyright 2005, 2006 Computer Vision Lab,
+Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland.
 All rights reserved.
 
 This file is part of BazAR.
@@ -16,7 +16,7 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 BazAR; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301, USA 
+Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 /// \file polynom_solver.cpp
 /// \brief Functions to calculate roots of polynomials (Author: Mustafa Ozuysal, modified by Vincent Lepetit)
@@ -51,10 +51,10 @@ int solve_deg2(double a, double b, double c, double & x1, double & x2)
 }
 
 
-/// Reference : Eric W. Weisstein. "Cubic Equation." From MathWorld--A Wolfram Web Resource. 
+/// Reference : Eric W. Weisstein. "Cubic Equation." From MathWorld--A Wolfram Web Resource.
 /// http://mathworld.wolfram.com/CubicEquation.html
 /// \return Number of real roots found.
-int solve_deg3(double a, double b, double c, double d, 
+int solve_deg3(double a, double b, double c, double d,
                double & x0, double & x1, double & x2)
 {
   if (a == 0)
@@ -63,7 +63,7 @@ int solve_deg3(double a, double b, double c, double d,
     if (b == 0)
     {
       // Solve first order system
-      if (c == 0) 
+      if (c == 0)
         return 0;
 
       x0 = -d / c;
@@ -121,13 +121,13 @@ int solve_deg3(double a, double b, double c, double d,
   return 1;
 }
 
-/// Reference : Eric W. Weisstein. "Quartic Equation." From MathWorld--A Wolfram Web Resource. 
+/// Reference : Eric W. Weisstein. "Quartic Equation." From MathWorld--A Wolfram Web Resource.
 /// http://mathworld.wolfram.com/QuarticEquation.html
 /// \return Number of real roots found.
 int solve_deg4(double a, double b, double c, double d, double e,
                double & x0, double & x1, double & x2, double & x3)
 {
-  if (a == 0) 
+  if (a == 0)
   {
     x3 = 0;
     return solve_deg3(b, c, d, e, x0, x1, x2);

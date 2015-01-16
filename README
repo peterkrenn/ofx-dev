@@ -42,14 +42,14 @@ more updated windows examples and build-files..
   guide according to your running operation system!
 
   ## Mac Xcode
-	
+
   - install git
       "port install git-core +svn"
   - install Xcode
       "http://developer.apple.com/TOOLS/xcode/"
-	
+
   ## Windows Codeblocks
-	
+
   - install git
       "http://code.google.com/p/msysgit/"
   - install quicktime
@@ -57,9 +57,9 @@ more updated windows examples and build-files..
   - install codeblocks
       "http://www.openframeworks.cc/setup/codeblocks_setup_guide"
 
-	
+
   ## Linux Codeblocks - Debian (lenny)
-	
+
   - please follow openframeworks.cc/setup/ on how-to install codeblocks
 
 

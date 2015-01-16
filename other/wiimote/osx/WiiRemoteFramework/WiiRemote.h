@@ -23,11 +23,11 @@ typedef struct {
 } IRData;
 
 typedef struct {
-	unsigned char accX_zero, accY_zero, accZ_zero, accX_1g, accY_1g, accZ_1g; 
+	unsigned char accX_zero, accY_zero, accZ_zero, accX_1g, accY_1g, accZ_1g;
 } WiiAccCalibData;
 
 typedef struct {
-	unsigned char x_min, x_max, x_center, y_min, y_max, y_center; 
+	unsigned char x_min, x_max, x_center, y_min, y_max, y_center;
 } WiiJoyStickCalibData;
 
 
@@ -44,10 +44,10 @@ enum {
 	WiiRemoteDownButton,
 	WiiRemoteLeftButton,
 	WiiRemoteRightButton,
-	
+
 	WiiNunchukZButton,
 	WiiNunchukCButton,
-	
+
 	WiiClassicControllerXButton,
 	WiiClassicControllerYButton,
 	WiiClassicControllerAButton,
@@ -88,24 +88,24 @@ enum{
 };
 
 @interface WiiRemote : NSObject {
-	
+
 	IOBluetoothDevice* wiiDevice;
 	IOBluetoothL2CAPChannel *ichan;
 	IOBluetoothL2CAPChannel *cchan;
-	
+
 	id _delegate;
-	
-	
+
+
 	unsigned char accX;
 	unsigned char accY;
 	unsigned char accZ;
 	unsigned short buttonData;
-	
+
 	float lowZ, lowX;
 	int orientation;
 	int leftPoint; // is point 0 or 1 on the left. -1 when not tracking.
-	
-	
+
+
 	WiiExpansionPortType expType;
 	WiiAccCalibData wiiCalibData, nunchukCalibData;
 	WiiJoyStickCalibData nunchukJoyStickCalibData;
@@ -113,7 +113,7 @@ enum{
 	IRData	irData[4];
 	double batteryLevel;
 	double warningBatteryLevel;
-	
+
 	BOOL readingRegister;
 	BOOL isMotionSensorEnabled, isIRSensorEnabled, isVibrationEnabled, isExpansionPortEnabled;
 	BOOL isExpansionPortAttached, initExpPort;
@@ -121,9 +121,9 @@ enum{
 	NSTimer* statusTimer;
 	IOBluetoothUserNotification *disconnectNotification;
 	BOOL buttonState[28];
-	
-	
-	
+
+
+
 	//nunchuk
 	unsigned char nStickX;
 	unsigned char nStickY;
@@ -131,7 +131,7 @@ enum{
 	unsigned char nAccY;
 	unsigned char nAccZ;
 	unsigned char nButtonData;
-	
+
 	//classic controller
 	unsigned char cButtonData;
 	unsigned char cStickX1;
@@ -140,8 +140,8 @@ enum{
 	unsigned char cStickY2;
 	unsigned char cAnalogL;
 	unsigned char cAnalogR;
-	
-} 
+
+}
 - (NSString*) address;
 - (void)setDelegate:(id)delegate;
 - (double)batteryLevel;

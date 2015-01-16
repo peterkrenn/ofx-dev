@@ -179,7 +179,7 @@ void idle_touchCb(void) {
 
 	//	thanks to jorge for the fix:
 	//	http://www.openframeworks.cc/forum/viewtopic.php?t=515&highlight=frame+rate
-	
+
 	if (nFrameCount != 0 && bFrameRateSet == true){
 		diffMillis = ofGetElapsedTimeMillis() - prevMillis;
 		if (diffMillis > millisForFrame){
@@ -191,7 +191,7 @@ void idle_touchCb(void) {
 			#else
 				usleep(waitMillis * 1000);   //mac sleep in microseconds - cooler :)
 			#endif
-		}   
+		}
 	}
 	prevMillis = ofGetElapsedTimeMillis(); // you have to measure here
 	OFXTAptr->_update();

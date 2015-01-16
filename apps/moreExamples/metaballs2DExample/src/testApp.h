@@ -27,17 +27,17 @@ class testApp : public ofBaseApp{
 
 		ofTexture		tex;
 		unsigned char	*texPixels;
-	
+
 		int numBlobs;
 		int *blogPx;
 		int *blogPy;
-	
+
 		int *blogDx;
 		int *blogDy;
-	
+
 		int *vy;
-		int *vx; 
-	
+		int *vx;
+
 		int					screenGrabCount;
 		ofImage 			screenGrab;
 

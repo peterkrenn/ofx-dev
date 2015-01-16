@@ -4,27 +4,27 @@
 //------------------------------------------------------------
 particle::particle(){
 	damping = 0.01f;
-	
+
 	red = 0;
 	green = 0;
 	blue = 0;
 	glow = 0;
-	
+
 	finalRed = 0;
 	finalGreen = 0;
 	finalBlue = 0;
-	
+
 	exploded = false;
-	
+
 	lifeSpan = ofRandom(1000,2000);
 	finished = false;
-	
+
 	pos.set(0,0,0);
 	vel.set(0,0,0);
 	frc.set(0,0,0);
-	
+
 	opacity = 255.0f;
-	
+
 	image.loadImage("glow.png");
 }
 
@@ -41,7 +41,7 @@ void particle::addForce(float x, float y, float z){
 }
 
 //------------------------------------------------------------
-void particle::addDampingForce(){	
+void particle::addDampingForce(){
     vel.x = vel.x * .99;
     vel.y = vel.y * .99;
 	vel.z = vel.z * .99;
@@ -52,21 +52,21 @@ void particle::setInitialCondition(float px, float py, float pz, float vx, float
     pos.set(0,0,0);
 	vel.set(0,0,0);
 	frc.set(0,0,0);
-	
+
 	finished = false;
 	exploded = false;
-	
+
 	finalRed = f_red;
 	finalGreen = f_green;
 	finalBlue = f_blue;
-	
+
 	red = 240;
 	green = ofRandom(175,255);
 	blue = ofRandom(0,50);
 }
 
 //------------------------------------------------------------
-void particle::update(){	
+void particle::update(){
 	vel = vel + frc;
 	pos = pos + vel;
 	glow += ofRandom(-10,10);

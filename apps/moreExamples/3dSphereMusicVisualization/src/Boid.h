@@ -20,12 +20,12 @@ public:
 	int band;
 	float alpha, currentAlpha;
 	ofxVec3f *camPos;
-	
+
 	vector <Particles> *partPtr;
-	
+
 	Boid();
 	~Boid();
-	
+
 	void updateRadius(float _target);
 	void move(ofxVec3f target, float _alpha);
 	void render();

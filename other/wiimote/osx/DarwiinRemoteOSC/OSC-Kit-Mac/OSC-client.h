@@ -25,7 +25,7 @@ MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 */
 
-/* 
+/*
 
    OSC-client.h: library for constructing OpenSoundControl messages.
    Derived from SynthControl.h
@@ -69,7 +69,7 @@ MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 #endif
 
 /* The maximum depth of bundles within bundles within bundles within...
-   This is the size of a static array.  If you exceed this limit you'll 
+   This is the size of a static array.  If you exceed this limit you'll
    get an error message. */
 #define MAX_BUNDLE_NESTING 32
 
@@ -84,7 +84,7 @@ typedef struct OSCbuf_struct {
     int size;                /* Size of the buffer */
     char *bufptr;            /* Current position as we fill the buffer */
     int state;		     /* State of partially-constructed message */
-    int4byte *thisMsgSize;   /* Pointer to count field before 
+    int4byte *thisMsgSize;   /* Pointer to count field before
 			        currently-being-written message */
     int4byte *prevCounts[MAX_BUNDLE_NESTING];
 			     /* Pointers to count field before each currently
@@ -134,12 +134,12 @@ int OSC_packetSize(OSCbuf *buf);
 
     - Make sure the OSCbuf has been initialized with OSC_initBuffer().
 
-    - To open a bundle, call OSC_openBundle().  You can then write 
+    - To open a bundle, call OSC_openBundle().  You can then write
       messages or open new bundles within the bundle you opened.
       Call OSC_closeBundle() to close the bundle.  Note that a packet
-      does not have to have a bundle; it can instead consist of just a 
+      does not have to have a bundle; it can instead consist of just a
       single message.
-								  
+
 
     - For each message you want to send:
 
@@ -150,7 +150,7 @@ int OSC_packetSize(OSCbuf *buf);
         - Alternately, call OSC_writeAddressAndTypes() with the name of
           your message and with a type string listing the types of all the
           arguments you will be putting in this message.
-	
+
 	- Now write each of the arguments into the buffer, by calling one of:
 	    OSC_writeFloatArg()
 	    OSC_writeFloatArgs()
@@ -179,5 +179,5 @@ extern char *OSC_errorMessage;
 
 /* How many bytes will be needed in the OSC format to hold the given
    string?  The length of the string, plus the null char, plus any padding
-   needed for 4-byte alignment. */ 
+   needed for 4-byte alignment. */
 int OSC_effectiveStringLength(char *string);

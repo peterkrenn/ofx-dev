@@ -1,6 +1,6 @@
 #import "AppController.h"
 
- 
+
 @implementation AppController
 
 
@@ -32,16 +32,16 @@
 
 
 - (IBAction)doCalibration:(id)sender{
-	
+
 	//id config = [mappingController selection];
-	
-	
+
+
 	if ([sender tag] == 0){
 		x1 = tmpAccX;
 		y1 = tmpAccY;
 		z1 = tmpAccZ;
 	}
-	
+
 	if ([sender tag] == 1){
 		x2 = tmpAccX;
 		y2 = tmpAccY;
@@ -55,7 +55,7 @@
 	x0 = (x1 + x2) / 2.0;
 	y0 = (y1 + y3) / 2.0;
 	z0 = (z2 + z3) / 2.0;
-	
+
 	[textView setString:[NSString stringWithFormat:@"%@\n===== x: %d  y: %d  z: %d =====", [textView string], tmpAccX, tmpAccY, tmpAccZ]];
 
 }
@@ -65,7 +65,7 @@ void PrintOSCArgs(int arglen, const void* args)
 {
 	const char* myArgTypes = (const char*) args;
 	const char* myArgs = myArgTypes + OSCPaddedStrlen(myArgTypes);
-	
+
 	while (*myArgTypes != '\0') {
 
 		switch (*myArgTypes) {
@@ -75,11 +75,11 @@ void PrintOSCArgs(int arglen, const void* args)
 				break;
 			case 'f':
 				NSLog(@"\t\tread float %u", *((const float*)myArgs));
-				myArgs += sizeof(float);			
+				myArgs += sizeof(float);
 				break;
 			case 's':
 				NSLog(@"\t\tread string %s", myArgs);
-				myArgs += OSCPaddedStrlen(myArgs);						
+				myArgs += OSCPaddedStrlen(myArgs);
 				break;
 		}
 		myArgTypes++;
@@ -98,7 +98,7 @@ BOOL ReadOSCInts(int arglen, const void* args, int numInts, int* outInts, NSStri
 	char desiredTypeString[numInts + 1];
 
 	typeString = args;
-	
+
 	// create the desired type string
 	desiredTypeString[0] = ',';
 	for (i = 0; i < numInts; i++)
@@ -109,7 +109,7 @@ BOOL ReadOSCInts(int arglen, const void* args, int numInts, int* outInts, NSStri
 	{
 		return NO;
 	}
-	
+
 	// get the arguments after the type tag
 	remainingArgs = OSCDataAfterAlignedString(args, args + arglen, &errorMsg);
 	if (!remainingArgs)
@@ -117,31 +117,31 @@ BOOL ReadOSCInts(int arglen, const void* args, int numInts, int* outInts, NSStri
 		NSLog(@"Problem with OSC reading note off arguments");
 		return NO;
 	}
-	
+
 	// read out the parameters
 	for(i = 0 ; i < numInts; i++)
 	{
 		outInts[i] = ((const int*)remainingArgs)[0];
 		remainingArgs += 4;
 	}
-	
+
 	return YES;
 }
 
-void GetBatteryLevel(void *context, int arglen, const void *args, 
+void GetBatteryLevel(void *context, int arglen, const void *args,
 	OSCTimeTag when, NetworkReturnAddressPtr returnAddr)
 {
 	[context sendBatteryLevel];
 }
 
 
-SetForceFeedback(void *context, int arglen, const void *args, 
+SetForceFeedback(void *context, int arglen, const void *args,
 	OSCTimeTag when, NetworkReturnAddressPtr returnAddr)
 {
 	int receivedArgs[1];
 	NSString* errorMessage = @"Incorrect arguments to noteOn. Arguments should be int channel, int note, int velocity";
 	if (ReadOSCInts(arglen, args, 1, receivedArgs, errorMessage))
-	if(receivedArgs[0]==0) {	
+	if(receivedArgs[0]==0) {
 		[context setForceFeedback:NO];
 	} else {
 		[context setForceFeedback:YES];
@@ -149,7 +149,7 @@ SetForceFeedback(void *context, int arglen, const void *args,
 }
 
 
-void SetLED(void *context, int arglen, const void *args, 
+void SetLED(void *context, int arglen, const void *args,
 	OSCTimeTag when, NetworkReturnAddressPtr returnAddr)
 {
 	int receivedArgs[4];
@@ -173,27 +173,27 @@ void SetLED(void *context, int arglen, const void *args,
 
 -(void)sendBatteryLevel {
 	NSLog(@"sending batterylevel");
-	[port sendTo:"/wii/batterylevel" types:"f", (float)[wii batteryLevel]];	
+	[port sendTo:"/wii/batterylevel" types:"f", (float)[wii batteryLevel]];
 }
 
 
 - (id)init{
 	char address[16];
-	
+
     unsigned short	portNumber = portno;
 
 	// set the address
 	memset(address, 0, sizeof(address));
     strcpy(address, "127.0.0.1");
-	
-    
-	// sending OSC port 
+
+
+	// sending OSC port
 	NSLog(@"Connecting to %s:%hu...", address, portNumber);
     port   = [OSCPort oscPortToAddress:address portNumber: portNumber];
 	[port retain];
-	[port sendTo:"/wii/connected" types:"i", 1];	
+	[port sendTo:"/wii/connected" types:"i", 1];
 
-	
+
 	// receive OSC messages.
 	portIn = [[OSCInPort alloc] initPort: 5601];
 	OSCcontainer wiiContainer = [portIn newContainerNamed: "wii"];
@@ -201,13 +201,13 @@ void SetLED(void *context, int arglen, const void *args,
 	[portIn newMethodNamed: "forcefeedback" under: wiiContainer callback:SetForceFeedback context: self];
 	[portIn newMethodNamed: "led" under: wiiContainer callback:SetLED context: self];
 	[portIn start];
-	
-	
-	
-	
+
+
+
+
 	modes = [[NSArray arrayWithObjects:@"Nothing", @"Key", @"\tReturn", @"\tTab", @"\tEsc", @"\tBackspace", @"\tUp", @"\tDown", @"\tLeft",@"\tRight", @"\tPage Up", @"\tPage Down", @"Left Click", @"Left Click2", @"Right Click", @"Right Click2", @"Toggle Mouse (Motion)", @"Toggle Mouse (IR)",nil] retain];
 
-	
+
 	id transformer = [[[WidgetsEnableTransformer alloc] init] autorelease];
 	[NSValueTransformer setValueTransformer:transformer forName:@"WidgetsEnableTransformer"];
 
@@ -220,7 +220,7 @@ void SetLED(void *context, int arglen, const void *args,
 }
 
 -(void)awakeFromNib{
-	
+
 	mouseEventMode = 0;
 	discovery = [[WiiRemoteDiscovery alloc] init];
 	[discovery setDelegate:self];
@@ -229,15 +229,15 @@ void SetLED(void *context, int arglen, const void *args,
 	[textView setString:@"\nDarwiinRemote OSC 0.2.1 \ndefault osc remote address: 127.0.0.1:5600 (make changes in the preferences)\ndefault osc receiving port is 5601\n\nPlease press button 1 and button 2 simultaneously"];
 	point.x = 0;
 	point.y = 0;
-	previousPoint.x = 0; 
+	previousPoint.x = 0;
 	previousPoint.y = 0;
-		
+
 	[[NSNotificationCenter defaultCenter] addObserver:self
 														selector:@selector(expansionPortChanged:)
 														name:@"WiiRemoteExpansionPortChangedNotification"
 														object:nil];
-	
-	
+
+
 
 
 }
@@ -247,7 +247,7 @@ void SetLED(void *context, int arglen, const void *args,
 	if (![[tmpWii address] isEqualToString:[wii address]]){
 		return;
 	}
-	
+
 	if ([tmpWii isExpansionPortAttached]){
 		[tmpWii setExpansionPortEnabled:YES];
 
@@ -255,7 +255,7 @@ void SetLED(void *context, int arglen, const void *args,
 		[tmpWii setExpansionPortEnabled:NO];
 
 	}
-	
+
 }
 
 
@@ -274,16 +274,16 @@ void SetLED(void *context, int arglen, const void *args,
 	[discovery stop];
 	[graphView startTimer];
 	[graphView2 startTimer];
-	
-	[port sendTo:"/wii/connected" types:"i", 1];	
-		
+
+	[port sendTo:"/wii/connected" types:"i", 1];
+
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 }
 
 
 - (void) WiiRemoteDiscoveryError:(int)code {
 	[textView setString:[NSString stringWithFormat:@"%@\n===== WiiRemoteDiscovery error (%d) =====", [textView string], code]];
-	[port sendTo:"/wii/connected" types:"i", 0];	
+	[port sendTo:"/wii/connected" types:"i", 0];
 }
 
 
@@ -294,30 +294,30 @@ void SetLED(void *context, int arglen, const void *args,
 	wii = nil;
 	[discovery start];
 	[textView setString:[NSString stringWithFormat:@"%@\nPlease press the synchronize button", [textView string]]];
-	[port sendTo:"/wii/connected" types:"i", 0];	
+	[port sendTo:"/wii/connected" types:"i", 0];
 }
 
 
 - (void) rawIRData:(IRData[4])irData  wiiRemote:(WiiRemote*)wiiRemote{
-		
-		[irPoint1X setStringValue: [NSString stringWithFormat:@"%00X", irData[0].x]];		
-		[irPoint1Y setStringValue: [NSString stringWithFormat:@"%00X", irData[0].y]];		
-		[irPoint1Size setStringValue: [NSString stringWithFormat:@"%00X", irData[0].s]];		
 
-		[irPoint2X setStringValue: [NSString stringWithFormat:@"%00X", irData[1].x]];		
-		[irPoint2Y setStringValue: [NSString stringWithFormat:@"%00X", irData[1].y]];		
-		[irPoint2Size setStringValue: [NSString stringWithFormat:@"%00X", irData[1].s]];		
+		[irPoint1X setStringValue: [NSString stringWithFormat:@"%00X", irData[0].x]];
+		[irPoint1Y setStringValue: [NSString stringWithFormat:@"%00X", irData[0].y]];
+		[irPoint1Size setStringValue: [NSString stringWithFormat:@"%00X", irData[0].s]];
 
-		[irPoint3X setStringValue: [NSString stringWithFormat:@"%00X", irData[2].x]];		
-		[irPoint3Y setStringValue: [NSString stringWithFormat:@"%00X", irData[2].y]];		
-		[irPoint3Size setStringValue: [NSString stringWithFormat:@"%00X", irData[2].s]];		
-	
-		[irPoint4X setStringValue: [NSString stringWithFormat:@"%00X", irData[3].x]];		
-		[irPoint4Y setStringValue: [NSString stringWithFormat:@"%00X", irData[3].y]];		
+		[irPoint2X setStringValue: [NSString stringWithFormat:@"%00X", irData[1].x]];
+		[irPoint2Y setStringValue: [NSString stringWithFormat:@"%00X", irData[1].y]];
+		[irPoint2Size setStringValue: [NSString stringWithFormat:@"%00X", irData[1].s]];
+
+		[irPoint3X setStringValue: [NSString stringWithFormat:@"%00X", irData[2].x]];
+		[irPoint3Y setStringValue: [NSString stringWithFormat:@"%00X", irData[2].y]];
+		[irPoint3Size setStringValue: [NSString stringWithFormat:@"%00X", irData[2].s]];
+
+		[irPoint4X setStringValue: [NSString stringWithFormat:@"%00X", irData[3].x]];
+		[irPoint4Y setStringValue: [NSString stringWithFormat:@"%00X", irData[3].y]];
 		[irPoint4Size setStringValue: [NSString stringWithFormat:@"%00X", irData[3].s]];
-		
-		
-		[port sendTo:"/wii/irdata" types:"ffffffffffff", 
+
+
+		[port sendTo:"/wii/irdata" types:"ffffffffffff",
 		(float)irData[0].x/1023,(float)irData[0].y/1023,(float)irData[0].s,
 		(float)irData[1].x/1023,(float)irData[1].y/1023,(float)irData[1].s,
 		(float)irData[2].x/1023,(float)irData[2].y/1023,(float)irData[2].s,
@@ -329,9 +329,9 @@ void SetLED(void *context, int arglen, const void *args,
 - (void) irPointMovedX:(float)px Y:(float)py  wiiRemote:(WiiRemote*)wiiRemote{
 	if (mouseEventMode != 2)
 		return;
-	
+
 	BOOL haveMouse = (px > -2)?YES:NO;
-	
+
 	if (!haveMouse) {
 		[graphView setIRPointX:-2 Y:-2];
 		[port sendTo:"/wii/irpoint" types:"ff", -2,-2];
@@ -341,27 +341,27 @@ void SetLED(void *context, int arglen, const void *args,
 		[port sendTo:"/wii/irpoint" types:"ff", px,py];
 
 	}
-	
-	
+
+
 	int dispWidth = CGDisplayPixelsWide(kCGDirectMainDisplay);
 	int dispHeight = CGDisplayPixelsHigh(kCGDirectMainDisplay);
-	
+
 	float sens2 = 1.0;
 	float newx = (px*1*sens2)*dispWidth + dispWidth/2;
 	float newy = -(py*1*sens2)*dispWidth + dispHeight/2;
-	
+
 	if (newx < 0) newx = 0;
 	if (newy < 0) newy = 0;
 	if (newx >= dispWidth) newx = dispWidth-1;
 	if (newy >= dispHeight) newy = dispHeight-1;
-	
+
 	float dx = newx - point.x;
 	float dy = newy - point.y;
-	
+
 	float d = sqrt(dx*dx+dy*dy);
 
-	
-	
+
+
 	// mouse filtering
 	if (d < 20) {
 		point.x = point.x * 0.9 + newx*0.1;
@@ -373,32 +373,32 @@ void SetLED(void *context, int arglen, const void *args,
 		point.x = newx;
 		point.y = newy;
 	}
-	
+
 	if (point.x > dispWidth)
 		point.x = dispWidth - 1;
-	
+
 	if (point.y > dispHeight)
 		point.y = dispHeight - 1;
-	
+
 	if (point.x < 0)
 		point.x = 0;
 	if (point.y < 0)
 		point.y = 0;
-	
+
 	[port sendTo:"/wii/point" types:"ff", (float)point.x, (float)point.y];
-	
+
 }
 
 
 
 - (void) buttonChanged:(WiiButtonType)type isPressed:(BOOL)isPressed wiiRemote:(WiiRemote*)wiiRemote {
-		 
+
 	id map = nil;
 	int isPressedInt = (isPressed==true) ? 1:0;
 	if (type == WiiRemoteAButton){
 		[aButton setEnabled:isPressed];
-		[port sendTo:"/wii/button/a" types:"i", isPressedInt];	
-		
+		[port sendTo:"/wii/button/a" types:"i", isPressedInt];
+
 	}else if (type == WiiRemoteBButton){
 		[bButton setEnabled:isPressed];
 		[port sendTo:"/wii/button/b" types:"i", isPressedInt];
@@ -452,19 +452,19 @@ void SetLED(void *context, int arglen, const void *args,
 	if (type == WiiNunchukJoyStick){
 		unsigned short max = 0xE0;
 		unsigned short center = 0x80;
-		
+
 		float shiftedX = (tiltX * 1.0) - (center * 1.0);
 		float shiftedY = (tiltY * 1.0) - (center * 1.0);
-		
+
 		float scaledX = (shiftedX * 1.0) / ((max - center) * 1.0);
 		float scaledY = (shiftedY * 1.0) / ((max - center) * 1.0);
-		
+
 		// NSLog(@"Joystick X = %f  Y= %f", scaledX, scaledY);
 		//[joystickQCView setValue:[NSNumber numberWithFloat: scaledX] forInputKey:[NSString stringWithString:@"X_Position"]];
 		//[joystickQCView setValue:[NSNumber numberWithFloat: scaledY] forInputKey:[NSString stringWithString:@"Y_Position"]];
-		
-		//[joystickX setStringValue: [NSString stringWithFormat:@"%00X", tiltX]];		
-		//[joystickY setStringValue: [NSString stringWithFormat:@"%00X", tiltY]];	
+
+		//[joystickX setStringValue: [NSString stringWithFormat:@"%00X", tiltX]];
+		//[joystickY setStringValue: [NSString stringWithFormat:@"%00X", tiltY]];
 		[port sendTo:"/nunchuk/joystick" types:"ff", (float)scaledX,(float)scaledY];
 	}
 }
@@ -485,52 +485,52 @@ void SetLED(void *context, int arglen, const void *args,
 		x3 = 153; //data.accX_1g;
 		y0 = 129; //data.accY_zero;
 		y2 = 154; //data.accY_1g;
-		
+
 		double ax = (double)(accX - x0) / (x3 - x0);
 		double ay = (double)(accY - y0) / (y2 - y0);
-	
+
 		double roll = atan(ax) * 180.0 / 3.14 * 2;
-		double pitch = atan(ay) * 180.0 / 3.14 * 2;	
-		
+		double pitch = atan(ay) * 180.0 / 3.14 * 2;
+
 		// send orientation to a remote OSC address
 		[port sendTo:"/nunchuk/orientation" types:"ff", (float)roll,(float)pitch];
 		return;
 	}
-	
+
 	[graphView setData:accX y:accY z:accZ];
 	[batteryLevel setDoubleValue:(double)[wii batteryLevel]];
-	
-	
+
+
 	tmpAccX = accX;
 	tmpAccY = accY;
 	tmpAccZ = accZ;
-	
+
 	// send acceleration to a remote OSC address
 	[port sendTo:"/wii/acc" types:"fff", (float)accX,(float)accY,(float)accZ];
-	
+
 	// values from the preset
 	x0 = 128; //data.accX_zero;
 	x3 = 153; //data.accX_1g;
 	y0 = 129; //data.accY_zero;
 	y2 = 154; //data.accY_1g;
-		
+
 	double ax = (double)(accX - x0) / (x3 - x0);
 	double ay = (double)(accY - y0) / (y2 - y0);
-	
+
 	double roll = atan(ax) * 180.0 / 3.14 * 2;
-	double pitch = atan(ay) * 180.0 / 3.14 * 2;	
-	
+	double pitch = atan(ay) * 180.0 / 3.14 * 2;
+
 	// send orientation to a remote OSC address
 	[port sendTo:"/wii/orientation" types:"ff", (float)roll,(float)pitch];
 
-	
+
 	int dispWidth = CGDisplayPixelsWide(kCGDirectMainDisplay);
 	int dispHeight = CGDisplayPixelsHigh(kCGDirectMainDisplay);
-	
-		
+
+
 	point.x = previousPoint.x;
 	point.y = previousPoint.y;
-	
+
 	float sens1 = 1.0;
 
 	if (roll < -15)
@@ -539,80 +539,80 @@ void SetLED(void *context, int arglen, const void *args,
 		point.x -= 4 * sens1;
 	if (roll < -75)
 		point.x -= 6 * sens1;
-	
+
 	if (roll > 15)
 		point.x += 2 * sens1;
 	if (roll > 45)
 		point.x += 4 * sens1;
 	if (roll > 75)
 		point.x += 6 * sens1;
-	
+
 	// pitch -	-90 = vertical, IR port up
 	//			  0 = horizontal, A-button up.
 	//			 90 = vertical, IR port down
-	
-	// The "natural" hand position for the wiimote is ~ -40 up. 
-	
+
+	// The "natural" hand position for the wiimote is ~ -40 up.
+
 	if (pitch < -50)
 		point.y -= 2 * sens1;
 	if (pitch < -60)
 		point.y -= 4 * sens1;
 	if (pitch < -80)
 		point.y -= 6 * sens1;
-	
+
 	if (pitch > -15)
 		point.y += 2 * sens1;
 	if (pitch > -5)
 		point.y += 4 * sens1;
 	if (pitch > 15)
-		point.y += 6 * sens1; 
-	
-	
+		point.y += 6 * sens1;
+
+
 	if (point.x < 0)
 		point.x = 0;
 	if (point.y < 0)
 		point.y = 0;
-	
+
 	if (point.x > dispWidth)
 		point.x = dispWidth - 1;
-	
+
 	if (point.y > dispHeight)
 		point.y = dispHeight - 1;
-	
-	
+
+
 	// send point to a remote OSC address.
 	// point is not absolute but the difference of the current position and
 	// the previous position.
-	[port sendTo:"/wii/point" types:"ff", (float)point.x, (float)point.y];	
-	
+	[port sendTo:"/wii/point" types:"ff", (float)point.x, (float)point.y];
+
 	previousPoint.x = point.x;
 	previousPoint.y = point.y;
 
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender{
-	
+
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-	
+
 	[defaults setObject:[[NSNumber alloc] initWithDouble:x1] forKey:@"x1"];
 	[defaults setObject:[[NSNumber alloc] initWithDouble:y1] forKey:@"y1"];
 	[defaults setObject:[[NSNumber alloc] initWithDouble:z1] forKey:@"z1"];
-	
+
 	[defaults setObject:[[NSNumber alloc] initWithDouble:x2] forKey:@"x2"];
 	[defaults setObject:[[NSNumber alloc] initWithDouble:y2] forKey:@"y2"];
 	[defaults setObject:[[NSNumber alloc] initWithDouble:z2] forKey:@"z2"];
-	
+
 	[defaults setObject:[[NSNumber alloc] initWithDouble:x3] forKey:@"x3"];
 	[defaults setObject:[[NSNumber alloc] initWithDouble:y3] forKey:@"y3"];
 	[defaults setObject:[[NSNumber alloc] initWithDouble:z3] forKey:@"z3"];
-	
-	
+
+
 	[graphView stopTimer];
 	[graphView2 stopTimer];
 	[wii closeConnection];
-	
+
 	[portIn stop];
-	
+
 	return NSTerminateNow;
 }
 
@@ -622,7 +622,7 @@ void SetLED(void *context, int arglen, const void *args,
         modalDelegate:self
 	   didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:)
 		  contextInfo:nil];
-	
+
 }
 
 
@@ -669,29 +669,29 @@ void SetLED(void *context, int arglen, const void *args,
 		case 2:
 			[textView setString:[NSString stringWithFormat:@"%@\n===== Mouse Mode On (IR Sensor) =====", [textView string]]];
 			[port sendTo:"/wii/mousemode" types:"i", 2];
-			
+
 	}
 }
 
 
 - (IBAction)setRemoteAddress:(id)sender{
-   
+
    if ([[theRemoteAddress stringValue] length] == 0){
 		return;
 	}
-	
+
 	NSString *addressInput = [theRemoteAddress stringValue];
 	NSNumber *portInput = [NSNumber numberWithInt:[theRemotePort intValue]];
 	int myRemotePort = [portInput intValue];
-	
-	
+
+
 	const char *temp = [addressInput fileSystemRepresentation];
 	int len = strlen(temp);
 	char myAddress[len+1];
 	strcpy(myAddress, temp);
-	
+
 	[textView setString:[NSString stringWithFormat:@"%@\n===== changing remote address to %s : %u =====", [textView string], myAddress, myRemotePort]];
-	
+
 	port   = [OSCPort oscPortToAddress:myAddress portNumber: myRemotePort];
 	[port retain];
 	[port sendTo:"/wii/connected" types:"i", 1];

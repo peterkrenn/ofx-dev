@@ -40,10 +40,10 @@ class testApp : public ofBaseApp{
 
         ofxCvContourFinder 	contourFinder;
 		videoHandFingerDetector	fingerFinder;
-		
+
 		handBlob			myHand;
 		trackedFinger		myFinger[10];
-		
+
 		int 				threshold;
 		bool				bLearnBakground;
 

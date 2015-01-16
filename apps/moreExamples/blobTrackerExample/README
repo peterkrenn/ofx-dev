@@ -1,6 +1,6 @@
-commit-log: add moreExamples/blobTrackerExample 
+commit-log: add moreExamples/blobTrackerExample
 
-	DESC	Persistent blob tracking example - 
+	DESC	Persistent blob tracking example -
 		lets you track blobs over multiple frames by assigning a unique id.
 
 	README	http://lab.impssble.com/blog/?p=265

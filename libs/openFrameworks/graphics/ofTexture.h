@@ -25,10 +25,10 @@ typedef struct{
 	union{
 		struct{
 			unsigned int textureID;	//use me
-		};		
+		};
 		unsigned int textureName[1];  //don't use me
 	};
-		
+
 }ofTextureData;
 
 //enable / disable the slight offset we add to ofTexture's texture coords to compensate for bad edge artifiacts

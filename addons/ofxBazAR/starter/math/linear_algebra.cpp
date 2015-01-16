@@ -1,6 +1,6 @@
 /*
-Copyright 2005, 2006 Computer Vision Lab, 
-Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland. 
+Copyright 2005, 2006 Computer Vision Lab,
+Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland.
 All rights reserved.
 
 This file is part of BazAR.
@@ -16,7 +16,7 @@ PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 BazAR; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301, USA 
+Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 #include <iostream>
 #include <math.h>
@@ -122,13 +122,13 @@ void gfla_copy_3x4(const double M[3][4], double copy[3][4])
 // Matrices:
 
 double gfla_det(const double M[3][3])
-{ 
+{
   return  M[0][0] * M[1][1] * M[2][2] -
           M[0][0] * M[1][2] * M[2][1] -
           M[1][0] * M[0][1] * M[2][2] +
           M[1][0] * M[0][2] * M[2][1] +
           M[2][0] * M[0][1] * M[1][2] -
-          M[2][0] * M[0][2] * M[1][1]; 
+          M[2][0] * M[0][2] * M[1][1];
 }
 
 double gfla_det(const double M11, const double M12,
@@ -137,13 +137,13 @@ double gfla_det(const double M11, const double M12,
   return M11 * M22 - M12 * M21;
 }
 
-double gfla_det(const double M11, const double M12, const double M13, 
-                const double M21, const double M22, const double M23, 
+double gfla_det(const double M11, const double M12, const double M13,
+                const double M21, const double M22, const double M23,
                 const double M31, const double M32, const double M33)
 {
   return  M11 * M22 * M33 - M11 * M23 * M32 -
           M21 * M12 * M33 + M21 * M13 * M32 +
-          M31 * M12 * M23 - M31 * M13 * M22; 
+          M31 * M12 * M23 - M31 * M13 * M22;
 }
 
 void gfla_get_rotation_from_kappa(double R[3][3], const double kappa)
@@ -167,12 +167,12 @@ void gfla_get_rotation_from_omega(double R[3][3], const double omega)
   R[2][0] =  0.; R[2][1] = -sin(omega); R[2][2] = cos(omega);
 }
 
-/*! 
+/*!
   R = R(kappa) * R(phi) * R(omega)
   */
 void gfla_get_rotation_from_euler_angles(double R[3][3], const double omega, const double phi, const double kappa)
 {
-   double 
+   double
      t1 = sin(omega),
      t2 = cos(phi),
      t4 = cos(omega),
@@ -181,7 +181,7 @@ void gfla_get_rotation_from_euler_angles(double R[3][3], const double omega, con
      t10 = sin(phi),
      t11 = t1*t10,
      t15 = t4*t10;
-   
+
    R[0][0] = t2*t8;
    R[0][1] = t4*t6+t11*t8;
    R[0][2] = t1*t6-t15*t8;
@@ -198,10 +198,10 @@ int gfla_get_euler_angles_from_rotation(const double R[3][3], double * omega, do
   if (fabs(R[2][2]) < 1e-6 && fabs(R[2][1]) < 1e-6)
   {
     /* Degenerate case:  When phi = +/- 90 degrees, then we cannot seperate omega and kappa */
-    *omega = atan2(R[1][2], R[1][1]); 
+    *omega = atan2(R[1][2], R[1][1]);
     if (R[2][0] > 0.)
-      *phi =  M_PI/2; 
-    else 
+      *phi =  M_PI/2;
+    else
       *phi = -M_PI/2 ;
     *kappa = 0.;
 
@@ -218,7 +218,7 @@ int gfla_get_euler_angles_from_rotation(const double R[3][3], double * omega, do
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
-// Vectors/Matrices     
+// Vectors/Matrices
 
 void gfla_mul_scale_mat_3x3(double s, double M[3][3], double sM[3][3])
 {

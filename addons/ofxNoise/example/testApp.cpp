@@ -2,12 +2,12 @@
 
 
 //--------------------------------------------------------------
-void testApp::setup(){	 
+void testApp::setup(){
 	ofBackground(0,0,0);
-	
+
 	noise = new ofxPerlin();
 	simplex = new ofxSimplex();
-	
+
 
 }
 
@@ -20,10 +20,10 @@ void testApp::draw(){
 	ofEnableAlphaBlending();
 	ofSetColor(255, 255, 255, 127);
 	ofLine(0, ofGetHeight()/2, ofGetWidth(), ofGetHeight()/2);
-	
-	
+
+
 	//3d perlin noise
-	float div = 100; 
+	float div = 100;
 	ofBeginShape();
 	ofVertex(0, ofGetHeight());
 	for(int i=0; i<ofGetScreenWidth(); i+=2){
@@ -34,7 +34,7 @@ void testApp::draw(){
 	}
 	ofVertex(ofGetWidth(), ofGetHeight());
 	ofEndShape();
-	
+
 	ofSetColor(255, 0, 255, 127);
 	//4d simplex noise
 	ofBeginShape();
@@ -50,13 +50,13 @@ void testApp::draw(){
 }
 
 //--------------------------------------------------------------
-void testApp::keyPressed  (int key){ 
-	
+void testApp::keyPressed  (int key){
+
 }
 
 //--------------------------------------------------------------
-void testApp::keyReleased  (int key){ 
-	
+void testApp::keyReleased  (int key){
+
 }
 
 //--------------------------------------------------------------

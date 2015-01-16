@@ -20,33 +20,33 @@ ofxPerlin::~ofxPerlin(){
 
 float ofxPerlin::noise(float x){
 	if(x < 0) x = -x;
-	
+
 	int xi = (int)x;
 	float xf = (float)(x - xi);
 	float rxf;
-	
+
 	float r = 0;
 	float ampl = 0.5f;
-	
+
 	float n1;
-	
+
 	for(int i=0; i<perlin_octaves; i++){
 		int of = xi;
 		rxf = noise_fsc(xf);
-		
+
 		n1 = perlin[of & PERLIN_SIZE];
 		n1 += rxf * (perlin[(of + 1) & PERLIN_SIZE] - n1);
-		
+
 		of += PERLIN_ZWRAP;
-		
+
 		r += n1 * ampl;
 		ampl *= perlin_amp_falloff;
-		
+
 		if (ampl<PERLIN_MIN_AMPLITUDE) break;
-		
+
 		xi <<= 1;
 		xf *= 2;
-		
+
 		if (xf >= 1.0f) {
 			xi++;
 			xf--;
@@ -58,46 +58,46 @@ float ofxPerlin::noise(float x){
 float ofxPerlin::noise(float x, float y){
 	if(x < 0) x = -x;
 	if(y < 0) y = -y;
-	
+
 	int xi = (int)x, yi =(int)y;
 	float xf = (float)(x - xi);
 	float yf = (float)(y - yi);
 	float rxf, ryf;
-	
+
 	float r = 0;
 	float ampl = 0.5f;
-	
+
 	float n1, n2, n3;
-	
+
 	for(int i=0; i<perlin_octaves; i++){
 		int of = xi + (yi << PERLIN_YWRAPB);
-		
+
 		rxf = noise_fsc(xf);
 		ryf = noise_fsc(yf);
-		
+
 		n1 = perlin[of & PERLIN_SIZE];
 		n1 += rxf * (perlin[(of + 1) & PERLIN_SIZE] - n1);
 		n2 = perlin[(of + PERLIN_YWRAP) & PERLIN_SIZE];
 		n2 += rxf * (perlin[(of + PERLIN_YWRAP + 1) & PERLIN_SIZE] - n2);
 		n1 += ryf * (n2 - n1);
-		
+
 		of += PERLIN_ZWRAP;
 		n2 = perlin[of & PERLIN_SIZE];
 		n2 += rxf * (perlin[(of + 1) & PERLIN_SIZE] - n2);
 		n3 = perlin[(of + PERLIN_YWRAP) & PERLIN_SIZE];
 		n3 += rxf * (perlin[(of + PERLIN_YWRAP + 1) & PERLIN_SIZE] - n3);
 		n2 += ryf * (n3 - n2);
-		
+
 		r += n1 * ampl;
 		ampl *= perlin_amp_falloff;
-		
+
 		if (ampl<PERLIN_MIN_AMPLITUDE) break;
-		
+
 		xi <<= 1;
 		xf *= 2;
 		yi <<= 1;
 		yf *= 2;
-		
+
 		if (xf >= 1.0f) {
 			xi++;
 			xf--;
@@ -108,7 +108,7 @@ float ofxPerlin::noise(float x, float y){
 		}
 	}
 	return r;
-	
+
 }
 
 float ofxPerlin::noise(float x, float y, float z){
@@ -118,51 +118,51 @@ float ofxPerlin::noise(float x, float y, float z){
 	if(x < 0) x = -x;
 	if(y < 0) y = -y;
 	if(z < 0) z = -z;
-	
+
 	int xi = (int)x, yi =(int)y, zi = (int)z;
 	float xf = (float)(x - xi);
 	float yf = (float)(y - yi);
 	float zf = (float)(z - zi);
 	float rxf, ryf;
-	
+
 	float r = 0;
 	float ampl = 0.5f;
-	
+
 	float n1, n2, n3;
 	for(int i=0; i<perlin_octaves; i++){
 		int of = xi + (yi << PERLIN_YWRAPB) + (zi << PERLIN_ZWRAPB);
-		
+
 		rxf = noise_fsc(xf);
 		ryf = noise_fsc(yf);
-		
+
 		n1 = perlin[of & PERLIN_SIZE];
 		n1 += rxf * (perlin[(of + 1) & PERLIN_SIZE] - n1);
 		n2 = perlin[(of + PERLIN_YWRAP) & PERLIN_SIZE];
 		n2 += rxf * (perlin[(of + PERLIN_YWRAP + 1) & PERLIN_SIZE] - n2);
 		n1 += ryf * (n2 - n1);
-		
+
 		of += PERLIN_ZWRAP;
 		n2 = perlin[of & PERLIN_SIZE];
 		n2 += rxf * (perlin[(of + 1) & PERLIN_SIZE] - n2);
 		n3 = perlin[(of + PERLIN_YWRAP) & PERLIN_SIZE];
 		n3 += rxf * (perlin[(of + PERLIN_YWRAP + 1) & PERLIN_SIZE] - n3);
 		n2 += ryf * (n3 - n2);
-		
+
 		n1 += noise_fsc(zf) * (n2 - n1);
-		
+
 		r += n1 * ampl;
 		ampl *= perlin_amp_falloff;
-		
-		
+
+
 		if (ampl<PERLIN_MIN_AMPLITUDE) break;
-		
+
 		xi <<= 1;
 		xf *= 2;
 		yi <<= 1;
 		yf *= 2;
 		zi <<= 1;
 		zf *= 2;
-		
+
 		if (xf >= 1.0f) {
 			xi++;
 			xf--;

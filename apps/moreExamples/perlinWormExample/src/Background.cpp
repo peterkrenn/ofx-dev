@@ -1,7 +1,7 @@
 #include "Background.h"
 
 Background::Background(){
-	
+
 }
 
 void Background::render(){

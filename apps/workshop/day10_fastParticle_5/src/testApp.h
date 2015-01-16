@@ -23,7 +23,7 @@ class testApp : public ofSimpleApp{
 		void mouseReleased();
 
 		vector <particle *> myParticles;
-		
+
 };
 
 #endif

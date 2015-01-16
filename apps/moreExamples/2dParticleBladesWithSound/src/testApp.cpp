@@ -2,8 +2,8 @@
 
 
 //--------------------------------------------------------------
-void testApp::setup(){	
-	
+void testApp::setup(){
+
 	ofSetVerticalSync(true);
 	ofSetFrameRate(32);
 	ofEnableSmoothing();
@@ -12,25 +12,25 @@ void testApp::setup(){
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
-	
+
 	music.loadSound("music.mp3",false);
 	music.play();
 	spectrum = new float[3];
-	
+
 	maxParticles = 150;
 	mouseDown = false;
-	
+
 	for (int i = 0; i < 1; i++){
 		particle myParticle;
 		myParticle.setInitialCondition(ofRandom(0,ofGetWidth()),ofRandom(0,ofGetHeight()),0,0);
 		particles.push_back(myParticle);
 	}
-	
+
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-	
+
 	spectrum = ofSoundGetSpectrum(42);
 	// spectrum = ofSoundGetSpectrum(40);
 	//for(int i = 0; i < 32; i++){
@@ -41,46 +41,46 @@ void testApp::update(){
 	float total = spectrum[2] + spectrum[5] + spectrum[7];
 	// cout << "total: " << total << endl;
 	float radius = 100+(total/3)*1500;
-	float random_x = radius/500*ofRandom(0,5); 
+	float random_x = radius/500*ofRandom(0,5);
 	float random_y = radius/350*ofRandom(0,5);
 	float emitter_x = (ofGetWidth()/2) + (radius * sin(ofGetElapsedTimef()*5));
 	float emitter_y = (ofGetHeight()/2) + (radius * cos(ofGetElapsedTimef()*5));
 	addTrailPoint(emitter_x, emitter_y,0);
 	emitParticlesColor(emitter_x, emitter_y, random_x, random_y, 255,255,255, .45);
 
-	// on every frame 
+	// on every frame
 	// we reset the forces
 	// add in any forces on the particle
 	// perfom damping and
 	// then update
-	
+
 	for (int i = 0; i < particles.size(); i++){
 		particles[i].resetForce();
 	}
-	
+
 	for (int i = 0; i < particles.size(); i++){
-		
+
 	particles[i].addRepulsionForce(ofGetWidth()/2, ofGetHeight()/2, 1000, 0.75f);
-		
+
 		//this is for partcle particle, note the limited for loop
 		for (int j = 0; j < i; j++){
 			//particles[i].addRepulsionForce(particles[j], 100, 0.55f);
 			particles[i].addAttractionForce(particles[j], 100, 0.45f);
 		}
 	}
-	
+
 
 	if(particles.size() > maxParticles){
 		particles.erase(particles.begin());
 	}
-		
+
 	for (int i = 0; i < particles.size(); i++){
 		//particles[i].addForce(0,.1);
 		//particles[i].addDampingForce();
 		//particles[i].bounceOffWalls();
 		particles[i].update();
 	}
-	
+
 }
 
 void testApp::addTrailPoint(int x, int y, int z){
@@ -93,12 +93,12 @@ void testApp::addTrailPoint(int x, int y, int z){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	
+
 	ofEnableAlphaBlending();
 	ofSetColor(255,255,255);
 	ofBackground(0,0,0);
 
-	ofDrawBitmapString("frameRate: " + ofToString(ofGetFrameRate()) + " | Particles: " + ofToString( (int)particles.size() ) + " | maxParticles: " + ofToString(maxParticles) + " (+/-)", 3,13);	
+	ofDrawBitmapString("frameRate: " + ofToString(ofGetFrameRate()) + " | Particles: " + ofToString( (int)particles.size() ) + " | maxParticles: " + ofToString(maxParticles) + " (+/-)", 3,13);
 
 	/*
 	ofSetColor(255,255,255,255);
@@ -109,7 +109,7 @@ void testApp::draw(){
 	 */
 
 	drawTrail();
-	
+
 	for (int i = 0; i < particles.size(); i++){
 		particles[i].draw();
 	}
@@ -129,19 +129,19 @@ void testApp::drawTrail(){
 }
 
 //--------------------------------------------------------------
-void testApp::keyPressed  (int key){ 
-	
+void testApp::keyPressed  (int key){
+
 	switch (key){
-			
+
 		case ' ':
-			// reposition everything: 
+			// reposition everything:
 			for (int i = 0; i < particles.size(); i++){
 				particles[i].setInitialCondition(ofRandom(0,ofGetWidth()),ofRandom(0,ofGetHeight()),0,0);
 			}
 			break;
 	}
-	
-	
+
+
 }
 
 void testApp::emitParticles(int x, int y, int vel_x, int vel_y){
@@ -165,14 +165,14 @@ void testApp::emitParticlesColor (int x, int y, int vel_x, int vel_y, int red, i
 
 
 //--------------------------------------------------------------
-void testApp::keyReleased(int key){ 
+void testApp::keyReleased(int key){
 	if (key == '+') {
 		maxParticles++;
 	}
 	else if (key == '-') {
 		maxParticles--; if (maxParticles <= 0)	maxParticles=0;
 	}
-	
+
 }
 
 //--------------------------------------------------------------
@@ -192,7 +192,7 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-	
+
 }
 
 //--------------------------------------------------------------

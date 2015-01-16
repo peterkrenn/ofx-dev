@@ -10,7 +10,7 @@ class particle
         ofxVec3f pos;
         ofxVec3f vel;
         ofxVec3f frc;   // frc is also know as acceleration (newton says "f=ma")
-			
+
         particle();
 		virtual ~particle(){};
 
@@ -22,9 +22,9 @@ class particle
 		void addTrailPoint(int x, int y, int z);
         void draw();
 		void drawTrails();
-	
+
 		float damping;
-	
+
 		int red;
 		int green;
 		int blue;
@@ -34,16 +34,16 @@ class particle
 		int glow;
 		int color;
 	float opacity;
-	
+
 		void explode(float vx, float vy, float vz);
 		int timeExploded;
 		bool exploded;
-	
+
 	int lifeSpan;
 	bool finished;
-	
+
 	vector <ofxVec3f> trail;
-	
+
 	ofImage image;
 
     protected:

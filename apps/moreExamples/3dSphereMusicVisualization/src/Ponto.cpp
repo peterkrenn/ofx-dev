@@ -29,7 +29,7 @@ void Ponto::updateRadius(float _radius){
 	if(currentRadius < _radius) currentRadius = _radius;
 	else currentRadius *= damp;
 	radius = currentRadius + minRadius;
-	
+
 }
 
 void Ponto::updateAlpha(float _alpha){

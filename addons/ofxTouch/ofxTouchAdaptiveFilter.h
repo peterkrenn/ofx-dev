@@ -8,17 +8,17 @@
 
 class ofxTouchAdaptiveFilter : public ofxTouchFilter {
   public:
-  
-    int cwidth;
-    int cheight;   
-	int threshold;
-	bool bLearnBakground;     
-    
-    ofxCvFloatImage  floatBgImg;    
-    ofxCvGrayscaleImage  grayBgImg;    
 
-           
-    
+    int cwidth;
+    int cheight;
+	int threshold;
+	bool bLearnBakground;
+
+    ofxCvFloatImage  floatBgImg;
+    ofxCvGrayscaleImage  grayBgImg;
+
+
+
     void allocate( int w, int h ) {
         cwidth = w;
         cheight = h;
@@ -27,10 +27,10 @@ class ofxTouchAdaptiveFilter : public ofxTouchFilter {
         floatBgImg.allocate( cwidth,cheight );
         grayBgImg.allocate( cwidth,cheight );
     }
-        
-    
+
+
     void process( ofxCvGrayscaleImage& img ) {
-        
+
         if( bLearnBakground ) {
             floatBgImg = img;
             bLearnBakground = false;
@@ -43,16 +43,16 @@ class ofxTouchAdaptiveFilter : public ofxTouchFilter {
         img.blur( 11 );
         img.threshold( threshold );
     }
-    
-    
+
+
     void draw() {
         floatBgImg.draw( 20,280 );
-        
-        ofDrawBitmapString( "[space] to learn background\n[+]/[-] to adjust threshold", 
+
+        ofDrawBitmapString( "[space] to learn background\n[+]/[-] to adjust threshold",
                             20,510 );
     }
-    
-    
+
+
     void keyPressed( int key ) {
         switch (key){
             case ' ':
@@ -66,9 +66,9 @@ class ofxTouchAdaptiveFilter : public ofxTouchFilter {
                 threshold --;
                 if (threshold < 0) threshold = 0;
                 break;
-        }    
-    }    
-  
+        }
+    }
+
 };
 
 

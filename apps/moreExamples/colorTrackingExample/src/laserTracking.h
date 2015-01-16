@@ -9,7 +9,7 @@
 class laserTracking{
 
 	public:
-	
+
 		laserTracking();
 
 		void calcColorRange(float hue, float hueThresh, float sat, float satThresh, float value);

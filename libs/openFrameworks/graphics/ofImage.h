@@ -69,9 +69,9 @@ class ofImage : public ofBaseDraws, public ofBaseHasTexture, public ofBaseHasPix
 		// if you've altered the pixels (from getPixels()) call update() to see a change:
 		void				update();
 
-		
-		//the anchor is the point the image is drawn around. 
-		//this can be useful if you want to rotate an image around a particular point. 
+
+		//the anchor is the point the image is drawn around.
+		//this can be useful if you want to rotate an image around a particular point.
         void				setAnchorPercent(float xPct, float yPct);	//set the anchor as a percentage of the image width/height ( 0.0-1.0 range )
         void				setAnchorPoint(int x, int y);				//set the anchor point in pixels
         void				resetAnchor();								//resets the anchor to (0, 0)

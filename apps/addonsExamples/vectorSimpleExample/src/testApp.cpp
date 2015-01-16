@@ -26,11 +26,11 @@ void testApp::draw(){
 }
 
 //--------------------------------------------------------------
-void testApp::keyPressed(int key){ 
+void testApp::keyPressed(int key){
 }
 
 //--------------------------------------------------------------
-void testApp::keyReleased(int key){ 	
+void testApp::keyReleased(int key){
 }
 
 //--------------------------------------------------------------
@@ -43,7 +43,7 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-	
+
 	// get an "iterator" from our dynamic Thingy vector
 	// this will allow us to go through all the objects
 	vector<Thingy>::iterator this_thingy;
@@ -57,7 +57,7 @@ void testApp::mousePressed(int x, int y, int button){
 			return;
 		}
 	}
-	
+
 	// if we're this far, well none were found under the mouse, so add a thingy
 	thingies.push_back( Thingy(x,y) );
 }

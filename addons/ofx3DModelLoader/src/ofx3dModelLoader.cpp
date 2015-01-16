@@ -19,20 +19,20 @@ ofx3DModelLoader::ofx3DModelLoader(){
     rotAngle.clear();
     rotAxis.clear();
     scale = ofPoint(1, 1, 1);
-	
+
 	model = NULL;
 }
 
 //------------------------------------------
 void ofx3DModelLoader::loadModel(string modelName, float scale){
 	if( model != NULL)delete model;
-	
+
 	string ext = getExtension( modelName );
-	if( ext == "3ds" || ext == "3DS" ){	
+	if( ext == "3ds" || ext == "3DS" ){
 		model = new model3DS();
 		model->loadModel( modelName.c_str(), scale);
 	}
-	
+
 }
 
 //-------------------------------------------

@@ -102,7 +102,7 @@ void ofxRunTouchApp(ofxTouchApp * OFSA){
 	OFXTAptr = OFSA; //as ofxTouchApp (inherits from ofSimpleApp )
 	OFSAptr->mouseX = 0;
 	OFSAptr->mouseY = 0;
-	
+
 	atexit(ofExitCallback);
 
 	#ifdef WIN32_HIGH_RES_TIMING
@@ -182,7 +182,7 @@ void ofSleepMillis(int millis){
 void ofHideCursor(){
 	#ifdef TARGET_OSX
 		CGDisplayHideCursor(kCGDirectMainDisplay);
-	#else 
+	#else
 		glutSetCursor(GLUT_CURSOR_NONE);
 	#endif
 }
@@ -191,7 +191,7 @@ void ofHideCursor(){
 void ofShowCursor(){
 	#ifdef TARGET_OSX
 		CGDisplayShowCursor(kCGDirectMainDisplay);
-	#else 
+	#else
 		glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 	#endif
 }

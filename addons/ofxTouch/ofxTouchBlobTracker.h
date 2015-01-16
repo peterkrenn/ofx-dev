@@ -31,14 +31,14 @@ class ofxTouchBlobTracker {
 
 
   public:
-  
-    vector<ofxTouchTrackedBlob>  blobs;    
-    
-    
+
+    vector<ofxTouchTrackedBlob>  blobs;
+
+
     ofxTouchBlobTracker();
     void setListener( ofxTouchBlobListener* _listener );
     void trackBlobs( const vector<ofxTouchBlob>& blobs );
-    int findOrder( int id );  // order by which the present 
+    int findOrder( int id );  // order by which the present
                               // blobs came into existence
     ofxTouchTrackedBlob& getById( int id );  // returns a reference to the
                                          // corresponding blob in blobs vector
@@ -47,11 +47,11 @@ class ofxTouchBlobTracker {
 
 
   protected:
-  
+
     int currentID;
     int extraIDs;
     int numcheck;
-    
+
     ofxTouchBlobListener* listener;
 
     int reject_distance_threshold;
@@ -61,15 +61,15 @@ class ofxTouchBlobTracker {
     vector<vector<int> > matrix;
     vector<int> ids;
     vector<vector<ofxTouchTrackedBlob> > history;
-    
-    
-    void doBlobOn( const ofxTouchTrackedBlob& b );    
-    void doBlobMoved( const ofxTouchTrackedBlob& b );    
-    void doBlobOff( const ofxTouchTrackedBlob& b );    
-    
+
+
+    void doBlobOn( const ofxTouchTrackedBlob& b );
+    void doBlobMoved( const ofxTouchTrackedBlob& b );
+    void doBlobOff( const ofxTouchTrackedBlob& b );
+
     inline void permute( int k );
     inline bool checkValid( int start );
-    inline bool checkValidNew( int start );    
+    inline bool checkValidNew( int start );
 };
 
 

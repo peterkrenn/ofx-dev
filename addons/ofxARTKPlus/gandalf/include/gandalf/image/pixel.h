@@ -1664,7 +1664,7 @@ GANDALF_API gan_float64 gan_pixel_ui32_to_f64 ( gan_uint32 x );
 #define gan_pixel_ui32_to_f64(x) gan_pixel_ui_to_d(x)
 #endif
 #endif
-   
+
 #ifdef GAN_GENERATE_DOCUMENTATION
 /**
  * \brief Macro: Convert a pixel field from \c float to \c int type.
@@ -1794,7 +1794,7 @@ GANDALF_API gan_float64 gan_pixel_i16_to_f64 ( gan_int16 x );
 #define gan_pixel_i16_to_f64(x) gan_pixel_s_to_d(x)
 #endif
 #endif
-   
+
 #ifdef GAN_GENERATE_DOCUMENTATION
 /**
  * \brief Macro: Convert a pixel field from \c int to \c float type.

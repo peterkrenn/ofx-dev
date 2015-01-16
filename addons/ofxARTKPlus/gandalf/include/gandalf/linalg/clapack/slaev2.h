@@ -9,9 +9,9 @@
 * Author:        $Author: pm $
 * Copyright:     Modifications (c) 2000 Imagineer Software Limited
 *
-* Notes:         
-* Private func:  
-* History:       Modified from original CLAPACK source code 
+* Notes:
+* Private func:
+* History:       Modified from original CLAPACK source code
 *
 **************************************************************************/
 
@@ -28,7 +28,7 @@ extern "C" {
 /* only declare this function locally if there is no LAPACK installed */
 #if !defined(HAVE_LAPACK) || defined(FORCE_LOCAL_LAPACK)
 
-Gan_Bool gan_slaev2(float a, float b, float c, 
+Gan_Bool gan_slaev2(float a, float b, float c,
                     float *rt1, float *rt2, float *cs1, float *sn1);
 
 #endif /* #if !defined(HAVE_LAPACK) || defined(FORCE_LOCAL_LAPACK) */

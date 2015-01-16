@@ -14,7 +14,7 @@
 - (id) init{
 	inquiry = nil;
 	_delegate = nil;
-	
+
 	return self;
 }
 
@@ -33,28 +33,28 @@
 		NSLog(@"Warning: Attempted to start already-started WiiRemoteDiscovery");
 		return kIOReturnSuccess;
 	}
-	
+
 	if (nil == _delegate) {
 		NSLog(@"Warning: starting WiiRemoteDiscovery without delegate set");
 	}
-	
+
 	inquiry = [IOBluetoothDeviceInquiry inquiryWithDelegate: self];
-	
+
 	if (nil == inquiry) {
 		NSLog(@"Error: Failed to alloc IOBluetoothDeviceInquiry");
 		return kIOReturnNotAttached;
 	}
-	
+
 	// calling initWithDelegate after this isn't correct.  see:
 	// http://lists.apple.com/archives/Bluetooth-dev/2005/Aug/msg00006.html
-	
-	
+
+
 	// retain ourselves while there's an outstanding inquiry, don't want to go disappearing
 	// before we get called as a delegate
 	[self retain];
-	
+
 	IOReturn ret = [inquiry start];
-	
+
 	if (ret == kIOReturnSuccess){
 		// copied from old code, is this necesary?  Shouldn't it already be retained once when it was initted?
 		[inquiry retain];
@@ -73,45 +73,45 @@
 		return kIOReturnSuccess;
 	}
 	IOReturn ret = [inquiry stop];
-	
+
 	if (ret != kIOReturnSuccess && ret != kIOReturnNotPermitted) {
 		// kIOReturnNotPermitted is if it's already stopped
 		NSLog(@"Error: Inquiry did not stop, error %d", ret);
 	}
-	
+
 	[inquiry setDelegate:nil];
 	// and release the hold on ourselves
 	[self release];
-	
+
 	[inquiry release];
 	inquiry = nil;
-	
+
 	return ret;
 }
 
 - (void)dealloc {
 	if (nil != inquiry)
 		[self stop];
-	
+
 	[super dealloc];
 }
 
 /////// IOBluetoothDeviceInquiry delegates //////
 
-- (void) deviceInquiryComplete:(IOBluetoothDeviceInquiry*)sender 
+- (void) deviceInquiryComplete:(IOBluetoothDeviceInquiry*)sender
         error:(IOReturn)error aborted:(BOOL)aborted {
-	
+
 	if (aborted) return; // called by stop ;)
-	
+
 	if (kIOReturnSuccess != error) {
 		[_delegate WiiRemoteDiscoveryError:error];
 		[self stop];
 		return;
 	}
-	
+
 	//[inquiry clearFoundDevices];
 	IOReturn ret = [inquiry start];
-	
+
 	if (ret != kIOReturnSuccess) {
 		NSLog(@"Error: Restarting Inquiry failed: %d", ret);
 		[_delegate WiiRemoteDiscoveryError: ret];
@@ -121,10 +121,10 @@
 
 - (void)checkDevice:(IOBluetoothDevice*)device {
 	if ([[device getName] isEqualToString:@"Nintendo RVL-CNT-01"]){
-	
+
 		WiiRemote *wii = [[WiiRemote alloc] init];
 		IOReturn ret = [wii connectTo:device];
-		
+
 		if (ret == kIOReturnSuccess) {
 			[_delegate WiiRemoteDiscovered: wii];
 		} else {
@@ -140,7 +140,7 @@
 	[self checkDevice:device];
 }
 
-- (void) deviceInquiryDeviceFound:(IOBluetoothDeviceInquiry*)sender 
+- (void) deviceInquiryDeviceFound:(IOBluetoothDeviceInquiry*)sender
         device:(IOBluetoothDevice*)device {
 	[self checkDevice:device];
 }

@@ -34,8 +34,8 @@
 // If you use a single OSCPort in multiple threads, you need
 // an NSLock/mutex around calls to these actions
 - (BOOL)loadSynthDef:(char*)synthDefFilename;
-- (BOOL)newSynthFromDef:(char*)synthDefName 
-                synthID:(int)synthID 
+- (BOOL)newSynthFromDef:(char*)synthDefName
+                synthID:(int)synthID
             parentGroup:(int)parentGroup;
 - (BOOL)freeSynth:(int)synthID;
 

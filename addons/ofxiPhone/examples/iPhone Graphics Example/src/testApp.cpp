@@ -6,21 +6,21 @@
 
 
 //--------------------------------------------------------------
-void testApp::setup(){	
-	
+void testApp::setup(){
+
 	ofBackground(50, 50, 50);
 	ofSetBackgroundAuto(true);
-	
-	glEnableClientState( GL_VERTEX_ARRAY );  // this should be in OF somewhere.  
+
+	glEnableClientState( GL_VERTEX_ARRAY );  // this should be in OF somewhere.
 	glPointSize(60);
 	glEnable(GL_POINT_SMOOTH);
-	
+
 	// initialize the accelerometer
 	ofxAccelerometer.setup();
-	
+
 	// touch events will be sent to myTouchListener
 	ofxMultiTouch.addListener(this);
-	
+
 	bikers.loadImage("images/bikers.jpg");
 	printf("bikers h %i w %i\n", bikers.width, bikers.height );
 	bikers.resize( bikers.width/3, bikers.height/3);
@@ -39,29 +39,29 @@ void testApp::setup(){
 
 //--------------------------------------------------------------
 void testApp::update(){
-	
+
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
 	ofSetColor(0xFFFFFF);
-	
+
 	bikers.draw(10,10);
 	gears.draw(200,0);
 	tdf.draw(100,300);
-	
+
 	ofSetColor(0xDD3333);
 	tdfSmall.draw(50,300);
-	
+
 	ofSetColor(0xFFFFFF);
 	ofEnableAlphaBlending();
 	transparency.draw(sin(ofGetElapsedTimeMillis()/1000.0f) * 100 + 50,20);
 	ofDisableAlphaBlending();
-	
-	
+
+
 	ofSetColor(0x000000);
-	
-	// getting the pixels out of an image, 
+
+	// getting the pixels out of an image,
 	// and then use the values to draw circles
 	unsigned char * pixels = bikeIcon.getPixels();
 	int w = bikeIcon.width;
@@ -70,10 +70,10 @@ void testApp::draw(){
 		for (int j = 0; j < h; j++){
 			int value = pixels[j * w + i];
 			float pct = 1 - (value / 255.0f);
-			ofCircle(i*10,10 + j*10,1 + 5*pct);		
+			ofCircle(i*10,10 + j*10,1 + 5*pct);
 		}
 	}
-	
+
 	ofSetColor(0xFFFFFF);
 	bikeIcon.draw(100,200, 20,20);
 }
@@ -84,8 +84,8 @@ void testApp::exit() {
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ){
-	// this will never get called 
-	
+	// this will never get called
+
 }
 
 //--------------------------------------------------------------
@@ -105,7 +105,7 @@ void testApp::mouseReleased(){
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button){
-	
+
 }
 
 //--------------------------------------------------------------

@@ -3,24 +3,24 @@ using namespace std;
 
 
 //--------------------------------------------------------------
-void testApp::setup(){	 
+void testApp::setup(){
 	ofBackground(220, 220,250);
 	//ofSetVerticalSync(true);
 	ofEnableAlphaBlending();
 	//glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 	//glEnable(GL_LINE_SMOOTH);
-		
+
 	noise = new Perlin(4, 4, 1, time(NULL));
 
 	averX = ofGetWidth()/2;
 	averY = ofGetHeight()/2;
 	averZ = 1000;
-	
-	
+
+
 	for(int i=0; i<numBoids; i++){
 		boid[i] = new Boid(noise, &particles);
 	}
-	
+
 	camDist = 1500;
 	frameCounter = 0;
 	#ifdef SAVE_IMAGE_SEQUENCE
@@ -31,7 +31,7 @@ void testApp::setup(){
 	ofHideCursor();
 	ofSetFullscreen(true);
 	#endif
-	
+
 }
 
 //--------------------------------------------------------------
@@ -39,13 +39,13 @@ void testApp::update(){
 #ifdef SAVE_IMAGE_SEQUENCE
 	frameCounter++;
 	if(frameCounter<MaxParticles/20)maxParticles =frameCounter*20;
-#else 
+#else
 	if(frameCounter<MaxParticles/20){
 		frameCounter++;
 		maxParticles = frameCounter*20;
 	}
 #endif
-	
+
 	for(int i=0; i<numBoids; i++){
 		boid[i]->mover();
 		if(particles.size()<maxParticles){
@@ -55,7 +55,7 @@ void testApp::update(){
 			particles.back().partSetup(boid[i]->p[0]->x, boid[i]->p[0]->y, boid[i]->p[0]->z, noise);
 			}
 		}
-	}	
+	}
 	for(int i=0; i<particles.size(); i++){
 	if(particles[i].life==0) particles.erase(particles.begin()+i);
 		particles[i].move();
@@ -65,7 +65,7 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
 cam.place();
-	
+
 
 	float totalX=0, totalY=0, totalZ = 0;
 	for(int i=0; i<numBoids; i++){
@@ -74,20 +74,20 @@ cam.place();
 		totalY += boid[0]->p[0]->y;
 		totalZ += boid[0]->p[0]->z;
 	}
-	
+
 	averX = totalX/numBoids;
 	averY = totalY/numBoids;
 	averZ = totalZ/numBoids;
 	cam.goTo(averX, averY, averZ+camDist);
-	
+
 	for(int i=0; i<numBoids; i++){
 		boid[i]->constrainMovement(averX, averY, averZ);
 	}
-	
+
 	for(int i=0; i<particles.size(); i++){
 		particles[i].render();
 	}
-	
+
 #ifdef SAVE_IMAGE_SEQUENCE
 		img.grabScreen(0,0,ofGetWidth(), ofGetHeight());
 		string file = "teste"+ofToString(frameCounter)+".png";
@@ -98,12 +98,12 @@ cam.place();
 }
 
 //--------------------------------------------------------------
-void testApp::keyPressed  (int key){ 
-	
+void testApp::keyPressed  (int key){
+
 }
 
 //--------------------------------------------------------------
-void testApp::keyReleased  (int key){ 
+void testApp::keyReleased  (int key){
 
 	if(key == 'f' or key == 'F'){
 		full = !full;
@@ -115,8 +115,8 @@ void testApp::keyReleased  (int key){
 		ofShowCursor();
 		}
 	}
-	
-	if(key == ' ') std::cout << ofGetFrameRate() << std::endl;	
+
+	if(key == ' ') std::cout << ofGetFrameRate() << std::endl;
 }
 
 //--------------------------------------------------------------

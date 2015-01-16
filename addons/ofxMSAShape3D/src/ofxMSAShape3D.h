@@ -1,21 +1,21 @@
 /***********************************************************************
- 
+
  Copyright (c) 2009, Memo Akten, www.memo.tv
  *** The Mega Super Awesome Visuals Company ***
- 
+
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- 
+
  ***********************************************************************/
 
 #include "ofMain.h"
@@ -34,43 +34,43 @@ public:
 		setSafeMode(true);
 		reserve(DEFAULT_RESERVE_AMOUNT);
 	}
-	
+
 	~ofxMSAShape3D() {
 		if(vertexArray) free(vertexArray);
 		if(normalArray) free(normalArray);
 		if(colorArray) free(colorArray);
-		if(texCoordArray) free(texCoordArray);	
+		if(texCoordArray) free(texCoordArray);
 	}
-	
+
 	// reserve space for this many vertices
 	// Not actually nessecary, arrays are resized automatically...
 	// ... but reserving the size upfront improves performance
 	inline void reserve(int reservedSize) {
 		printf("ofxMSAShape3D::reserve( %i )\n", reservedSize);
-		
+
 		this->reservedSize = reservedSize;
-		
+
 		vertexArray		= (float*)realloc(vertexArray, 3 * reservedSize * SIZEOF_FLOAT);
 		normalArray		= (float*)realloc(normalArray, 3 * reservedSize * SIZEOF_FLOAT);
 		colorArray		= (float*)realloc(colorArray, 4 * reservedSize * SIZEOF_FLOAT);
 		texCoordArray	= (float*)realloc(texCoordArray, 2 * reservedSize * SIZEOF_FLOAT);
-		
+
 		if(safeMode == false) setClientStates();
-		
+
 		reset();
 	}
-	
+
 	// similar to OpenGL glBegin
 	// starts primitive draw mode
 	inline void begin(GLenum drawMode) {
 #ifndef USE_IMMEDIATE_MODE
 		this->drawMode = drawMode;
 		reset();
-#else	
+#else
 		glBegin(drawMode);
-#endif	
+#endif
 	}
-	
+
 	// similar to OpenGL glEnd()
 	// sends all data to server to be drawn
 	inline void end() {
@@ -79,17 +79,17 @@ public:
 		glDrawArrays(drawMode, 0, numVertices);
 #else
 		glEnd();
-#endif	
+#endif
 	}
-	
+
 	// redraws currently cached shape
 	inline void draw() {
 		this->end();
 	}
-	
-	
+
+
 	// vertex position methods
-	// x,y,z coordinates (if z is omitted, assumed 0)	
+	// x,y,z coordinates (if z is omitted, assumed 0)
 	inline void addVertex(float x, float y, float z = 0) {
 #ifndef USE_IMMEDIATE_MODE
 		if(safeMode) {
@@ -102,29 +102,29 @@ public:
 			if(colorEnabled) memcpy(colorArray + numVertices*4, curColor, 4*SIZEOF_FLOAT);
 			if(texCoordEnabled) memcpy(colorArray + numVertices*2, curColor, 2*SIZEOF_FLOAT);
 		}
-		
+
 		vertexArray[vertexIndex++]		= x;
 		vertexArray[vertexIndex++]		= y;
 		vertexArray[vertexIndex++]		= z;
-		
+
 		numVertices++;
 #else
 		glVertex3f(x, y, z);
-#endif	
+#endif
 	}
 
 	// pointer to x,y,z coordinates
 	inline void addVertex3v(float *v) {
 			this->addVertex(v[0], v[1], v[2]);
-	}					
-	
+	}
+
 	// pointer to x,y coordinates. z is assumed 0
 	inline void addVertex2v(float *v) {
 			this->addVertex(v[0], v[1]);
-	}						
-	
-	
-	
+	}
+
+
+
 	// normal methods
 	// x,y,z components of normal
 	inline void setNormal(float x, float y, float z) {
@@ -136,14 +136,14 @@ public:
 #endif
 		glNormal3f(x, y, z);
 	}
-	
-	
+
+
 	inline void setNormal3v(float *v) {
 		this->setNormal(v[0], v[1], v[2]);
 	}						// pointer to x,y,z components of normal
-	
+
 	// color methods
-	// r,g,b,a color components (if a is omitted, assumed 0)	
+	// r,g,b,a color components (if a is omitted, assumed 0)
 	inline void setColor(float r, float g, float b, float a = 1) {
 #ifndef USE_IMMEDIATE_MODE
 		if(safeMode) colorEnabled = true;
@@ -151,29 +151,29 @@ public:
 		curColor[1] = g;
 		curColor[2] = b;
 		curColor[3] = a;
-#endif	
+#endif
 		glColor4f(r, g, b, a);
 	}
-	
-	// 0xFFFFFF hex color, alpha is assumed 1	
+
+	// 0xFFFFFF hex color, alpha is assumed 1
 	inline void setColor(int hexColor) {
 		float r = ((hexColor >> 16) & 0xff) * 1.0f/255;
 		float g = ((hexColor >> 8) & 0xff)  * 1.0f/255;
 		float b = ((hexColor >> 0) & 0xff)  * 1.0f/255;
 		this->setColor(r, g, b);
-	}		
-	
+	}
+
 	// pointer to r,g,b components. alpha is assumed 1
 	inline void setColor3v(float *v) {
 		this->setColor(v[0], v[1], v[2]);
-	}						
-	
+	}
+
 	// pointer to r,g,b,a components
 	inline void setColor4v(float *v) {
-		this->setColor(v[0], v[1], v[2], v[3]);		
-	}						
-	
-	
+		this->setColor(v[0], v[1], v[2], v[3]);
+	}
+
+
 	// texture coordinate methods
 	// u,v texture coordinates
 	inline void setTexCoord(float u, float v) {
@@ -181,17 +181,17 @@ public:
 		if(safeMode) texCoordEnabled = true;
 		curTexCoord[0] = u;
 		curTexCoord[1] = v;
-#else		
+#else
 		glTexCoord2f(u, v);
-#endif	
-	}				
-	
+#endif
+	}
+
 	// pointer to u,v texture coordinates
 	inline void setTexCoord2v(float *v) {
 		this->setTexCoord(v[0], v[1]);
-	}					
-	
-	
+	}
+
+
 	// rectangle from (x1, y1) to (x2, y2)
 	inline void drawRect(float x1, float y1, float x2, float y2) {
 		this->begin(GL_TRIANGLE_STRIP);
@@ -201,11 +201,11 @@ public:
 		this->addVertex(x2, y2);
 		this->end();
 	}
-	
 
-	
+
+
 	/********* Advanced use ***********/
-	
+
 	// safe mode is TRUE by default
 	// if safe mode is on, all clientstates are set as needed in end()
 	// this may not be efficient if lots of shapes are drawn
@@ -215,7 +215,7 @@ public:
 	inline void setSafeMode(bool b) {
 		safeMode = b;
 	}
-	
+
 	// set whether the shape will be using any of the below
 	inline void enableNormal(bool b) {
 		normalEnabled = b;
@@ -225,16 +225,16 @@ public:
 		}
 		else glDisableClientState(GL_NORMAL_ARRAY);
 	}
-	
+
 	inline void enableColor(bool b) {
 		colorEnabled = b;
 		if(colorEnabled) {
 			glEnableClientState(GL_COLOR_ARRAY);
 			glColorPointer(4, GL_FLOAT, 0, &colorArray[0]);
 		}
-		else glDisableClientState(GL_COLOR_ARRAY);	
+		else glDisableClientState(GL_COLOR_ARRAY);
 	}
-	
+
 	inline void enableTexCoord(bool b) {
 		texCoordEnabled = b;
 		if(texCoordEnabled) {
@@ -252,8 +252,8 @@ public:
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glVertexPointer(3, GL_FLOAT, 0, &vertexArray[0]);
 	}
-	
-	
+
+
 protected:
 	inline void reset() {
 		if(safeMode) {
@@ -262,7 +262,7 @@ protected:
 			texCoordEnabled		= false;
 		}
 		numVertices			= 0;
-		
+
 		vertexIndex = 0;
 //		normalIndex = colorIndex = texCoordIndex = 0;
 	}
@@ -273,22 +273,22 @@ protected:
 	float	*texCoordArray;	// 2
 	int		sizeOfFloat;
 
-	
+
 	float	curNormal[3];
 	float	curColor[4];
 	float	curTexCoord[2];
-	
+
 	bool	normalEnabled;
 	bool	colorEnabled;
 	bool	texCoordEnabled;
-	
+
 	bool	safeMode;
-	
+
 	int		numVertices;
 	int		vertexIndex;
 //	int		normalIndex;
 //	int		colorIndex;
-//	int		texCoordIndex;	
+//	int		texCoordIndex;
 
 	int		reservedSize;
 	GLenum	drawMode;

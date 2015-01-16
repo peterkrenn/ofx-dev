@@ -9,9 +9,9 @@
 * Author:        $Author: pm $
 * Copyright:     Modifications (c) 2000 Imagineer Software Limited
 *
-* Notes:         
-* Private func:  
-* History:       Modified from original CLAPACK source code 
+* Notes:
+* Private func:
+* History:       Modified from original CLAPACK source code
 *
 **************************************************************************/
 
@@ -27,8 +27,8 @@ extern "C" {
 
 /* only declare this function locally if there is no LAPACK installed */
 #if !defined(HAVE_LAPACK) || defined(FORCE_LOCAL_LAPACK)
-Gan_Bool gan_dlascl(Gan_LapackMatStorage type, long kl, long ku, 
-                    double *cfrom, double *cto, long m, long n, 
+Gan_Bool gan_dlascl(Gan_LapackMatStorage type, long kl, long ku,
+                    double *cfrom, double *cto, long m, long n,
                     double *a, long lda, long *info);
 #endif
 

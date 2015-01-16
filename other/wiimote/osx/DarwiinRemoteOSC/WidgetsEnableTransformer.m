@@ -21,13 +21,13 @@
 
 
 - (id)transformedValue:(id)beforeObject{
-	
-	
+
+
 	if (beforeObject == nil) return nil;
-	
-	
+
+
 	switch([beforeObject intValue]){
-		
+
 		case 0:
 		case 28:
 		case 29:

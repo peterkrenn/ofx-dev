@@ -1,5 +1,5 @@
 /*
-Copyright © 1998. The Regents of the University of California (Regents). 
+Copyright © 1998. The Regents of the University of California (Regents).
 All Rights Reserved.
 
 Written by Matt Wright, The Center for New Music and Audio Technologies,
@@ -22,7 +22,7 @@ PURPOSE. THE SOFTWARE AND ACCOMPANYING DOCUMENTATION, IF ANY, PROVIDED
 HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION TO PROVIDE
 MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-The OpenSound Control WWW page is 
+The OpenSound Control WWW page is
     http://www.cnmat.berkeley.edu/OpenSoundControl
 */
 
@@ -89,21 +89,21 @@ OSCTimeTag OSCTT_CurrentTime(void) {
     BSDgettimeofday(&tv, &tz);
 
     // First get the seconds right
-    result = (unsigned) SECONDS_FROM_1900_to_1970 + 
-	     (unsigned) tv.tv_sec - 
+    result = (unsigned) SECONDS_FROM_1900_to_1970 +
+	     (unsigned) tv.tv_sec -
 	     (unsigned) 60 * tz.tz_minuteswest +
              (unsigned) (tz.tz_dsttime ? 3600 : 0);
 
 #if 0
     // No timezone, no DST version ...
-    result = (unsigned) SECONDS_FROM_1900_to_1970 + 
+    result = (unsigned) SECONDS_FROM_1900_to_1970 +
 	     (unsigned) tv.tv_sec;
 #endif
 
 
     // make seconds the high-order 32 bits
     result = result << 32;
-	
+
     // Now get the fractional part.
     usecOffset = (unsigned) tv.tv_usec * (unsigned) TWO_TO_THE_32_OVER_ONE_MILLION;
     /* printf("** %ld microsec is offset %x\n", tv.tv_usec, usecOffset); */
@@ -133,24 +133,24 @@ OSCTimeTag OSCTT_CurrentTime(void) {
     struct timezone tz;
 
     gettimeofday(&tv, &tz);
-	
-	secs = (unsigned) SECONDS_FROM_1900_to_1970 + 
+
+	secs = (unsigned) SECONDS_FROM_1900_to_1970 +
 	     (unsigned) tv.tv_sec;
     result = secs;
 
 #if USE_TIMEZONE // use time zone
 	// convert to the local timezone
-    result = result - 
+    result = result -
 	     (unsigned) 60 * tz.tz_minuteswest +
              (unsigned) (tz.tz_dsttime ? 3600 : 0);
 #endif // USE_TIMEZONE
 
     // make seconds the high-order 32 bits
     result = result << 32;
-	
+
     // Now get the fractional part.
     usecOffset = (unsigned) (tv.tv_usec * kMicrosToOSC);
-    // printf("** %ld microsec is offset %x\n", tv.tv_usec, usecOffset); 
+    // printf("** %ld microsec is offset %x\n", tv.tv_usec, usecOffset);
 
     result += usecOffset;
 
@@ -167,17 +167,17 @@ void OSCTT_TimeTagIntervalToTimeval(OSCTimeTag start, OSCTimeTag end, struct tim
 	// no need to factor in the time to 1970, as it cancels out in the subtraction
 	timeval->tv_sec = (interval >> 32);
 	timeval->tv_usec = ((unsigned) interval) * 1.0/TWO_TO_THE_32_OVER_ONE_MILLION;
-	
+
 #if 0
 	printf("* OSCTT_TimeTagToTimeval is %u %u\n", timeval->tv_sec, timeval->tv_usec);
 #endif
 
 }
 
-#else // __sgi 
+#else // __sgi
 
 // Instead of asking your operating system what time it is, it might be
-// clever to find out the current time at the instant your application 
+// clever to find out the current time at the instant your application
 // starts audio processing, and then keep track of the number of samples
 // output to know how much time has passed.
 

@@ -11,11 +11,11 @@
 
 Particles::Particles(){
 	size = ofRandom(2, 5);
-	fieldDivide = 1000;	
+	fieldDivide = 1000;
 	G = ofRandom(5, 15);
 	life = (int)ofRandom(40, 300);
 	step = 2;
-	
+
 	r = (int)ofRandom(30, 100);
 	g = (int)ofRandom(0, 20);
 	b = (int)ofRandom(0, 40);
@@ -38,11 +38,11 @@ life--;
 	vx = cos(radXZ)*10+ofRandom(-step, step);
 	vy = -sin(radY)*10+ofRandom(-step, step)+G;
 	vz = sin(radXZ)*10+ofRandom(-step, step);
-	
+
 	x += vx;
 	y += vy;
 	z += vz;
-	
+
 
 }
 

@@ -207,7 +207,7 @@ private:
 public:
 	model3DS();
 	void loadModel(const char* filename, float scale = 1);
-	void loadModel(string filename, float scale);	
+	void loadModel(string filename, float scale);
     void draw();
 
     std::string getFilename(){return m_filename;}

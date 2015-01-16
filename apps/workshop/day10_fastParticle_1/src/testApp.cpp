@@ -11,48 +11,48 @@ void testApp::setup(){
 		p.vel.set(0,0);
         myParticles.push_back(p);
 	}
-	
+
 	setupBins(ofGetWidth(), ofGetHeight(), 15,15);
-	
+
 	ofBackground(0,0,0);
 	ofSetCircleResolution(6);
-	
+
 	//ofSetVerticalSync(true); // turned off, to see frameRateChanges...
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-	
+
 	for (int i = 0; i < myParticles.size(); i++){
 		computeBinPosition( myParticles[i].pos.x, myParticles[i].pos.y,  &(myParticles[i].bitFlagW), &(myParticles[i].bitFlagH));
 	}
-	
-	
+
+
 	for (int i = 0; i < myParticles.size(); i++){
         myParticles[i].resetForce();
     }
-	
+
 	int count = 0;
-	
+
     for (int i = 0; i < myParticles.size(); i++){
-		
+
 		unsigned int bitFlagH_pta = myParticles[i].bitFlagH;
 		unsigned int bitFlagW_pta = myParticles[i].bitFlagW;
-		
+
         for (int j = 0; j < i; j++){
-			
+
 			unsigned int bitFlagH_ptb = myParticles[j].bitFlagH;
 			unsigned int bitFlagW_ptb = myParticles[j].bitFlagW;
-			
+
 			if ((bitFlagW_pta & bitFlagW_ptb) && (bitFlagH_pta & bitFlagH_ptb)){
 				myParticles[i].addRepulsionForce( myParticles[j],15,1.8);
 				count ++;
 			}
         }
     }
-	
+
 	printf("%i \n", count);
-	
+
     for (int i = 0; i < myParticles.size(); i++){
 		myParticles[i].addAttractionForce( 500,500,1500,0.01);
 		myParticles[i].addRepulsionForce( mouseX,mouseY,100,0.7);
@@ -60,23 +60,23 @@ void testApp::update(){
 		//myParticles[i].bounceOffWalls();
         myParticles[i].update();
     }
-	
+
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
 
-	
+
 	ofSetColor(0xff0000);
-	
+
 	ofSetColor(255,255,255);
-	
+
 	for (int i = 0; i < myParticles.size(); i++){
         // then draw:
 		myParticles[i].draw();
     }
-	
-	
+
+
 	/* // draw based on mouse.
 	unsigned int mouseBinX;
 	unsigned int mouseBinY;
@@ -91,12 +91,12 @@ void testApp::draw(){
 			myParticles[i].draw();
 		}
 	}*/
-	
+
 }
 
 //--------------------------------------------------------------
 void testApp::keyPressed  (int key){
-   
+
 }
 
 //--------------------------------------------------------------
@@ -121,5 +121,5 @@ void testApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(){
-	
+
 }

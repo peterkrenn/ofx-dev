@@ -72,7 +72,7 @@ GANDALF_API Gan_Bool gan_symmat_eigen ( Gan_SquMatrix *A,
                             Gan_SquMatrix *W, struct Gan_Matrix *Z,
                             Gan_Bool sort,
                             double *work, unsigned long work_size );
-                            
+
 /**
  * \addtogroup GeneralSizeMatrixAllocate
  * \{
